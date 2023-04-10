@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>게시글상세조회</title>
+    <title>QnA</title>
 	<style>
 		#wrapper {
 			font-size: 18px;
