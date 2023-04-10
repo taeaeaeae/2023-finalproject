@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.myapp.mapper.QnaMapper">
+
+    <select id="select" resultType="org.zerock.myapp.domain.QnaVO">
+        SELECT *
+        FROM qna_board
+        WHERE qid = #{qid}
+    </select>
+
+    <delete id="delete">
+      DELETE FROM answer WHERE aid = #{aid}
+      DELETE FROM qna_board WHERE qid = #{qid}
+    </delete>
+
+    <insert id="insert">
+      INSERT INTO qna_board (title, content, image, uids)
+      VALUES (#{title}, #{content}, #{image}, #{uids})
+    </insert>
+
+    <update id="update">
+      UPDATE qna_board
+      SET
+        title = #{title},
+        content = #{content},
+        image = #{image},
+        writer = #{writer},
+        update_ts = current_date
+      WHERE
+        qid = #{qid}
+    </update>
+
+</mapper>
