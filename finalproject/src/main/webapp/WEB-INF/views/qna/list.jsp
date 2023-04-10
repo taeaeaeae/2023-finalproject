@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>게시판목록</title>
+    <title>QnA</title>
     <style>
     	* {
     		margin: 0 auto;
