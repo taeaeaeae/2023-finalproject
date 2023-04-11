@@ -38,7 +38,7 @@
 					</tr>
 					<tr>
 						<td>내용</td>
-						<img src="${qna.image}" alt="${qna.title} }">
+						<img src="${qna.image}" alt="${qna.title}">
 						<td>${qna.content}</td>
 					</tr>
 					<tr>
@@ -49,12 +49,35 @@
 				<tfoot></tfoot>
 			</table>
 			
+			<table>
+				<caption></caption>
+				<thead></thead>
+				
+				<tbody>
+					<tr>
+						<td>answer</td>
+						<td>${answer.qid}</td>
+					</tr>
+					<tr>
+						<td>제목</td>
+						<td>${answer.title}</td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<img src="${answer.image}" alt="${answer.title}">
+						<td>${answer.content}</td>
+					</tr>
+					<tr>
+						<td>작성자</td>
+						<td>${answer.uids}</td>
+					</tr>
+				</tbody>
+				<tfoot></tfoot>
+			</table>
+			
+			
 			<input type="button" value="수정하기" id="modifyBtn">
 			<button type="button" id="listBtn">LIST</button>
-			
-			<table>
-			
-			</table>
 			
 		</form>
 		

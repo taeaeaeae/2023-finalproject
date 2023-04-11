@@ -60,7 +60,7 @@ public class QnaServiceImpl
 
 	@Override
 	public QnaVO get(Integer qid) throws ServiceException {
-		log.trace("getList({}) invoked.", qid);
+		log.trace("get({}) invoked.", qid);
 		
 		try {
 			return this.mapper.select(qid);

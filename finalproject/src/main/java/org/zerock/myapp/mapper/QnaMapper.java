@@ -19,7 +19,6 @@ public interface QnaMapper {
 			"""	)
 	public abstract List<QnaVO> selectAll(Criteria cri);
 
-
 	public abstract QnaVO select(Integer qid);	
 	public abstract Integer delete(Integer qid);		
 	public abstract Integer insert(QnaDTO dto);		

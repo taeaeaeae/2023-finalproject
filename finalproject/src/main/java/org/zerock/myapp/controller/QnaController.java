@@ -11,6 +11,7 @@ import org.zerock.myapp.domain.AnswerVO;
 import org.zerock.myapp.domain.Criteria;
 import org.zerock.myapp.domain.QnaVO;
 import org.zerock.myapp.exception.ControllerException;
+import org.zerock.myapp.service.AnswerService;
 import org.zerock.myapp.service.QnaService;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class QnaController {
 //	@Setter(onMethod_ = @Autowired)
 	
 	private QnaService service;
+	private AnswerService aService;
 	
 	
 	@GetMapping("/list")
@@ -37,7 +39,6 @@ public class QnaController {
 		
 		try {
 			List<QnaVO> list = this.service.getList(cri);
-			
 			model.addAttribute("list", list);
 		} catch(Exception e) {
 			throw new ControllerException(e);
@@ -46,12 +47,16 @@ public class QnaController {
 	
 	
 	@GetMapping({ "/get", "/modify" })
-	public void get(@RequestParam("qid") Integer qid, Model model, AnswerVO answer) throws ControllerException {
+	public void get(@RequestParam("qid") Integer qid, Model model) throws ControllerException {
 		log.trace("get({}, {}) invoked.", qid, model);
 		
 		try {
 			QnaVO vo = this.service.get(qid);
 			model.addAttribute("qna", vo);
+			
+			AnswerVO answer = this.aService.get(qid);
+			model.addAttribute("answer", answer);
+			
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		} // try-catch
@@ -116,22 +121,6 @@ public class QnaController {
 //	} // register
 //	
 //	
-////	================================================== //
-////	HttpSession, HttpServletRequest, HttpServletResponse 媛앹껜占�? ?占쏙옙占�? ?占쏙옙?占쏙옙?占쏙옙占�?, 
-////	DispatcherServlet ?占쏙옙占�? "?占쏙옙?占쏙옙!!!"?占쏙옙占�? 占�??占쏙옙?占쏙옙占�?, "以띾땲?占쏙옙!"
-////	(二쇱쓽?占쏙옙?占쏙옙) ?占쏙옙占�?占�?, ?占쏙옙 媛앹껜占�? 吏곸젒 ?占쏙옙?占쏙옙留곹븯?占쏙옙 寃껓옙?, ?占쏙옙?占쏙옙留곸뿉 諛섑븯?占쏙옙 ?占쏙옙?占쏙옙?占쏙옙?占쏙옙?占쏙옙.(沅뚯옣?占쏙옙占�? ?占쏙옙?占쏙옙?占쏙옙?占쏙옙)
-////	================================================== //
-////	@GetMapping("/temp")
-////	void temp(
-////			HttpSession session, 
-////			HttpServletRequest req,  
-////			HttpServletResponse res,
-////			@SessionAttribute("board") QnaVO vo
-////		) {
-////		log.trace("temp({}, {}, {}, {}) invoked.", session, req, res, vo);
-////		
-////	} // temp
-////	
 //	
 ////	@ModelAttribute("QnaDTO")
 ////	QnaDTO createQnaDTO() {	

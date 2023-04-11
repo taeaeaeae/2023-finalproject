@@ -67,7 +67,7 @@
 					<td>
 					<script>
 						document.write(${QnaVO.openy_n}?'🔓':'🔒');
-						//document.write((${AnswerVO.qid} != null)?'[답변완료]':'[답변대기]');
+						//document.write((${AnswerDTO} != null)?'[답변완료]':'[답변대기]');
 					</script>
 					<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">${QnaVO.title}</a></td>
 					<td>${QnaVO.uids}</td>
