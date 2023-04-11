@@ -16,7 +16,7 @@
     <body>
 
         <%@include file="/WEB-INF/views/main/header.jsp" %>
-            <!-- <form action="/user/loginPost" method="post">
+            <!-- <form action="/user/loginPost" method="post"> 
             
                 <div id="center"> 
                 
