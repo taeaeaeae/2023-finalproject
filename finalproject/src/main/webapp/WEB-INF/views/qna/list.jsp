@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -67,8 +68,44 @@
     </c:forEach>
   </tbody>
 </table>
-	</div>
 
+<div>
+  <ul class="pagination pagination-sm">
+
+                    <c:if test="${pageMaker.prev}"> 
+                        <li class="page-item disabled">
+                            <a class="page-link"  data-temp="${pageMaker.cri.setCurrPage(pageMaker.startPage - 1)}"
+                                href="/board/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;">&laquo;</font></font></a>
+                        </li>
+                    </c:if>
+                    <c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                        <li class="${param.currPage eq pageNum ? 'currPage' : ''}">
+                            <a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageNum)}"
+                                href="/board/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${pageNum}</font></font></a>
+                        </li>
+                    </c:forEach>
+    <li class="page-item">
+      <a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&raquo;</font></font></a>
+    </li>
+  </ul>
+</div>
+
+	</div>
+    <script>
+        var registerBtn = document.querySelector('#registerBtn');
+        document.query
+
+        registerBtn.addEventListener('click', function () {
+            location = '/qna/register?currPage=${param.currPage}&amount=${param.amount}';
+        }); // .addEventListener
+
+        var result = "${param.result}";
+
+        if(result != null && result != "") {        
+            alert('result: ' + result);
+        } // if
+
+    </script>
 	
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 

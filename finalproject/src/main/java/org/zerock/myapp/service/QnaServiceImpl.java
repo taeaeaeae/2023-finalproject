@@ -105,4 +105,15 @@ public class QnaServiceImpl
 		} // try-catch
 	} // modify	
 	
+	@Override
+	public Integer getTotalAmount() throws ServiceException {
+		log.trace("getTotalAmount() invoked.");
+		
+		try {
+			return this.mapper.selectTotalCount();
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	} // getTotalAmount
+	
 } // end class

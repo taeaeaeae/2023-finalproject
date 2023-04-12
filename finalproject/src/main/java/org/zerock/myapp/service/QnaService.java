@@ -18,5 +18,7 @@ public interface QnaService {
 	public abstract boolean register(QnaDTO dto) throws ServiceException;
 	
 	public abstract boolean modify(QnaDTO dto) throws ServiceException;
+
+	public abstract Integer getTotalAmount() throws ServiceException;
 	
 } // end class
