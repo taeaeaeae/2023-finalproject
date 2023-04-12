@@ -7,82 +7,70 @@
 <head>
     <meta charset="UTF-8">
     <title>QnA</title>
-    <style>
-    	* {
-    		margin: 0 auto;
-    		padding: 0;
-    	}
-    	table {
-    		border: 1px ridge black;
-    		border-collapse: collapse;
-    	}
-    	th {
-    		padding: 10px;
-    		
-    		background-color: black;
-    		color: white;
-    		font-size: 10px;
-    	}
-    	td {
-    		padding: 5px;
-    	}
-    	tr:hover {
-    		background-color: bisque;
-    	}
-    	a, a:link, a:visited {
-    		text-decoration: none;
-    		color: black;
-    	}
-
-    </style>
+    	<style>
+	* {
+	font-family: "GangwonEdu";
+}
+@font-face {
+	font-family: "GangwonEdu";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
+      format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  h1 {
+  text-align: center;
+  	color: black;
+  }
+	</style>
+    
+    <link rel="stylesheet" href="WEB-INF/views/common/font.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cerulean/bootstrap.min.css" integrity="sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" crossorigin="anonymous">
     
 </head>
 
 <body>
-    <h1><%= request.getRequestURI() %></h1>
-    <hr>
+
+
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	
 	<br>
+	<h1>QnA</h1>
 	<br>
 
 	<div id="wrapper">
-		<table border="1">
-			<caption>
-			</caption>
-			<thead>
-				<tr>
-					<th>No.</th>
-					<th>제목</th>
-					<th>writer</th>
-					<th>insert_ts</th>
-					<th>update_ts</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-			
-				<c:forEach items="${list}" var="QnaVO">
-				<tr>
-					<td>${QnaVO.qid}</td>
-					<td>
-					<script>
-						document.write(${QnaVO.openy_n}?'🔓':'🔒');
-						//document.write((${AnswerDTO} != null)?'[답변완료]':'[답변대기]');
-					</script>
-					<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">${QnaVO.title}</a></td>
-					<td>${QnaVO.uids}</td>
-					<td>${QnaVO.insert_ts}</td>
-					<td>${QnaVO.update_ts}</td>
-				</tr>
-				</c:forEach>
-				
-			</tbody>
-			
-			<tfoot></tfoot>
-		</table>
+	
+	<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">제목</th>
+      <th scope="col">글쓴사람</th>
+      <th scope="col">쓴날짜</th>
+      <th scope="col">수정날짜</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<c:forEach items="${list}" var="QnaVO">
+    <tr class="table-primary">
+		<td>${QnaVO.qid}</td>
+		<td>
+		<script>
+		document.write(${QnaVO.openy_n}?'🔓':'🔒');
+		//document.write((${AnswerDTO} != null)?'[답변완료]':'[답변대기]');
+		</script>
+		<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">${QnaVO.title}</a></td>
+		<td>${QnaVO.uids}</td>
+		<td>${QnaVO.insert_ts}</td>
+		<td>${QnaVO.update_ts}</td>
+    </tr>
+    </c:forEach>
+  </tbody>
+</table>
 	</div>
 
 	
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </body>
 </html>
