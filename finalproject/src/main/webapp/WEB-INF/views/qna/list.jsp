@@ -51,7 +51,7 @@
 	<table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">No.</th>
+      <th scope="col" width="10px">No.</th>
       <th scope="col">제목</th>
       <th scope="col">글쓴사람</th>
       <th scope="col">쓴날짜</th>

@@ -29,8 +29,9 @@
 </head>
 
 <body>
-    <h1><%= request.getRequestURI() %></h1>
-    <hr>
+
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+
     
 	<div id="wrapper">
 		<form action="/qna/register" method="POST">
@@ -91,6 +92,7 @@
 
 	</script>
 
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </body>
 </html>
