@@ -23,6 +23,11 @@
   text-align: center;
   	color: black;
   }
+  ul {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
 	</style>
     
     <link rel="stylesheet" href="WEB-INF/views/common/font.css">
@@ -38,6 +43,8 @@
 	<br>
 	<h1>QnA</h1>
 	<br>
+	
+	<button type="button" id="registerBtn">등록하기</button>
 
 	<div id="wrapper">
 	
@@ -70,20 +77,31 @@
 </table>
 
 <div>
-  <ul class="pagination pagination-sm">
-
-                    <c:if test="${pageMaker.prev}"> 
+  <ul class="pagination pagination-sm" >
+    <li class="page-item disabled">
+      <a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&laquo;</font></font></a>
+    </li>
+                    <c:if test="${pageMaker.prev}">
                         <li class="page-item disabled">
                             <a class="page-link"  data-temp="${pageMaker.cri.setCurrPage(pageMaker.startPage - 1)}"
-                                href="/board/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;">&laquo;</font></font></a>
+                                href="/qna/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;">&laquo;</font></font></a>
                         </li>
                     </c:if>
+                    
                     <c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                         <li class="${param.currPage eq pageNum ? 'currPage' : ''}">
                             <a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageNum)}"
-                                href="/board/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${pageNum}</font></font></a>
+                                href="/qna/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${pageNum}</font></font></a>
                         </li>
                     </c:forEach>
+                    
+                    <c:if test="${pageMaker.next}">
+                        <li class="page-item">
+                            <a  data-temp="${pageMaker.cri.setCurrPage(pageMaker.endPage + 1)}"
+                                href="/board/list${pageMaker.cri.pagingUri}">&raquo;</a>
+                        </li>
+                    </c:if>
+     <c:if test=""></c:if>
     <li class="page-item">
       <a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&raquo;</font></font></a>
     </li>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +19,10 @@
     font-weight: normal;
     font-style: normal;
     }
+      h1 {
+  text-align: center;
+  	color: black;
+  }
 	</style>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cerulean/bootstrap.min.css" integrity="sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" crossorigin="anonymous">
@@ -25,8 +31,9 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
     
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
+	<br>
+	<h1>QnA</h1>
+	<br>
     
 <div class="card mb-3">
   <h3 class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.title}</font></font></h3>
@@ -34,7 +41,7 @@
     <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.uids}</font></font></h5>
     <h6 class="card-subtitle text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.insert_ts}</font></font></h6>
   </div>
-   	<img src="${qna.image}" alt="${qna.title}">  
+  	<c:if test="${not empty qna.image}"><img src="${qna.image}" alt="${qna.title}"></c:if>
   <div class="card-body">
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.content}</</font></font></p>
   </div>
@@ -50,50 +57,14 @@
   <div class="card-body">
     <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.title}</font></font></h4>
     <h6 class="card-subtitle mb-2 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.uids}</font></font></h6>
-						<img src="${answer.image}" alt="${answer.title}">
+	<c:if test="${not empty answer.image}"><img src="${answer.image}" alt="${answer.title}"></c:if>
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.content}</font></font></p>
-    <a href="#" class="card-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">카드 링크 </font></font></a>
-    <a href="#" class="card-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">또 다른 링크</font></font></a>
+			<input type="button" value="수정하기" id="modifyBtn">
+			<button type="button" id="listBtn">LIST</button>
   </div>
 </div>
 
-	<div id="wrapper">
-		
-		<form action="#">
-			
-			<table>
-				<caption></caption>
-				<thead></thead>
-				
-				<tbody>
-					<tr>
-						<td>answer</td>
-						<td>${answer.qid}</td>
-					</tr>
-					<tr>
-						<td>제목</td>
-						<td>${answer.title}</td>
-					</tr>
-					<tr>
-						<td>내용</td>
-						<img src="${answer.image}" alt="${answer.title}">
-						<td>${answer.content}</td>
-					</tr>
-					<tr>
-						<td>작성자</td>
-						<td>${answer.uids}</td>
-					</tr>
-				</tbody>
-				<tfoot></tfoot>
-			</table>
-			
-			
-			<input type="button" value="수정하기" id="modifyBtn">
-			<button type="button" id="listBtn">LIST</button>
-			
-		</form>
-		
-	</div>
+	
 	<script>
 		var listBtn = document.querySelector('#listBtn');
 		var modifyBtn = document.querySelector("#modifyBtn");
