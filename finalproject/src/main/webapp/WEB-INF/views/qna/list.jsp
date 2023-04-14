@@ -27,6 +27,9 @@
   width: 300px;
   margin-left: auto;
   margin-right: auto;
+  }
+button {
+	
 }
 	</style>
     
@@ -44,8 +47,7 @@
 	<h1>QnA</h1>
 	<br>
 	
-	<button type="button" id="registerBtn">등록하기</button>
-
+	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="float: right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
 	<div id="wrapper">
 	
 	<table class="table table-hover">
