@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/find_pw.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <title>find_pw</title>
 </head>
@@ -53,6 +54,14 @@
             location = "/main/index";
         }); //취소 시 메인으로
         
+        // 비밀번호 찾기 실패
+			  $(document).ready(function() {
+		        let message = "${result}";
+		        if (message != "") {
+		            alert(message);
+		        }else {
+		        }
+		    });        
     </script>
 </body>
 </html>
