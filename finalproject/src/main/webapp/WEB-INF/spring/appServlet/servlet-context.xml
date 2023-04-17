@@ -23,6 +23,9 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="org.zerock.myapp.controller" />
+	<context:component-scan base-package="org.zerock.myapp.interceptor" />
+	<context:component-scan base-package="org.zerock.myapp.exception" />
+	
 	
 	<view-controller path="/common/information" view-name="/common/information" status-code="200" />
 	<view-controller path="/common/clause" 		view-name="/common/clause" 		status-code="200" />
