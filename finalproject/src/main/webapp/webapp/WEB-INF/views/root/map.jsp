@@ -137,7 +137,7 @@ for (var i = 1; i <= travelDays; i++) {
 </head>
 <body>
 
-    <%@ include file="../common/header.jsp"%>
+    <%@ include file="/WEB-INF/views/common/header.jsp"%>
     
     <!-- 제목을 입력하는 폼 -->
 
@@ -193,7 +193,7 @@ for (var i = 1; i <= travelDays; i++) {
         <button type="button4" class="btn4">취소</button>
     </div>
 
-   <%@ include file="../common/footer.jsp"%>
+   <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 </body>
 </html>
