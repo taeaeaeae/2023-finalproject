@@ -45,7 +45,7 @@
 	<view-controller path="/board/modify" 	view-name="board/modify" 	status-code="200" />
 	<view-controller path="/board/remove" 	view-name="board/remove" 	status-code="200" />
 
-	<!-- interceptor 설정 -->
+	<!-- interceptor d설정 -->
 	<interceptors>
 			
       <interceptor>
