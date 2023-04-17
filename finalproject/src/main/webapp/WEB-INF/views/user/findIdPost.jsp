@@ -14,24 +14,27 @@
 	<title>findPost.jsp</title>
 </head>
 <body>
-	
-	<div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">아이디 찾기</div>
-        
-            <div class="card-body">
-                <h4 class="card-title">" <%= request.getAttribute("UIDS") %> " 입니다.</h4>
-            </div>
-            
-    </div>
-    
-        <button type="button" id="cancleBtn">
-         	취소
-        </button>
 
-        <button type="button" id="loginBtn">
-        	로그인
-        </button>
-        
+	<div id="container">
+		
+		<div class="card border-primary mb-3" style="max-width: 20rem;">
+	        <div class="card-header">아이디 찾기</div>
+	        
+	        <div class="card-body">
+	            <h4 class="card-title">" <%= request.getAttribute("UIDS") %> " 입니다.</h4>
+	        </div>
+	            
+	    </div>
+	    
+	    <button type="button" id="cancleBtn">
+	     	취소
+	    </button>
+	
+	    <button type="button" id="loginBtn">
+	    	로그인
+	    </button>
+	    
+	 </div>      
 
     <script>
         var logoutBtn = document.querySelector('#loginBtn');

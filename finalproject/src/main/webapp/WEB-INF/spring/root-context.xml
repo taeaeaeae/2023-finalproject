@@ -62,7 +62,11 @@
 
 	
 	<mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
+<<<<<<< HEAD
+	
+=======
 	<context:component-scan base-package="org.zerock.myapp.persistence"/>
 
+>>>>>>> branch 'naGyeongIm' of https://github.com/taeaeaeae/2023-finalproject.git
 		
 </beans>
