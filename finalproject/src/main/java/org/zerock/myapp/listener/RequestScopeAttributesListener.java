@@ -28,7 +28,7 @@ public class RequestScopeAttributesListener
     		return;
     	} // if
     	
-    	log.debug("attributeAdded(event) invoked.");
+    	log.trace("attributeAdded(event) invoked.");
     	
     	String name = event.getName();
     	Object value = event.getValue();
@@ -50,7 +50,7 @@ public class RequestScopeAttributesListener
     		return;
     	} // if
     	
-    	log.debug("attributeRemoved(event) invoked.");
+    	log.trace("attributeRemoved(event) invoked.");
     	
     	String name = event.getName();
     	Object value = event.getValue();
@@ -72,7 +72,7 @@ public class RequestScopeAttributesListener
     		return;
     	} // if
     	
-    	log.debug("attributeReplaced(event) invoked.");
+    	log.trace("attributeReplaced(event) invoked.");
     	
     	String name = event.getName();
     	Object value = event.getValue();

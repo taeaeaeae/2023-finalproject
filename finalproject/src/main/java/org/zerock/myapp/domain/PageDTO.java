@@ -8,17 +8,16 @@ import lombok.ToString;
 @Getter
 public class PageDTO {
 
-	private Criteria cri;
-	
+	private Criteria cri;			
 	private int totalAmount;		
 
-	private int startPage;		
-	private int endPage;		
+	private int startPage;			
+	private int endPage;			
 	private int realEndPage;		
 	
-	private int offset;			
+	private int offset;				
 	
-	private boolean prev;		
+	private boolean prev;			
 	private boolean next;			
 	
 	

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
@@ -14,10 +13,10 @@
 	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<!-- JDBC 연결생성을 위한 필수 4가지 정보 -->
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@example1_high" />
-		<property name="username" value="TTT" />
-		<property name="password" value="Oracle12345678" />
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@example1_high?TNS_ADMIN=C:/opt/OracleCloudWallet/Wallet_example1"/>
+		<property name="username" value="ttt"/>
+		<property name="password" value="Oracle12345678"/>
 
 		<property name="maximumPoolSize" value="10" />
 		<property name="minimumIdle" value="2" />
@@ -38,13 +37,26 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="hikariDataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+
 	</bean>
 
- 
+
+
+	<!-- Transaction gManager -->
+
+
+	<!-- @Transactionl 어노테이션을 이용한 분산 트랜잭션 관리를 위한 설정 -->
+
+
+
+	<!-- Auto-Registration As A Bean -->
 	<context:component-scan base-package="org.zerock.myapp.service" />
+	<context:component-scan base-package="org.zerock.myapp.persistence" />
+	<context:component-scan base-package="org.zerock.myapp.mapper" />
+
+	
 	<mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
- 
-		
-		
+
 		
 </beans>
