@@ -12,6 +12,9 @@
         <mapper resource="mappers/FindIdMapper.xml" />
         <mapper resource="mappers/FindPwMapper.xml" />
         <mapper resource="mappers/UsersMapper1.xml" />
+        <mapper resource="mappers/UsersMapper1.xml" />
+        <mapper resource="mappers/BoardMapper.xml" />
+        <mapper resource="mappers/CommentMapper.xml" />
     </mappers>
 
 
