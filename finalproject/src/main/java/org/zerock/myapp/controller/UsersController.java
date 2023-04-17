@@ -88,7 +88,6 @@ public class UsersController {
 			throw new ControllerException(e);
 		}	// try-catch	
 	}	//update
-	
 
 	
 }	// end class

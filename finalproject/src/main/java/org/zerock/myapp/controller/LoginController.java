@@ -23,6 +23,7 @@ public class LoginController {
 	
 	private LoginService service;
 	
+	
 	@PostMapping("/loginPost")
 	public String loginPost(LoginDTO dto, RedirectAttributes rttrs, Model model) throws ControllerException{
 		log.trace("loginPost({}, {}, {}) invoked.",dto, rttrs, model);
@@ -33,13 +34,15 @@ public class LoginController {
 			log.info("\t+vo:{}", vo);
 			
 			if(vo != null) {	
+				
 				model.addAttribute("__AUTH__",vo);	
+
+				return "redirect:/main/index";			
+			} else {
+				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
 				
-				return null;			
-			} else {			
-				rttrs.addAttribute("result", "Login Failed");
-				
-				return "redirect:/user/login";			
+//				model.addAttribute("result", "일치하는 회원정보가 없습니다.");
+				return "redirect:/user/login";		
 			}	//if-else
 			
 		} catch(Exception e) {
