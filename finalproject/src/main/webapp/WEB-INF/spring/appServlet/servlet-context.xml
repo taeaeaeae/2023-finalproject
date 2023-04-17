@@ -31,7 +31,7 @@
 	<view-controller path="/user/find_id" 	view-name="/user/find_id" 	status-code="200" />
 	<view-controller path="/user/find_pw" 	view-name="/user/find_pw" 	status-code="200" />
 	
-	<view-controller path="/common/information" view-name="/common/information" 	status-code="200" />
+	<view-controller path="/common/information" view-name="/common/information" status-code="200" />
 	<view-controller path="/common/clause" 		view-name="/common/clause" 		status-code="200" />
 
 	<view-controller path="/main/header" 	view-name="/main/header" 	status-code="200" />
