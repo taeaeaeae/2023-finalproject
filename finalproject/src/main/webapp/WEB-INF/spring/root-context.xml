@@ -48,7 +48,7 @@
 
 
 
-	<!-- Transaction Manager -->
+	<!-- Transaction gManager -->
 
 
 	<!-- @Transactionl 어노테이션을 이용한 분산 트랜잭션 관리를 위한 설정 -->
