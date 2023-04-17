@@ -39,11 +39,6 @@
 	<view-controller path="/main/root" 		view-name="/main/root"		status-code="200" />
 	<view-controller path="/main/index" 	view-name="/main/index"		status-code="200" />
 	
-	<view-controller path="/board/list" 	view-name="board/list" 		status-code="200" />
-	<view-controller path="/board/register" view-name="board/register" 	status-code="200" />
-	<view-controller path="/board/get"		view-name="board/get" 		status-code="200" />
-	<view-controller path="/board/modify" 	view-name="board/modify" 	status-code="200" />
-	<view-controller path="/board/remove" 	view-name="board/remove" 	status-code="200" />
 
 	<!-- interceptor d설정 -->
 	<interceptors>
@@ -60,12 +55,6 @@
          <beans:ref bean="logoutInterceptor"/>
       </interceptor>
 
-      <interceptor>
-         <mapping path="/board/*" />
-         <exclude-mapping path="/board/list" />
-
-         <beans:ref bean="authInterceptor"/>
-      </interceptor>
       
 	</interceptors>
 	
