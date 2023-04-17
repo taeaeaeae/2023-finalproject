@@ -64,7 +64,7 @@ public class UsersController {
 			boolean success = this.service.remove(uids);
 			log.info("\t+ success : {}", success);
 			
-			rttrs.addAttribute("result",(success)? "success" : "failure");	// 삼항연산자
+			rttrs.addAttribute("result",(success)? "success" : "failure");	//
 					
 			return "redirect:/users/login";
 		} catch(Exception e) {
