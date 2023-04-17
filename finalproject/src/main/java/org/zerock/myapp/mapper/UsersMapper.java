@@ -1,5 +1,6 @@
 package org.zerock.myapp.mapper;
 
+import org.zerock.myapp.domain.CheckIdVO;
 import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.domain.UsersVO;
 
@@ -13,7 +14,5 @@ public interface UsersMapper {
 	
 	public abstract Integer update(UsersDTO dto);	// 회원 수정
 	
-	public int idCheck(String uids);	// 아이디 중복확인
-	
-
+	public abstract CheckIdVO checkId(String uids);
 }	// end interface

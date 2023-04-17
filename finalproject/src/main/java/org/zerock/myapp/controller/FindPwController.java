@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.FindPwDTO;
 import org.zerock.myapp.domain.FindPwVO;
 import org.zerock.myapp.exception.ControllerException;
@@ -27,7 +28,7 @@ public class FindPwController {
 	
 	
 	@PostMapping("/findPwPost")
-	public String findPwPost(FindPwDTO dto, Model model) throws ControllerException {
+	public String findPwPost(FindPwDTO dto,RedirectAttributes rttrs, Model model) throws ControllerException {
 		log.trace(">>>>>>> findPwPost({}, model) invoked.", dto);
 		
 		try {
@@ -60,6 +61,7 @@ public class FindPwController {
 				return "/user/findPwPost";
 				
 			} else {
+				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
 				
 				return "redirect:/user/find_pw";
 			}

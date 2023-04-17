@@ -17,9 +17,7 @@ public interface UsersService {
 	
 	// 회원수정
 	public abstract boolean update(UsersDTO dto) throws ServiceException;
-
-	// 아이디 중복체크
-	public int idCheck(String uids);
+	
 
 }	// end interface
 	
