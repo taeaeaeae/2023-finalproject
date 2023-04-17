@@ -55,5 +55,4 @@ public class LoginController {
 		log.trace("dummyLogout() invoked.");
 		
 		}	//logout
-	
 }	// end class
