@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.FindIdDTO;
 import org.zerock.myapp.domain.FindIdVO;
 import org.zerock.myapp.exception.ControllerException;
@@ -27,8 +28,8 @@ public class FindIdController {
 	
 	
 	@PostMapping("/findIdPost")
-	public String findIdPost(FindIdDTO dto, Model model) throws ControllerException {
-		log.trace(">>>>>>> findPost({}, model) invoked.", dto);
+	public String findIdPost(FindIdDTO dto,RedirectAttributes rttrs, Model model) throws ControllerException {
+		log.trace(">>>>>>> findIdPost({}, model) invoked.", dto);
 		
 		try {
 			FindIdVO vo = this.service.findId(dto);
@@ -43,19 +44,22 @@ public class FindIdController {
 				log.info("uids: {}", uids);
 				
 				model.addAttribute("UIDS", uids);
+				
 		
 				return "/user/findIdPost";
 				
 			} else {
+				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
+				
 				return "redirect:/user/find_id";
 			}
 			
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		} // try-catch
-		
-		
+	
 		
 	}	// findPost
+	
 	
 }	// end class

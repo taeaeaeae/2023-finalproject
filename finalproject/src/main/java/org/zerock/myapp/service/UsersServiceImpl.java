@@ -15,6 +15,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
+
+
 @ToString
 @Log4j2
 @NoArgsConstructor
@@ -72,14 +74,6 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}	// try-catch
-	}	//update
+	}
 
-	@Override
-	public int idCheck(String uids) {
-		int cnt = mapper.idCheck(uids);
-	
-		return cnt;
-	}	//idCheck	
-
-	
 }	// end class
