@@ -28,7 +28,7 @@ public class SessionScopeAttributesListener
     		return;
     	} // if
     	
-    	log.debug("attributeAdded(event) invoked.");
+    	log.trace("attributeAdded(event) invoked.");
     	
     	HttpSession session = event.getSession();
     	String name = event.getName();
@@ -52,7 +52,7 @@ public class SessionScopeAttributesListener
     		return;
     	} // if
     	
-    	log.debug("attributeRemoved(event) invoked.");
+    	log.trace("attributeRemoved(event) invoked.");
     	
     	HttpSession session = event.getSession();
     	String name = event.getName();
@@ -76,7 +76,7 @@ public class SessionScopeAttributesListener
     		return;
     	} // if
     	
-    	log.debug("attributeReplaced(event) invoked.");
+    	log.trace("attributeReplaced(event) invoked.");
     	
     	HttpSession session = event.getSession();
     	String name = event.getName();

@@ -19,8 +19,8 @@
     </delete>
 
     <insert id="insert">
-      INSERT INTO qna_board (title, content, image, uids)
-      VALUES (#{title}, #{content}, #{image}, #{uids})
+      INSERT INTO qna_board (title, content, image, uids, openy_n)
+      VALUES (#{title}, #{content}, #{image}, #{uids}, #{openy_n})
     </insert>
 
     <update id="update">
