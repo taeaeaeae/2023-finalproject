@@ -12,7 +12,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @AllArgsConstructor
 
-@Service("findPwService")
+@Service
 public class FindPwServiceImpl implements FindPwService {
 	
 	private FindPwDAO findPwDAO;

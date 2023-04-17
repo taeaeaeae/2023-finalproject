@@ -38,11 +38,13 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="hikariDataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
 	</bean>
 
  
 	<context:component-scan base-package="org.zerock.myapp.service" />
 	<mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
+	<context:component-scan base-package="org.zerock.myapp.persistence"/>
  
 		
 		
