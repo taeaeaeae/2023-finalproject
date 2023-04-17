@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.myapp.mapper.CommentMapper">
+    <select id="selectAll" resultType="org.zerock.myapp.domain.FreeBoardCommentVO">
+        SELECT *
+        FROM fb_comment
+        WHERE fid = #{fid}
+        ORDER BY fbcid ASC
+    </select>
+
+    <select id="select" resultType="org.zerock.myapp.domain.FreeBoardCommentVO">
+        SELECT *
+        FROM fb_comment
+        WHERE fbcid = #{fbcid}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO fb_comment(fid, uids, content)
+        VALUES(#{fid}, #{uids}, #{content})
+    </insert>
+
+    <update id="update">
+        UPDATE fb_comment
+        SET 
+            uids = #{uids},
+            content = #{content},
+            update_ts = current_date
+        WHERE fbcid = #{fbcid}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM fb_comment
+        WHERE fbcid = #{fbcid}
+    </delete>
+</mapper>

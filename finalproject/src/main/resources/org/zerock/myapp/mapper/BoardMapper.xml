@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.myapp.mapper.BoardMapper">
+    <!-- <sql id="criteria">
+        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <choose>
+                    <when test="type == 'T'.toString()">
+                        title LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test="type == 'C'.toString()">
+                        content LIKE '%' || #{keyword} || '%'
+                    </when>
+                    <when test="type == 'U'.toString()">
+                        uids LIKE '%' || #{keyword} || '%'
+                    </when>
+                </choose>
+            </foreach>
+        </trim>
+    </sql>
+    
+    <select id="selectAll" resultType="org.zerock.myapp.domain.FreeBoardVO"> 
+        <![CDATA[ 
+        SELECT fid, uids, title, content, insert_ts, update_ts
+        FROM (
+                SELECT /*+ index_desc(free_board) */ rownum as rn, fid, title, content, uids, insert_ts, update_ts
+                FROM free_board
+                WHERE rownum <= #{currPage} * #{amount}
+        ]]>
+        <if test="keyword != null">
+            <include refid="criteria"></include>
+        </if>
+        <![CDATA[ 
+        )
+        WHERE rn > (#{currPage} -1) * #{amount}
+        ]]>
+    </select> -->
+
+    <select id="selectTotalCount" resultType="Integer">
+        SELECT count(*)
+        FROM free_board
+        <if test="keyword != null">
+            <choose>
+                <when test='type.equals("title")'>
+                    WHERE title LIKE concat('%' || #{keyword}, '%')
+                </when>
+                <when test='type.equals("content")'>
+                    WHERE content LIKE concat('%' || #{keyword}, '%')
+                </when>
+                <when test='type.equals("title_content")'>
+                    WHERE title LIKE concat('%' || #{keyword}, '%') OR content LIKE concat('%'|| #{keyword}, '%')
+                </when>
+                <when test='type.equals("uids")'>
+                    WHERE uids LIKE concat('%' || #{keyword}, '%')
+                </when>
+                <when test='type == ""'>
+                    WHERE (title LIKE concat('%' || #{keyword}, '%') OR content LIKE concat('%' || #{keyword}, '%') OR uids LIKE concat('%'|| #{keyword}, '%'))
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 게시물 목록 + 페이지 -->
+    <select id="listPageSearch" resultType="org.zerock.myapp.domain.FreeBoardVO">
+        SELECT *
+        FROM free_board
+        <if test= 'type != null'>
+            <choose>
+                <when test='type.equals("title")'>
+                    WHERE title LIKE concat('%' || #{keyword}, '%')
+                </when>
+                <when test='type.equals("content")'>
+                    WHERE content LIKE concat('%' || #{keyword}, '%')
+                </when>
+                <when test='type.equals("title_content")'>
+                    WHERE title LIKE concat('%' || #{keyword}, '%') OR content LIKE concat('%'|| #{keyword}, '%')
+                </when>
+                <when test='type.equals("uids")'>
+                    WHERE uids LIKE concat('%' || #{keyword}, '%')
+                </when>
+                <when test='type == ""'>
+                    WHERE (title LIKE concat('%' || #{keyword}, '%') OR content LIKE concat('%' || #{keyword}, '%') OR uids LIKE concat('%'|| #{keyword}, '%'))
+                </when>
+            </choose>
+        </if>
+        ORDER BY fid DESC
+        OFFSET (#{currPage} - 1) * #{amount} ROWS	
+		FETCH NEXT #{amount} ROWS ONLY
+    </select>
+
+    <select id="select" resultType="org.zerock.myapp.domain.FreeBoardVO">
+        SELECT *
+        FROM free_board
+        WHERE fid = #{fid}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM free_board
+        WHERE fid = #{fid}
+    </delete>
+    
+    <insert id="insert">
+        INSERT INTO free_board(uids, title, content, image, view_count, insert_ts)
+        VALUES (#{uids}, #{title}, #{content}, #{image}, 0, current_date)
+    </insert>
+
+    <update id="update">
+        UPDATE free_board
+        SET
+            title = #{title},
+            content = #{content},
+            image = #{image},
+            update_ts = current_date
+        WHERE 
+            fid = #{fid}
+    </update>
+    
+    <select id="prev">
+        <![CDATA[
+        SELECT fid
+        FROM (
+          SELECT fid, ROW_NUMBER() OVER (ORDER BY fid DESC) AS rn
+          FROM free_board
+          WHERE fid < #{fid}
+        )
+        WHERE rn = 1
+        ]]>
+    </select>
+    
+    <select id="next">
+        <![CDATA[
+        SELECT fid
+        FROM (
+          SELECT fid, ROW_NUMBER() OVER (ORDER BY fid) AS rn
+          FROM free_board
+          WHERE fid > #{fid}
+        )
+        WHERE rn = 1
+        ]]>
+    </select>
+    
+</mapper>
