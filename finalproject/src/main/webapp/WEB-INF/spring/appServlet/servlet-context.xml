@@ -3,9 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -18,20 +16,38 @@
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
- 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-
-<!--<view-resolvers>
-		<jsp prefix="/WEB-INF/views/" suffix=".jsp"/>
-	</view-resolvers> -->
-
 	
 	<context:component-scan base-package="org.zerock.myapp.controller" />
-	<context:component-scan base-package="org.zerock.myapp.interceptor" />
-	<context:component-scan base-package="org.zerock.myapp.exception" />
 	
+	<view-controller path="/common/information" view-name="/common/information" status-code="200" />
+	<view-controller path="/common/clause" 		view-name="/common/clause" 		status-code="200" />
+
+	<view-controller path="/main/header" 	view-name="/main/header" 	status-code="200" />
+	<view-controller path="/main/footer" 	view-name="/main/footer"	status-code="200" />
+	<view-controller path="/main/root" 		view-name="/main/root"		status-code="200" />
+	<view-controller path="/main/index" 	view-name="/main/index"		status-code="200" />
 	
+
+	<!-- interceptor d설정 -->
+	<interceptors>
+		
+      <interceptor>
+         <mapping path="/user/loginPost" />
+
+         <beans:ref bean="loginInterceptor"/>
+      </interceptor>
+      
+      <interceptor>
+         <mapping path="/user/logout" />
+
+         <beans:ref bean="logoutInterceptor"/>
+      </interceptor>
+
+      
+	</interceptors>
 	
 </beans:beans>
