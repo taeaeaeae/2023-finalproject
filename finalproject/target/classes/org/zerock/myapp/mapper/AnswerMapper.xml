@@ -10,7 +10,7 @@
     <select id="select" resultType="org.zerock.myapp.domain.AnswerVO">
         SELECT *
         FROM answer
-        WHERE qid = (SELECT qid FROM qna_board WHERE qid = ${qid}) ;
+        WHERE qid = (SELECT qid FROM qna_board WHERE qid = ${qid}) 
     </select>
 
     <delete id="delete">

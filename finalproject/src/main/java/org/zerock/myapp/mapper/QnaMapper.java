@@ -19,10 +19,11 @@ public interface QnaMapper {
 			"""	)
 	public abstract List<QnaVO> selectAll(Criteria cri);
 
-
 	public abstract QnaVO select(Integer qid);	
 	public abstract Integer delete(Integer qid);		
 	public abstract Integer insert(QnaDTO dto);		
 	public abstract Integer update(QnaDTO dto);		
-	
+
+	@Select("SELECT count(qid) FROM qna_board WHERE qid > 0")
+	public abstract Integer selectTotalCount();			
 } // end interface
