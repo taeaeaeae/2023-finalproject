@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/join.css" />
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <title>Join</title>
 
@@ -19,30 +18,29 @@
             <div class="essential">
 
                         <h3>아이디</h3>
-                        <input type="text" id="uids" name="uids" oninput = "checkId()">
-                        
-                        <span class="id_ok">사용 가능한 아이디입니다.</span>
-						<span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
-                    
+                        <input type="text" id="uids" name="uids" onkeydown="inputIdChk()" required>
+                        <button class="checkId" type="button" id="checkId" onclick="fn_idChk();", value="N">중복확인</button>
+                                         
                         <h3>비밀번호</h3>
-                        <input type="password" id="password" name="password" title="password">
+                        <input type="password" id="password" name="password" title="password" required>
                     
                         <h3>비밀번호 확인</h3>
-						<input type="password" id="pwCheck" name="pwCheck" title="pwCheck">
+						<input type="password" id="pwCheck" name="pwCheck" title="pwCheck" required>
                         <font id="pwNotice" size="2"></font>
                         
                         <h3>이름</h3>
-                        <input type="text" id="name" name="name" title="name">
+                        <input type="text" id="name" name="name" title="name" required>
                 
                         <h3>전화번호</h3>
-                        <input type="text" id="phonenumber" name="phonenumber" title="phonenumber">
+                        <input type="text" id="phonenumber" name="phonenumber" title="phonenumber" required>
                 
                         <h3>이메일</h3>
-                        <input type="email" id="email" name="email" title="email">
+                        <input type="email" id="email" name="email" title="email" required>
                         
                         <h3>닉네임</h3>
-                        <input type="text" id="nickname" name="nickname" title="nickname">
-
+                        <input type="text" id="nickname" name="nickname" title="nickname" required>
+						<button class="checkNickName" type="button" id="checkNickName" onclick="fn_nickChk();", value="N">중복확인</button>
+						
                         <br>
                         <br>
                         
@@ -81,33 +79,47 @@
             
         </div>
 	</form>
-			
-	        <script>
+	
+	<script>
 
             // 아이디 중복체크
+			function fn_idChk(){
+				$.ajax({
+					url : "/user/checkId",
+					type : "post",
+					dataType : "json",
+					data : {"uids" : $("#uids").val()},
+					success : function(data){
+						if(data == 1){
+							alert("중복된 아이디입니다.");
+						}else if(data == 0){
+							$("#checkId").attr("value", "Y");
+							alert("사용가능한 아이디입니다.");
+						}
+					}
+				})
+			}
             
-		    function checkId(){
-		        var uids = $('#uids').val(); //id값이 "id"인 입력란의 값을 저장
-		        $.ajax({
-		            url:'./idCheck', //Controller에서 요청 받을 주소
-		            type:'post', //POST 방식으로 전달
-		            data:{uids:uids},
-		            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-		                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
-		                    $('.id_ok').css("display","inline-block"); 
-		                    $('.id_already').css("display", "none");
-		                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-		                    $('.id_already').css("display","inline-block");
-		                    $('.id_ok').css("display", "none");
-		                    alert("아이디를 다시 입력해주세요");
-		                    $('#uids').val('');
-		                }
-		            },
-		            error:function(){
-		                alert("에러입니다");
-		            }
-		        });
-		        };
+
+            // 닉네임 중복체크
+            
+			function fn_nickChk(){
+				$.ajax({
+					url : "/user/checkNickName",
+					type : "post",
+					dataType : "json",
+					data : {"nickname" : $("#nickname").val()},
+					success : function(data){
+						if(data == 1){
+							alert("중복된 닉네임입니다.");
+						}else if(data == 0){
+							$("#checkNickName").attr("value", "Y");
+							alert("사용가능한 닉네임입니다.");
+						}
+					}
+				})
+			}
+
 
             // 비밀번호 확인
             $(function(){
@@ -138,6 +150,8 @@
                 agreeChk[i].checked = e.target.checked;
                 }
             });
+            
+            // 모든 유효성 체크 후 회원가입 활성화
 
             // 취소시 메인
             var cancleBtn = document.querySelector('#cancleBtn');
@@ -145,6 +159,8 @@
             cancleBtn.addEventListener('click', function () {
             location.href = '/main/index';
             }); // .addEventListener
+
+          
   
         </script>
         
