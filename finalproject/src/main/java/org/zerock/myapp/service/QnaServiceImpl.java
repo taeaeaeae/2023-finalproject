@@ -60,7 +60,7 @@ public class QnaServiceImpl
 
 	@Override
 	public QnaVO get(Integer qid) throws ServiceException {
-		log.trace("getList({}) invoked.", qid);
+		log.trace("get({}) invoked.", qid);
 		
 		try {
 			return this.mapper.select(qid);
@@ -104,5 +104,16 @@ public class QnaServiceImpl
 			throw new ServiceException(e);
 		} // try-catch
 	} // modify	
+	
+	@Override
+	public Integer getTotalAmount() throws ServiceException {
+		log.trace("getTotalAmount() invoked.");
+		
+		try {
+			return this.mapper.selectTotalCount();
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	} // getTotalAmount
 	
 } // end class
