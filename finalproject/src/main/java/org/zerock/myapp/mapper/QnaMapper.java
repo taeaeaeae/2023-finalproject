@@ -25,5 +25,5 @@ public interface QnaMapper {
 	public abstract Integer update(QnaDTO dto);		
 
 	@Select("SELECT count(qid) FROM qna_board WHERE qid > 0")
-	public abstract Integer selectTotalCount();			
+	public abstract Integer selectTotalCount();	
 } // end interface
