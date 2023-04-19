@@ -25,11 +25,11 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @AllArgsConstructor
 
-@RequestMapping("/qna")
+@RequestMapping("/answer")
 @Controller
 
 //@SessionAttributes({"board", "QnaDTO"})
-public class QnaController {
+public class AnswerController {
 	
 //	@Setter(onMethod_ = @Autowired)
 	
@@ -78,17 +78,11 @@ public class QnaController {
 		log.trace("remove({}, {}, {}) invoked.", qid, rttrs, cri);
 		
 		try {
-			
-//			boolean succes = this.aService.remove(qid);
-//			log.info("\t+ success: {}", succes);
-//			rttrs.addAttribute("result", (succes)? "success" : "failure");
-			
 			boolean success = this.service.remove(qid);
 			log.info("\t+ success: {}", success);
-			
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
-
+			
 			rttrs.addAttribute("result", (success)? "success" : "failure");
 			
 			return "redirect:/qna/list";
@@ -135,7 +129,10 @@ public class QnaController {
 			throw new ControllerException(e);
 		} // try-catch
 	} // register
+	
+	
 
+	
 	@GetMapping("/register")
 	void register() {
 		log.trace("register() invoked.");

@@ -52,6 +52,7 @@ public class FreeBoardController {
 //			List<FreeBoardVO> list = this.service.getList(cri);
 			List<FreeBoardVO> list = this.service.getListPageSearch(cri);
 			model.addAttribute("list", list);
+			log.trace("\t+ list : {}", list);
 			
 			Integer totalAmount = this.service.getTotalAmount(cri);
 			PageDTO pageDTO = new PageDTO(cri, totalAmount);
