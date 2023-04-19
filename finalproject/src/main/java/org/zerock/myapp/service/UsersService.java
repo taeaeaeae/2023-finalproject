@@ -17,6 +17,8 @@ public interface UsersService {
 	
 	// 회원수정
 	public abstract boolean update(UsersDTO dto) throws ServiceException;
+
+
 	
 
 }	// end interface
