@@ -12,6 +12,7 @@
 
 </head>
 <body>
+	<!-- 회원가입시 메인으로 -->
     <c:redirect url="/main/index" />
 </body>
 </html>

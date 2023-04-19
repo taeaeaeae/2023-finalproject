@@ -37,7 +37,7 @@ public class LoginController {
 				
 				model.addAttribute("__AUTH__",vo);	
 
-				return "redirect:/main/index";			
+				return "/main/index";			
 			} else {
 				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
 				

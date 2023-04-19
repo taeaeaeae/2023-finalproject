@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +42,7 @@
                 </button>
                 
                 
-                <button type="submit" id="find_pw" >
+                <button type="submit" id="find_id" >
                     찾기
                 </button>
                 
@@ -46,13 +50,25 @@
 
     </div>
 </form>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
         var logoutBtn = document.querySelector('#cancleBtn');
 
         logoutBtn.addEventListener('click', function () {
             location = "/main/index";
         }); //취소 시 메인으로
+        
+        // 아이디 찾기 실패
+			  $(document).ready(function() {
+		        let message = "${result}";
+		        if (message != "") {
+		            alert(message);
+		        }else {
+		        }
+		    });		
+       
+
+
         
     </script>
     
