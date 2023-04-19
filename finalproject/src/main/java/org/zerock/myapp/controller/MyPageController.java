@@ -29,10 +29,6 @@ public class MyPageController {
 	private UsersService service;
 	
 	@GetMapping("/main")
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'taekyoung' of https://github.com/taeaeaeae/2023-finalproject.git
 	public String myPage(HttpSession session, Model model) throws ServiceException {
 		log.info("mypage() invoked.");	
 		
