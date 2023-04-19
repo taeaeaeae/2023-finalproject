@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
 
-  <mappers>
-    <mapper resource="mappers/UsersMapper1.xml" />
-  </mappers>
-  
-  
+
+    <mappers>
+        <mapper resource="mappers/LoginMapper.xml" />
+        <mapper resource="mappers/FindIdMapper.xml" />
+        <mapper resource="mappers/FindPwMapper.xml" />
+        <mapper resource="mappers/UsersMapper1.xml" />
+    </mappers>
+
 
 </configuration>
