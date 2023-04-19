@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="../fix/header.jsp" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -134,5 +132,4 @@ $(document).ready(function() {
 </script>
 <script src="/resources/freeboard/js/validateForm.js"></script>
 </body>
-<%@ include file="../fix/footer.jsp" %>
 </html>
