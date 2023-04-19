@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+\90-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
@@ -43,9 +43,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="hikariDataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<!-- <property name="mapperLocations" value="classpath*:mappers/SQL*.xml"/> -->
 	</bean>
-
 
 
 	<!-- Transaction gManager -->
@@ -60,13 +58,8 @@
 	<context:component-scan base-package="org.zerock.myapp.persistence" />
 	<context:component-scan base-package="org.zerock.myapp.mapper" />
 
-	
 	<mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
-<<<<<<< HEAD
-	
-=======
-	<context:component-scan base-package="org.zerock.myapp.persistence"/>
 
->>>>>>> branch 'naGyeongIm' of https://github.com/taeaeaeae/2023-finalproject.git
+
 		
 </beans>

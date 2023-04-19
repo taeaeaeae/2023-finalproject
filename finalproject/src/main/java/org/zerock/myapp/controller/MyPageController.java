@@ -16,7 +16,7 @@ public class MyPageController {
 	
 	@GetMapping("/main")
 	public void mainPage() {
-		//어떡하지 머해야되나흠 졸리다 집가고싶다 하 
+		//
 	}
 
 }
