@@ -31,7 +31,7 @@ public class MyPageController {
 	
 	@GetMapping("/main")
 
-	public String myPage(HttpSession session, RedirectAttributes rttrs, Model model) throws ServiceException {
+	public String myPage(HttpSession session, Model model) throws ServiceException {
 		log.info("mypage() invoked.");	
 		
 		log.info("session: {}", session);
