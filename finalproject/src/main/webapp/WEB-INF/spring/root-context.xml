@@ -38,7 +38,9 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="hikariDataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<!-- <property name="mapperLocations" value="classpath*:mappers/SQL*.xml"/> -->
 	</bean>
+
 
 
 	<!-- Transaction gManager -->
@@ -53,7 +55,8 @@
 	<context:component-scan base-package="org.zerock.myapp.persistence" />
 	<context:component-scan base-package="org.zerock.myapp.mapper" />
 
+	
 	<mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
-
+	
 		
 </beans>
