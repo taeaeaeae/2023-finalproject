@@ -40,5 +40,4 @@ listBtn.addEventListener('click', function () {
 }); // .addEventListener
 </script>
 </body>
-<%@ include file="../fix/footer.jsp" %>
 </html>

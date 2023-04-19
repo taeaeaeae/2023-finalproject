@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../fix/header.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -40,5 +39,4 @@
 		}); // .addEventListener
 	</script>
 </body>
-<%@ include file="../fix/footer.jsp" %>
 </html>

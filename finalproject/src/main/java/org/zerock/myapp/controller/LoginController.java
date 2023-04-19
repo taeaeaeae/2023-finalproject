@@ -35,6 +35,7 @@ public class LoginController {
 			if(vo != null) {	
 				
 				model.addAttribute("__AUTH__",vo);	
+
 				
 				//rttrs.addAttribute("auth", vo);	// 강사코드
 				return "/main/index";	 

@@ -14,7 +14,8 @@ public class Criteria {
 	
 	private Integer pagesPerPage = 10;	
 	
-	
+	private String type;
+	private String keyword;
 	
 	public String getPagingUri() {
 		log.trace("getPagingUri() invoked.");
@@ -23,6 +24,8 @@ public class Criteria {
 		builder.queryParam("currPage", this.currPage);
 		builder.queryParam("amount", this.amount);
 		builder.queryParam("pagesPerPage", this.pagesPerPage);
+		builder.queryParam("type", this.type);
+		builder.queryParam("keyword", this.keyword);
 		
 		String queryString = builder.toUriString();
 		log.info("\t+ queryString: {}", queryString);

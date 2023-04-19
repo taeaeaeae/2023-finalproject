@@ -7,8 +7,6 @@
 	System.out.println("*********** obj: " + obj);
 %>
 
-<%@ include file="../fix/header.jsp" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -264,5 +262,4 @@ function commentForm() {
 };
 </script>
 
-<%@ include file="../fix/footer.jsp" %>
 </html>

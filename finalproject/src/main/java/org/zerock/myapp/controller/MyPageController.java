@@ -30,6 +30,7 @@ public class MyPageController {
 	private UsersService service;
 	
 	@GetMapping("/main")
+
 	public String myPage(HttpSession session, RedirectAttributes rttrs, Model model) throws ServiceException {
 		log.info("mypage() invoked.");	
 		
@@ -89,6 +90,5 @@ public class MyPageController {
 //		}	//try- catch
 //	}	// remove
 	
-
 
 
