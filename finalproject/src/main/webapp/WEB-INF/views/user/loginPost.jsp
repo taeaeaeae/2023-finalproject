@@ -8,10 +8,11 @@
 <head>
     <meta charset="UTF-8">
     
-    <title>loginPost.jsp</title>
+    <title>mainPost.jsp</title>
 </head>
 <body>
-	<!-- 로그인 시 메인으로 -->
+
+    	<!-- 로그인 시 메인으로 -->
     <c:redirect url="/main/index" />
 </body>
 </html>

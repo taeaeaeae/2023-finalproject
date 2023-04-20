@@ -46,7 +46,7 @@
         <input name="title" type="text" class="form-control"  placeholder="제목입력">
       </div>      <div class="form-group">
         <label for="exampleInputEmail1" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
-        <input name="uids" type="text" class="form-control"  placeholder="제목입력">
+        <input name="uids" type="text" class="form-control"  placeholder="작성자">
       </div>
 
       <div class="form-group">
