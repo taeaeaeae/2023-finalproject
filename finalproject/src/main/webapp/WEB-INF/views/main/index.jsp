@@ -84,7 +84,7 @@
                   <h2>여러분들의 루트를 공유해보세요</h2>
                   <h3>루트 공유 게시판</h3>
     
-                  <button class="btn" onclick="location.href='root'">공유하기</a></button>
+                  <button class="btn" onclick="location.href='/main/root'">공유하기</a></button>
                 </div>
                 <div class="right-content">
                   <video src="${path}/resources/videos/video2.mp4" autoplay loop muted></video>

@@ -11,6 +11,5 @@ public interface FindService {
 	
 	// 비밀번호 찾기
 	public abstract FindVO findPw(FindDTO dto) throws ServiceException;
-
 	
 }	// end interface

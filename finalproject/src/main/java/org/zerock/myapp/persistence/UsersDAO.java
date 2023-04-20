@@ -21,5 +21,8 @@ public interface UsersDAO {
 	// 회원정보 조회
 	public abstract UsersVO select(String uids) throws DAOException;
 	
+	// 회원탈퇴
+	public abstract UsersVO remove(String uids) throws DAOException;
+	
 
 }

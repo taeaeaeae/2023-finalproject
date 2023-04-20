@@ -4,15 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보수정</title>
+<title>회원정보조회</title>
 </head>
 <body>
 
 	<div class="container">
 	
 	<%@include file="/WEB-INF/views/main/header.jsp" %>
-	<h1 align="center">회원정보수정</h1>
-		<form action="/member/main" method="post">
+	<h1 align="center">회원정보조회</h1>
+		<form action="/mypage/main" method="post">
 			<table>
 				<tr>
 					<td>* 아이디</td>
@@ -38,6 +38,11 @@
 			</table>
 
 		</form>
+		
+
+		<a href="/mypage/update">회원정보수정</a>
+		
+		<a href="/mypage/remove">회원탈퇴</a>
 		
 		<%@include file="/WEB-INF/views/main/footer.jsp" %>
 		
