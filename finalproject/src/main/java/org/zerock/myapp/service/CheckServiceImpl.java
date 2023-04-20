@@ -2,7 +2,7 @@ package org.zerock.myapp.service;
 
 
 import org.springframework.stereotype.Service;
-import org.zerock.myapp.domain.CheckIdVO;
+import org.zerock.myapp.domain.CheckVO;
 import org.zerock.myapp.exception.ServiceException;
 import org.zerock.myapp.persistence.UsersDAO;
 
@@ -18,7 +18,7 @@ public class CheckServiceImpl implements CheckService{
 	private UsersDAO UsersDAO;
 	
 	@Override
-	public int checkId(CheckIdVO vo) throws ServiceException {
+	public int checkId(CheckVO vo) throws ServiceException {
 		log.trace("checkId({}) invoked.", vo);
 		
 			try {
@@ -27,7 +27,19 @@ public class CheckServiceImpl implements CheckService{
 			} catch(Exception e) {
 				throw new ServiceException(e);
 			}	// try-catch
-		}
+		}	// checkId
+	
+	@Override
+	public int checkNickName(CheckVO vo) throws ServiceException {
+		log.trace("checkNickName({}) invoked.", vo);
+		
+			try {
+				int result = UsersDAO.checkNickName(vo);
+				return result;
+			} catch(Exception e) {
+				throw new ServiceException(e);
+			}	// try-catch
+		}	//checkNickName
 
 	
 }	// end class
