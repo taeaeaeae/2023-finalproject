@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보수정</title>
+<title>회원정보조회</title>
 </head>
 <body>
 
 	<div class="container">
 	
 	<%@include file="/WEB-INF/views/main/header.jsp" %>
-	<h1 align="center">회원정보수정</h1>
+	<h1 align="center">회원정보조회</h1>
 		<form action="/member/main" method="post">
 			<table>
 				<tr>

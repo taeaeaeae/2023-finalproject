@@ -70,10 +70,11 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 	@Override
 	public boolean update(UsersDTO dto) throws ServiceException {
 		try {
-			return this.mapper.update(dto) == 1;
+			return this.mapper.update(dto);
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}	// try-catch
 	}
+
 
 }	// end class
