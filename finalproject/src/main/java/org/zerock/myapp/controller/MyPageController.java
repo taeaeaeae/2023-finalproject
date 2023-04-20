@@ -74,8 +74,5 @@ public class MyPageController {
 			throw new ControllerException(e);
 		}	//try- catch
 	}	// remove
-	
-
-
 }	// end class
 
