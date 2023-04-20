@@ -66,7 +66,7 @@
                 <div class="left-content">
                   <h2>여행 루트 공유 사이트</h2>
                   <h3>TTT</h3>
-                  <button class="btn" onclick="location.href='root'">시작하기</button>
+                  <button class="btn" onclick="location.href='/main/root'">시작하기</button>
                 </div>
                 <div class="right-content">
                   <video src="${path}/resources/videos/video1.mp4" autoplay loop muted></video>
@@ -84,7 +84,7 @@
                   <h2>여러분들의 루트를 공유해보세요</h2>
                   <h3>루트 공유 게시판</h3>
     
-                  <button class="btn" onclick="location.href='root'">공유하기</a></button>
+                  <button class="btn" onclick="location.href='/main/root'">공유하기</a></button>
                 </div>
                 <div class="right-content">
                   <video src="${path}/resources/videos/video2.mp4" autoplay loop muted></video>
