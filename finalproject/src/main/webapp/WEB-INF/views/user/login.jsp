@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
 
-   
+        <link rel="stylesheet" href="/css/login.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <%@include file="/WEB-INF/views/common/favicon.jsp" %>
         

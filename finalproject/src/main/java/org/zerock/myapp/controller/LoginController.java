@@ -23,6 +23,16 @@ public class LoginController {
 	
 	private LoginService service;
 	
+	@GetMapping("/join")
+	public void join() {
+		log.info("join() invoked.");
+	}	//join
+	
+	@GetMapping("/login")
+	public void login() {
+		log.info("login() invoked.");
+	}	//login
+	
 	
 	@PostMapping("/loginPost")
 	public String loginPost(LoginDTO dto, RedirectAttributes rttrs, Model model) throws ControllerException{

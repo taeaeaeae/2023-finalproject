@@ -54,9 +54,8 @@ public class UsersDAOImpl implements UsersDAO {
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}	// try-catch
-		
-		
-	}
+			
+	} //update
 
 	@Override
 	public UsersVO select(String uids) throws DAOException{
@@ -74,7 +73,25 @@ public class UsersDAOImpl implements UsersDAO {
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}	// try-catch
-	}	//select
+	} //select
+
+	@Override
+	public UsersVO remove(String uids) throws DAOException {
+		log.trace("remove({}) invoked.", uids);
+		
+		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		
+		try (sqlSession) {
+			
+			String namespace = "org.zerock.myapp.persistence.UsersDAO";
+			String sqlId = "remove";
+			String mappedStmt = namespace + "." + sqlId;
+			
+			return sqlSession.<UsersVO>selectOne(mappedStmt, uids);
+		} catch(Exception e) {
+			throw new DAOException(e);
+		}	// try-catch
+	}	//remove
 
 	
 	

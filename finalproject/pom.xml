@@ -8,12 +8,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.zerock</groupId>
-	<artifactId>finalproject</artifactId>
+	<artifactId>finalProject</artifactId>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 
 	<packaging>war</packaging>
 
-	<name>finalproject</name>
+	<name>finalProject</name>
 
 	
 	<properties>
@@ -114,6 +114,30 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>5.7.5</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>5.7.5</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>5.7.5</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>5.7.5</version>
+		</dependency>
+
 
 		<!-- =============== 5. JDBC =============== -->
 
@@ -203,8 +227,7 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-	
-	
+
 		<!-- ================ 9. Converting ================= -->
 
 		<dependency>
@@ -212,12 +235,19 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.14.2</version>
 		</dependency>
-	
-		<!-- <dependency>
+
+
+		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
 			<version>2.14.2</version>
-		</dependency> -->
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
+		</dependency>
 	
 	
 		<!-- ================ Misc ================= -->

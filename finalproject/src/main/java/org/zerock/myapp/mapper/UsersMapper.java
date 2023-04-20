@@ -10,9 +10,9 @@ public interface UsersMapper {
 	
 	public abstract Integer join(UsersDTO dto);				// 회원 등록
 	
-	public abstract Integer remove(String uids);			// 회원 탈퇴
-	
 	public abstract boolean update(UsersDTO dto);			// 회원 수정
+	
+	public abstract boolean remove(String uids);			// 회원 탈퇴
 	
 	public abstract CheckVO checkId(String uids);			// 아이디 중복확인
 	
