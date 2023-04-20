@@ -6,13 +6,10 @@
 
 <configuration>
 
-
     <mappers>
         <mapper resource="mappers/LoginMapper.xml" />
         <mapper resource="mappers/FindMapper.xml" />
         <mapper resource="mappers/UsersMapper1.xml" />
-        <mapper resource="org/zerock/myapp/mapper/BoardMapper.xml" />
-        <mapper resource="org/zerock/myapp/mapper/CommentMapper.xml" />
     </mappers>
 
 </configuration>
