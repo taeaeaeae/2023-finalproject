@@ -1,6 +1,11 @@
 package org.zerock.myapp.controller;
 
+import java.net.http.HttpRequest;
 import java.util.List;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +21,7 @@ import org.zerock.myapp.domain.Criteria;
 import org.zerock.myapp.domain.FreeBoardCommentVO;
 import org.zerock.myapp.domain.FreeBoardDTO;
 import org.zerock.myapp.domain.FreeBoardVO;
+import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.PageDTO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.exception.ServiceException;
@@ -65,7 +71,7 @@ public class FreeBoardController {
 		
 	} // list 
 	
-	@GetMapping({"/get", "/modify"})
+	@GetMapping({"/get", "modify"})
 	public void get(Criteria cri, Integer fid, Model model) throws ControllerException{
 		log.trace("get({}, {}, {}) invoked.", cri, fid, model);
 		
@@ -78,6 +84,7 @@ public class FreeBoardController {
 			model.addAttribute("pageMaker", pageDTO);
 			model.addAttribute("fid", vo.getFid());
 			
+			// comment
 			List<FreeBoardCommentVO> commentList = this.commentService.getList(fid);
 			model.addAttribute("commentList", commentList);
 		} catch (Exception e) {
@@ -86,18 +93,27 @@ public class FreeBoardController {
 	} // get
 	
 	@PostMapping("/register")
-	public String register(Criteria cri, FreeBoardDTO dto, RedirectAttributes rttrs) throws ControllerException{
+	public String register(Criteria cri, FreeBoardDTO dto, RedirectAttributes rttrs, HttpServletRequest req) throws ControllerException{
 		log.trace("register({}, {}, {}) invoked.", cri, dto, rttrs);
 		
 		try {
-			boolean success = this.service.register(dto);
-			log.info("\t+ success : {}", success);
+			HttpSession session = req.getSession();
+			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
+			log.info("\t+ __AUTH__ : {}", loginVO);
 			
-			rttrs.addAttribute("currPage", cri.getCurrPage());
-			rttrs.addAttribute("amount", cri.getAmount());
-			
-			rttrs.addAttribute("result", (success) ? "success" : "failure");
-			
+			if(session.getAttribute("__AUTH__") == null) {		// session에 인증객체 없을 시
+				
+				rttrs.addAttribute("result", "failure");
+			} else {
+				dto.setUids(loginVO.getUids());
+				boolean success = this.service.register(dto);
+
+				log.info("\t+ success : {}", success);
+
+				rttrs.addAttribute("currPage", cri.getCurrPage());
+				rttrs.addAttribute("amount", cri.getAmount());
+				rttrs.addAttribute("result", (success) ? "success" : "failure");
+			} // if-else
 			return "redirect:/freeboard/list";
 		} catch (Exception e) {
 			throw new ControllerException(e);
@@ -111,17 +127,35 @@ public class FreeBoardController {
 	} // register
 	
 	@PostMapping({"/remove"})
-	public String remove(Criteria cri, Integer fid, RedirectAttributes rttrs) throws ControllerException{
+	public String remove(Criteria cri, Integer fid, RedirectAttributes rttrs, HttpServletRequest req) throws ControllerException{
 		log.trace("remove({}, {}, {}) invoked.", cri, fid, rttrs);
 		
 		try {
-			boolean success = this.service.remove(fid);
-			log.info("\t+ success : {}", success);
+			HttpSession session = req.getSession();
+			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
+			log.info("\t+ __AUTH__ : {}", loginVO);
 			
-			rttrs.addAttribute("currPage", cri.getCurrPage());
-			rttrs.addAttribute("amount", cri.getAmount());
-			
-			rttrs.addAttribute("result", ( success ) ? "success" : "failure");
+			if(session.getAttribute("__AUTH__") == null) {		// session에 인증객체 없을 시
+				
+				rttrs.addAttribute("result", "failure");
+			} else {
+				FreeBoardVO freeboardVO = this.service.get(fid);
+				log.info("\t+ __AUTH__ : {}", loginVO);
+				
+				boolean isAuth = freeboardVO.getUids().equals(loginVO.getUids());
+				
+				if(isAuth) {
+					boolean success = this.service.remove(fid);
+					log.info("\t+ success : {}", success);
+					
+					rttrs.addAttribute("currPage", cri.getCurrPage());
+					rttrs.addAttribute("amount", cri.getAmount());
+					
+					rttrs.addAttribute("result", ( success ) ? "success" : "failure");
+				} else {
+					rttrs.addAttribute("result", ( isAuth ) ? "success" : "failure");
+				} // if-else
+			} // if-else
 			
 			return "redirect:/freeboard/list";
 		} catch (Exception e) {
@@ -130,18 +164,36 @@ public class FreeBoardController {
 	} // remove
 	
 	@PostMapping("/modify")
-	public String modify(Criteria cri, FreeBoardDTO dto, RedirectAttributes rttrs) throws ControllerException {
+	public String modify(Criteria cri, FreeBoardDTO dto, RedirectAttributes rttrs, HttpServletRequest req) throws ControllerException {
 		log.trace("modify() invoked.");
 		
 		try {
-			boolean success = this.service.modify(dto);
-			log.info("\t+ success() : {}", success);
-		
-			rttrs.addAttribute("currPage", cri.getCurrPage());
-			rttrs.addAttribute("amount", cri.getAmount());
+			HttpSession session = req.getSession();
+			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
+			log.info("\t+ __AUTH__ : {}", loginVO);
 			
-			rttrs.addAttribute("result", (success) ? "sucess" : "failure");
-			
+			if (session.getAttribute("__AUTH__") == null) {
+				
+				rttrs.addAttribute("result", "failure");
+			} else {
+				FreeBoardVO freeboardVO = this.service.get(dto.getFid());
+				log.trace("\t+ freeboardVO : {}", freeboardVO);
+				
+				boolean isAuth = freeboardVO.getUids().equals(loginVO.getUids());
+				
+				if(isAuth) {
+					
+					boolean success = this.service.modify(dto);
+					log.info("\t+ success() : {}", success);
+					
+					rttrs.addAttribute("currPage", cri.getCurrPage());
+					rttrs.addAttribute("amount", cri.getAmount());
+					
+					rttrs.addAttribute("result", (success) ? "sucess" : "failure");
+				} else {
+					rttrs.addAttribute("result", (isAuth) ? "Auth : success" : "Auth : failure");
+				}  // if-else
+			} // if-else
 			return "redirect:/freeboard/list";
 		} catch (Exception e) {
 			throw new ControllerException(e);
