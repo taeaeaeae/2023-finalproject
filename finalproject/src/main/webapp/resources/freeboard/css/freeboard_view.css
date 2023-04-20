@@ -1,44 +1,21 @@
-@charset "UTF-8";
-
+@font-face {
+    font-family: "GangwonEdu";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
+      format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
 body {
   margin: 30px;
   padding: 0x;
-  font-family: Arial, sans-serif;
+  font-family:"GangwonEdu";
   font-size: 16px;
 }
-
-/* 본문 */
-/* section.head {
-  height: 90%;
-  text-align: center;
-}
-
-section.main{
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  text-align: center;
-}
-
-.board_title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 120%;
-}
-
-.board_title .info {
-  display: flex;
-  align-items: center;
-}
-
-.board_title .info span:not(:last-child) {
-  margin-right: 10px;
-} */
 
 .board-post {
   margin: 0 auto;
+  margin-bottom: 30px;
   max-width: 800px;
 }
 
@@ -74,71 +51,6 @@ section.main{
   font-size: 16px;
   line-height: 1.5;
 }
-
-/* 댓글 */
-/* .comment {
-  margin-top: 50px;
-}
-
-.comments {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.comments h3 {
-  margin-bottom: 20px;
-}
-
-.comments li {
-  margin-bottom: 20px;
-  list-style: none;
-}
-
-.comments li p {
-  margin: 0;
-}
-
-.comment-form {
-  margin-top: 30px;
-  border-top: 1px solid #ddd;
-  padding-top: 20px;
-}
-
-.comment-form label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.comment-form input[type="text"],
-.comment-form textarea {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-
-.comment-form button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.comment-form button:hover {
-  background-color: #0062cc;
-}
-
-.comment-form input[type="hidden"] {
-  display: none;
-} */
 
 .comment-wrap {
   margin-top: 30px;
@@ -187,6 +99,12 @@ section.main{
 
 .comment-modify-link {
   margin-right: 10px;
+  background: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  
+  text-decoration: none;
 }
 
 .comment-remove-btn {
@@ -228,17 +146,37 @@ section.main{
 }
 
 .comment-submit-btn {
+  text-align : center;
+  margin: 0 5px;
+  background-color: #337ab7;
+  color: white;
+  border-radius: 4px;
   border: none;
-  background-color: #007bff;
-  color: #fff;
   padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
   cursor: pointer;
 }
 
 .comment-submit-btn:hover {
-  background-color: #0069d9;
+  background-color: #286090;
+}
+
+/* 목록창 */
+.list_button {
+  text-align: center;
+}
+
+.list_button button {
+  margin: 0 5px;
+  background-color: #337ab7;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.list_button button:hover {
+  background-color: #286090;
 }
 
 

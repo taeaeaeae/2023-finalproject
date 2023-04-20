@@ -1,3 +1,4 @@
+<%@page import="org.zerock.myapp.domain.LoginVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -9,6 +10,10 @@
 <title>자유게시판 | 글 작성하기</title>
 </head>
 <body>
+<% LoginVO vo = (LoginVO) session.getAttribute("__AUTH__");
+	String uids = vo.getUids();%>
+<p>작성자 아이디 : <%= uids %></p>
+
 <section>
   <h1>자유게시판</h1>
   <hr>
@@ -18,12 +23,11 @@
       <input type="hidden" name="amount" value="${param.amount}">
       <input type="hidden" name="fid" value="${freeboard.fid}">
 
-      <input type="text" name="uids" value="${freeboard.uids}" placeholder="uids">
-      <input type="text" name="title" value="${freeboard.title}" placeholder="title">
-      <input type="text" name="image" value="${freeboard.image}" placeholder="image">
+      <input type="text" name="title" placeholder="title">
+      <input type="text" name="image" placeholder="image">
       <hr>
       <input type="file" name="pic" value="사진 선택"><br/>
-      <textarea name="content">${freeboard.content}</textarea>
+      <textarea name="content"></textarea>
       <br>
       <button type="reset" value="초기화" class="button" name="reset" onclick="return confirmReset()">초기화</button>
       <input type="submit" value="글쓰기" class="button">
