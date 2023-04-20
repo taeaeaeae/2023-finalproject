@@ -1,6 +1,9 @@
 package org.zerock.myapp.controller;
 
 import java.util.List;
+import java.util.Objects;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.AnswerVO;
 import org.zerock.myapp.domain.Criteria;
+import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.PageDTO;
 import org.zerock.myapp.domain.QnaDTO;
 import org.zerock.myapp.domain.QnaVO;
@@ -74,22 +78,28 @@ public class QnaController {
 	
 	
 	@PostMapping("/remove")
-	public String remove(Criteria cri ,Integer qid, RedirectAttributes rttrs) throws ControllerException {
+	public String remove(Criteria cri ,Integer qid, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
 		log.trace("remove({}, {}, {}) invoked.", qid, rttrs, cri);
 		
 		try {
+			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+			log.info("login: {}", login);
 			
-//			boolean succes = this.aService.remove(qid);
-//			log.info("\t+ success: {}", succes);
-//			rttrs.addAttribute("result", (succes)? "success" : "failure");
+			QnaVO vo = this.service.get(qid);
+			log.info("\n\n\n{},{}, {}",vo,qid );
 			
-			boolean success = this.service.remove(qid);
-			log.info("\t+ success: {}", success);
+				
+			if(login.getUids().equals(vo.getUids())) {
+				boolean success = this.service.remove(qid);
+				log.info("\t+ success: {}", success);
+				rttrs.addAttribute("result", (success)? "success" : "failure");
+			}
+			
 			
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
 
-			rttrs.addAttribute("result", (success)? "success" : "failure");
+			rttrs.addAttribute("result","failure");
 			
 			return "redirect:/qna/list";
 		} catch(Exception e) {
@@ -99,16 +109,36 @@ public class QnaController {
 	
 	
 	@PostMapping("/modify")
-	public String modify(Criteria cri,QnaDTO dto, RedirectAttributes rttrs) throws ControllerException {
+	public String modify(Criteria cri,QnaDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
 		log.trace("modify({}, {}, {}) invoked.", dto, rttrs, cri);
 		
 		try {
-			boolean success = this.service.modify(dto);
-			log.info("\t+ success: {}", success);
-			rttrs.addAttribute("currPage", cri.getCurrPage());
-			rttrs.addAttribute("amount", cri.getAmount());
 			
-			rttrs.addAttribute("result", (success)? "success" : "failure");
+			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+			log.info("login: {}, {}, {}", login.getUids(),this.service.get(dto.getQid()).getUids(), dto.getUids() );
+			
+			service.get(dto.getQid());
+			String loginn = login.getUids();
+			String writer = dto.getUids();
+			boolean a = writer.equals(loginn);
+			boolean b = (loginn == writer);
+			boolean c = (login.getUids() == this.service.get(dto.getQid()).getUids());
+			
+			log.info("\t+ {},{},{}",a,b,c);
+			
+			if(writer.equals(loginn)) {
+				
+				boolean success = this.service.modify(dto);
+				rttrs.addAttribute("currPage", cri.getCurrPage());
+				rttrs.addAttribute("amount", cri.getAmount());
+				
+				
+				rttrs.addAttribute("result", (success)? "성공" : "failure");
+				
+			} else {
+				rttrs.addAttribute("result", "failure");				
+			}
+
 			
 			return "redirect:/qna/list";
 		} catch(Exception e) {

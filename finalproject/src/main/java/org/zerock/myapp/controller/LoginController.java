@@ -30,19 +30,21 @@ public class LoginController {
 		
 		try {
 			LoginVO vo = this.service.login(dto);
-			
 			log.info("\t+vo:{}", vo);
 			
 			if(vo != null) {	
 				
 				model.addAttribute("__AUTH__",vo);	
-
-				return "/main/index";			
-			} else {
-				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
 				
-//				model.addAttribute("result", "일치하는 회원정보가 없습니다.");
-				return "redirect:/user/login";		
+				//rttrs.addAttribute("auth", vo);	// 강사코드
+				return "/main/index";	 
+				
+			} else {
+				
+				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
+				//model.addAttribute("result", "일치하는 회원정보가 없습니다.");
+				return "redirect:/user/login";	
+				
 			}	//if-else
 			
 		} catch(Exception e) {
@@ -58,4 +60,5 @@ public class LoginController {
 		log.trace("dummyLogout() invoked.");
 		
 		}	//logout
+	
 }	// end class
