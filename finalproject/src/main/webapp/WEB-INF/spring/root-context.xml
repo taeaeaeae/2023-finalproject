@@ -6,30 +6,18 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-<<<<<<< HEAD
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-=======
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
->>>>>>> branch 'nayeongKim' of https://github.com/taeaeaeae/2023-finalproject.git
-	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<!-- JDBC 연결생성을 위한 필수 4가지 정보 -->
-<<<<<<< HEAD
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@example1_high?TNS_ADMIN=C:/opt/OracleCloudWallet/VFX" />
 		<property name="username" value="TTT" />
-		<property name="password" value="Oracle12345678" />
-=======
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@example1_high"/>
-		<property name="username" value="TTT"/>
 		<property name="password" value="Oracle12345678"/>
->>>>>>> branch 'nayeongKim' of https://github.com/taeaeaeae/2023-finalproject.git
 
 		<property name="maximumPoolSize" value="10" />
 		<property name="minimumIdle" value="2" />
@@ -59,9 +47,4 @@
 	<context:component-scan base-package="org.zerock.myapp.mapper" />
 
 	<mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'nayeongKim' of https://github.com/taeaeaeae/2023-finalproject.git
-		
 </beans>
