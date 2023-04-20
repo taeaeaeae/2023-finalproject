@@ -26,10 +26,6 @@
 	<context:component-scan base-package="org.zerock.myapp.exception"/>
 
 	<!-- 가상의 게시판 및 로그인 서비스에 대한 뷰컨트롤러 설정 -->
-	<view-controller path="/user/login" 	view-name="/user/login" 	status-code="200" />
-	<view-controller path="/join/join" 		view-name="/user/join" 		status-code="200" />	
-	<view-controller path="/user/find_id" 	view-name="/user/find_id" 	status-code="200" />
-	<view-controller path="/user/find_pw" 	view-name="/user/find_pw" 	status-code="200" />
 
 	<view-controller path="/common/information" view-name="/common/information" status-code="200" />
 	<view-controller path="/common/clause" 		view-name="/common/clause" 		status-code="200" />
@@ -38,9 +34,6 @@
 	<view-controller path="/main/footer" 	view-name="/main/footer"	status-code="200" />
 	<view-controller path="/main/root" 		view-name="/main/root"		status-code="200" />
 	<view-controller path="/main/index" 	view-name="/main/index"		status-code="200" />
-	
-	<view-controller path="/mypage/main" 	view-name="/mypage/main"	status-code="200" />
-	<view-controller path="/mypage/update" 	view-name="/mypage/update"	status-code="200" />
 
 	<!-- interceptor 설정 -->
 	<interceptors>

@@ -13,7 +13,9 @@
     </select>
 
     <delete id="remove">
-        DELETE FROM users WHERE uids = #{uids}
+        UPDATE users 
+        SET is_delete = 1 
+        WHERE uids = #{uids}
     </delete>
 
     <insert id="join">
@@ -44,10 +46,7 @@
         from users 
         where nickname=#{nickname}
     </select>
-    
-    
-    
-    
+
 
   </mapper>
   

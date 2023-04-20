@@ -48,8 +48,6 @@
 
 	<!-- @Transactionl 어노테이션을 이용한 분산 트랜잭션 관리를 위한 설정 -->
 
-
-
 	<!-- Auto-Registration As A Bean -->
 	<context:component-scan base-package="org.zerock.myapp.service" />
 	<context:component-scan base-package="org.zerock.myapp.persistence" />

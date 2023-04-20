@@ -13,7 +13,9 @@
     </select>
 
     <delete id="remove">
-        DELETE FROM users WHERE uids = #{uids}
+        UPDATE users 
+        SET is_delete = 1 
+        WHERE uids = #{uids}
     </delete>
 
     <insert id="join">
@@ -31,12 +33,19 @@
         WHERE
             uids = #{uids}
     </update>
+
+   
+    <select id="checkId" resultType="int">
+        select count(*) 
+        from users 
+        where uids=#{uids}
+    </select>
     
-	<select id="idCheck" parameterType="String" resultType="int">
-		SELECT COUNT(uids) 
-		FROM users 
-		WHERE uids= #{uids}
-	</select>
+    <select id="checkNickName" resultType="int">
+        select count(*) 
+        from users 
+        where nickname=#{nickname}
+    </select>
 
 
   </mapper>

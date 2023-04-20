@@ -59,22 +59,23 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 	}	//join
 
 	@Override
-	public boolean remove(String uids) throws ServiceException {
-		try {
-			return this.mapper.remove(uids) == 1;
-		} catch(Exception e) {
-			throw new ServiceException(e);
-		}	// try-catch
-	}	//remove
-
-	@Override
 	public boolean update(UsersDTO dto) throws ServiceException {
 		try {
 			return this.mapper.update(dto);
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}	// try-catch
-	}
+	}	//update
+	
+	@Override
+	public boolean remove(String uids) throws ServiceException {
+		try {
+			return this.mapper.remove(uids);
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		}	// try-catch
+	}	//remove
+
 
 
 }	// end class
