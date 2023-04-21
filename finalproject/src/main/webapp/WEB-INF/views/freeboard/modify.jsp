@@ -16,9 +16,8 @@
         <form onsubmit="return validateForm()" method="POST" action="/freeboard/modify">
         <input type="hidden" name="currPage" value="${param.currPage}">
         <input type="hidden" name="amount" value="${param.amount}">
+        <input type="hidden" name="fid" value="${freeboard.fid}">
 
-        <input type="text" name="fid" value="${freeboard.fid}" placeholder="fid">
-        <input type="text" name="uids" value="${freeboard.uids}" placeholder="uids">
         <input type="text" name="title" value="${freeboard.title}" placeholder="title">
         <input type="text" name="image" value="${freeboard.image}" placeholder="image">
         <hr>
