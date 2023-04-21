@@ -48,7 +48,9 @@ public class QnaController {
 		try {
 			List<QnaVO> list = this.service.getList(cri);
 			model.addAttribute("list", list);
-		
+			
+			this.aService.get(list.get(0).getQid());//??????????????????????????????????????????????????????????????????
+			
 			int totalAmount = this.service.getTotalAmount();
 			PageDTO pageDTO = new PageDTO(cri, totalAmount);
 			log.info("\t+ pageDTO : {}", pageDTO);
@@ -140,10 +142,10 @@ public class QnaController {
 				rttrs.addAttribute("amount", cri.getAmount());
 				
 				
-				rttrs.addAttribute("result", (success)? "성공" : "failure");
+				rttrs.addAttribute("result", (success)? "수정되었습니다." : "실패함");
 				
 			} else {
-				rttrs.addAttribute("result", "failure");				
+				rttrs.addAttribute("result", "실패함");				
 			}
 
 			
@@ -155,18 +157,18 @@ public class QnaController {
 	
 	
 	@PostMapping("/register")
-	public String register(Criteria cri,QnaDTO dto, RedirectAttributes rttrs) throws ControllerException {
+	public String register(Criteria cri,QnaDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
 		log.trace("register({}, {}, {}, {}) invoked.", dto, rttrs, cri);
 		
 		try {
-			
+
 			boolean success = this.service.register(dto);
 			log.info("\t+ success: {}", success);
 			
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
 			
-			rttrs.addAttribute("result", (success)? "success" : "failure");
+			rttrs.addAttribute("result", (success)? "등록되었습니다" : "등록안됨");
 			
 			return "redirect:/qna/list";
 		} catch(Exception e) {
