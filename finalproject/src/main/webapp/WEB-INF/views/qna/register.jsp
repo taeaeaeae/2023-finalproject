@@ -39,14 +39,14 @@
 			<input type="hidden" name="currPage" value="${param.currPage}">
 			<input type="hidden" name="amount" value="${param.amount}">
 			
-    <fieldset>
+   <fieldset>
 		<h1>QnA</h1>
       <div class="form-group">
         <label for="" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></label>
         <input name="title" type="text" class="form-control"  placeholder="제목입력">
       </div>      <div class="form-group">
         <label for="exampleInputEmail1" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></label>
-        <input name="uids" type="text" class="form-control"  placeholder="작성자">
+        <input name="uids" type="text" class="form-control"  placeholder="작성자" value="${id.uids}" readonly >
       </div>
 
       <div class="form-group">
@@ -76,7 +76,7 @@
 			
 
 			<button type="button" id="listBtn">LIST</button>
-			<button type="submit" id="submitBtn">registerBtn</button>
+			<button type="submit" id="submitBtn">등록</button>
 			
 		</form>
 	</div>

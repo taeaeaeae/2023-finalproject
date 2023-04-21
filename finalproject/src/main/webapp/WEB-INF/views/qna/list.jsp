@@ -34,8 +34,15 @@ button {
 	</style>
     
     <link rel="stylesheet" href="WEB-INF/views/common/font.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cerulean/bootstrap.min.css" integrity="sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" crossorigin="anonymous">
-    
+    <link rel="canonical"
+	href="https://getbootstrap.com/docs/5.2/examples/album/" />
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous" />
+	
 </head>
 
 <body>
@@ -75,6 +82,7 @@ button {
 		<td>${QnaVO.update_ts}</td>
     </tr>
     </c:forEach>
+    
   </tbody>
 </table>
 

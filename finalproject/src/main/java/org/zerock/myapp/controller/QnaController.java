@@ -48,7 +48,7 @@ public class QnaController {
 		try {
 			List<QnaVO> list = this.service.getList(cri);
 			model.addAttribute("list", list);
-			
+		
 			int totalAmount = this.service.getTotalAmount();
 			PageDTO pageDTO = new PageDTO(cri, totalAmount);
 			log.info("\t+ pageDTO : {}", pageDTO);
@@ -61,15 +61,26 @@ public class QnaController {
 	
 	
 	@GetMapping({ "/get", "/modify" })
-	public void get(@RequestParam("qid") Integer qid, Model model) throws ControllerException {
+	public void get(@RequestParam("qid") Integer qid, Model model, HttpSession session) throws ControllerException {
 		log.trace("get({}, {}) invoked.", qid, model);
+
 		
 		try {
+			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+			log.info("login: {}", login);
+
 			QnaVO vo = this.service.get(qid);
-			model.addAttribute("qna", vo);
-			
 			AnswerVO answer = this.aService.get(qid);
-			model.addAttribute("answer", answer);
+			
+			String loginn = (login == null)?null:login.getUids();				
+			String writer = vo.getUids();
+			
+			if( (vo.isOpeny_n() == false) && ((loginn == null) || (writer.equals(loginn) != true))) {
+								
+			} else {
+				model.addAttribute("qna", vo);
+				model.addAttribute("answer", answer);	
+			}
 			
 		} catch(Exception e) {
 			throw new ControllerException(e);
@@ -115,16 +126,12 @@ public class QnaController {
 		try {
 			
 			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
-			log.info("login: {}, {}, {}", login.getUids(),this.service.get(dto.getQid()).getUids(), dto.getUids() );
+			log.info("login: {}", login);
 			
 			service.get(dto.getQid());
 			String loginn = login.getUids();
 			String writer = dto.getUids();
-			boolean a = writer.equals(loginn);
-			boolean b = (loginn == writer);
-			boolean c = (login.getUids() == this.service.get(dto.getQid()).getUids());
 			
-			log.info("\t+ {},{},{}",a,b,c);
 			
 			if(writer.equals(loginn)) {
 				
@@ -152,6 +159,7 @@ public class QnaController {
 		log.trace("register({}, {}, {}, {}) invoked.", dto, rttrs, cri);
 		
 		try {
+			
 			boolean success = this.service.register(dto);
 			log.info("\t+ success: {}", success);
 			
@@ -167,9 +175,10 @@ public class QnaController {
 	} // register
 
 	@GetMapping("/register")
-	void register() {
+	void register(HttpSession session, Model model) {
 		log.trace("register() invoked.");
-		
+		LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+		model.addAttribute("id",login);
 	} // register
 	
 

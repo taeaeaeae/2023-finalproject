@@ -39,6 +39,7 @@
 		<form action="/qna/remove" method="POST">
 		
 		<input type="hidden" name="qid" value="${qna.qid}">
+
 		
 <div class="card mb-3">
   <h3 class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.title}</font></font></h3>
@@ -84,6 +85,14 @@
 			self.location = "/qna/modify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}";
 		})
 		
+
+		if("&{answer}" == null){
+			setTimeout('move_page()', 2000); //2초후에 move_page함수실행
+		}
+	    function move_page(){
+	  		location.href="/qna/list?currPage=${param.currPage}&amount=${param.amount}"  // 페이지 이동
+	  	}
+
 	</script>
 	
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
