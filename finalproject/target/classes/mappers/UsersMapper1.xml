@@ -14,7 +14,7 @@
 
     <delete id="remove">
         UPDATE users 
-        SET is_delete = 1 
+        SET is_delete = 1 , reason = #{reason}
         WHERE uids = #{uids}
     </delete>
 

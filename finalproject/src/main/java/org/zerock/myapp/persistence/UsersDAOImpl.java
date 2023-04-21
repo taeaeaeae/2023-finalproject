@@ -76,8 +76,8 @@ public class UsersDAOImpl implements UsersDAO {
 	} //select
 
 	@Override
-	public UsersVO remove(String uids) throws DAOException {
-		log.trace("remove({}) invoked.", uids);
+	public UsersVO remove(String uids, String reason) throws DAOException {
+		log.trace("remove({},{}) invoked.", uids, reason);
 		
 		SqlSession sqlSession = this.sqlSessionFactory.openSession();
 		

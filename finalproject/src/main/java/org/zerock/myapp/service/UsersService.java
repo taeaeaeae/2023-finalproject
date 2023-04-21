@@ -17,7 +17,7 @@ public interface UsersService {
 	public abstract boolean update(UsersDTO dto) throws ServiceException;
 	
 	// È¸¿øÅ»Åð
-	public abstract boolean remove(String uids) throws ServiceException;
+	public abstract boolean remove(UsersDTO dto) throws ServiceException;
 	
 
 

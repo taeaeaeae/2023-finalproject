@@ -57,11 +57,11 @@ public class UsersController {
 	}	// select
 	
 	@PostMapping("/remove")
-	public String remove(String uids, RedirectAttributes rttrs) throws ControllerException {
-		log.trace("remove({}, {}) invoked.", uids, rttrs);
+	public String remove(UsersDTO dto, RedirectAttributes rttrs) throws ControllerException {
+		log.trace("remove({}, {}) invoked.", dto, rttrs);
 		
 		try {
-			boolean success = this.service.remove(uids);
+			boolean success = this.service.remove(dto);
 			log.info("\t+ success : {}", success);
 			
 			rttrs.addAttribute("result",(success)? "success" : "failure");	//

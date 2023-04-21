@@ -12,5 +12,6 @@ public class UsersDTO {
 	private String phonenumber;
 	private String email;
 	private Integer is_delete;
+	private String reason;
 	
 }	// end class
