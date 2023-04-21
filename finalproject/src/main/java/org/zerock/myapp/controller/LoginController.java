@@ -23,6 +23,16 @@ public class LoginController {
 	
 	private LoginService service;
 	
+	@GetMapping("/join")
+	public void join() {
+		log.info("join() invoked.");
+	}	//join
+	
+	@GetMapping("/login")
+	public void login() {
+		log.info("login() invoked.");
+	}	//login
+	
 	
 	@PostMapping("/loginPost")
 	public String loginPost(LoginDTO dto, RedirectAttributes rttrs, Model model) throws ControllerException{
@@ -30,19 +40,21 @@ public class LoginController {
 		
 		try {
 			LoginVO vo = this.service.login(dto);
-			
 			log.info("\t+vo:{}", vo);
 			
 			if(vo != null) {	
 				
 				model.addAttribute("__AUTH__",vo);	
-
-				return "redirect:/main/index";			
-			} else {
-				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
 				
-//				model.addAttribute("result", "일치하는 회원정보가 없습니다.");
-				return "redirect:/user/login";		
+				//rttrs.addAttribute("auth", vo);	// 강사코드
+				return "/main/index";	 
+				
+			} else {
+				
+				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
+				//model.addAttribute("result", "일치하는 회원정보가 없습니다.");
+				return "redirect:/user/login";	
+				
 			}	//if-else
 			
 		} catch(Exception e) {
@@ -58,4 +70,5 @@ public class LoginController {
 		log.trace("dummyLogout() invoked.");
 		
 		}	//logout
+	
 }	// end class

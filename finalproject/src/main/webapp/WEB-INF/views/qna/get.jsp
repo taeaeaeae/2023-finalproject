@@ -34,7 +34,12 @@
 	<br>
 	<h1>QnA</h1>
 	<br>
+	
     
+		<form action="/qna/remove" method="POST">
+		
+		<input type="hidden" name="qid" value="${qna.qid}">
+		
 <div class="card mb-3">
   <h3 class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.title}</font></font></h3>
   <div class="card-body">
@@ -53,6 +58,7 @@
   ?
   </font></font></div>
 </div>
+</form>
 <div class="card">
   <div class="card-body">
     <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.title}</font></font></h4>
@@ -61,6 +67,7 @@
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.content}</font></font></p>
 			<input type="button" value="수정하기" id="modifyBtn">
 			<button type="button" id="listBtn">LIST</button>
+			<button type="submit" id="submitBtn">삭제하기</button>
   </div>
 </div>
 

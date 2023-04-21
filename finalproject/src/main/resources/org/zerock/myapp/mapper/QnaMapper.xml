@@ -14,7 +14,6 @@
     </select>
 
     <delete id="delete">
-      DELETE FROM answer WHERE aid = #{aid}
       DELETE FROM qna_board WHERE qid = #{qid}
     </delete>
 
@@ -29,7 +28,7 @@
         title = #{title},
         content = #{content},
         image = #{image},
-        writer = #{writer},
+        uids = #{uids},
         update_ts = current_date
       WHERE
         qid = #{qid}

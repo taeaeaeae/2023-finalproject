@@ -46,14 +46,19 @@
 						height="32" class="rounded-circle" />
 					</a>
 					<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-						<li><a class="dropdown-item" href="#">마이페이지</a></li>
+						<li><a class="dropdown-item" href="/mypage/main">마이페이지</a></li>
 	
 						<li><hr class="dropdown-divider" /></li>
-						<li><a class="dropdown-item" href="#">로그아웃</a></li>
+						<li><a class="dropdown-item" href="/user/logout" >로그아웃</a></li>
+						
 					</ul>
 				</div>
 			</div>
 		</div>
 	</header>
+	
+	<script>
+
+    </script>
 </body>
 </html>

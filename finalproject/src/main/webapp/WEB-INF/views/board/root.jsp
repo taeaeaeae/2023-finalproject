@@ -23,7 +23,7 @@
 
 </head>
 <body>
-	<%@include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<main>
 		<section class="py-5 text-center container">
 			<div class="row py-lg-5">

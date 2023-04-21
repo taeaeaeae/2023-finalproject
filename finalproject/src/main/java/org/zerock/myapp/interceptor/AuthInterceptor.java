@@ -16,7 +16,6 @@ import lombok.extern.log4j.Log4j2;
 @Component
 
 public class AuthInterceptor implements HandlerInterceptor{
-	
 
 	@Override
 	public boolean preHandle(
@@ -33,17 +32,13 @@ public class AuthInterceptor implements HandlerInterceptor{
 			return false;	
 		}	// if
 		
-		
 		Object auth = session.getAttribute("__AUTH__");
 		if(auth == null) {	
 			res.sendRedirect("/user/login");
 			return false;	
 		}	// if
 			
-		
 		return true;
-		
 	}	//preHandle
 
-	
 }	// end class

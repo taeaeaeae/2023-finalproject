@@ -6,16 +6,17 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<!-- JDBC 연결생성을 위한 필수 4가지 정보 -->
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@example1_high?TNS_ADMIN=C:/opt/OracleCloudWallet/Wallet_example1"/>
-		<property name="username" value="ttt"/>
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@example1_high?TNS_ADMIN=C:/opt/OracleCloudWallet/VFX" />
+		<property name="username" value="TTT" />
 		<property name="password" value="Oracle12345678"/>
 
 		<property name="maximumPoolSize" value="10" />
@@ -38,17 +39,8 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="hikariDataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
-
+		<!-- <property name="mapperLocations" value="classpath*:mappers/SQL*.xml"/> -->
 	</bean>
-
-
-
-	<!-- Transaction gManager -->
-
-
-	<!-- @Transactionl 어노테이션을 이용한 분산 트랜잭션 관리를 위한 설정 -->
-
-
 
 	<!-- Auto-Registration As A Bean -->
 	<context:component-scan base-package="org.zerock.myapp.service" />
@@ -58,5 +50,4 @@
 	
 	<mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
 
-		
 </beans>
