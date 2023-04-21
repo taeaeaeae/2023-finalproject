@@ -1,4 +1,16 @@
-$(document).on('click', '.commentModifyLink', function(e) {
+function commentForm() {
+  const content = document.getElementById("comment_content").value;
+
+  if(content.trim() === ""){
+    alert("댓글을 입력해주세요.");
+    document.getElementById("comment_content").focus();
+    return false;
+  }
+  return true;
+};
+
+// 댓글 수정(비동기 처리)
+$(document).on('click', '.comment-modify-link', function(e) {
   e.preventDefault();
 
   var fbcid = $(this).data('fbcid');
@@ -45,4 +57,4 @@ function confirmCommentRemove() {
   const result = confirm("댓글을 삭제하시겠습니까?");
 
   return result;
-}
+};

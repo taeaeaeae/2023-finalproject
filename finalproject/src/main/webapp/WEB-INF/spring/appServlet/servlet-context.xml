@@ -58,6 +58,15 @@
          <beans:ref bean="loginCheckInterceptor"/>
       </interceptor>
       
+      <interceptor>
+         <mapping path="/freeboard/*" />
+         <exclude-mapping path="/freeboard/list" />
+         <exclude-mapping path="/freeboard/get" />
+         <exclude-mapping path="/freeboard/prev" />
+         <exclude-mapping path="/freeboard/next" />
+
+         <beans:ref bean="authInterceptor"/>
+      </interceptor>
 	</interceptors>
 	
 </beans:beans>
