@@ -8,11 +8,9 @@
 <head>
     <meta charset="UTF-8">
     <title>joinPost.jsp</title>
-
-
 </head>
 <body>
-	<!-- 회원가입시 메인으로 -->
-    <c:redirect url="/main/index" />
+	<!-- 회원가입시 로그인으로 -->
+    <c:redirect url="/user/login" />
 </body>
 </html>

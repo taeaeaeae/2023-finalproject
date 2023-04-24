@@ -11,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.myapp.domain.ChecklistDTO;
 import org.zerock.myapp.domain.LoginVO;
+import org.zerock.myapp.domain.MycommentVO;
 import org.zerock.myapp.domain.MywriteVO;
 import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.domain.UsersVO;
@@ -67,7 +70,7 @@ public class MyPageController {
 	
 
 	@PostMapping("/remove")
-	public String remove(String uids, UsersDTO dto, Model model, RedirectAttributes rttrs) throws ControllerException {
+	public String remove(UsersDTO dto, Model model, RedirectAttributes rttrs) throws ControllerException {
 		log.trace("remove() invoked.");
 		
 		try {
@@ -89,7 +92,7 @@ public class MyPageController {
         LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
             // 로그인하지 않은 경우 로그인 페이지로 이동
-            return "redirect:/login";
+            return "redirect:/user/login";
         }
         
         // 로그인한 사용자가 작성한 글 조회
@@ -97,9 +100,102 @@ public class MyPageController {
         model.addAttribute("mywrite", uids);
         
         return "/mypage/mywrite";
-    }
+    }	//myWrite
+	
+	
+	@GetMapping("/mycomment")
+    public String mycomment(Model model, HttpSession session) {
+        // 세션에서 로그인한 사용자 정보 가져오기
+        LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
+        if (uid == null) {
+            // 로그인하지 않은 경우 로그인 페이지로 이동
+            return "redirect:/user/login";
+        }
+        
+        // 로그인한 사용자가 작성한 글 조회
+        ArrayList<MycommentVO> uids = mservice.mycomment(uid.getUids());
+        model.addAttribute("mywrite", uids);
+        
+        return "/mypage/mycomment";
+    }	//mycomment
+	
+	@GetMapping({"/checklist","/listadd","/listdelete","/listupdate"})
+	public String viewChecklist(Model model, HttpSession session) {
+		
+		LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
+        if (uid == null) {
+            // 로그인하지 않은 경우 로그인 페이지로 이동
+            return "redirect:/user/login";
+        }
+		
+		ArrayList<ChecklistDTO> list = mservice.checklist(uid.getUids());
+		
+		model.addAttribute("list", list);
+		
+		return "/mypage/checklist";
+		
+	}
+	
+	@PostMapping("/listadd")
+	public String addChecklist(@RequestParam("cid") Integer cid, ChecklistDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
+		LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
+        if (uid == null) {
+            // 로그인하지 않은 경우 로그인 페이지로 이동
+            return "redirect:/user/login";
+        }       
+        try {
+			boolean success = this.mservice.listadd(dto);
+			log.info("\t+ success : {}", success);
+			
+			rttrs.addAttribute("result",(success)? "success" : "failure");	
+			
+			return "/mypage/checklist";
+		} catch(Exception e) {
+			throw new ControllerException(e);
+		}	//try- catch
+		
+	}
+	
+	@PostMapping("/listupdate")
+	public String updateChecklist(@RequestParam("cid") Integer cid, ChecklistDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
+		LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
+        if (uid == null) {
+            // 로그인하지 않은 경우 로그인 페이지로 이동
+            return "redirect:/user/login";
+        }       
+        try {
+			boolean success = this.mservice.listupdate(dto);
+			log.info("\t+ success : {}", success);
+			
+			rttrs.addAttribute("result",(success)? "success" : "failure");	
+			
+			return "redirect:/mypage/checklist";
+		} catch(Exception e) {
+			throw new ControllerException(e);
+		}	//try- catch
+		
+	}
 
 	
+	@PostMapping("/listdelete")
+	public String deleteChecklist(@RequestParam("cid") Integer cid, ChecklistDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
+		LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
+        if (uid == null) {
+            // 로그인하지 않은 경우 로그인 페이지로 이동
+            return "redirect:/user/login";
+        }       
+        try {
+			boolean success = this.mservice.listdelete(dto);
+			log.info("\t+ success : {}", success);
+			
+			rttrs.addAttribute("result",(success)? "success" : "failure");	
+			
+			return "redirect:/mypage/checklist";
+		} catch(Exception e) {
+			throw new ControllerException(e);
+		}	//try- catch
+		
+	}
 
 
 

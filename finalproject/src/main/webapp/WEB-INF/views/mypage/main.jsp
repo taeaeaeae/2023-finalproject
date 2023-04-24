@@ -30,10 +30,15 @@
 			</div>
 			
 			<div id="text">
-				<a href="/mypage/update">회원정보수정</a>
-				
-				<a href="/mypage/remove">회원탈퇴</a>
-				<a href="/mypage/mywrite">나의 작성글 </a>
+			
+				<ul>
+					<li><a href="/mypage/update">회원정보수정</a></li><br>
+					<li><a href="/mypage/remove">회원탈퇴</a></li><br>
+					<li><a href="/mypage/mywrite">나의 작성 글</a></li><br>
+					<li><a href="/mypage/mycomment">내가 쓴 댓글</a></li><br>
+					<li><a href="/mypage/checklist">체크리스트</a></li><br>
+					
+				</ul>
 			</div>	
 		</div>
 	

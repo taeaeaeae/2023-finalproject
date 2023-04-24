@@ -17,6 +17,46 @@
         FROM qna_board
         WHERE uids = #{uids}
     </select>
+    
+    <select id="mycomment" resultType="org.zerock.myapp.domain.MycommentVO">
+       	SELECT uids,content, insert_ts
+        FROM fb_comment
+        WHERE uids = #{uids}
+        
+        UNION ALL
+        
+        SELECT uids,content, insert_ts
+        FROM plan_comment
+        WHERE uids = #{uids}
+    </select>
+    
+    <select id="checklist" resultType="org.zerock.myapp.domain.ChecklistVO">
+       	SELECT *
+        FROM checklist
+        WHERE uids = #{uids}
+    </select>
+    
+    <insert id="listadd">
+      Insert into checklist(cid, uids, item, memo) 
+      values(#{cid}, #{uids}, #{item}, #{memo})
+    </insert>
+    
+    <update id="listupdate">
+        UPDATE checklist
+        SET item = #{item},
+        	memo = #{memo}
+        WHERE
+            cid = #{cid}
+    </update>
+    
+    <delete id="listdelete">
+        DELETE FROM checklist
+        WHERE cid = #{cid}
+    </delete>
+    
+
+    
+    
 
   </mapper>
   
