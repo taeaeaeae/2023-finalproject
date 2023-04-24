@@ -43,7 +43,7 @@ public class QnaController {
 	
 	
 	@GetMapping("/list")
-	public void list(Criteria cri, 	Model model, HttpSession session) throws ControllerException {	
+	public void list(Criteria cri, 	Model model, HttpSession session, RedirectAttributes rttrs) throws ControllerException {	
 		log.trace("list() invoked.");
 		try {
 			
@@ -65,8 +65,12 @@ public class QnaController {
 				} else {
 					String temp = "0";
 					link.add(temp);
+					rttrs.addAttribute("result", "비밀글입니다.");
 				}//if-else
 			}//for
+			
+			rttrs.addAttribute("currPage", cri.getCurrPage());
+			rttrs.addAttribute("amount", cri.getAmount());
 			
 			int totalAmount = this.service.getTotalAmount();
 			PageDTO pageDTO = new PageDTO(cri, totalAmount);

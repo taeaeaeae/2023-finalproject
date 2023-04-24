@@ -50,7 +50,6 @@ public class QnaServiceImpl
 		log.trace("getList() invoked.");
 	
 		try {
-		
 			return this.mapper.selectAll(cri);
 		} catch(Exception e) {
 			throw new ServiceException(e);

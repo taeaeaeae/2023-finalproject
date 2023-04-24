@@ -54,6 +54,7 @@ a {
 	
 			<input type="hidden" name="currPage" value="${param.currPage}">
 			<input type="hidden" name="amount" value="${param.amount}">
+			<input type="hidden" name="result" value="${param.result}">
 	<br>
 	<h1>QnA</h1>
 	<br>
@@ -78,7 +79,6 @@ a {
 		<td>
 		<script>
 		document.write(${QnaVO.openy_n}?'🔓':'🔒');
-		//document.write((${AnswerDTO} != null)?'[답변완료]':'[답변대기]');
 		</script>
 		<c:if test="${QnaVO.title eq link[qqid.index]}">
 			<a href="/qna/list">${QnaVO.title}</a>
@@ -140,8 +140,9 @@ a {
         var result = "${param.result}";
 
         if(result != null && result != "") {        
-            alert('result: ' + result);
+            alert(result);
         } // if
+        
 
     </script>
 	
