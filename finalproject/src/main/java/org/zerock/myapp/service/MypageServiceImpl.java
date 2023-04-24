@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.myapp.domain.ChecklistDTO;
+import org.zerock.myapp.domain.ChecklistVO;
 import org.zerock.myapp.domain.MycommentVO;
 import org.zerock.myapp.domain.MywriteVO;
 import org.zerock.myapp.exception.ServiceException;
@@ -35,8 +36,7 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public ArrayList<ChecklistDTO> checklist(String uids) {
-
+	public ArrayList<ChecklistVO> checklist(String uids) {
 		return mapper.checklist(uids);
 	}
 

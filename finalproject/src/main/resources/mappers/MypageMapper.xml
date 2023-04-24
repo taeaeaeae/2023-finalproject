@@ -7,14 +7,14 @@
   <mapper namespace="org.zerock.myapp.mapper.MypageMapper">
 
     <select id="mywrite" resultType="org.zerock.myapp.domain.MywriteVO">
-        SELECT uids,title, insert_ts
-        FROM free_board
+        SELECT uids,title, insert_ts, 'freeboard' as board_name, fid as bno
+        FROM free_board a
         WHERE uids = #{uids}
         
         UNION ALL
         
-        SELECT uids,title, insert_ts
-        FROM qna_board
+        SELECT uids,title, insert_ts, 'qna' as board_name, qid as bno
+        FROM qna_board a
         WHERE uids = #{uids}
     </select>
     
@@ -37,8 +37,8 @@
     </select>
     
     <insert id="listadd">
-      Insert into checklist(cid, uids, item, memo) 
-      values(#{cid}, #{uids}, #{item}, #{memo})
+      Insert into checklist(uids, item, memo) 
+      values(#{uids}, #{item}, #{memo})
     </insert>
     
     <update id="listupdate">

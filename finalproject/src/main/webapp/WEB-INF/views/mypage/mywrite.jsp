@@ -28,8 +28,7 @@
 				<c:forEach var="MywriteVO" items="${mywrite}">
 					<tr>
 						<td>${MywriteVO.uids}</td>
-						<td><a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">${MywriteVO.title}</a></td>
-						<td><a href="/freeboard/get?currPage=${param.currPage}&amount=${param.amount}&fid=${FreeBoardVO.fid}&type=${param.type}&keyword=${param.keyword}">${MywriteVO.title}</a></td>
+						<td><a href="/${MywriteVO.board_name}/get?${MywriteVO.bm}=${MywriteVO.bno} ">${MywriteVO.title}</a></td>
 						<td>${MywriteVO.insert_ts}</td>
 					</tr>
 				</c:forEach>

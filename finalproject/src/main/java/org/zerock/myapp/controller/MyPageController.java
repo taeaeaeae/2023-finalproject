@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.ChecklistDTO;
+import org.zerock.myapp.domain.ChecklistVO;
 import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.MycommentVO;
 import org.zerock.myapp.domain.MywriteVO;
@@ -97,6 +98,14 @@ public class MyPageController {
         
         // 로그인한 사용자가 작성한 글 조회
         ArrayList<MywriteVO> uids = mservice.mywrite(uid.getUids());
+        for(MywriteVO vo: uids) {
+        	if(vo.getBoard_name().equals("freeboard")) {
+        		vo.setBm("fid");
+        	} else if(vo.getBoard_name().equals("qna")) {
+        		vo.setBm("qid");
+        	}
+        }
+        log.info("{}",uids);
         model.addAttribute("mywrite", uids);
         
         return "/mypage/mywrite";
@@ -128,20 +137,22 @@ public class MyPageController {
             return "redirect:/user/login";
         }
 		
-		ArrayList<ChecklistDTO> list = mservice.checklist(uid.getUids());
+		ArrayList<ChecklistVO> list = mservice.checklist(uid.getUids());
 		
 		model.addAttribute("list", list);
+		model.addAttribute("uids",uid);
+		log.info("list:{}", list);
 		
 		return "/mypage/checklist";
 		
 	}
 	
 	@PostMapping("/listadd")
-	public String addChecklist(@RequestParam("cid") Integer cid, ChecklistDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
+	public String addChecklist(ChecklistDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
 		LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
             // 로그인하지 않은 경우 로그인 페이지로 이동
-            return "redirect:/user/login";
+            return "redirect:/user/login"; 
         }       
         try {
 			boolean success = this.mservice.listadd(dto);
@@ -149,7 +160,7 @@ public class MyPageController {
 			
 			rttrs.addAttribute("result",(success)? "success" : "failure");	
 			
-			return "/mypage/checklist";
+			return "redirect:/mypage/checklist";
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		}	//try- catch
