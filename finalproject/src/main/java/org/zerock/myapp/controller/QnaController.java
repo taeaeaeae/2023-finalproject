@@ -1,5 +1,6 @@
 package org.zerock.myapp.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,20 +43,37 @@ public class QnaController {
 	
 	
 	@GetMapping("/list")
-	public void list(Criteria cri, 	Model model) throws ControllerException {	
+	public void list(Criteria cri, 	Model model, HttpSession session) throws ControllerException {	
 		log.trace("list() invoked.");
-		
 		try {
+			
 			List<QnaVO> list = this.service.getList(cri);
 			model.addAttribute("list", list);
 			
-			this.aService.get(list.get(0).getQid());//??????????????????????????????????????????????????????????????????
+			System.out.println(list);
+			
+			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+			log.info("login: {}", login);
+			
+			List<String> link = new ArrayList<String>();
+			
+			for(QnaVO vo : list) {
+				String loginId = (login == null)?null:login.getUids();				
+				String writer = vo.getUids();
+				if( (vo.isOpeny_n() == false) && ((loginId == null) || (writer.equals(loginId) != true))) {
+					link.add(vo.getTitle());
+				} else {
+					String temp = "0";
+					link.add(temp);
+				}//if-else
+			}//for
 			
 			int totalAmount = this.service.getTotalAmount();
 			PageDTO pageDTO = new PageDTO(cri, totalAmount);
 			log.info("\t+ pageDTO : {}", pageDTO);
 			
 			model.addAttribute("pageMaker", pageDTO);
+			model.addAttribute("link", link);
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		} // try-catch
@@ -106,13 +124,14 @@ public class QnaController {
 				boolean success = this.service.remove(qid);
 				log.info("\t+ success: {}", success);
 				rttrs.addAttribute("result", (success)? "success" : "failure");
+			} else {
+				rttrs.addAttribute("result","안돼요");				
 			}
 			
 			
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
 
-			rttrs.addAttribute("result","failure");
 			
 			return "redirect:/qna/list";
 		} catch(Exception e) {
@@ -140,6 +159,7 @@ public class QnaController {
 				boolean success = this.service.modify(dto);
 				rttrs.addAttribute("currPage", cri.getCurrPage());
 				rttrs.addAttribute("amount", cri.getAmount());
+				
 				
 				
 				rttrs.addAttribute("result", (success)? "수정되었습니다." : "실패함");

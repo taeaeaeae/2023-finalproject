@@ -29,7 +29,9 @@
   margin-right: auto;
   }
 button {
-	
+}
+a {
+  text-decoration-line: none;
 }
 	</style>
     
@@ -50,6 +52,8 @@ button {
 
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	
+			<input type="hidden" name="currPage" value="${param.currPage}">
+			<input type="hidden" name="amount" value="${param.amount}">
 	<br>
 	<h1>QnA</h1>
 	<br>
@@ -68,7 +72,7 @@ button {
     </tr>
   </thead>
   <tbody>
-  	<c:forEach items="${list}" var="QnaVO">
+  	<c:forEach items="${list}" var="QnaVO" varStatus="qqid">
     <tr class="table-primary">
 		<td>${QnaVO.qid}</td>
 		<td>
@@ -76,7 +80,13 @@ button {
 		document.write(${QnaVO.openy_n}?'🔓':'🔒');
 		//document.write((${AnswerDTO} != null)?'[답변완료]':'[답변대기]');
 		</script>
-		<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">${QnaVO.title}</a></td>
+		<c:if test="${QnaVO.title eq link[qqid.index]}">
+			<a href="/qna/list">${QnaVO.title}</a>
+		</c:if>
+		<c:if test="${'0' eq link[qqid.index]}">
+			<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">${QnaVO.title}</a>
+		</c:if>
+		</td>
 		<td>${QnaVO.uids}</td>
 		<td>${QnaVO.insert_ts}</td>
 		<td>${QnaVO.update_ts}</td>
@@ -121,7 +131,7 @@ button {
 	</div>
     <script>
         var registerBtn = document.querySelector('#registerBtn');
-        document.query
+        
 
         registerBtn.addEventListener('click', function () {
             location = '/qna/register?currPage=${param.currPage}&amount=${param.amount}';

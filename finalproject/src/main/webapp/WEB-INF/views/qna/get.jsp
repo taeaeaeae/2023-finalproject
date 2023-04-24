@@ -25,6 +25,8 @@
   }
 	</style>
 
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.2/examples/album/" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cerulean/bootstrap.min.css" integrity="sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" crossorigin="anonymous">
     <title>QnA</title>
 </head>
@@ -54,6 +56,7 @@
   <div class="card-body">
 			<input type="button" value="수정하기" id="modifyBtn">
 			<button type="button" id="listBtn">LIST</button>
+			<button type="submit" id="submitBtn">삭제하기</button>
   </div>
   <div class="card-footer text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
   ?
@@ -66,9 +69,10 @@
     <h6 class="card-subtitle mb-2 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.uids}</font></font></h6>
 	<c:if test="${not empty answer.image}"><img src="${answer.image}" alt="${answer.title}"></c:if>
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.content}</font></font></p>
-			<input type="button" value="수정하기" id="modifyBtn">
+			<input type="button" value="수정하기" id="AnswerModifyBtn">
 			<button type="button" id="listBtn">LIST</button>
-			<button type="submit" id="submitBtn">삭제하기</button>
+			<button type="button" id="registerBtn">답변하기</button>
+			
   </div>
 </div>
 
@@ -76,7 +80,14 @@
 	<script>
 		var listBtn = document.querySelector('#listBtn');
 		var modifyBtn = document.querySelector("#modifyBtn");
-		
+		var AnswerModifyBtn = document.querySelector("#AnswerModifyBtn");
+        var registerBtn = document.querySelector('#registerBtn');
+        
+
+        registerBtn.addEventListener('click', function () {
+            location = '/qna/answerRegister?currPage=${param.currPage}&amount=${param.amount}';
+        }); // .addEventListener
+        
 		listBtn.onclick = function () {
 			location.href='/qna/list?currPage=${param.currPage}&amount=${param.amount}';
 		}
@@ -85,13 +96,11 @@
 			self.location = "/qna/modify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}";
 		})
 		
+		AnswerModifyBtn.addEventListener('click', function () {
+			self.location = "/qna/answerModify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}";
+		})
+		
 
-		if("&{answer}" == null){
-			setTimeout('move_page()', 2000); //2초후에 move_page함수실행
-		}
-	    function move_page(){
-	  		location.href="/qna/list?currPage=${param.currPage}&amount=${param.amount}"  // 페이지 이동
-	  	}
 
 	</script>
 	
