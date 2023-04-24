@@ -116,7 +116,7 @@ public class QnaController {
 								
 			} else {
 				model.addAttribute("qna", vo);
-				model.addAttribute("answer", answer);	
+				model.addAttribute("answer", answer);
 			}
 		} catch(Exception e) {
 			throw new ControllerException(e);

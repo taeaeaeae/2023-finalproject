@@ -54,9 +54,11 @@
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.content}</</font></font></p>
   </div>
   <div class="card-body">
-			<input type="button" value="수정하기" id="modifyBtn">
 			<button type="button" id="listBtn">LIST</button>
+  	<c:if test="${id.uids} eq ${qna.uids}">
+			<input type="button" value="수정하기" id="modifyBtn">
 			<button type="submit" id="submitBtn">삭제하기</button>
+	</c:if>
   </div>
   <div class="card-footer text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
   ?
@@ -69,9 +71,12 @@
     <h6 class="card-subtitle mb-2 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.uids}</font></font></h6>
 	<c:if test="${not empty answer.image}"><img src="${answer.image}" alt="${answer.title}"></c:if>
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.content}</font></font></p>
-			<input type="button" value="수정하기" id="AnswerModifyBtn">
-			<button type="button" id="listBtn">LIST</button>
-			<button type="button" id="answerRegisterBtn">답변하기</button>
+	
+
+	<c:if test="${id.uids} eq 'admin'">
+		<input type="button" value="수정하기" id="AnswerModifyBtn">
+		<button type="button" id="answerRegisterBtn">답변하기</button>
+	</c:if>
 			
   </div>
 </div>
