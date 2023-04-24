@@ -55,13 +55,15 @@
   </div>
   <div class="card-body">
 			<button type="button" id="listBtn">LIST</button>
-  	<c:if test="${id.uids} eq ${qna.uids}">
+			
+  	<c:if test="${sessionScope['__AUTH__'].uids eq qna.uids}">
 			<input type="button" value="수정하기" id="modifyBtn">
 			<button type="submit" id="submitBtn">삭제하기</button>
 	</c:if>
+	
   </div>
   <div class="card-footer text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-  ?
+  
   </font></font></div>
 </div>
 </form>
@@ -73,7 +75,7 @@
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.content}</font></font></p>
 	
 
-	<c:if test="${id.uids} eq 'admin'">
+	<c:if test=" ${sessionScope['__AUTH__'].uids eq 'admin'}">
 		<input type="button" value="수정하기" id="AnswerModifyBtn">
 		<button type="button" id="answerRegisterBtn">답변하기</button>
 	</c:if>

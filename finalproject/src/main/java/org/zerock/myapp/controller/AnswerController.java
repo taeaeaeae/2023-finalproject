@@ -66,9 +66,7 @@ public class AnswerController {
 			
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
-			System.out.println("11111111111111111111111111111111111");
 			rttrs.addAttribute("qid",dto.getQid());
-			System.out.println("2222222222222222222222222211");
 			
 			rttrs.addAttribute("result", (success)? "success" : "failure");
 			

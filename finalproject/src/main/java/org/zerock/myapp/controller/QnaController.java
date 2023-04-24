@@ -2,7 +2,6 @@ package org.zerock.myapp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +18,7 @@ import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.PageDTO;
 import org.zerock.myapp.domain.QnaDTO;
 import org.zerock.myapp.domain.QnaVO;
+import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.service.AnswerService;
 import org.zerock.myapp.service.QnaService;
@@ -100,14 +100,16 @@ public class QnaController {
 
 		
 		try {
-			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");		
-			if(login != null) {
-				model.addAttribute("id",login);
-			}
-			log.info("login: {}", login);
+			
 
 			QnaVO vo = this.service.get(qid);
 			AnswerVO answer = this.aService.get(qid);
+			
+			LoginVO login = (LoginVO)session.getAttribute("__AUTH__");	
+			
+			log.info("login: {}", login);
+			model.addAttribute("id", login);
+			
 			
 			String loginn = (login == null)?null:login.getUids();				
 			String writer = vo.getUids();
