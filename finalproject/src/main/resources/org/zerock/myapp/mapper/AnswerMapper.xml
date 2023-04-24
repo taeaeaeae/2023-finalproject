@@ -19,7 +19,7 @@
 
     <insert id="insert">
       INSERT INTO answer (qid, title, content, image, uids)
-      VALUES (#{param.qid}, #{title}, #{content}, #{image}, #{uids})
+      VALUES (#{qid}, #{title}, #{content}, #{image}, #{uids})
     </insert>
 
     <update id="update">
@@ -27,7 +27,7 @@
       SET
         title = #{title},
         content = #{content},
-        image = #{image}
+        image = #{image},
         update_ts = current_date
       WHERE
         qid = #{qid}

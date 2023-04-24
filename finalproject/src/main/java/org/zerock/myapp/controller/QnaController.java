@@ -56,8 +56,17 @@ public class QnaController {
 			log.info("login: {}", login);
 			
 			List<String> link = new ArrayList<String>();
+			List<String> ans = new ArrayList<String>();
 			
 			for(QnaVO vo : list) {
+				
+				aService.get(vo.getQid());
+				if(aService.get(vo.getQid()) == null) {
+					ans.add("답변대기");
+				} else {
+					ans.add("답변완료");
+				}
+				
 				String loginId = (login == null)?null:login.getUids();				
 				String writer = vo.getUids();
 				if( (vo.isOpeny_n() == false) && ((loginId == null) || (writer.equals(loginId) != true))) {
@@ -76,6 +85,7 @@ public class QnaController {
 			PageDTO pageDTO = new PageDTO(cri, totalAmount);
 			log.info("\t+ pageDTO : {}", pageDTO);
 			
+			model.addAttribute("ans",ans);
 			model.addAttribute("pageMaker", pageDTO);
 			model.addAttribute("link", link);
 		} catch(Exception e) {
@@ -84,13 +94,16 @@ public class QnaController {
 	} // list
 	
 	
-	@GetMapping({ "/get", "/modify" })
+	@GetMapping({ "/get", "/modify", "/answerRegister" })
 	public void get(@RequestParam("qid") Integer qid, Model model, HttpSession session) throws ControllerException {
 		log.trace("get({}, {}) invoked.", qid, model);
 
 		
 		try {
-			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");		
+			if(login != null) {
+				model.addAttribute("id",login);
+			}
 			log.info("login: {}", login);
 
 			QnaVO vo = this.service.get(qid);
@@ -105,7 +118,6 @@ public class QnaController {
 				model.addAttribute("qna", vo);
 				model.addAttribute("answer", answer);	
 			}
-			
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		} // try-catch

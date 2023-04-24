@@ -7,10 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.AnswerDTO;
+import org.zerock.myapp.domain.AnswerVO;
 import org.zerock.myapp.domain.Criteria;
 import org.zerock.myapp.domain.LoginVO;
+import org.zerock.myapp.domain.QnaVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.service.AnswerService;
 import org.zerock.myapp.service.QnaService;
@@ -63,6 +66,9 @@ public class AnswerController {
 			
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
+			System.out.println("11111111111111111111111111111111111");
+			rttrs.addAttribute("qid",dto.getQid());
+			System.out.println("2222222222222222222222222211");
 			
 			rttrs.addAttribute("result", (success)? "success" : "failure");
 			
@@ -72,18 +78,42 @@ public class AnswerController {
 		} // try-catch
 	} // register
 	
+//	@GetMapping({"/answerRegister" })
+//	public void get(@RequestParam("qid") Integer qid, Model model, HttpSession session) throws ControllerException {
+//		log.trace("get({}, {}) invoked.", qid, model);
+//
+//		
+//		try {
+//			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+//			log.info("login: {}", login);
+//
+//			QnaVO vo = this.service.get(qid);
+//			AnswerVO answer = this.aService.get(qid);
+//			
+//			String loginn = (login == null)?null:login.getUids();				
+//			String writer = vo.getUids();
+//			
+//			if( (vo.isOpeny_n() == false) && ((loginn == null) || (writer.equals(loginn) != true))) {
+//								
+//			} else {
+//				model.addAttribute("qna", vo);
+//				model.addAttribute("answer", answer);	
+//			}
+//			
+//		} catch(Exception e) {
+//			throw new ControllerException(e);
+//		} // try-catch
+//	} // get
 	
 
 	
-	@GetMapping("/answerRegister")
-	void register(HttpSession session, Model model) {
-		log.trace("register() invoked.");
-		
-		LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
-		model.addAttribute("id",login);
-		
-		
-	} // register
+//	@GetMapping("/answerRegister")
+//	void register(@RequestParam("qid") Integer qid, HttpSession session, Model model) {
+//		log.trace("register() invoked.");
+//		
+//		LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+//		model.addAttribute("id",login);
+//	} // register
 	
 
 } // end class

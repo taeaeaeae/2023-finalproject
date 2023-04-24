@@ -81,10 +81,10 @@ a {
 		document.write(${QnaVO.openy_n}?'🔓':'🔒');
 		</script>
 		<c:if test="${QnaVO.title eq link[qqid.index]}">
-			<a href="/qna/list">${QnaVO.title}</a>
+			<a href="/qna/list">[${ans[qqid.index]}] ${QnaVO.title}</a>
 		</c:if>
 		<c:if test="${'0' eq link[qqid.index]}">
-			<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">${QnaVO.title}</a>
+			<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">[${ans[qqid.index]}] ${QnaVO.title}</a>
 		</c:if>
 		</td>
 		<td>${QnaVO.uids}</td>

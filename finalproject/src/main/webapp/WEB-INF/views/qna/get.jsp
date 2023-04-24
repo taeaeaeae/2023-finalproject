@@ -71,7 +71,7 @@
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.content}</font></font></p>
 			<input type="button" value="수정하기" id="AnswerModifyBtn">
 			<button type="button" id="listBtn">LIST</button>
-			<button type="button" id="registerBtn">답변하기</button>
+			<button type="button" id="answerRegisterBtn">답변하기</button>
 			
   </div>
 </div>
@@ -81,11 +81,11 @@
 		var listBtn = document.querySelector('#listBtn');
 		var modifyBtn = document.querySelector("#modifyBtn");
 		var AnswerModifyBtn = document.querySelector("#AnswerModifyBtn");
-        var registerBtn = document.querySelector('#registerBtn');
+        var answerRegisterBtn = document.querySelector('#answerRegisterBtn');
         
 
-        registerBtn.addEventListener('click', function () {
-            location = '/qna/answerRegister?currPage=${param.currPage}&amount=${param.amount}';
+        answerRegisterBtn.addEventListener('click', function () {
+            location = '/qna/answerRegister?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
         }); // .addEventListener
         
 		listBtn.onclick = function () {
