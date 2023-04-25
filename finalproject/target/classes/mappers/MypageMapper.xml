@@ -54,9 +54,24 @@
         WHERE cid = #{cid}
     </delete>
     
-
+    <select id="likes" resultType="org.zerock.myapp.domain.LikesVO">
+       	SELECT *
+        FROM likes
+        WHERE uids = #{uids}
+    </select>
     
-    
+    <select id="bookmark" resultType="org.zerock.myapp.domain.BookmarkVO">
+        SELECT fid, 'fb_bookmark' as board_name, fbmid as bno
+        FROM fb_bookmark a
+        WHERE uids = #{uids}
+        
+        UNION ALL
+        
+        SELECT pid, 'plan_bookmark' as board_name, pbmid as bno
+        FROM plan_bookmark a
+        WHERE uids = #{uids}
+    </select>
+ 
 
   </mapper>
   

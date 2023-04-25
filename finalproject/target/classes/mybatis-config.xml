@@ -14,7 +14,7 @@
     <mappers>
         <mapper resource="mappers/LoginMapper.xml" />
         <mapper resource="mappers/FindMapper.xml" />
-        <mapper resource="mappers/UsersMapper1.xml" />
+        <mapper resource="mappers/JoinMapper.xml" />
         <mapper resource="mappers/MypageMapper.xml" />
     </mappers>
 

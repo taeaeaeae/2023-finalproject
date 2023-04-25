@@ -93,8 +93,6 @@ public class UsersDAOImpl implements UsersDAO {
 		}	// try-catch
 	}	//remove
 
-	
-	
 }	// end class
 
 	

@@ -20,14 +20,6 @@ public interface UsersService {
 	public abstract boolean remove(UsersDTO dto) throws ServiceException;
 	
 
-
-	
-
-
-
-
-
-
 	
 
 }	// end interface

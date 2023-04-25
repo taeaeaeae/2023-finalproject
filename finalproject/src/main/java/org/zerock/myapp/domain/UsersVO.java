@@ -4,7 +4,7 @@ import lombok.Value;
 
 @Value
 public class UsersVO {
-	
+
 	private String uids;
 	private String password;
 	private String name;
@@ -13,5 +13,6 @@ public class UsersVO {
 	private String email;
 	private Integer is_delete;
 	private String reason;
+	
 	
 }	// end class

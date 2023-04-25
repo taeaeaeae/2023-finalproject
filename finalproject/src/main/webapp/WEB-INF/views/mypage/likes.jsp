@@ -5,31 +5,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mycomment</title>
+<title>likes</title>
 </head>
 <body>
-
 <%@include file="/WEB-INF/views/main/header.jsp" %>
 
    	<section>
-	  <h1>내가 쓴 댓글</h1>
+	  <h1>좋아요 목록</h1>
 	  <hr>
 	  <div id="list">
 	    <table border="1px">
 			<thead>
 				<tr style="background-color: #eee; color: black">
-					<th>작성자</th>
-					<th id="tb2">내용</th>
-					<th>작성날짜</th>
+					<th>글번호</th>
+					<th></th>
+					<th id="tb2">제목</th>
 				</tr>
 			</thead>
 			
 			<tbody>
-				<c:forEach var="MycommentVO" items="${mywrite}">
+				<c:forEach var="LikesVO" items="${mylikes}">
 					<tr>
-						<td>${MycommentVO.uids}</td>
-						<td><a href="#">${MycommentVO.content}</a></td>
-						<td>${MycommentVO.insert_ts}</td>
+						<td>${LikesVO.lid}</td>
+						<td><td><a href="#">${LikesVO.title}</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>	
