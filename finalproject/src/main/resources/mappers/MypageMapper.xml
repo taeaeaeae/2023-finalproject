@@ -7,25 +7,25 @@
   <mapper namespace="org.zerock.myapp.mapper.MypageMapper">
 
     <select id="mywrite" resultType="org.zerock.myapp.domain.MywriteVO">
-        SELECT uids,title, insert_ts, 'freeboard' as board_name, fid as bno
+        SELECT uids,title, insert_ts, 'freeboard' as board_name, fid as bno, 'fid' as bm
         FROM free_board a
         WHERE uids = #{uids}
         
         UNION ALL
         
-        SELECT uids,title, insert_ts, 'qna' as board_name, qid as bno
+        SELECT uids,title, insert_ts, 'qna' as board_name, qid as bno, 'qid' as bm
         FROM qna_board a
         WHERE uids = #{uids}
     </select>
     
     <select id="mycomment" resultType="org.zerock.myapp.domain.MycommentVO">
-       	SELECT uids,content, insert_ts
+       	SELECT uids,content, insert_ts, 'fb_comment' as board_name, fbcid as bno, 'fbcid' as bm
         FROM fb_comment
         WHERE uids = #{uids}
         
         UNION ALL
         
-        SELECT uids,content, insert_ts
+        SELECT uids,content, insert_ts, 'plan_comment' as board_name, pcid as bno, 'pcid' as bm
         FROM plan_comment
         WHERE uids = #{uids}
     </select>

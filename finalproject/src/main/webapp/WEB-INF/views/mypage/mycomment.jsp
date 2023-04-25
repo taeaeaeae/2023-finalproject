@@ -28,7 +28,7 @@
 				<c:forEach var="MycommentVO" items="${mywrite}">
 					<tr>
 						<td>${MycommentVO.uids}</td>
-						<td><a href="#">${MycommentVO.content}</a></td>
+						<td><a href="/${MycommentVO.board_name}/get?${MycommentVO.bm}=${MycommentVO.bno} ">${MycommentVO.content}</a></td>
 						<td>${MycommentVO.insert_ts}</td>
 					</tr>
 				</c:forEach>
