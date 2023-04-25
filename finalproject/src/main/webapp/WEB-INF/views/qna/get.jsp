@@ -27,7 +27,8 @@
 
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.2/examples/album/" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cerulean/bootstrap.min.css" integrity="sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cerulean/bootstrap.min.css" 
+	integrity="sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" crossorigin="anonymous" />
     <title>QnA</title>
 </head>
 <body>
@@ -53,9 +54,11 @@
     <h6 class="card-subtitle text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.insert_ts}</font></font></h6>
   </div>
   	<c:if test="${not empty qna.image}"><img src="${qna.image}" alt="${qna.title}"></c:if>
+  
   <div class="card-body">
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.content}</</font></font></p>
   </div>
+  
   <div class="card-body">
 			<button type="button" id="listBtn">LIST</button>
 			
@@ -80,41 +83,38 @@
 	
 	
 	<c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
-		<input type="button" value="수정하기" id="AnswerModifyBtn">
+		<input type="button" value="수정하기" id="answerModifyBtn">
 		<button type="button" id="answerRegisterBtn">답변하기</button>
 	</c:if>
 
   </div>
 </div>
 
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	
 	<script>
 		var listBtn = document.querySelector('#listBtn');
-		var modifyBtn = document.querySelector("#modifyBtn");
-		var AnswerModifyBtn = document.querySelector("#AnswerModifyBtn");
+		var modifyBtn = document.querySelector('#modifyBtn');
+		var AnswerModifyBtn = document.querySelector('#answerModifyBtn');
         var answerRegisterBtn = document.querySelector('#answerRegisterBtn');
         
+        listBtn.addEventListener('click', function () {
+			location='/qna/list?currPage=${param.currPage}&amount=${param.amount}';
+		});
 
+        modifyBtn.addEventListener('click', function () {
+			location = '/qna/modify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
+		});
+		
+		answerModifyBtn.addEventListener('click', function () {
+			location = '/qna/answerModify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
+		});
+		
         answerRegisterBtn.addEventListener('click', function () {
             location = '/qna/answerRegister?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-        }); // .addEventListener
-        
-		listBtn.onclick = function () {
-			location.href='/qna/list?currPage=${param.currPage}&amount=${param.amount}';
-		}
-		
-		modifyBtn.addEventListener('click', function () {
-			self.location = "/qna/modify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}";
-		})
-		
-		AnswerModifyBtn.addEventListener('click', function () {
-			self.location = "/qna/answerModify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}";
-		})
-		
-
+        });        
 
 	</script>
 	
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

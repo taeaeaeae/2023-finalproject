@@ -67,7 +67,7 @@ public class AnswerController {
 				boolean success = this.service.register(dto);
 				rttrs.addAttribute("result", "등록완료");
 			} else {
-				rttrs.addAttribute("result", "실패");
+				rttrs.addAttribute("result", "답변은 관리자만 가능해요");
 			}//if-else
 			log.info("\t+ succ");
 			

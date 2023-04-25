@@ -171,7 +171,6 @@ public class QnaController {
 			log.info("login: {}", login);
 			model.addAttribute("id", login);
 			
-			
 			String loginn = (login == null)?null:login.getUids();
 			String writer = vo.getUids();
 			
@@ -182,8 +181,7 @@ public class QnaController {
 			} else {
 				model.addAttribute("qna", vo);
 				model.addAttribute("answer", answer);
-			}
-			//if-else if-else
+			}//if-else if-else
 			
 			
 		} catch(Exception e) {
@@ -203,7 +201,6 @@ public class QnaController {
 			QnaVO vo = this.service.get(qid);
 			log.info("\n\n\n{},{}, {}",vo,qid );
 			
-			
 			if(login.getUids().equals(vo.getUids())) {
 				boolean success = this.service.remove(qid);
 				log.info("\t+ success: {}", success);
@@ -212,10 +209,8 @@ public class QnaController {
 				rttrs.addAttribute("result","안돼요");				
 			}
 			
-			
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
-
 			
 			return "redirect:/qna/list";
 		} catch(Exception e) {
@@ -239,7 +234,7 @@ public class QnaController {
 			
 			
 			if(writer.equals(loginn)) {
-				
+			
 				boolean success = this.service.modify(dto);
 				rttrs.addAttribute("currPage", cri.getCurrPage());
 				rttrs.addAttribute("amount", cri.getAmount());
@@ -266,13 +261,20 @@ public class QnaController {
 		
 		try {
 
-			boolean success = this.service.register(dto);
-			log.info("\t+ success: {}", success);
+			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+			
+			if((login != null) && (login.getUids().equals(dto.getUids()))) {
+				boolean success = this.service.register(dto);
+				rttrs.addAttribute("result", "등록완료");
+			} else {
+				rttrs.addAttribute("result", "회원만 이용할 수 있습니다.");
+//				return "redirect:/user/login";
+			}//if-else
 			
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
 			
-			rttrs.addAttribute("result", (success)? "등록되었습니다" : "회원만 이용할 수 있습니다.");
+//			rttrs.addAttribute("result", (success)? "등록되었습니다" : "회원만 이용할 수 있습니다.");
 			
 			return "redirect:/qna/list";
 		} catch(Exception e) {
