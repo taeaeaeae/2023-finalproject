@@ -25,7 +25,7 @@ crossorigin="anonymous" />
 		    <table id="more_list">
 				<thead>
 					<tr style="background-color: #eee; color: black">
-						<th>체크</th> <!-- 체크가 데이터베이스에 잘 안되고있음 -->
+						<th>체크</th>
 						<th>아이템</th>
 						<th>메모</th>
 						<th></th>
@@ -38,7 +38,8 @@ crossorigin="anonymous" />
 						<tr>
 							<form action="/mypage/listupdate" method="POST">
 								<td>
-									<input type="checkbox" name="checks" >
+									<input type="checkbox" name="checkbox" value="1" id="input_check" <c:if test="${ChecklistVO.checkbox == 1}">checked</c:if>>
+									<input type="hidden" name="checkbox" value="0" id="input_check_hidden"/>
 								</td>
 								<td>
 									<input type="text" name="item" value="${ChecklistVO.item}">
@@ -76,7 +77,12 @@ crossorigin="anonymous" />
 		
 <%@include file="/WEB-INF/views/main/footer.jsp" %>
 	
-	
+<script>
+	if(document.getElementById("input_check").checked) {
+    document.getElementById("input_check_hidden").disabled = true;
+}
+
+</script>	
 
 	
 	

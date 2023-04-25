@@ -37,13 +37,14 @@
     </select>
     
     <insert id="listadd">
-      Insert into checklist(uids, item, memo) 
-      values(#{uids}, #{item}, #{memo})
+      Insert into checklist(checkbox, uids, item, memo) 
+      values(0, #{uids}, #{item}, #{memo})
     </insert>
     
     <update id="listupdate">
         UPDATE checklist
-        SET item = #{item},
+        SET checkbox = #{checkbox},
+        	item = #{item},
         	memo = #{memo}
         WHERE
             cid = #{cid}

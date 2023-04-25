@@ -9,5 +9,6 @@ public class ChecklistVO {
 	private String uids;
 	private String item;
 	private String memo;
+	private Integer checkbox;
 	
 }	// end class
