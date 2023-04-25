@@ -69,11 +69,13 @@ public class QnaController {
 				
 				String loginId = (login == null)?null:login.getUids();				
 				String writer = vo.getUids();
-				if( (vo.isOpeny_n() == false) && ((loginId == null) || (writer.equals(loginId) != true))) {
+				if( (!loginId.equals("admin")) && (vo.isOpeny_n() == false) && ((loginId == null) || (writer.equals(loginId) != true))) {
 					link.add(vo.getTitle());
+					System.out.println("머야");
 				} else {
 					String temp = "0";
 					link.add(temp);
+					System.out.println("왜 어드민 안돼"+vo.getUids());
 					rttrs.addAttribute("result", "비밀글입니다.");
 				}//if-else
 			}//for
@@ -111,15 +113,16 @@ public class QnaController {
 			model.addAttribute("id", login);
 			
 			
-			String loginn = (login == null)?null:login.getUids();				
+			String loginn = (login == null)?null:login.getUids();
 			String writer = vo.getUids();
 			
-			if( (vo.isOpeny_n() == false) && ((loginn == null) || (writer.equals(loginn) != true))) {
-								
+			if( (!loginn.equals("admin")) && (vo.isOpeny_n() == false) && ((loginn == null) || (writer.equals(loginn) != true))) {
+			
 			} else {
 				model.addAttribute("qna", vo);
 				model.addAttribute("answer", answer);
 			}
+			
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		} // try-catch
