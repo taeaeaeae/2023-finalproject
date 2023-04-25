@@ -40,6 +40,9 @@
     
 		<form action="/qna/remove" method="POST">
 		
+		<input type="hidden" name="currPage" value="${param.currPage}">
+		<input type="hidden" name="amount" value="${param.amount}">
+		<input type="hidden" name="result" value="${param.result}">
 		<input type="hidden" name="qid" value="${qna.qid}">
 
 		
@@ -69,17 +72,18 @@
 </form>
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.title}${idss}</font></font></h4>
+    <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.title}</font></font></h4>
     <h6 class="card-subtitle mb-2 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.uids}</font></font></h6>
 	<c:if test="${not empty answer.image}"><img src="${answer.image}" alt="${answer.title}"></c:if>
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.content}</font></font></p>
 	
 	
-	<c:if test=" ${sessionScope['__AUTH__'].uids eq 'admin}">
+	
+	<c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
 		<input type="button" value="수정하기" id="AnswerModifyBtn">
 		<button type="button" id="answerRegisterBtn">답변하기</button>
 	</c:if>
-			
+
   </div>
 </div>
 

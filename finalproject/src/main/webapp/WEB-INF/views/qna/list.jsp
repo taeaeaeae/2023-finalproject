@@ -51,7 +51,6 @@ a {
 
 
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
-	
 			<input type="hidden" name="currPage" value="${param.currPage}">
 			<input type="hidden" name="amount" value="${param.amount}">
 			<input type="hidden" name="result" value="${param.result}">
@@ -139,7 +138,7 @@ a {
 
         var result = "${param.result}";
 
-        if(result != null && result != "") {        
+        if(result != null && result != "") {
             alert(result);
         } // if
         

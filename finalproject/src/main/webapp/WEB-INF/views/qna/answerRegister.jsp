@@ -38,7 +38,7 @@
 			
 			<input type="hidden" name="currPage" value="${param.currPage}">
 			<input type="hidden" name="amount" value="${param.amount}">
-			<input type="hidden" name="qid" value="${qna.qid}">
+			<input type="hidden" name="qid" value="${param.qid}">
 			
    <fieldset>
 		<h1>QnA</h1>

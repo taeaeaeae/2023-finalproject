@@ -57,18 +57,24 @@ public class AnswerController {
 	
 	
 	@PostMapping("/answerRegister")
-	public String register(Criteria cri, AnswerDTO dto, RedirectAttributes rttrs) throws ControllerException {
+	public String register(Criteria cri, AnswerDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
 		log.trace("register({}, {}, {}, {}) invoked.", dto, rttrs, cri);
 		
 		try {
-			boolean success = this.service.register(dto);
-			log.info("\t+ success: {}", success);
+			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+			
+			if((login != null) && (login.getUids().equals("admin"))) {
+				boolean success = this.service.register(dto);
+				rttrs.addAttribute("result", "등록완료");
+			} else {
+				rttrs.addAttribute("result", "실패");
+			}//if-else
+			log.info("\t+ succ");
+			
 			
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
-			rttrs.addAttribute("qid",dto.getQid());
 			
-			rttrs.addAttribute("result", (success)? "success" : "failure");
 			
 			return "redirect:/qna/list";
 		} catch(Exception e) {

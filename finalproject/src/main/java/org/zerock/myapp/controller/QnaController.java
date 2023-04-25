@@ -1,7 +1,9 @@
 package org.zerock.myapp.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +20,6 @@ import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.PageDTO;
 import org.zerock.myapp.domain.QnaDTO;
 import org.zerock.myapp.domain.QnaVO;
-import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.service.AnswerService;
 import org.zerock.myapp.service.QnaService;
@@ -41,13 +42,12 @@ public class QnaController {
 	private QnaService service;
 	private AnswerService aService;
 	
-	
-	@GetMapping("/list")
-	public void list(Criteria cri, 	Model model, HttpSession session, RedirectAttributes rttrs) throws ControllerException {	
-		log.trace("list() invoked.");
+	@GetMapping("/search")
+	public void search(Criteria cri, Model model, HttpSession session, RedirectAttributes rttrs) throws ControllerException {	
+		log.trace("search() invoked.");
 		try {
 			
-			List<QnaVO> list = this.service.getList(cri);
+			List<QnaVO> list = this.service.searchList(cri);
 			model.addAttribute("list", list);
 			
 			System.out.println(list);
@@ -69,14 +69,74 @@ public class QnaController {
 				
 				String loginId = (login == null)?null:login.getUids();				
 				String writer = vo.getUids();
-				if( (!loginId.equals("admin")) && (vo.isOpeny_n() == false) && ((loginId == null) || (writer.equals(loginId) != true))) {
+				
+
+				if((loginId != null)&&(loginId.equals("admin"))) {
+					String temp = "0";
+					link.add(temp);
+				} else if((vo.isOpeny_n() == false) && ((loginId == null) || (writer.equals(loginId) != true))) {
 					link.add(vo.getTitle());
-					System.out.println("머야");
+					rttrs.addAttribute("result", "비밀글입니다.");
 				} else {
 					String temp = "0";
 					link.add(temp);
-					System.out.println("왜 어드민 안돼"+vo.getUids());
+				}//if-else
+			}//for
+			
+			rttrs.addAttribute("currPage", cri.getCurrPage());
+			rttrs.addAttribute("amount", cri.getAmount());
+			
+			int totalAmount = this.service.getTotalAmount();
+			PageDTO pageDTO = new PageDTO(cri, totalAmount);
+			log.info("\t+ pageDTO : {}", pageDTO);
+			
+			model.addAttribute("ans",ans);
+			model.addAttribute("pageMaker", pageDTO);
+			model.addAttribute("link", link);
+		} catch(Exception e) {
+			throw new ControllerException(e);
+		} // try-catch
+	} // list
+	
+	@GetMapping("/list")
+	public void list(Criteria cri, 	Model model, HttpSession session, RedirectAttributes rttrs) throws ControllerException {	
+		log.trace("list() invoked.");
+		try {
+
+			List<QnaVO> list = this.service.searchList(cri);
+//			List<QnaVO> list = this.service.getList(cri);
+			model.addAttribute("list", list);
+			
+			System.out.println(list);
+			
+			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
+			log.info("login: {}", login);
+			
+			List<String> link = new ArrayList<String>();
+			List<String> ans = new ArrayList<String>();
+			
+			for(QnaVO vo : list) {
+				
+				aService.get(vo.getQid());
+				if(aService.get(vo.getQid()) == null) {
+					ans.add("답변대기");
+				} else {
+					ans.add("답변완료");
+				}
+				
+				String loginId = (login == null)?null:login.getUids();				
+				String writer = vo.getUids();
+				
+
+				if((loginId != null)&&(loginId.equals("admin"))) {
+					String temp = "0";
+					link.add(temp);
+				} else if((vo.isOpeny_n() == false) && ((loginId == null) || (writer.equals(loginId) != true))) {
+					link.add(vo.getTitle());
 					rttrs.addAttribute("result", "비밀글입니다.");
+				} else {
+					String temp = "0";
+					link.add(temp);
 				}//if-else
 			}//for
 			
@@ -102,7 +162,6 @@ public class QnaController {
 
 		
 		try {
-			
 
 			QnaVO vo = this.service.get(qid);
 			AnswerVO answer = this.aService.get(qid);
@@ -116,12 +175,16 @@ public class QnaController {
 			String loginn = (login == null)?null:login.getUids();
 			String writer = vo.getUids();
 			
-			if( (!loginn.equals("admin")) && (vo.isOpeny_n() == false) && ((loginn == null) || (writer.equals(loginn) != true))) {
-			
+			if((loginn != null)&&(loginn.equals("admin"))) {
+				model.addAttribute("qna", vo);
+				model.addAttribute("answer", answer);
+			} else if((vo.isOpeny_n() == false) && ((loginn == null) || (writer.equals(loginn) != true))) {
 			} else {
 				model.addAttribute("qna", vo);
 				model.addAttribute("answer", answer);
 			}
+			//if-else if-else
+			
 			
 		} catch(Exception e) {
 			throw new ControllerException(e);
@@ -140,7 +203,7 @@ public class QnaController {
 			QnaVO vo = this.service.get(qid);
 			log.info("\n\n\n{},{}, {}",vo,qid );
 			
-				
+			
 			if(login.getUids().equals(vo.getUids())) {
 				boolean success = this.service.remove(qid);
 				log.info("\t+ success: {}", success);
@@ -209,7 +272,7 @@ public class QnaController {
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
 			
-			rttrs.addAttribute("result", (success)? "등록되었습니다" : "등록안됨");
+			rttrs.addAttribute("result", (success)? "등록되었습니다" : "회원만 이용할 수 있습니다.");
 			
 			return "redirect:/qna/list";
 		} catch(Exception e) {
