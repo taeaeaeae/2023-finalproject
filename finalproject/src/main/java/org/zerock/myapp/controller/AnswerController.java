@@ -65,7 +65,7 @@ public class AnswerController {
 			
 			if((login != null) && (login.getUids().equals("admin"))) {
 				boolean success = this.service.register(dto);
-				rttrs.addAttribute("result", "등록완료");
+				rttrs.addAttribute("result", (success)?"등록완료":"왠진모르지만실패");
 			} else {
 				rttrs.addAttribute("result", "답변은 관리자만 가능해요");
 			}//if-else
