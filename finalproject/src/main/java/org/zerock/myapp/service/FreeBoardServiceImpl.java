@@ -56,8 +56,7 @@ public class FreeBoardServiceImpl implements FreeBoardService, InitializingBean 
 	public FreeBoardVO get(Integer fid) throws ServiceException {
 		log.trace("get({}) invoked.", fid);
 		
-		try {
-			this.mapper.viewCountUp(fid);
+		try {	
 			return this.mapper.select(fid);
 		} catch (Exception e) {
 			throw new ServiceException(e);
@@ -140,7 +139,18 @@ public class FreeBoardServiceImpl implements FreeBoardService, InitializingBean 
 			throw new ServiceException(e);
 		} // try-catch
 	} // getListPageSearch
-	
+
+	@Override
+	public Integer viewCountUp(Integer fid) throws ServiceException {
+		log.trace("viewCountUp({}) invoked", fid);
+		
+		try {
+			return this.mapper.viewCountUp(fid);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	}  // viewCountUp
+		
 //	@Override
 //	public FreeBoardVO getNextPost(Integer fid) throws ServiceException {
 //		log.trace("getNextPost() invoked.");
@@ -152,7 +162,6 @@ public class FreeBoardServiceImpl implements FreeBoardService, InitializingBean 
 //			throw new ServiceException(e);
 //		} // try-catch
 //	} // getNextPost
-	
 	
 
 } // end class

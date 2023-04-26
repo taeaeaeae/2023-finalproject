@@ -18,5 +18,6 @@ public interface FreeBoardService {
 	public abstract Integer getPrevPost(Integer fid) throws ServiceException;		
 	public abstract Integer getNextPost(Integer fid) throws ServiceException;
 	public abstract List<FreeBoardVO> getListPageSearch(Criteria cri) throws ServiceException;
+	public abstract Integer viewCountUp(Integer fid) throws ServiceException;
 	
 } // end interface

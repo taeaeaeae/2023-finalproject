@@ -38,3 +38,13 @@ function confirmGoToList() {
     return true;
 }
 
+function commentForm() {
+  const content = document.getElementById("comment_content").value;
+
+  if(content.trim() === ""){
+    alert("댓글 내용을 입력해주세요.");
+    document.getElementById("comment_content").focus();
+    return false;
+  }
+  return true;
+}
