@@ -14,41 +14,21 @@
     font-style: normal;
   }
 #center{
-    position: absolute;
-    width: 300px;
-    height: 200px;
-    top: 35%;
-    left: 52%;
-    margin: -100px 0px 0px -200px;
+	margin: 0 auto;
+	margin-top: 10%;
+	margin-bottom: 15%;
+	width: 300px;
 }
 input{
-    margin-bottom: 2%;
-    height: 50px;
-    border: 1px solid;color: gray; 
-    border-radius: 8px;
+	height: 50px;
 }
-button{
-    margin-top: 2%;
-    width: 300px;
-    height: 50px;
-    background-color:#D2EEFA;
-    border: 0px;
-    border-radius: 8px;
-    font-size: 13pt;
-    text-align: center;
-    cursor: pointer;
+.find{
+	display: flex;
+	list-style: none;
 }
-#find{
-    margin-top: 25%;
-    margin-left: 37%;
-    display: flex;
-    text-align: center;
-    list-style: none;
-    font-size: 12pt;
-    color: grey;
-    cursor: pointer;
-}
-li{
-    margin-left: 5%;
-}
+
+
+
+
+
 

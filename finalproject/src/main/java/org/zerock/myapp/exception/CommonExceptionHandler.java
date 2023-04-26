@@ -28,6 +28,8 @@ public class CommonExceptionHandler {
 			
 		} while((t = t.getCause()) !=null);
 		
+		e.printStackTrace();
+		
 		return "errorPage";	//예외응답화면생성 View 이름
 	}	// handleException
 	
