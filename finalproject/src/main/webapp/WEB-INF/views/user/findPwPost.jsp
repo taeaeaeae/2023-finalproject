@@ -41,13 +41,13 @@
 
         logoutBtn.addEventListener('click', function () {
             location = "/user/login";
-        }); //onclick
+        }); //로그인
         
         var logoutBtn = document.querySelector('#cancleBtn');
 
         logoutBtn.addEventListener('click', function () {
             location = "/main/index";
-        }); //onclick
+        }); //취소 
         
     </script>
 

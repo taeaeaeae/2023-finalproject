@@ -11,6 +11,8 @@ public interface CheckService {
 	
 	// 닉네임 중복확인
 	public int checkNickName(CheckVO vo) throws ServiceException;
+	
+	public int passChk(CheckVO vo) throws ServiceException;
 
 }	// end interface
 	

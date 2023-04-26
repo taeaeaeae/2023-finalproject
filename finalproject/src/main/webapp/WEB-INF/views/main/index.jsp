@@ -65,7 +65,7 @@
                 <div class="left-content">
                   <h2>여행 루트 공유 사이트</h2>
                   <h3>TTT</h3>
-                  <button class="btn" onclick="location.href='/main/root'">시작하기</button>
+                  <button class="btn" onclick="location.href='/user/login'">시작하기</button>
                 </div>
                 <div class="right-content">
                   <video src="${path}/resources/videos/video1.mp4" autoplay loop muted></video>

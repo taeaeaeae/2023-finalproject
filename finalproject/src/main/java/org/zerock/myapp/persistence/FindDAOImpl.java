@@ -54,8 +54,7 @@ public class FindDAOImpl implements FindDAO {
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}	// try-catch
-		
-		
+
 	}	//findPw
 	
 

@@ -17,11 +17,14 @@ h3{
     margin-top: 20px;
     font-size: 15pt;
 }
+span{
+	font-size: 12pt;
+}
 input{
     margin-top: 2px;
     width: 200px;
-    height: 30px;
-    font-size: 15pt;
+    height: 40px;
+    font-size: 17pt;
 }
 button{
     width: 100px;
@@ -48,12 +51,9 @@ button{
     font-weight: normal;
     font-style: normal;
   }
-.id_ok{
-color:#008000;
-display: none;
-}
-
-.id_already{
-color:#6A82FB; 
-display: none;
-}
+ #idCheckBtn{
+ width: 80px;
+ }
+  #nickCheckBtn{
+ width: 80px;
+ }
