@@ -40,15 +40,24 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="FreeBoardVO" items="${list}">
-					<tr>
-						<td>${FreeBoardVO.fid}</td>
-						<td><a href="/freeboard/get?currPage=${param.currPage}&amount=${param.amount}&fid=${FreeBoardVO.fid}&type=${param.type}&keyword=${param.keyword}">${FreeBoardVO.title}</a></td>
-						<td>${FreeBoardVO.uids}</td>
-						<td><fmt:formatDate value="${FreeBoardVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></td>
-						<td>${FreeBoardVO.view_count}</td>
-					</tr>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${empty list}">
+						<tr>
+							<td colspan="5">${param.keyword}와 일치하는 게시글이 없습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="FreeBoardVO" items="${list}">
+							<tr>
+								<td>${FreeBoardVO.fid}</td>
+								<td><a href="/freeboard/get?currPage=${param.currPage}&amount=${param.amount}&fid=${FreeBoardVO.fid}&type=${param.type}&keyword=${param.keyword}">${FreeBoardVO.title}</a></td>
+								<td>${FreeBoardVO.uids}</td>
+								<td><fmt:formatDate value="${FreeBoardVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></td>
+								<td>${FreeBoardVO.view_count}</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</tbody>	
 	    </table>
 	  </div>
