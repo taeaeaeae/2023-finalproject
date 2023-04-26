@@ -24,12 +24,12 @@
             
                     <div class="form-group">
 	                    <label for="exampleInputId" class="form-label mt-4">ID</label>
-	                    <input type="text" class="form-control" id="uids" placeholder="ID" name="uids" required>
+	                    <input type="text" class="form-control" id="uids" placeholder="ID" name="uids" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
                     </div>
                     
                     <div class="form-group">
 	                    <label for="exampleInputPassword" class="form-label mt-4">PW</label>
-	                    <input type="password" class="form-control" id="password" placeholder="PW" name="password" required>
+	                    <input type="password" class="form-control" id="password" placeholder="PW" name="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
                     </div> 
                     
                     <div class="d-grid gap-2">
@@ -69,7 +69,6 @@
 
         </script>
             
-            <!-- 시간되면 자동로그인(remember-me 구현 예정) -->
                 
     </body>
 </html>

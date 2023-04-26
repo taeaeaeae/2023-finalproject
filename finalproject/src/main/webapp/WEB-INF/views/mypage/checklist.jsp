@@ -42,10 +42,10 @@ crossorigin="anonymous" />
 									<input type="hidden" name="checkbox" value="0" id="input_check_hidden"/>
 								</td>
 								<td>
-									<input type="text" name="item" value="${ChecklistVO.item}">
+									<input type="text" style="width:300px" maxlength="20" name="item" value="${ChecklistVO.item}">
 								</td>
 								<td>
-									<input type="text" name="memo" value="${ChecklistVO.memo}">
+									<input type="text" style="width:600px" maxlength="50" name="memo" value="${ChecklistVO.memo}">
 								</td>
 						        <td>
 							        <input type="hidden" name="cid" value="${ChecklistVO.cid}">
@@ -68,8 +68,8 @@ crossorigin="anonymous" />
 			
 		  	<form action="/mypage/listadd" method="POST">
 		  		<input type="hidden" name="uids" value="${uids.uids}">
-				<input type="text" name="item" value="${ChecklistVO.item}">
-				<input type="text" name="memo" value="${ChecklistVO.memo}">
+				<input type="text" style="width:300px" maxlength="20" name="item" value="${ChecklistVO.item}">
+				<input type="text" style="width:600px" maxlength="50" name="memo" value="${ChecklistVO.memo}">
 				<button type="submit" class="btn btn-default btn-sm">추가</button>
 			</form>
 			
@@ -78,9 +78,11 @@ crossorigin="anonymous" />
 <%@include file="/WEB-INF/views/main/footer.jsp" %>
 	
 <script>
+
+	// 체크박스
 	if(document.getElementById("input_check").checked) {
-    document.getElementById("input_check_hidden").disabled = true;
-}
+	    document.getElementById("input_check_hidden").disabled = true;
+	}
 
 </script>	
 

@@ -3,6 +3,7 @@ package org.zerock.myapp.mapper;
 import java.util.ArrayList;
 
 import org.zerock.myapp.domain.BookmarkVO;
+import org.zerock.myapp.domain.CheckVO;
 import org.zerock.myapp.domain.ChecklistDTO;
 import org.zerock.myapp.domain.ChecklistVO;
 import org.zerock.myapp.domain.LikesVO;
@@ -35,5 +36,7 @@ public interface MypageMapper {
 	// ºÏ¸¶Å© ¸ñ·Ï
 	public abstract ArrayList<BookmarkVO> bookmark(String uids);
 	
+	// È¸¿ø Å»Åð ºñ¹Ð¹øÈ£ È®ÀÎ
+	public abstract CheckVO passChk(String password);	
 
 }	// end interfaces

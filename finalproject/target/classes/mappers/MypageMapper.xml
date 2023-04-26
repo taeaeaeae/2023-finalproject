@@ -56,7 +56,7 @@
     </delete>
     
     <select id="likes" resultType="org.zerock.myapp.domain.LikesVO">
-       	SELECT *
+       	SELECT pid, title, 'plan_board' as board_name, pid as bno, 'pid' as bm 
         FROM likes
         WHERE uids = #{uids}
     </select>
@@ -72,6 +72,14 @@
         FROM plan_bookmark 
         WHERE uids = #{uids}
     </select>
+    
+    <select id="passChk" resultType="int">
+        SELECT count(*) 
+        FROM users 
+        WHERE uids = #{uids}
+	  	AND password = #{password}
+    </select>
+    
  
 
   </mapper>

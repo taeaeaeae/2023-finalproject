@@ -19,27 +19,27 @@
         <div class="essential">
 
             <h3>아이디 <span>(영문, 숫자 사용가능)</span></h3>
-                <input type="text" id="uids" name="uids" onkeydown="inputIdChk()" pattern="^[a-zA-Z0-9]*$" required>
+                <input type="text" id="uids" name="uids" onkeydown="inputIdChk()" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
                 <button class="checkId" type="button" id="checkId" onclick="fn_idChk();" value="N">중복확인</button>
                                          
-            <h3>비밀번호 <span>(영문, 숫자 사용가능)</span></h3>
-                <input type="password" id="password" name="password" title="password" pattern="^[a-zA-Z0-9]*$" required>
+            <h3>비밀번호</h3>
+                <input type="password" id="password" name="password" title="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
                     
             <h3>비밀번호 확인</h3>
-				<input type="password" id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" required>
+				<input type="password" id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
 				<button class="pwCheck" type="button" id="pwCheck" onclick="fn_checkPw();" value="N">확인</button>
                     
             <h3>이름</h3>
-                <input type="text" id="name" name="name" title="name" required>
+                <input type="text" id="name" name="name" title="name" maxlength="18" required>
                 
             <h3>전화번호 <span>(숫자만 입력해주세요.)</span></h3>
-                <input type="tel" id="phonenumber" name="phonenumber" pattern="[0-9]{11}" required>
+                <input type="tel" id="phonenumber" name="phonenumber" pattern="[0-9]{11}" maxlength="11" required>
                 
             <h3>이메일</h3>
-                <input type="email" id="email" name="email" title="email" placeholder="example1@xxx.com" required>
+                <input type="email" id="email" name="email" title="email" placeholder="example1@xxx.com" maxlength="38" required>
                         
-            <h3>닉네임 <span>(영문, 숫자 최대 20자 / 한글 최대 10자)</span></h3>
-                <input type="text" id="nickname" name="nickname" title="nickname" required>
+            <h3>닉네임</h3>
+                <input type="text" id="nickname" name="nickname" title="nickname" maxlength="18" required>
 				<button class="checkNickName" type="button" id="checkNickName" onclick="fn_nickChk();" value="N">중복확인</button>
 						
                 <br>
@@ -69,15 +69,15 @@
     </div>
 
         <div class="join">
+        
+            <button type="submit" id="joinBtn" onclick="erchk()">
+                회원가입
+            </button>
             
             <button type="button" id="cancleBtn">
                 취소
             </button>
-            
-            <button type="submit" id="joinBtn" onclick="submitForm();">
-                회원가입
-            </button>
-            
+  
         </div>
 	</form>
 	
@@ -91,7 +91,8 @@
 					dataType : "json",
 					data : {"uids" : $("#uids").val()},
 					success : function(data){
-					if(data == 1){
+					if(data >= 1){
+						$("#checkId").attr("value", "N");
 						alert("중복된 아이디입니다.");
 					}else if(data == 0){
 						$("#checkId").attr("value", "Y");
@@ -111,6 +112,7 @@
 					data : {"nickname" : $("#nickname").val()},
 					success : function(data){
 					if(data >= 1){
+						$("#checkNickName").attr("value", "N");
 						alert("중복된 닉네임입니다.");
 					}else if(data == 0){
 						$("#checkNickName").attr("value", "Y");
@@ -126,6 +128,7 @@
 	         	  var pwCheck = $("#pwCheck").val();
 
 	         	  if (pw !== pwCheck) {
+	         		 $("#pwCheck").attr("value", "N");
 	        	    alert("비밀번호가 일치하지 않습니다.");
 	         	    return false;
 	         	  } else if (pw == pwCheck) {
@@ -147,19 +150,16 @@
 	        }
 	    });
 	        
-		// 최종 버튼 확인 뭔가 잘 안되고있어 ...
-		function submitForm() {
-		  if (document.getElementById("checkId").value === 'y' &&
-		      document.getElementById("pwCheck").value === 'y' &&
-		      document.getElementById("checkNickName").value === 'y') {
-		    alert("회원가입 성공!");
-		  } else {
-		    alert("필수 정보를 모두 확인해주세요.");
-		    return false;
-		  }
-		}
-       
-	            	    
+		// 회원가입완료 알림
+			 $(document).ready(function() {
+		        let message = "${result}";
+		        if (message = "") {
+		            alert(message);
+		        }else {
+		        }
+		    });
+
+      	    
 	    // 취소시 메인
 	        var cancleBtn = document.querySelector('#cancleBtn');
 	

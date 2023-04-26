@@ -17,7 +17,6 @@ public class CheckServiceImpl implements CheckService{
 	
 	private UsersDAO UsersDAO;
 	
-	
 	@Override
 	public int checkId(CheckVO vo) throws ServiceException {
 		log.trace("checkId({}) invoked.", vo);
@@ -41,6 +40,18 @@ public class CheckServiceImpl implements CheckService{
 				throw new ServiceException(e);
 			}	// try-catch
 		}
+
+	@Override
+	public int passChk(CheckVO vo) throws ServiceException {
+		log.trace("passChk({}) invoked.", vo);
+		
+		try {
+			int result = UsersDAO.checkNickName(vo);
+			return result;
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		}	// try-catch
+	}
 
 
 	

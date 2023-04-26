@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.BookmarkVO;
+import org.zerock.myapp.domain.CheckVO;
 import org.zerock.myapp.domain.ChecklistDTO;
 import org.zerock.myapp.domain.ChecklistVO;
 import org.zerock.myapp.domain.LikesVO;
@@ -24,10 +26,12 @@ import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.exception.ServiceException;
+import org.zerock.myapp.service.CheckService;
 import org.zerock.myapp.service.MypageService;
 import org.zerock.myapp.service.UsersService;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -42,6 +46,9 @@ public class MyPageController {
 	
 	@Autowired
 	private MypageService mservice;
+	
+	@Setter(onMethod_= @Autowired)
+	private CheckService cservice;
 	
 	@GetMapping({"/main","/update","/remove"})
 	public void myPage(HttpSession session, Model model) throws ServiceException {
@@ -235,6 +242,17 @@ public class MyPageController {
         
         return "/mypage/bookmark";
     }	//likes
+	
+	@PostMapping("/passChk")
+	@ResponseBody
+	public int passChk(CheckVO vo) throws Exception {
+		log.trace(">>>>>>> passChk({}) invoked.", vo);
+		
+		int result = cservice.passChk(vo);
+		
+		return result;
+		
+	}	// checkNickName
 
 
 

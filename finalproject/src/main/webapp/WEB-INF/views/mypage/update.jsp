@@ -28,18 +28,18 @@
 
 						<h3>* 아이디 <input type="text" name="uids" value="${mypage.uids}" readonly/></h3>					
 
-						<h3>* 비밀번호 <input type="password" value="${mypage.password}" id="password" name="password" pattern="^[a-zA-Z0-9]*$" required/></h3>
+						<h3>* 비밀번호 <input type="password" value="${mypage.password}" id="password" name="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/></h3>
 
-						<h3>* 비밀번호 확인 <input type="password" value="${mypage.password}" id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" required/></h3>						
+						<h3>* 비밀번호 확인 <input type="password" value="${mypage.password}" id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/></h3>						
                 		<button class="pwCheck" type="button" id="pwCheck" onclick="fn_checkPw();" value="N">확인</button>
 						
 						<h3>* 이름 <input type="text" name="name" value="${mypage.name}" readonly/></h3>
 						
 						<h3>* 닉네임 <input type="text" name="nickname" value="${mypage.nickname}" readonly/></h3>
 						
-						<h3>* 이메일 <input type="email" name="email" value="${mypage.email}" placeholder="example1@xxx.com" required/></h3>
+						<h3>* 전화번호 <input type="text" name="phonenumber" value="${mypage.phonenumber}" placeholder="숫자만 입력하세요" pattern="[0-9]{11}" maxlength="11" required/></h3>
 						
-						<h3>* 전화번호 <input type="text" name="phonenumber" value="${mypage.phonenumber}" placeholder="숫자만 입력하세요" pattern="[0-9]{11}" required/></h3>
+						<h3>* 이메일 <input type="email" name="email" value="${mypage.email}" placeholder="example1@xxx.com" maxlength="38" required/></h3>
 						
 
 					</div>	

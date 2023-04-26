@@ -91,7 +91,18 @@ public class UsersDAOImpl implements UsersDAO {
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}	// try-catch
-	}	//remove
+	}
+
+	@Override
+	public int passChk(UsersVO vo) throws Exception {
+		
+		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		
+		int result = sqlSession.selectOne("passChk", vo);
+		
+		return result;
+		
+	}	//passChk
 
 }	// end class
 
