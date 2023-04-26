@@ -12,6 +12,33 @@
         FROM qna_board
         WHERE qid = #{qid}
     </select>
+    
+     <select id="search" resultType="org.zerock.myapp.domain.QnaVO">
+     SELECT *
+     FROM qna_board
+     <if test= 'type != null'>
+            <choose>
+                <when test='type.equals("title")'>
+                    WHERE title LIKE concat('%' || #{keyword}, '%')
+                </when>
+                <when test='type.equals("content")'>
+                    WHERE content LIKE concat('%' || #{keyword}, '%')
+                </when>
+                <when test='type.equals("title_content")'>
+                    WHERE title LIKE concat('%' || #{keyword}, '%') OR content LIKE concat('%'|| #{keyword}, '%')
+                </when>
+                <when test='type.equals("uids")'>
+                    WHERE uids LIKE concat('%' || #{keyword}, '%')
+                </when>
+                <when test='type == ""'>
+                    WHERE (title LIKE concat('%' || #{keyword}, '%') OR content LIKE concat('%' || #{keyword}, '%') OR uids LIKE concat('%'|| #{keyword}, '%'))
+                </when>
+            </choose>
+        </if>
+        ORDER BY qid DESC
+        OFFSET (#{currPage} - 1) * #{amount} ROWS	
+		FETCH NEXT #{amount} ROWS ONLY
+    </select>
 
     <delete id="delete">
       DELETE FROM qna_board WHERE qid = #{qid}

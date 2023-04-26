@@ -21,6 +21,16 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean class="java.lang.String" id="uploadPath">
+		<beans:constructor-arg value="C:/app/scoop/apps/tomcat9/current/wtpwebapps/finalproject"/>
+	</beans:bean>
+	
+	<resources location="/resources/imgUpload/" mapping="/imgUpload/**"/>
+	
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<beans:property name="maxUploadSize" value="10485760"/>
+	</beans:bean>
+	
 	<context:component-scan base-package="org.zerock.myapp.controller" />
 	<context:component-scan base-package="org.zerock.myapp.interceptor"/>
 	<context:component-scan base-package="org.zerock.myapp.exception"/>
@@ -56,6 +66,15 @@
          <beans:ref bean="loginCheckInterceptor"/>
       </interceptor>
       
+      <interceptor>
+         <mapping path="/freeboard/*" />
+         <exclude-mapping path="/freeboard/list" />
+         <exclude-mapping path="/freeboard/get" />
+         <exclude-mapping path="/freeboard/prev" />
+         <exclude-mapping path="/freeboard/next" />
+
+         <beans:ref bean="authInterceptor"/>
+      </interceptor>
 	</interceptors>
 	
 </beans:beans>

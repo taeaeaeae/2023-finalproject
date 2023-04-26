@@ -5,9 +5,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>신규게시글작성</title>
+    <title></title>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-        	<style>
+     <style>
 	* {
 	font-family: "GangwonEdu";
 }
@@ -21,7 +21,7 @@
   h1 {
   text-align: center;
   	color: black;
-  }
+  } 
 	</style>
     
     <link rel="stylesheet" href="WEB-INF/views/common/font.css">

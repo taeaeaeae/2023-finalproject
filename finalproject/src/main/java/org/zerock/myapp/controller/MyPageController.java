@@ -64,7 +64,7 @@ public class MyPageController {
 		
 		model.addAttribute("mypage", vo);
 		
-	}	//mypage
+	}//mypage
 	
 	@PostMapping("/update")
 	public String update(UsersDTO dto, RedirectAttributes rttrs) throws ServiceException {
