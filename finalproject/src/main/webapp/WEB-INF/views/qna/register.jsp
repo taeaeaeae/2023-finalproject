@@ -69,6 +69,7 @@
 			}
 		});
 		</script>
+		
       <fieldset class="form-group">
         <legend class="mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비공개</font></font></legend>
 
