@@ -1,16 +1,19 @@
 package org.zerock.myapp.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.AnswerVO;
 import org.zerock.myapp.domain.Criteria;
@@ -21,6 +24,7 @@ import org.zerock.myapp.domain.QnaVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.service.AnswerService;
 import org.zerock.myapp.service.QnaService;
+import org.zerock.myapp.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -39,6 +43,9 @@ public class QnaController {
 	
 	private QnaService service;
 	private AnswerService aService;
+	
+	@Qualifier("uploadPath")
+	private String uploadPath;
 	
 	@GetMapping("/search")
 	public void search(Criteria cri, Model model, HttpSession session, RedirectAttributes rttrs) throws ControllerException {	
@@ -254,7 +261,7 @@ public class QnaController {
 	
 	
 	@PostMapping("/register")
-	public String register(Criteria cri,QnaDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
+	public String register(Criteria cri,QnaDTO dto, RedirectAttributes rttrs, HttpSession session, MultipartFile file) throws ControllerException {
 		log.trace("register({}, {}, {}, {}) invoked.", dto, rttrs, cri);
 		
 		try {
@@ -262,6 +269,19 @@ public class QnaController {
 			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
 			
 			if((login != null) && (login.getUids().equals(dto.getUids()))) {
+
+				String imgUploadPath = uploadPath + File.separator + "imgUpload";
+				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+				String fileName = null;
+
+				if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+				 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+				} else {
+				 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+				}
+
+				dto.setImage(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+				
 				boolean success = this.service.register(dto);
 				rttrs.addAttribute("result", "등록완료");
 			} else {
