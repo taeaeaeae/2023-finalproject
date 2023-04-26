@@ -76,8 +76,8 @@ public class UsersDAOImpl implements UsersDAO {
 	} //select
 
 	@Override
-	public UsersVO remove(String uids) throws DAOException {
-		log.trace("remove({}) invoked.", uids);
+	public UsersVO remove(String uids, String reason) throws DAOException {
+		log.trace("remove({},{}) invoked.", uids, reason);
 		
 		SqlSession sqlSession = this.sqlSessionFactory.openSession();
 		
@@ -91,10 +91,19 @@ public class UsersDAOImpl implements UsersDAO {
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}	// try-catch
-	}	//remove
+	}
 
-	
-	
+	@Override
+	public int passChk(UsersVO vo) throws Exception {
+		
+		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		
+		int result = sqlSession.selectOne("passChk", vo);
+		
+		return result;
+		
+	}	//passChk
+
 }	// end class
 
 	

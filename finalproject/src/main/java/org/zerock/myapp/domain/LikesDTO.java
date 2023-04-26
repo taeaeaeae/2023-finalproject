@@ -3,10 +3,11 @@ package org.zerock.myapp.domain;
 import lombok.Data;
 
 @Data
-public class CheckDTO {
+public class LikesDTO {
 	
+	private Integer lid;
+	private Integer pid;
 	private String uids;
-	private String nickname;
-	private String password;
-
+	private String title;
+	
 }	// end class

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ServiceException;
-import org.zerock.myapp.mapper.UsersMapper;
+import org.zerock.myapp.mapper.JoinMapper;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +25,7 @@ import lombok.extern.log4j.Log4j2;
 public class UsersServiceImpl implements UsersService, InitializingBean {
 	
 	@Setter(onMethod_= {@Autowired})
-	private UsersMapper mapper;
+	private JoinMapper mapper;
 	
 	@Override
 	public void afterPropertiesSet() throws ServiceException{	// 1회성 전처리
@@ -68,13 +68,15 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 	}	//update
 	
 	@Override
-	public boolean remove(String uids) throws ServiceException {
+	public boolean remove(UsersDTO dto) throws ServiceException {
 		try {
-			return this.mapper.remove(uids);
+			return this.mapper.remove(dto);
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}	// try-catch
 	}	//remove
+
+
 
 
 

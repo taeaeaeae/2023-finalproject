@@ -22,7 +22,10 @@ public interface UsersDAO {
 	public abstract UsersVO select(String uids) throws DAOException;
 	
 	// È¸¿øÅ»Åð
-	public abstract UsersVO remove(String uids) throws DAOException;
+	public abstract UsersVO remove(String uids, String reason) throws DAOException;
+	
+	// È¸¿øÅ»Åð ºñ¹Ð¹øÈ£Ã¼Å©
+	public int passChk(UsersVO vo) throws Exception;
 	
 
 }
