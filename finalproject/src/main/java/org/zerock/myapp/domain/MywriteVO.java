@@ -2,9 +2,9 @@ package org.zerock.myapp.domain;
 
 import java.sql.Timestamp;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class MywriteVO {
 
 	private String uids;

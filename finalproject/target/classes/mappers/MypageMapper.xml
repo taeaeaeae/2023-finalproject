@@ -19,14 +19,14 @@
     </select>
     
     <select id="mycomment" resultType="org.zerock.myapp.domain.MycommentVO">
-       	SELECT uids,content, insert_ts, 'fb_comment' as board_name, fbcid as bno, 'fbcid' as bm
-        FROM fb_comment
+       	SELECT uids,content, insert_ts, 'freeboard' as board_name, fid as bno, 'fid' as bm
+        FROM fb_comment a
         WHERE uids = #{uids}
         
         UNION ALL
         
-        SELECT uids,content, insert_ts, 'plan_comment' as board_name, pcid as bno, 'pcid' as bm
-        FROM plan_comment
+        SELECT uids,content, insert_ts, 'plan_board' as board_name, pid as bno, 'pid' as bm
+        FROM plan_comment a
         WHERE uids = #{uids}
     </select>
     
@@ -62,14 +62,14 @@
     </select>
     
     <select id="bookmark" resultType="org.zerock.myapp.domain.BookmarkVO">
-        SELECT fid, 'fb_bookmark' as board_name, fbmid as bno
-        FROM fb_bookmark a
+        SELECT fid, title, 'freeboard' as board_name, fid as bno, 'fid' as bm
+        FROM fb_bookmark 
         WHERE uids = #{uids}
         
         UNION ALL
         
-        SELECT pid, 'plan_bookmark' as board_name, pbmid as bno
-        FROM plan_bookmark a
+        SELECT pid, title, 'plan_bookmark' as board_name, pid as bno, 'pid' as bm
+        FROM plan_bookmark 
         WHERE uids = #{uids}
     </select>
  

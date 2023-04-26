@@ -34,9 +34,8 @@
           <br>
           <br>
 
-        <div id="user_id">
-          <h4>* 아이디 <input type="text" name="uids" value="${mypage.uids}"/></h4>
-
+        <div id="check">
+          <h4><input type="hidden" name="uids" value="${mypage.uids}"/></h4>
           <h4>* 비밀번호 <input type="password" name="password" placeholder="비밀번호를 입력하세요."></h4>
         </div>
 
@@ -59,20 +58,25 @@
 
       </div>
 
-      <div id="gogo">
-      
-      <input type="submit" class="btn btn-outline-primary" value="탈퇴">
-      
-      <button type="button" class="btn btn-outline-primary">취소</button>
-      
-      </div>
+	      <div id="gogo">
+		      <input type="submit" class="btn btn-outline-primary" value="탈퇴">
+		      
+		      <button type="button" id="cancleBtn" class="btn btn-outline-primary">취소</button>
+	      </div>
       </form>
   
     </div>
     
   <%@include file="/WEB-INF/views/main/footer.jsp" %>
+  
+  <script>
+   	// 취소시 메인
+	var cancleBtn = document.querySelector('#cancleBtn');
 
-  <!-- 비밀번호를 입력해야만 탈퇴가능 -> 현재 비밀번호랑 같아야 한다. -->
+	   	cancleBtn.addEventListener('click', function () {
+		location.href = '/mypage/main';
+	});
+  </script>
 
 </body>
 </html>

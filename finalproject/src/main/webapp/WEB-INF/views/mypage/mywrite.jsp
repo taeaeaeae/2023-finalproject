@@ -12,7 +12,7 @@
 <%@include file="/WEB-INF/views/main/header.jsp" %>
 
    	<section>
-	  <h1>내가 쓴 게시물</h1>
+	  <h1>나의 작성 글</h1>
 	  <hr>
 	  <div id="list">
 	    <table border="1px">

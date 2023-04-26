@@ -17,8 +17,6 @@
 	    <table border="1px">
 			<thead>
 				<tr style="background-color: #eee; color: black">
-					<th>글번호</th>
-					<th></th>
 					<th id="tb2">제목</th>
 				</tr>
 			</thead>
@@ -26,8 +24,7 @@
 			<tbody>
 				<c:forEach var="LikesVO" items="${mylikes}">
 					<tr>
-						<td>${LikesVO.lid}</td>
-						<td><td><a href="#">${LikesVO.title}</a></td>
+						<td><a href="#">${LikesVO.title}</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>	

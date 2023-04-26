@@ -18,11 +18,11 @@
     <div class="join_content">
         <div class="essential">
 
-            <h3>아이디 <span>(영문, 숫자 최대 10자)</span></h3>
+            <h3>아이디 <span>(영문, 숫자 사용가능)</span></h3>
                 <input type="text" id="uids" name="uids" onkeydown="inputIdChk()" pattern="^[a-zA-Z0-9]*$" required>
                 <button class="checkId" type="button" id="checkId" onclick="fn_idChk();" value="N">중복확인</button>
                                          
-            <h3>비밀번호 <span>(영문, 숫자 최대 20자)</span></h3>
+            <h3>비밀번호 <span>(영문, 숫자 사용가능)</span></h3>
                 <input type="password" id="password" name="password" title="password" pattern="^[a-zA-Z0-9]*$" required>
                     
             <h3>비밀번호 확인</h3>

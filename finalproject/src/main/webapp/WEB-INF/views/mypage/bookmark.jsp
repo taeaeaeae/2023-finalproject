@@ -18,7 +18,6 @@
 			<thead>
 				<tr style="background-color: #eee; color: black">
 					<th>글번호</th>
-					<th></th>
 					<th id="tb2">제목</th>
 				</tr>
 			</thead>
@@ -27,7 +26,7 @@
 				<c:forEach var="BookmarkVO" items="${mybookmark}">
 					<tr>
 						<td>${BookmarkVO.bno}</td>
-						<td><td><a href="#">${BookmarkVO.title}</a></td>
+						<td><a href="/${BookmarkVO.board_name}/get?${BookmarkVO.bm}=${BookmarkVO.bno} ">${BookmarkVO.title}</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>	

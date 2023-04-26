@@ -100,13 +100,7 @@ public class MyPageController {
         
         // 로그인한 사용자가 작성한 글 조회
         ArrayList<MywriteVO> uids = mservice.mywrite(uid.getUids());
-        for(MywriteVO vo: uids) {
-        	if(vo.getBoard_name().equals("freeboard")) {
-        		vo.setBm("fid");
-        	} else if(vo.getBoard_name().equals("qna")) {
-        		vo.setBm("qid");
-        	}
-        }
+        
         log.info("{}",uids);
         model.addAttribute("mywrite", uids);
         
@@ -125,7 +119,7 @@ public class MyPageController {
         
         // 로그인한 사용자가 작성한 댓글 조회
         ArrayList<MycommentVO> uids = mservice.mycomment(uid.getUids());
-        model.addAttribute("mywrite", uids);
+        model.addAttribute("mycomment", uids);
         
         return "/mypage/mycomment";
     }	//mycomment

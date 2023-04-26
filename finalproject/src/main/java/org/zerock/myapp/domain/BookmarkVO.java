@@ -10,8 +10,10 @@ public class BookmarkVO {
 	private Integer fid;
 	private Integer pid;
 	private String uids;
+	private String title;
 	private String board_name;
 	private Integer bno;
+	private String bm;
 	
 	
 }	// end class
