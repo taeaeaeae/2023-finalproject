@@ -60,12 +60,13 @@
       <fieldset class="form-group">
         <legend class="mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비공개</font></font></legend>
 
-		<div class="form-check">
+	  <div class="form-check">
         <input class="form-check-input" type="radio" name="openy_n" id="optionsRadios1" value="true" checked="">
         <label class="form-check-label" for="optionsRadios1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
           공개
         </font></font></label>
       </div>
+      
       <div class="form-check">
         <input class="form-check-input" type="radio" name="openy_n" id="optionsRadios2" value="false">
         <label class="form-check-label" for="optionsRadios2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
@@ -84,11 +85,21 @@
 	<script>
 		var listBtn = document.querySelector('#listBtn');
 		
+		$("formFile").change(function() {
+			if(this.file && this.file[0]) {
+				var reader = new FileReader;
+				reader.onload = function(data) {
+					$(".form-group img").arrt("src", data.target.result).wdith(500);
+				}
+				reader.readAsDataURL(this.file[0]);
+			}
+		});
+		
 
 
 		listBtn.addEventListener('click', function () {
 			location.href='/qna/list?currPage=${param.currPage}&amount=${param.amount}';
-		})
+		});
 
 	</script>
 
