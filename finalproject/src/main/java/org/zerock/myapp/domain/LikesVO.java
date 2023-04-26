@@ -5,9 +5,10 @@ import lombok.Value;
 @Value
 public class LikesVO {
 	
-	private Integer lid;
 	private Integer pid;
-	private String uids;
 	private String title;
+	private String board_name;
+	private Integer bno;
+	private String bm;
 	
 }	// end class
