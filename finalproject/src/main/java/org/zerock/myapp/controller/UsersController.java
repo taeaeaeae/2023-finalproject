@@ -25,24 +25,6 @@ public class UsersController {
 	
 	private UsersService service;
 	
-	@PostMapping("/joinPost")
-	public String JoinPost(UsersDTO dto, RedirectAttributes rttrs, Model model) throws ControllerException{
-		log.trace("JoinPost({}, {}, {}) invoked.",dto, rttrs, model);
-		
-		try {
-			boolean success = this.service.join(dto);
-			log.info("\t+ success : {}", success);
-			
-			rttrs.addFlashAttribute("dto", dto);
-			rttrs.addAttribute("result",(success)? "success" : "failure");
-			
-			return "redirect:/user/login";
-		} catch(Exception e) {
-			throw new ControllerException(e);
-		}	// try-catch	
-		
-	}	// JoinPost
-	
 	@GetMapping({"/select","/update"})
 	public void select(@RequestParam("uids") String uids, Model model) throws ControllerException {
 		log.trace("select({}, {}) invoked.", uids, model);
@@ -57,11 +39,11 @@ public class UsersController {
 	}	// select
 	
 	@PostMapping("/remove")
-	public String remove(String uids, RedirectAttributes rttrs) throws ControllerException {
-		log.trace("remove({}, {}) invoked.", uids, rttrs);
+	public String remove(UsersDTO dto, RedirectAttributes rttrs) throws ControllerException {
+		log.trace("remove({}, {}) invoked.", dto, rttrs);
 		
 		try {
-			boolean success = this.service.remove(uids);
+			boolean success = this.service.remove(dto);
 			log.info("\t+ success : {}", success);
 			
 			rttrs.addAttribute("result",(success)? "success" : "failure");	//

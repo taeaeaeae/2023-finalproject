@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="org.zerock.myapp.mapper.MypageMapper">
+
+    <select id="mywrite" resultType="org.zerock.myapp.domain.MywriteVO">
+        SELECT uids,title, insert_ts, 'freeboard' as board_name, fid as bno, 'fid' as bm
+        FROM free_board a
+        WHERE uids = #{uids}
+        
+        UNION ALL
+        
+        SELECT uids,title, insert_ts, 'qna' as board_name, qid as bno, 'qid' as bm
+        FROM qna_board a
+        WHERE uids = #{uids}
+    </select>
+    
+    <select id="mycomment" resultType="org.zerock.myapp.domain.MycommentVO">
+       	SELECT uids,content, insert_ts, 'freeboard' as board_name, fid as bno, 'fid' as bm
+        FROM fb_comment a
+        WHERE uids = #{uids}
+        
+        UNION ALL
+        
+        SELECT uids,content, insert_ts, 'plan_board' as board_name, pid as bno, 'pid' as bm
+        FROM plan_comment a
+        WHERE uids = #{uids}
+    </select>
+    
+    <select id="checklist" resultType="org.zerock.myapp.domain.ChecklistVO">
+       	SELECT *
+        FROM checklist
+        WHERE uids = #{uids}
+    </select>
+    
+    <insert id="listadd">
+      Insert into checklist(checkbox, uids, item, memo) 
+      values(0, #{uids}, #{item}, #{memo})
+    </insert>
+    
+    <update id="listupdate">
+        UPDATE checklist
+        SET checkbox = #{checkbox},
+        	item = #{item},
+        	memo = #{memo}
+        WHERE
+            cid = #{cid}
+    </update>
+    
+    <delete id="listdelete">
+        DELETE FROM checklist
+        WHERE cid = #{cid}
+    </delete>
+    
+    <select id="likes" resultType="org.zerock.myapp.domain.LikesVO">
+       	SELECT pid, title, 'plan_board' as board_name, pid as bno, 'pid' as bm 
+        FROM likes
+        WHERE uids = #{uids}
+    </select>
+    
+    <select id="bookmark" resultType="org.zerock.myapp.domain.BookmarkVO">
+        SELECT fid, title, 'freeboard' as board_name, fid as bno, 'fid' as bm
+        FROM fb_bookmark 
+        WHERE uids = #{uids}
+        
+        UNION ALL
+        
+        SELECT pid, title, 'plan_bookmark' as board_name, pid as bno, 'pid' as bm
+        FROM plan_bookmark 
+        WHERE uids = #{uids}
+    </select>
+    
+    <select id="passChk" resultType="int">
+        SELECT count(*) 
+        FROM users 
+        WHERE uids = #{uids}
+	  	AND password = #{password}
+    </select>
+    
+ 
+
+  </mapper>
+  
+ 

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <!DOCTYPE html>
     <html lang="ko">
       <head>
@@ -10,7 +9,7 @@
           content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
         />
     
-        <link rel="stylesheet" href="/css/index.css" />
+      <link rel="stylesheet" href="/css/index.css" />
       </head>
       <body>
         <div class="container">
@@ -66,7 +65,7 @@
                 <div class="left-content">
                   <h2>여행 루트 공유 사이트</h2>
                   <h3>TTT</h3>
-                  <button class="btn" onclick="location.href='/main/root'">시작하기</button>
+                  <button class="btn" onclick="location.href='/user/login'">시작하기</button>
                 </div>
                 <div class="right-content">
                   <video src="${path}/resources/videos/video1.mp4" autoplay loop muted></video>
@@ -100,8 +99,10 @@
                 </div>
                 <div class="right-content">
                   <video src="${path}/resources/videos/video3.mp4" autoplay loop muted></video>
-                </div></div
-            ></swiper-slide>
+                </div>
+              </div>
+            </swiper-slide>
+            
             <swiper-slide>
               <div class="content">
                 <div class="left-content">

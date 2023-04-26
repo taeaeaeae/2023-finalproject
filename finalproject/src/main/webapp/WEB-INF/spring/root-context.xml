@@ -14,9 +14,11 @@
 	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<!-- JDBC 연결생성을 위한 필수 4가지 정보 -->
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@example1_high?TNS_ADMIN=C:/opt/OracleCloudWallet/VFX" />
-		<property name="username" value="TTT" />
+
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@example1_high"/>
+		<property name="username" value="ttt"/>
+
 		<property name="password" value="Oracle12345678"/>
 
 		<property name="maximumPoolSize" value="10" />
@@ -39,13 +41,13 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="hikariDataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<!-- <property name="mapperLocations" value="classpath*:mappers/SQL*.xml"/> -->
 	</bean>
 
 	<!-- Auto-Registration As A Bean -->
 	<context:component-scan base-package="org.zerock.myapp.service" />
 	<context:component-scan base-package="org.zerock.myapp.persistence" />
 	<context:component-scan base-package="org.zerock.myapp.mapper" />
+	<context:component-scan base-package="org.zerock.myapp.utils" />
 
 	
 	<mybatis-spring:scan base-package="org.zerock.myapp.mapper" />
