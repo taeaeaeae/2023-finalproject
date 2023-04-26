@@ -1,3 +1,4 @@
+<%@ page import="org.zerock.myapp.domain.LoginVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -8,9 +9,21 @@
 <meta charset="UTF-8">
 <title>자유게시판 | ${freeboard.title}</title>
 <link rel="stylesheet" type="text/css" href="/resources/freeboard/css/freeboard_view.css">
-
 </head>
 <body>
+<% 
+  HttpSession se = request.getSession();
+  LoginVO user = (LoginVO) session.getAttribute("__AUTH__"); 
+  
+  String userId = "";
+  
+  if (user != null) {
+    userId = user.getUids();
+  }
+%>
+
+<p>로그인한 유저 아이디: <%= userId %></p>
+
   <!-- 게시글 폼 -->
   <form action="/freeboard/get" method="post" class="board-post">
     <input type="hidden" name="currPage"value="${param.currPage}">
@@ -28,15 +41,17 @@
         <span class="post-author">작성자 : ${freeboard.uids}</span>
         <span class="post-date">작성일 : <fmt:formatDate value="${freeboard.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></span>
         <span class="post-views">조회수 : ${freeboard.view_count}</span>
+       	<button type="button" onclick="openReportPopup()">신고하기</button>
       </div>
     </section>
-  
+
+    
     <section class="board-body">
       <hr class="board-divider">
       <div class="post-content">${freeboard.content}</div>
     </section>
   </form>
-    
+  
   <form action="/freeboard/list" method="post">
     <div class="list_button">
       <input type="hidden" name="fid"     value="${freeboard.fid}">
@@ -45,11 +60,13 @@
       <input type="hidden" name="type"    value="${param.type}">
       <input type="hidden" name="keyword" value="${param.keyword}">
       
-      <button type="button" id="prePostBtn"  class="button">이전글</button>
-      <button type="button" id="modifyBtn"   class="button">수정</button>
-      <button type="button" id="removeBtn"   class="button">삭제</button>
+      <button type="button" id="prePostBtn"  class="button" ${empty prevFid ? 'disabled' : '' }>이전글</button>
+      <c:if test="${not empty sessionScope['__AUTH__'] and sessionScope['__AUTH__'].uids eq freeboard.uids}">
+	      <button type="button" id="modifyBtn" class="button">수정</button>
+	      <button type="button" id="removeBtn" class="button" >삭제</button>
+      </c:if>
       <button type="button"  id="listBtn"    class="button">목록</button>
-      <button type="button" id="nextPostBtn" class="button">다음글</button>
+      <button type="button" id="nextPostBtn" class="button" ${empty nextFid ? 'disabled' : '' }>다음글</button>
     </div>
 	</form>
     
@@ -57,7 +74,7 @@
   <section class="comment">
     <div class="comment-wrap">
       <h2 class="comment-title">댓글</h2>
-
+      
       <ul class="comment-list">
         <c:forEach var="FreeBoardCommentVO" items="${commentList}">
           <li class="comment-item">
@@ -65,11 +82,13 @@
               <p class="comment-author">${FreeBoardCommentVO.uids} | <fmt:formatDate value="${FreeBoardCommentVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></p>
               <p class="comment-content">${FreeBoardCommentVO.content}</p>
               <div class="comment-actions">
-                <a href="#" class="comment-modify-link" data-fbcid="${FreeBoardCommentVO.fbcid}" data-uids="${FreeBoardCommentVO.uids}" data-content="${FreeBoardCommentVO.content}">수정</a>
-                <form action="/comment/remove" method="post" onsubmit="return confirmCommentRemove()">
-                  <input type="hidden" name="fbcid" value="${FreeBoardCommentVO.fbcid}">
-                  <button type="submit" class="comment-remove-btn">삭제</button>
-                </form>
+                <c:if test="${not empty sessionScope['__AUTH__'] and sessionScope['__AUTH__'].uids eq FreeBoardCommentVO.uids}">
+                  <a href="#" class="comment-modify-link" data-fbcid="${FreeBoardCommentVO.fbcid}" data-uids="${FreeBoardCommentVO.uids}" data-content="${FreeBoardCommentVO.content}">수정</a>
+                  <form action="/comment/remove" method="post">
+                    <input type="hidden" name="fbcid" value="${FreeBoardCommentVO.fbcid}">
+                    <button type="submit" class="comment-remove-btn">삭제</button>
+                  </form>
+                </c:if>
               </div>
             </div>
           </li>
@@ -87,6 +106,7 @@
          <button type="button" class="commentModifyBtn">수정 완료</button>
        </form>
       
+      <!-- 댓글 등록 -->
       <form class="comment-form" action="/comment/register" method="post" onsubmit="return commentForm()">
         <input type="hidden" name="fid" value="${freeboard.fid}">
         <input type="hidden" name="currPage" value="${param.currPage}">
@@ -94,7 +114,7 @@
 
         <div class="form-group">
           <label for="comment_content">댓글</label>
-          <textarea name="content" id="comment_content" rows="3" placeholder="댓글을 작성해주세요."></textarea>
+          <textarea name="content" id="comment_content" rows="3" ${empty sessionScope['__AUTH__'] ? 'disabled placeholder="로그인 후 댓글을 작성할 수 있습니다. 로그인해주세요."' : '' }></textarea>
         </div>
         <button type="submit" class="comment-submit-btn">댓글 작성</button>
       </form>
@@ -115,14 +135,78 @@ listBtn.addEventListener('click', function () {
 /* remove button */
 let removeBtn = document.querySelector("#removeBtn");
 
-removeBtn.addEventListener('click', function() {
+function confirmRemove() {
+  const result = confirm("삭제하시겠습니까?");
+
+  return result;
+}
+
+if (removeBtn) {
+  removeBtn.addEventListener('click', function(event) {
+    event.preventDefault(); // 기본 동작 중단
+    if (confirmRemove()) {
+      let form = document.querySelector('form');
+      
+      form.setAttribute('method', 'POST');
+      form.setAttribute('action', '/freeboard/remove');
+      form.submit();
+    }
+  });
+}
+
+/* modify button */
+let modifyBtn = document.querySelector("#modifyBtn");
+
+if(modifyBtn){
+    modifyBtn.addEventListener('click', function () {
+    location.href="/freeboard/modify?currPage=${param.currPage}&amount=${param.amount}&fid=${freeboard.fid}";
+  });
+};
+
+// let modifyBtn = document.querySelector("#modifyBtn");
+
+// if(modifyBtn){
+//   modifyBtn.addEventListener('click', function() {
+//     let form = document.querySelector('form');
+    
+//     form.setAttribute('method', 'POST');
+//     form.setAttribute('action', '/freeboard/modify');
+//     form.submit();
+//   });
+// };
+
+/* prePost button */
+let prePostBtn = document.querySelector("#prePostBtn");
+
+prePostBtn.addEventListener('click', function() {
+  
+  if(prePostBtn.hasAttribute('disabled')){
+    alert('이전 글이 없습니다.');
+    return;
+  };
   let form = document.querySelector('form');
   
-  form.setAttribute('method', 'POST');
-  form.setAttribute('action', '/freeboard/remove');
+  form.setAttribute('method', 'GET');
+  form.setAttribute('action', '/freeboard/prev');
   form.submit();
 });
 
+/* nextPost button */
+let nextPostBtn = document.querySelector("#nextPostBtn");
+
+nextPostBtn.addEventListener('click', function() {
+  if(nextPostBtn.hasAttribute('disabled')){
+    alert('다음 글이 없습니다.');
+    return;
+  };
+  let form = document.querySelector('form');
+  
+  form.setAttribute('method', 'GET');
+  form.setAttribute('action', '/freeboard/next');
+  form.submit();
+});
+
+// 댓글 버튼
 /* commentModifyBtn button */
 let commentModifyBtn = document.querySelector(".commentModifyBtn");
 
@@ -131,52 +215,32 @@ commentModifyBtn.addEventListener('click', function () {
   location.href="/freeboard/get?currPage=${param.currPage}&amount=${param.amount}&fid=${freeboard.fid}&type=${param.type}&keyword=${param.keyword}";
 });
 
-/* modify button */
-let modifyBtn = document.querySelector("#modifyBtn");
-
-modifyBtn.addEventListener('click', function () {
-  location.href="/freeboard/modify?currPage=${param.currPage}&amount=${param.amount}&fid=${freeboard.fid}";
-});
-
-/* prePost button */
-let prePostBtn = document.querySelector("#prePostBtn");
-
-prePostBtn.addEventListener('click', function() {
-  let form = document.querySelector('form');
-  
-  form.setAttribute('method', 'GET');
-  form.setAttribute('action', '/freeboard/prev');
-  form.submit();
-});
-
-// 댓글 버튼
-/* nextPost button */
-let nextPostBtn = document.querySelector("#nextPostBtn");
-
-nextPostBtn.addEventListener('click', function() {
-  let form = document.querySelector('form');
-  
-  form.setAttribute('method', 'GET');
-  form.setAttribute('action', '/freeboard/next');
-
-  if (nextPostBtn.getAttribute('disabled') === null) {
-    form.submit();
-  }
-});
-
 /* removeComment button */
 let commentRemoveLink = document.querySelector(".comment-remove-btn");
 
-if(commentRemoveLink){
-  commentRemoveLink.addEventListener('click', function() {
-    console.log("commentRemoveLink clicked.");
-    let form = document.querySelector('form');
-    
-    form.setAttribute('method', 'POST');
-    form.setAttribute('action', '/comment/remove');
-    form.submit();
+function confirmCommentRemove() {
+  const result = confirm("댓글을 삭제하시겠습니까?");
+
+  return result;
+}
+
+if (commentRemoveLink) {
+  commentRemoveLink.addEventListener('click', function(event) {
+    event.preventDefault(); // 기본 동작 중단
+    if (confirmCommentRemove()) {
+      let form = document.querySelector('form');
+      
+      form.setAttribute('method', 'POST');
+      form.setAttribute('action', '/comment/remove');
+      form.submit();
+    }
   });
-};
+}
+
+// 팝업창 띄우기
+function openReportPopup() {
+  window.open("/reports/register", "신고하기", "width=500, height=500");
+}
 </script>
 <script src="/resources/freeboard/js/validateForm.js"></script>
 <script src="/resources/freeboard/js/comment.js"></script>

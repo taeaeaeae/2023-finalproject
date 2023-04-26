@@ -1,16 +1,4 @@
-function commentForm() {
-  const content = document.getElementById("comment_content").value;
-
-  if(content.trim() === ""){
-    alert("댓글을 입력해주세요.");
-    document.getElementById("comment_content").focus();
-    return false;
-  }
-  return true;
-};
-
-// 댓글 수정(비동기 처리)
-$(document).on('click', '.comment-modify-link', function(e) {
+$(document).on('click', '.commentModifyLink', function(e) {
   e.preventDefault();
 
   var fbcid = $(this).data('fbcid');
@@ -45,6 +33,7 @@ $(document).on('click', '.commentModifyBtn', function() {
         var modifiedComment = data.FreeBoardCommentVO;
         // 해당 comment의 내용을 변경합니다.
         $(".commentList li[data-fbcid='" + modifiedComment.fbcid + "'] .commentContent").html(modifiedComment.content);
+		$('#comment-content').focus();
      }
     },
     error: function(xhr, status, error) {
@@ -52,9 +41,3 @@ $(document).on('click', '.commentModifyBtn', function() {
     }
   });
 });
-
-function confirmCommentRemove() {
-  const result = confirm("댓글을 삭제하시겠습니까?");
-
-  return result;
-};
