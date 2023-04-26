@@ -11,6 +11,8 @@ public interface QnaService {
 	
 	public abstract List<QnaVO> getList(Criteria cri) throws ServiceException;
 	
+	public abstract List<QnaVO> searchList(Criteria cri) throws ServiceException;
+	
 	public abstract QnaVO get(Integer qid) throws ServiceException;
 	
 	public abstract boolean remove(Integer qid) throws ServiceException;

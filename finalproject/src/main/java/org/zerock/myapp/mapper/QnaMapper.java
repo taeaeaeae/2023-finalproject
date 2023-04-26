@@ -18,7 +18,9 @@ public interface QnaMapper {
 			FETCH NEXT #{amount} ROWS ONLY
 			"""	)
 	public abstract List<QnaVO> selectAll(Criteria cri);
-
+	
+	public abstract List<QnaVO> search(Criteria cri);
+	
 	public abstract QnaVO select(Integer qid);	
 	public abstract Integer delete(Integer qid);		
 	public abstract Integer insert(QnaDTO dto);		

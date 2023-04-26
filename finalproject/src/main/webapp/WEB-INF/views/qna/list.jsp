@@ -29,20 +29,31 @@
   margin-right: auto;
   }
 button {
-	
+}
+a {
+  text-decoration-line: none;
 }
 	</style>
     
     <link rel="stylesheet" href="WEB-INF/views/common/font.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cerulean/bootstrap.min.css" integrity="sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" crossorigin="anonymous">
-    
+    <link rel="canonical"
+	href="https://getbootstrap.com/docs/5.2/examples/album/" />
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous" />
+	
 </head>
 
 <body>
 
 
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
-	
+			<input type="hidden" name="currPage" value="${param.currPage}">
+			<input type="hidden" name="amount" value="${param.amount}">
+			<input type="hidden" name="result" value="${param.result}">
 	<br>
 	<h1>QnA</h1>
 	<br>
@@ -61,20 +72,26 @@ button {
     </tr>
   </thead>
   <tbody>
-  	<c:forEach items="${list}" var="QnaVO">
+  	<c:forEach items="${list}" var="QnaVO" varStatus="qqid">
     <tr class="table-primary">
 		<td>${QnaVO.qid}</td>
 		<td>
 		<script>
 		document.write(${QnaVO.openy_n}?'🔓':'🔒');
-		//document.write((${AnswerDTO} != null)?'[답변완료]':'[답변대기]');
 		</script>
-		<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">${QnaVO.title}</a></td>
+		<c:if test="${QnaVO.title eq link[qqid.index]}">
+			<a href="/qna/list">[${ans[qqid.index]}] ${QnaVO.title}</a>
+		</c:if>
+		<c:if test="${'0' eq link[qqid.index]}">
+			<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">[${ans[qqid.index]}] ${QnaVO.title}</a>
+		</c:if>
+		</td>
 		<td>${QnaVO.uids}</td>
 		<td>${QnaVO.insert_ts}</td>
 		<td>${QnaVO.update_ts}</td>
     </tr>
     </c:forEach>
+    
   </tbody>
 </table>
 
@@ -113,7 +130,7 @@ button {
 	</div>
     <script>
         var registerBtn = document.querySelector('#registerBtn');
-        document.query
+        
 
         registerBtn.addEventListener('click', function () {
             location = '/qna/register?currPage=${param.currPage}&amount=${param.amount}';
@@ -121,9 +138,10 @@ button {
 
         var result = "${param.result}";
 
-        if(result != null && result != "") {        
-            alert('result: ' + result);
+        if(result != null && result != "") {
+            alert(result);
         } // if
+        
 
     </script>
 	

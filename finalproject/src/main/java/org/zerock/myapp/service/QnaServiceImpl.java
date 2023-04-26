@@ -7,6 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.myapp.domain.Criteria;
+import org.zerock.myapp.domain.FreeBoardVO;
 import org.zerock.myapp.domain.QnaDTO;
 import org.zerock.myapp.domain.QnaVO;
 import org.zerock.myapp.exception.ServiceException;
@@ -31,7 +32,6 @@ public class QnaServiceImpl
 	
 
 
-
 	@Override
 	public void afterPropertiesSet() throws ServiceException {	
 		log.trace("afterPropertiesSet() invoked.");
@@ -44,19 +44,28 @@ public class QnaServiceImpl
 		} // try-catch
 	} // afterPropertiesSet
 	
-	
 	@Override
 	public List<QnaVO> getList(Criteria cri) throws ServiceException {
 		log.trace("getList() invoked.");
 	
 		try {
-		
 			return this.mapper.selectAll(cri);
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		} // try-catch
 	} // getList
-
+	
+	
+	@Override
+	public List<QnaVO> searchList(Criteria cri) throws ServiceException {
+		log.trace("searchList() invoked.");
+	
+		try {
+			return this.mapper.search(cri);
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	} // getList
 
 	@Override
 	public QnaVO get(Integer qid) throws ServiceException {

@@ -34,10 +34,11 @@
 
     
 	<div id="wrapper">
-		<form action="/qna/register" method="POST" enctype="multipart/form-data">
+		<form action="/qna/answerRegister" method="POST">
 			
 			<input type="hidden" name="currPage" value="${param.currPage}">
 			<input type="hidden" name="amount" value="${param.amount}">
+			<input type="hidden" name="qid" value="${param.qid}">
 			
    <fieldset>
 		<h1>QnA</h1>
@@ -55,38 +56,8 @@
       </div>
       <div class="form-group">
         <label for="formFile" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">사진첨부</font></font></label>
-        <input name = "file" class="form-control" type="file" id="formFile">
-      </div> 
-      
-      <script>
-		$("formFile").change(function() {
-			if(this.file && this.file[0]) {
-				var reader = new FileReader;
-				reader.onload = function(data) {
-					$(".form-group img").arrt("src", data.target.result).wdith(500);
-				}
-				reader.readAsDataURL(this.file[0]);
-			}
-		});
-		</script>
-		
-      <fieldset class="form-group">
-        <legend class="mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비공개</font></font></legend>
-
-	  <div class="form-check">
-        <input class="form-check-input" type="radio" name="openy_n" id="optionsRadios1" value="true" checked="">
-        <label class="form-check-label" for="optionsRadios1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-          공개
-        </font></font></label>
+        <input name = "image" class="form-control" type="file" id="formFile">
       </div>
-      
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="openy_n" id="optionsRadios2" value="false">
-        <label class="form-check-label" for="optionsRadios2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-          비공개
-        </font></font></label>
-      </div>		
-      </fieldset>
 			
 
 			<button type="button" id="listBtn">LIST</button>
@@ -99,9 +70,10 @@
 		var listBtn = document.querySelector('#listBtn');
 		
 
+
 		listBtn.addEventListener('click', function () {
 			location.href='/qna/list?currPage=${param.currPage}&amount=${param.amount}';
-		});
+		})
 
 	</script>
 
