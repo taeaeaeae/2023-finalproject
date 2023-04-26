@@ -57,6 +57,7 @@
         <label for="formFile" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">사진첨부</font></font></label>
         <input name = "file" class="form-control" type="file" id="formFile">
       </div> 
+      
       <script>
 		$("formFile").change(function() {
 			if(this.file && this.file[0]) {
