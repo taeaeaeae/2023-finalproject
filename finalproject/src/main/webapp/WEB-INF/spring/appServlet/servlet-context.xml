@@ -75,6 +75,12 @@
 
          <beans:ref bean="authInterceptor"/>
       </interceptor>
+	  
+	  <interceptor>
+	  	<mapping path="/reports/register" />
+
+		<beans:ref bean="authInterceptor"/>
+	  </interceptor>
 	</interceptors>
 	
 </beans:beans>

@@ -8,8 +8,7 @@
 <title>회원정보조회</title>
 </head>
 <body>
-
-	<%@include file="/WEB-INF/views/main/header.jsp" %>
+<%@include file="/WEB-INF/views/main/header.jsp" %>
 	
 	<h1 align="center">회원정보조회</h1>
 	
@@ -44,7 +43,6 @@
 		</section>
 
 	
-	<%@include file="/WEB-INF/views/main/footer.jsp" %>	
-
+<%@include file="/WEB-INF/views/main/footer.jsp" %>	
 </body>
 </html>
