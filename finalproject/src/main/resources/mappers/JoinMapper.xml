@@ -27,7 +27,6 @@
         UPDATE users
         SET password = #{password},
         	name = #{name},
-            nickname = #{nickname},
             phonenumber = #{phonenumber},
             email = #{email}
         WHERE

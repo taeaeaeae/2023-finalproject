@@ -161,7 +161,7 @@ public class QnaController {
 	} // list
 	
 	
-	@GetMapping({ "/get", "/modify", "/answerRegister" })
+	@GetMapping({ "/get", "/modify", "/answerRegister" , "/answerModify"})
 	public void get(@RequestParam("qid") Integer qid, Model model, HttpSession session) throws ControllerException {
 		log.trace("get({}, {}) invoked.", qid, model);
 
