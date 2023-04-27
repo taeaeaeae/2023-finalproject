@@ -38,9 +38,6 @@
             <h3>이메일</h3>
                 <input type="email" id="email" name="email" title="email" placeholder="example1@xxx.com" maxlength="38" required>
                         
-            <h3>닉네임</h3>
-                <input type="text" id="nickname" name="nickname" title="nickname" maxlength="18" required>
-				<button class="checkNickName" type="button" id="checkNickName" onclick="fn_nickChk();" value="N">중복확인</button>
 						
                 <br>
                 <br>
@@ -103,24 +100,6 @@
 			      }
 	           
 	
-	    // 닉네임 중복체크
-		    function fn_nickChk(){
-				$.ajax({
-					url : "/join/checkNickName",
-					type : "post",
-					dataType : "json",
-					data : {"nickname" : $("#nickname").val()},
-					success : function(data){
-					if(data >= 1){
-						$("#checkNickName").attr("value", "N");
-						alert("중복된 닉네임입니다.");
-					}else if(data == 0){
-						$("#checkNickName").attr("value", "Y");
-						alert("사용가능한 닉네임입니다.");
-							}
-						}
-					}) // ajax
-				}
 	   	    
 	    // 비밀번호 확인
 	         function fn_checkPw() {

@@ -19,11 +19,11 @@
     font-weight: normal;
     font-style: normal;
   }
-  h1 {
+  .board_name {
   text-align: center;
   	color: black;
   }
-  ul {
+  #ulululul {
   width: 300px;
   margin-left: auto;
   margin-right: auto;
@@ -55,7 +55,7 @@ a {
 			<input type="hidden" name="amount" value="${param.amount}">
 			<input type="hidden" name="result" value="${param.result}">
 	<br>
-	<h1>QnA</h1>
+	<h1 class="board_name">QnA</h1>
 	<br>
 	
 	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="float: right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
@@ -96,7 +96,7 @@ a {
 </table>
 
 <div>
-  <ul class="pagination pagination-sm" >
+  <ul class="pagination pagination-sm" id="ulululul">
     <li class="page-item disabled">
       <a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&laquo;</font></font></a>
     </li>
@@ -145,6 +145,9 @@ a {
     </script>
 	
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
-
+<script
+   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+   crossorigin="anonymous"></script>
 </body>
 </html>

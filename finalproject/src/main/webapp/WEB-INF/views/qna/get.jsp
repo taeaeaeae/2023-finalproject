@@ -19,7 +19,7 @@
     font-weight: normal;
     font-style: normal;
     }
-      h1 {
+      h1.board_name {
   text-align: center;
   	color: black;
   }
@@ -35,7 +35,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
     
 	<br>
-	<h1>QnA</h1>
+	<h1 class="board_name">QnA</h1>
 	<br>
 	
     
@@ -45,6 +45,7 @@
 		<input type="hidden" name="amount" value="${param.amount}">
 		<input type="hidden" name="result" value="${param.result}">
 		<input type="hidden" name="qid" value="${qna.qid}">
+		<input type="hidden" name="qid" value="${param.qid}">
 
 		
 <div class="card mb-3">
@@ -116,5 +117,9 @@
 	</script>
 	
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<script
+   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+   crossorigin="anonymous"></script>
 </body>
 </html>

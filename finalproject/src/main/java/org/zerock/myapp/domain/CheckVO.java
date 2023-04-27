@@ -6,7 +6,6 @@ import lombok.Value;
 public class CheckVO {
 	
 	private String uids;
-	private String nickname;
 	private String password;
 	
 }	// end class

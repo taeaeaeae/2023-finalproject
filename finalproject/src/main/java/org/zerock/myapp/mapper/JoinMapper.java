@@ -21,8 +21,6 @@ public interface JoinMapper {
 	// 아이디 중복확인
 	public abstract CheckVO checkId(String uids);			
 	
-	// 닉네임 중복확인
-	public abstract CheckVO checkNickName(String nickname); 
 	
 
 	

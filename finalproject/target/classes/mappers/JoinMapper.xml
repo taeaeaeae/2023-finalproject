@@ -19,8 +19,8 @@
     </delete>
 
     <insert id="join">
-      Insert into users(uids, password, name, nickname, phonenumber, email) 
-      values(#{uids}, #{password}, #{name}, #{nickname}, #{phonenumber}, #{email})
+      Insert into users(uids, password, name, phonenumber, email) 
+      values(#{uids}, #{password}, #{name}, #{phonenumber}, #{email})
     </insert>
 
     <update id="update">
@@ -39,13 +39,7 @@
         select count(*) 
         from users 
         where uids=#{uids}
-    </select>
-    
-    <select id="checkNickName" resultType="int">
-        select count(*) 
-        from users 
-        where nickname=#{nickname}
-    </select>
+    </select>       
 
 
   </mapper>
