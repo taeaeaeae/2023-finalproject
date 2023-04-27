@@ -27,13 +27,11 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Override
 	public ArrayList<MywriteVO> mywrite(String uids) {
-		
 		return mapper.mywrite(uids);
 	}	// mywrite
 	
 	@Override
 	public ArrayList<MycommentVO> mycomment(String uids) {
-		
 		return mapper.mycomment(uids);
 	}	//mycomment
 
@@ -59,7 +57,6 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public ArrayList<LikesVO> likes(String uids) {
-		
 		return this.mapper.likes(uids);
 	} //likes
 

@@ -7,16 +7,16 @@ import org.zerock.myapp.exception.ServiceException;
 
 public interface UsersService {
 	
-	// È¸¿ø »ó¼¼Á¶È¸ 
+	// íšŒì› ìƒì„¸ì¡°íšŒ 
 	public abstract UsersVO select(String uids) throws ServiceException;
 
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 	public abstract boolean join(UsersDTO dto) throws ServiceException;
 	
-	// È¸¿ø¼öÁ¤
+	// íšŒì›ìˆ˜ì •
 	public abstract boolean update(UsersDTO dto) throws ServiceException;
 	
-	// È¸¿øÅ»Åğ
+	// íšŒì›íƒˆí‡´
 	public abstract boolean remove(UsersDTO dto) throws ServiceException;
 	
 

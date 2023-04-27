@@ -13,21 +13,21 @@
 </head>
 <body>
   <h1>JOIN</h1>
-  <form action="/join/joinPost" method="post" name="joinForm">
+  <form action="/join/joinPost" method="post" id="joinForm">
     
     <div class="join_content">
         <div class="essential">
 
             <h3>아이디 <span>(영문, 숫자 사용가능)</span></h3>
                 <input type="text" id="uids" name="uids" onkeydown="inputIdChk()" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
-                <button class="checkId" type="button" id="checkId" onclick="fn_idChk();" value="N">중복확인</button>
+                <button class="checkId" type="button" id="checkId" name="button" onclick="fn_idChk();" value="N">중복확인</button>
                                          
             <h3>비밀번호</h3>
                 <input type="password" id="password" name="password" title="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
                     
             <h3>비밀번호 확인</h3>
 				<input type="password" id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
-				<button class="pwCheck" type="button" id="pwCheck" onclick="fn_checkPw();" value="N">확인</button>
+				<button class="pwCheck" type="button" id="pwCheck" name="button" onclick="fn_checkPw();" value="N">확인</button>
                     
             <h3>이름</h3>
                 <input type="text" id="name" name="name" title="name" maxlength="18" required>
@@ -37,7 +37,6 @@
                 
             <h3>이메일</h3>
                 <input type="email" id="email" name="email" title="email" placeholder="example1@xxx.com" maxlength="38" required>
-                        
 						
                 <br>
                 <br>
@@ -67,7 +66,7 @@
 
         <div class="join">
         
-            <button type="submit" id="joinBtn" onclick="erchk()">
+            <button type="submit" id="joinBtn">
                 회원가입
             </button>
             
@@ -98,8 +97,6 @@
 				        }
 			        }) // ajax
 			      }
-	           
-	
 	   	    
 	    // 비밀번호 확인
 	         function fn_checkPw() {
@@ -128,17 +125,16 @@
 	            agreeChk[i].checked = e.target.checked;
 	        }
 	    });
-	        
-		// 회원가입완료 알림
-			 $(document).ready(function() {
-		        let message = "${result}";
-		        if (message = "") {
-		            alert(message);
-		        }else {
-		        }
-		    });
-
-      	    
+   	    
+	    // 완료 알림
+			$(document).ready(function() {
+			      let message = "${result}";
+			      if (message != "" && message != null ) {
+			            alert(message);
+			      }else {
+			     }
+			  });
+        
 	    // 취소시 메인
 	        var cancleBtn = document.querySelector('#cancleBtn');
 	

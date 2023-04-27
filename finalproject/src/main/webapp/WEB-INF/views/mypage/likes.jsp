@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>likes</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 <%@include file="/WEB-INF/views/main/header.jsp" %>

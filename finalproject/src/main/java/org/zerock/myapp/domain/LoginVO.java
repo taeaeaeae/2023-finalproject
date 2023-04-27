@@ -7,11 +7,6 @@ public class LoginVO {
 	
 	private String uids;
 	private String password;
-	private String name;
-	private String email;
-	private String nickname;
-	private String phonenumber;
-	
-	
+	private String is_delete;
 
 }	// end class
