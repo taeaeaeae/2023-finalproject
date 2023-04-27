@@ -7,14 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.Criteria;
@@ -26,18 +24,15 @@ import org.zerock.myapp.domain.PageDTO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.exception.ServiceException;
 import org.zerock.myapp.service.FreeBoardCommentService;
-import org.zerock.myapp.service.FreeBoardCommentServiceImpl;
 import org.zerock.myapp.service.FreeBoardService;
-import org.zerock.myapp.util.ViewCounting;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-//@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor
+//@AllArgsConstructor
 
 @RequestMapping("/freeboard")
 @Controller
@@ -74,11 +69,11 @@ public class FreeBoardController {
 	} // list 
 	
 	@GetMapping({"/get", "modify"})
-	public String get(Criteria cri, Integer fid, Model model, HttpServletRequest req, HttpServletResponse res) throws ControllerException{
-		log.trace("get({}, {}, {}, {}, {}) invoked.", cri, fid, model, req, res);
+	public void get(Criteria cri, Integer fid, Model model) throws ControllerException{
+		log.trace("get({}, {}, {}, {}, {}) invoked.", cri, fid, model);
 		
 		try {
-			increaseViewCount(fid, req, res);
+//			increaseViewCount(fid, req, res);
 			
 			FreeBoardVO vo = this.service.get(fid);
 			Integer totalAmount = this.service.getTotalAmount(cri);
@@ -95,7 +90,7 @@ public class FreeBoardController {
 			List<FreeBoardCommentVO> commentList = this.commentService.getList(fid);
 			model.addAttribute("commentList", commentList);
 			
-			return "/freeboard/get";
+//			return "/freeboard/get";
 		} catch (Exception e) {
 			throw new ControllerException(e);
 		} // try-catch
@@ -245,58 +240,26 @@ public class FreeBoardController {
 		} // try-catch
 	} // next
 	
-//	public void checkVisited(Integer fid, HttpServletRequest req, HttpServletResponse res) throws ServiceException {
-//		log.info("checkVisited({}, {}, {}) invoked", fid, req, res);
-//		
-//		Cookie oldCookie = null;
-//		Cookie[] cookies = req.getCookies();
-//		
-//		if(cookies != null) {
-//			for(Cookie cookie : cookies) {
-//				if(cookie.getName().equals("View")) {
-//					oldCookie = cookie;
-//				} // if
-//			} // for
-//		} // if
-//		log.info("\t cookies : {}, oldCookie : {}", Arrays.deepToString(cookies), oldCookie);
-//		
-//		if(oldCookie != null) {
-//			if(!oldCookie.getValue().contains("[" + fid.toString() + "]")) {
-//
-//				service.viewCountUp(fid);
-//				oldCookie.setValue(oldCookie.getValue() + "_[" + fid + "]");
-//				oldCookie.setPath("/");
-//				oldCookie.setMaxAge(60 * 60 * 24);
-//				res.addCookie(oldCookie);
-//			} // if
-//		} else {
-//			service.viewCountUp(fid);
-//			Cookie newCookie = new Cookie("View", "[" + fid + "]");
-//			newCookie.setPath("/");
-//			newCookie.setMaxAge(60 * 60 * 24);
-//			res.addCookie(newCookie);
-//		} // if-else
-//	} // checkVisited
-	
-	// 조회수 증가 method
-	public void increaseViewCount(Integer fid, HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-	    Cookie[] cookies = request.getCookies();
-	    boolean isDuplicated = false;
-	    if (cookies != null) {
-	        for (Cookie cookie : cookies) {
-	            if (cookie.getName().equals("viewed_" + fid)) {
-	                isDuplicated = true;
-	                break;
-	            } // if
-	        } // for
-	    } // if
-	    if (!isDuplicated) {
-	        Cookie cookie = new Cookie("viewed_" + fid, "true");
-	        cookie.setMaxAge(24 * 60 * 60);
-	        cookie.setPath("/");
-	        response.addCookie(cookie);
-	        service.viewCountUp(fid);
-	    } // if
-	} // increaseViewCount
+	// 조회수 증가 중복 cookie
+//	public void increaseViewCount(Integer fid, HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+//	    Cookie[] cookies = request.getCookies();
+//	    boolean isDuplicated = false;
+//	    
+//	    if (cookies != null) {
+//	        for (Cookie cookie : cookies) {
+//	            if (cookie.getName().equals("viewed_" + fid)) {
+//	                isDuplicated = true;
+//	                break;
+//	            } // if
+//	        } // for
+//	    } // if
+//	    if (!isDuplicated) {
+//	        Cookie cookie = new Cookie("viewed_" + fid, "true");
+//	        cookie.setMaxAge(24 * 60 * 60);
+//	        cookie.setPath("/");
+//	        response.addCookie(cookie);
+//	        service.viewCountUp(fid);
+//	    } // if
+//	} // increaseViewCount
 
 } // end class
