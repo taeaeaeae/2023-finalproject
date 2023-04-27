@@ -9,8 +9,8 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/update.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>회원정보수정</title>
 </head>
 <body>
@@ -35,8 +35,6 @@
 						
 						<h3>* 이름 <input type="text" name="name" value="${mypage.name}" readonly/></h3>
 						
-						<h3>* 닉네임 <input type="text" name="nickname" value="${mypage.nickname}" readonly/></h3>
-						
 						<h3>* 전화번호 <input type="text" name="phonenumber" value="${mypage.phonenumber}" placeholder="숫자만 입력하세요" pattern="[0-9]{11}" maxlength="11" required/></h3>
 						
 						<h3>* 이메일 <input type="email" name="email" value="${mypage.email}" placeholder="example1@xxx.com" maxlength="38" required/></h3>
@@ -45,7 +43,7 @@
 					</div>	
 
 					<div id="gogo">
-				      <input type="submit" class="btn btn-outline-primary" value="수정"></button>
+				      <button type="submit" id="submit" class="btn btn-outline-primary">수정</button>
 				      
 				      <button type="button" id="cancleBtn" class="btn btn-outline-primary">취소</button>
 					</div>				
@@ -71,6 +69,15 @@
 	   	  return true;
 		}
 		
+	    // 완료 알림
+		$(document).ready(function() {
+		      let message = "${result}";
+		      if (message != "" && message != null ) {
+		            alert(message);
+		      }else {
+		     }
+		  });
+	    
 	    // 취소시 메인
         var cancleBtn = document.querySelector('#cancleBtn');
 

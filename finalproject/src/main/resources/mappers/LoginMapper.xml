@@ -10,7 +10,6 @@
         SELECT * 
         FROM users 
         WHERE uids = #{uids} 
-        AND password = #{password}
         AND is_delete = 0
     </select>
 

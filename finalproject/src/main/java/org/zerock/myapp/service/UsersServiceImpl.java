@@ -28,7 +28,7 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 	private JoinMapper mapper;
 	
 	@Override
-	public void afterPropertiesSet() throws ServiceException{	// 1È¸¼º ÀüÃ³¸®
+	public void afterPropertiesSet() throws ServiceException{	// 1íšŒì„± ì „ì²˜ë¦¬
 		log.trace("afterPropertiesSet() invoked.");
 		
 		try {
@@ -75,8 +75,6 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 			throw new ServiceException(e);
 		}	// try-catch
 	}	//remove
-
-
 
 
 

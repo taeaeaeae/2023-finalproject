@@ -19,7 +19,7 @@
     font-weight: normal;
     font-style: normal;
     }
-      h1 {
+      h1.board_name {
   text-align: center;
   	color: black;
   }
@@ -35,7 +35,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
     
 	<br>
-	<h1>QnA</h1>
+	<h1 class="board_name">QnA</h1>
 	<br>
 	
     
@@ -45,6 +45,7 @@
 		<input type="hidden" name="amount" value="${param.amount}">
 		<input type="hidden" name="result" value="${param.result}">
 		<input type="hidden" name="qid" value="${qna.qid}">
+		<input type="hidden" name="qid" value="${param.qid}">
 
 		
 <div class="card mb-3">
@@ -53,7 +54,7 @@
     <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.uids}</font></font></h5>
     <h6 class="card-subtitle text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.insert_ts}</font></font></h6>
   </div>
-  	<c:if test="${not empty qna.image}"><img src="${qna.image}" alt="${qna.title}"></c:if>
+  	<c:if test="${not empty qna.image}"><img src="/resources${qna.image}" alt="${qna.title}"></c:if>
   
   <div class="card-body">
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.content}</</font></font></p>
@@ -90,31 +91,35 @@
   </div>
 </div>
 
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
-	
+
 	<script>
 		var listBtn = document.querySelector('#listBtn');
 		var modifyBtn = document.querySelector('#modifyBtn');
 		var AnswerModifyBtn = document.querySelector('#answerModifyBtn');
         var answerRegisterBtn = document.querySelector('#answerRegisterBtn');
-        
-        listBtn.addEventListener('click', function () {
-			location='/qna/list?currPage=${param.currPage}&amount=${param.amount}';
-		});
-
-        modifyBtn.addEventListener('click', function () {
-			location = '/qna/modify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-		});
-		
-		answerModifyBtn.addEventListener('click', function () {
-			location = '/qna/answerModify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-		});
 		
         answerRegisterBtn.addEventListener('click', function () {
             location = '/qna/answerRegister?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-        });        
+        })        
+		
+		answerModifyBtn.addEventListener('click', function () {
+			location = '/qna/answerModify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
+		})
+        
+        listBtn.addEventListener('click', function () {
+			location='/qna/list?currPage=${param.currPage}&amount=${param.amount}';
+		})
+
+        modifyBtn.addEventListener('click', function () {
+			location = '/qna/modify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
+		})
 
 	</script>
 	
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<script
+   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+   crossorigin="anonymous"></script>
 </body>
 </html>

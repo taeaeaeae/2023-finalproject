@@ -60,7 +60,7 @@ public class FindController {
 				return "/user/findIdPost";
 				
 			} else {
-				rttrs.addFlashAttribute("result", "ÀÏÄ¡ÇÏ´Â È¸¿øÁ¤º¸°¡ ¾ø½À´Ï´Ù.");
+				rttrs.addFlashAttribute("result", "ì¼ì¹˜í•˜ëŠ” íšŒì›ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 				
 				return "redirect:/user/find_id";
 			}
@@ -105,7 +105,7 @@ public class FindController {
 				return "/user/findPwPost";
 				
 			} else {
-				rttrs.addFlashAttribute("result", "ÀÏÄ¡ÇÏ´Â È¸¿øÁ¤º¸°¡ ¾ø½À´Ï´Ù.");
+				rttrs.addFlashAttribute("result", "ì¼ì¹˜í•˜ëŠ” íšŒì›ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 				
 				return "redirect:/user/find_pw";
 			}

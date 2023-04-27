@@ -72,13 +72,7 @@
         FROM plan_bookmark 
         WHERE uids = #{uids}
     </select>
-    
-    <select id="passChk" resultType="int">
-        SELECT count(*) 
-        FROM users 
-        WHERE uids = #{uids}
-	  	AND password = #{password}
-    </select>
+  
     
  
 

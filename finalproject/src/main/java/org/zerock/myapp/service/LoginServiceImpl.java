@@ -15,14 +15,14 @@ import lombok.extern.log4j.Log4j2;
 @Service
 public class LoginServiceImpl implements LoginService {
 	
-	private LoginDAO userDAO;
+	private LoginDAO dao;
 	
 	@Override
 	public LoginVO login(LoginDTO dto) throws ServiceException {
 		log.trace("login({}) invoked.", dto);
 		
 		try {
-			return this.userDAO.selectUser(dto);
+			return this.dao.selectUser(dto);
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}	// try-catch

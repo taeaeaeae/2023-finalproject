@@ -19,15 +19,14 @@
     </delete>
 
     <insert id="join">
-      Insert into users(uids, password, name, nickname, phonenumber, email) 
-      values(#{uids}, #{password}, #{name}, #{nickname}, #{phonenumber}, #{email})
+      Insert into users(uids, password, name, phonenumber, email) 
+      values(#{uids}, #{password}, #{name}, #{phonenumber}, #{email})
     </insert>
 
     <update id="update">
         UPDATE users
         SET password = #{password},
         	name = #{name},
-            nickname = #{nickname},
             phonenumber = #{phonenumber},
             email = #{email}
         WHERE
@@ -41,10 +40,10 @@
         where uids=#{uids}
     </select>
     
-    <select id="checkNickName" resultType="int">
+    <select id="checkPw" resultType="int">
         select count(*) 
         from users 
-        where nickname=#{nickname}
+        where uids = {#uids} and password=#{password}
     </select>
 
 
