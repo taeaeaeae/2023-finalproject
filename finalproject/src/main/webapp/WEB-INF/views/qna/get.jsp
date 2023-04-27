@@ -90,31 +90,31 @@
   </div>
 </div>
 
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
-	
+
 	<script>
 		var listBtn = document.querySelector('#listBtn');
 		var modifyBtn = document.querySelector('#modifyBtn');
-		var AnswerModifyBtn = document.querySelector("#answerModifyBtn");
-        var answerRegisterBtn = document.querySelector("#answerRegisterBtn");
+		var AnswerModifyBtn = document.querySelector('#answerModifyBtn');
+        var answerRegisterBtn = document.querySelector('#answerRegisterBtn');
+		
+        answerRegisterBtn.addEventListener('click', function () {
+            location = '/qna/answerRegister?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
+        })        
+		
+		answerModifyBtn.addEventListener('click', function () {
+			location = '/qna/answerModify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
+		})
         
         listBtn.addEventListener('click', function () {
-			location=''/qna/list?currPage=${param.currPage}&amount=${param.amount}';
+			location='/qna/list?currPage=${param.currPage}&amount=${param.amount}';
 		})
 
         modifyBtn.addEventListener('click', function () {
 			location = '/qna/modify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
 		})
-		
-		answerModifyBtn.addEventListener('click', function () {
-			location = '/qna/answerModify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-		})
-		
-        answerRegisterBtn.addEventListener('click', function () {
-            location = '/qna/answerRegister?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-        })        
 
 	</script>
 	
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>
