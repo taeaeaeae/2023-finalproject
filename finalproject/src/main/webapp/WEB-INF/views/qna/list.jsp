@@ -80,7 +80,7 @@ a {
 		document.write(${QnaVO.openy_n}?'🔓':'🔒');
 		</script>
 		<c:if test="${QnaVO.title eq link[qqid.index]}">
-			<a href="/qna/list">[${ans[qqid.index]}] ${QnaVO.title}</a>
+			<a href="/qna/list?result=${param.result}">[${ans[qqid.index]}] ${QnaVO.title}</a>
 		</c:if>
 		<c:if test="${'0' eq link[qqid.index]}">
 			<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">[${ans[qqid.index]}] ${QnaVO.title}</a>
@@ -120,7 +120,6 @@ a {
                                 href="/board/list${pageMaker.cri.pagingUri}">&raquo;</a>
                         </li>
                     </c:if>
-     <c:if test=""></c:if>
     <li class="page-item">
       <a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&raquo;</font></font></a>
     </li>
@@ -130,7 +129,7 @@ a {
 	</div>
     <script>
         var registerBtn = document.querySelector('#registerBtn');
-        
+
 
         registerBtn.addEventListener('click', function () {
             location = '/qna/register?currPage=${param.currPage}&amount=${param.amount}';

@@ -53,7 +53,7 @@
     <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.uids}</font></font></h5>
     <h6 class="card-subtitle text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.insert_ts}</font></font></h6>
   </div>
-  	<c:if test="${not empty qna.image}"><img src="${qna.image}" alt="${qna.title}"></c:if>
+  	<c:if test="${not empty qna.image}"><img src="/resources${qna.image}" alt="${qna.title}"></c:if>
   
   <div class="card-body">
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.content}</</font></font></p>
@@ -95,24 +95,24 @@
 	<script>
 		var listBtn = document.querySelector('#listBtn');
 		var modifyBtn = document.querySelector('#modifyBtn');
-		var AnswerModifyBtn = document.querySelector('#answerModifyBtn');
-        var answerRegisterBtn = document.querySelector('#answerRegisterBtn');
+		var AnswerModifyBtn = document.querySelector("#answerModifyBtn");
+        var answerRegisterBtn = document.querySelector("#answerRegisterBtn");
         
         listBtn.addEventListener('click', function () {
-			location='/qna/list?currPage=${param.currPage}&amount=${param.amount}';
-		});
+			location=''/qna/list?currPage=${param.currPage}&amount=${param.amount}';
+		})
 
         modifyBtn.addEventListener('click', function () {
 			location = '/qna/modify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-		});
+		})
 		
 		answerModifyBtn.addEventListener('click', function () {
 			location = '/qna/answerModify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-		});
+		})
 		
         answerRegisterBtn.addEventListener('click', function () {
             location = '/qna/answerRegister?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-        });        
+        })        
 
 	</script>
 	

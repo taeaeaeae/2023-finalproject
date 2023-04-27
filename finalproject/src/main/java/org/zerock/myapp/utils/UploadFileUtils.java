@@ -17,12 +17,12 @@ public class UploadFileUtils {
 		UUID uid = UUID.randomUUID();
 		
 		String newFileName = uid + "_" + fileName;
-		String imgPath = "C:\\app\\scoop\\apps\\tomcat9\\current\\wtpwebapps\\finalproject\\resources\\imgUpload" + ymdPath;
+		String imgPath = uploadPath + ymdPath;
 		
 		File target = new File(imgPath, newFileName);
 		FileCopyUtils.copy(fileData, target);
 		
-		File imge = new File(imgPath + File.separator + newFileName);
+		File imge = new File(imgPath + "/" + newFileName);
 		
 		
 		return newFileName;
@@ -30,12 +30,11 @@ public class UploadFileUtils {
 	
 	 public static String calcPath(String uploadPath) {
 		  Calendar cal = Calendar.getInstance();
-		  String yearPath = File.separator + cal.get(Calendar.YEAR);
-		  String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-		  String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
-
-		  makeDir("C:\\app\\scoop\\apps\\tomcat9\\current\\wtpwebapps\\finalproject\\resources\\imgUpload", yearPath, monthPath, datePath);
-//		  makeDir(uploadPath, yearPath, monthPath, datePath + "\\s");
+		  String yearPath = "/" + cal.get(Calendar.YEAR);
+		  String monthPath = yearPath + "/" + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		  String datePath = monthPath + "/" + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+System.out.println("22222222222"+uploadPath);
+		  makeDir(uploadPath, yearPath, monthPath, datePath);
 
 		  return datePath;
 		 }
@@ -44,8 +43,8 @@ public class UploadFileUtils {
 	private static void makeDir(String uploadPath, String ... paths) {
 		
 		if(new File(paths[paths.length -1]).exists()) { return; }
-		
 		for(String path : paths) {
+			System.out.println("111111111111111111111111"+path);
 			File dirPath = new File(uploadPath + path);
 			
 			if(!dirPath.exists()) {
