@@ -35,8 +35,6 @@
 						
 						<h3>* 이름 <input type="text" name="name" value="${mypage.name}" readonly/></h3>
 						
-						<h3>* 닉네임 <input type="text" name="nickname" value="${mypage.nickname}" readonly/></h3>
-						
 						<h3>* 전화번호 <input type="text" name="phonenumber" value="${mypage.phonenumber}" placeholder="숫자만 입력하세요" pattern="[0-9]{11}" maxlength="11" required/></h3>
 						
 						<h3>* 이메일 <input type="email" name="email" value="${mypage.email}" placeholder="example1@xxx.com" maxlength="38" required/></h3>

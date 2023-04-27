@@ -34,8 +34,6 @@
 		
 					<h3>* 이름 : ${mypage.name}</h3></br>
 		
-					<h3>* 닉네임 : ${mypage.nickname}</h3></br>
-		
 					<h3>* 이메일 : ${mypage.email}</h3></br>
 						
 					<h3>* 전화번호 : ${mypage.phonenumber}</h3></br>

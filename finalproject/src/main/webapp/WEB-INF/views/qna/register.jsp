@@ -17,7 +17,7 @@
     font-weight: normal;
     font-style: normal;
   }
-  h1 {
+  .board_name {
   text-align: center;
   	color: black;
   }
@@ -40,7 +40,7 @@
 			<input type="hidden" name="amount" value="${param.amount}">
 			
    <fieldset>
-		<h1>QnA</h1>
+		<h1 class="board_name">QnA</h1>
       <div class="form-group">
         <label for="" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></label>
         <input name="title" type="text" class="form-control"  placeholder="제목입력">
@@ -55,7 +55,7 @@
       </div>
       <div class="form-group">
         <label for="formFile" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">사진첨부</font></font></label>
-        <input name = "file" class="form-control" type="file" id="formFile">
+        <input name = "file" class="form-control" type="file" id="formFile" accept="image/*">
       </div> 
       
       <script>
@@ -63,7 +63,7 @@
 			if(this.file && this.file[0]) {
 				var reader = new FileReader;
 				reader.onload = function(data) {
-					$(".form-group img").arrt("src", data.target.result).wdith(500);
+					$(".form-group imge").arrt("src", data.target.result).wdith(500);
 				}
 				reader.readAsDataURL(this.file[0]);
 			}
@@ -107,5 +107,9 @@
 
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
+<script
+   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+   crossorigin="anonymous"></script>
 </body>
 </html>
