@@ -70,15 +70,16 @@ public class AnswerController {
 			if((login != null) && (login.getUids().equals("admin"))) {
 				boolean success = this.service.register(dto);
 				
+				//
 				EmailDTO emailDTO = new EmailDTO();
-				
-				System.out.println();
+
 				log.info("{},{},{},{},{}",dto.getQid(), qna.get(dto.getQid()), qna.get(dto.getQid()).getUids());
 				String adress = users.select(qna.get(dto.getQid()).getUids()).getEmail();
 				
 				emailDTO.setReceiveMail(adress);
-				emailDTO.setSenderMail(adress);
+				emailDTO.setSenderMail("shiningdubhe@gmail.com");
 				emailDTO.setSenderName(adress);
+				
 				emailDTO.setSubject("답변이 작성되었어요 ["+dto.getTitle()+"]");
 				
 				emailDTO.setMessage(dto.getContent());

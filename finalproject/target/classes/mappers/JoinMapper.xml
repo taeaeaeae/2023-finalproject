@@ -38,7 +38,13 @@
         select count(*) 
         from users 
         where uids=#{uids}
-    </select>       
+    </select>
+    
+    <select id="checkPw" resultType="int">
+        select count(*) 
+        from users 
+        where uids = {#uids} and password=#{password}
+    </select>
 
 
   </mapper>
