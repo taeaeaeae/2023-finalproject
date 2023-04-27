@@ -6,7 +6,7 @@ import org.zerock.myapp.exception.ServiceException;
 
 public interface LoginService {
 	
-	// ∑Œ±◊¿Œ
+	// Î°úÍ∑∏Ïù∏
 	public abstract LoginVO login(LoginDTO dto) throws ServiceException;
 
 }	// end interface

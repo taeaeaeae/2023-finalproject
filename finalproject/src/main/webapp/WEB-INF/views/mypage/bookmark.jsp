@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>likes</title>
+<title>bookmark</title>
 </head>
 <body>
 <%@include file="/WEB-INF/views/main/header.jsp" %>

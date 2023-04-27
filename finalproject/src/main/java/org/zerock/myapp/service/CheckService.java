@@ -6,11 +6,9 @@ import org.zerock.myapp.exception.ServiceException;
 
 public interface CheckService {
 	
-	// 아이디 중복확인
 	public int checkId(CheckVO vo) throws ServiceException;
-
 	
-	public int passChk(CheckVO vo) throws ServiceException;
+	public int checkPw(CheckVO vo) throws ServiceException;
 
 }	// end interface
 	
