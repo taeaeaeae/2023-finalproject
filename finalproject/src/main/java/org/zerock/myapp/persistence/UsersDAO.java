@@ -21,5 +21,4 @@ public interface UsersDAO {
 	public abstract UsersVO remove(String uids, String reason) throws DAOException;
 	
 	
-
 }	// end class

@@ -19,8 +19,8 @@
     </delete>
 
     <insert id="join">
-      Insert into users(uids, password, name, phonenumber, email) 
-      values(#{uids}, #{password}, #{name}, #{phonenumber}, #{email})
+      Insert into users(uids, password, name, phonenumber, email, image) 
+      values(#{uids}, #{password}, #{name}, #{phonenumber}, #{email}, #{image})
     </insert>
 
     <update id="update">

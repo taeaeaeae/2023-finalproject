@@ -47,17 +47,18 @@ public class FindServiceImpl implements FindService {
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}	// try-catch
-	}
+	} //findPw
 
 
 	@Override
 	public UsersVO newPassword(FindDTO dto) throws ServiceException {
+		log.trace("newPassword({}) invoked.", dto);
 		try {
 			return this.findDAO.newPassword(dto);
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}	// try-catch
-	}	//findPw
+	}	//newPassword
 
 
 

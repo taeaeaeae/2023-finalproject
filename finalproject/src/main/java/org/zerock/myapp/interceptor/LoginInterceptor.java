@@ -32,6 +32,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		HttpSession session = req.getSession();
 		
 		Object auth = session.getAttribute("__AUTH__");
+		
 		log.info("\t+ auth: {}", auth);
 		
 		if(auth != null) {

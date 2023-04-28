@@ -13,7 +13,7 @@
 </head>
 <body>
   <h1>JOIN</h1>
-  <form action="/join/joinPost" method="post" id="joinForm">
+  <form action="/join/joinPost" method="post" id="joinForm" enctype="multipart/form-data">
     
     <div class="join_content">
         <div class="essential">
@@ -37,7 +37,10 @@
                 
             <h3>이메일</h3>
                 <input type="email" id="email" name="email" title="email" placeholder="example1@xxx.com" maxlength="38" required>
-						
+			
+			<h3>프로필 사진</h3>
+			<input name = "file" class="form-control" type="file" id="formFile" accept="image/*">	
+					
                 <br>
                 <br>
                         
@@ -89,7 +92,7 @@
 					success : function(data){
 					if(data >= 1){
 						$("#checkId").attr("value", "N");
-						alert("중복된 아이디입니다.");
+						alert("이미 사용중이거나 탈퇴한 아이디입니다.");
 					}else if(data == 0){
 						$("#checkId").attr("value", "Y");
 						alert("사용가능한 아이디입니다.");

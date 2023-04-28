@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.EmailDTO;
 import org.zerock.myapp.domain.FindDTO;
 import org.zerock.myapp.domain.FindVO;
-import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.service.EmailService;
@@ -71,8 +70,9 @@ public class FindController {
 	            password.append(PASSWORD_ALLOW_BASE.charAt(index));
 	        }
 	        return password.toString();
-	    }
-	}	// generate newpassword 
+	    } // generate newpassword 
+	    
+	}	// end class
 
 	@PostMapping("/findIdPost")
 	public String findIdPost(FindDTO dto,RedirectAttributes rttrs, Model model) throws ControllerException {
@@ -148,7 +148,7 @@ public class FindController {
 				
 				return "redirect:/user/find_pw";
 			}	//if -else
-			
+			 
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		} // try-catch

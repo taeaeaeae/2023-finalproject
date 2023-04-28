@@ -30,6 +30,7 @@ public class CheckController {
 		log.trace(">>>>>>> checkId({}) invoked.", vo);
 		
 		int result = service.checkId(vo);
+		
 		return result;
 		
 	}	// checkId

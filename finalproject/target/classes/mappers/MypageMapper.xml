@@ -16,6 +16,8 @@
         SELECT uids,title, insert_ts, 'qna' as board_name, qid as bno, 'qid' as bm
         FROM qna_board a
         WHERE uids = #{uids}
+        
+        ORDER BY insert_ts desc
     </select>
     
     <select id="mycomment" resultType="org.zerock.myapp.domain.MycommentVO">
@@ -28,6 +30,8 @@
         SELECT uids,content, insert_ts, 'plan_board' as board_name, pid as bno, 'pid' as bm
         FROM plan_comment a
         WHERE uids = #{uids}
+        
+        ORDER BY insert_ts desc
     </select>
     
     <select id="checklist" resultType="org.zerock.myapp.domain.ChecklistVO">

@@ -90,7 +90,7 @@ public class UsersDAOImpl implements UsersDAO {
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}	// try-catch
-	}
+	} //remove
 
 
 

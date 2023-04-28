@@ -27,7 +27,7 @@ public class CheckServiceImpl implements CheckService{
 			} catch(Exception e) {
 				throw new ServiceException(e);
 			}	// try-catch
-		}
+		} //checkId
 
 	@Override
 	public int checkPw(CheckVO vo) throws ServiceException {
@@ -39,7 +39,7 @@ public class CheckServiceImpl implements CheckService{
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}	// try-catch
-	}	// checkId
+	}	// checkPw
 	
 
 	
