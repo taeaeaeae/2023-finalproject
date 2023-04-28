@@ -72,7 +72,7 @@ public class AnswerController {
 				
 				//
 				EmailDTO emailDTO = new EmailDTO();
-
+				
 				log.info("{},{},{},{},{}",dto.getQid(), qna.get(dto.getQid()), qna.get(dto.getQid()).getUids());
 				String adress = users.select(qna.get(dto.getQid()).getUids()).getEmail();
 				
@@ -80,7 +80,7 @@ public class AnswerController {
 				emailDTO.setSenderMail("shiningdubhe@gmail.com");
 				emailDTO.setSenderName(adress);
 				
-				emailDTO.setSubject("답변이 작성되었어요 ["+dto.getTitle()+"]");
+				emailDTO.setSubject("["+dto.getTitle()+"] 답변이 작성되었어요 ");
 				
 				emailDTO.setMessage(dto.getContent());
 				

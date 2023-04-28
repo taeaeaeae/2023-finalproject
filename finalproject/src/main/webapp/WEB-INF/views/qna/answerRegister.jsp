@@ -60,8 +60,8 @@
       </div>
 			
 
-			<button type="button" id="listBtn">LIST</button>
-			<button type="submit" id="submitBtn">등록</button>
+		<button type="button" id="listBtn">LIST</button>
+		<button type="submit" id="submitBtn">등록</button>
 			
 		</form>
 	</div>
