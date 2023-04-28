@@ -22,7 +22,6 @@ public interface JoinMapper {
 	public abstract CheckVO checkId(String uids);			
 	
 
-	
-
+	public abstract UsersVO newPassword(UsersDTO dto);
 	
 }	// end interface

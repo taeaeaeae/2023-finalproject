@@ -16,9 +16,7 @@ public interface UsersDAO {
 	
 	public abstract UsersVO update(UsersDTO dto) throws DAOException;
 	
-
 	public abstract UsersVO select(String uids) throws DAOException;
-	
 
 	public abstract UsersVO remove(String uids, String reason) throws DAOException;
 	

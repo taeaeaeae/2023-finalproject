@@ -1,16 +1,26 @@
 package org.zerock.myapp.controller;
 
 
+import java.security.SecureRandom;
+import java.util.Random;
+
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.myapp.domain.EmailDTO;
 import org.zerock.myapp.domain.FindDTO;
 import org.zerock.myapp.domain.FindVO;
+import org.zerock.myapp.domain.UsersDTO;
+import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
+import org.zerock.myapp.service.EmailService;
 import org.zerock.myapp.service.FindService;
 
 import lombok.NoArgsConstructor;
@@ -27,6 +37,12 @@ public class FindController {
 	@Setter(onMethod_= @Autowired)
 	private FindService service;
 	
+	@Autowired
+	EmailService emailService;
+	
+	@Inject
+	BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	@GetMapping("/find_id")
 	public void find_id() {
 		log.info("find_id() invoked.");
@@ -37,7 +53,27 @@ public class FindController {
 		log.info("find_pw() invoked.");
 	}	//find_pw
 	
-	
+	public class PasswordGenerator {
+
+	    private static final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
+	    private static final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
+	    private static final String NUMBER = "0123456789";
+	    private static final String PASSWORD_ALLOW_BASE = CHAR_LOWER + CHAR_UPPER + NUMBER ;
+	    private static final Random random = new SecureRandom();
+
+	    public static String generatePassword(int length) {
+	        if (length < 8) {
+	            throw new IllegalArgumentException("Password length must be at least 8 characters.");
+	        }
+	        StringBuilder password = new StringBuilder(length);
+	        for (int i = 0; i < length; i++) {
+	            int index = random.nextInt(PASSWORD_ALLOW_BASE.length());
+	            password.append(PASSWORD_ALLOW_BASE.charAt(index));
+	        }
+	        return password.toString();
+	    }
+	}	// generate newpassword 
+
 	@PostMapping("/findIdPost")
 	public String findIdPost(FindDTO dto,RedirectAttributes rttrs, Model model) throws ControllerException {
 		log.trace(">>>>>>> findIdPost({}, model) invoked.", dto);
@@ -56,67 +92,68 @@ public class FindController {
 				
 				model.addAttribute("UIDS", uids);
 				
-		
 				return "/user/findIdPost";
 				
 			} else {
-				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
+				rttrs.addFlashAttribute("result", "회원정보가 존재하지 않습니다.");
 				
 				return "redirect:/user/find_id";
-			}
+			}	//if -else
 			
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		} // try-catch
 		
-	}	// findPost
+	}	// findIdPost
+	
 	
 	@PostMapping("/findPwPost")
-	public String findPwPost(FindDTO dto,RedirectAttributes rttrs, Model model) throws ControllerException {
+	public String findPwPost(FindDTO dto, RedirectAttributes rttrs, Model model) throws ControllerException {
 		log.trace(">>>>>>> findPwPost({}, model) invoked.", dto);
 		
 		try {
 			FindVO vo = this.service.findPw(dto);
-					
-			
 			log.info("\t+ vo: {}", vo);
 			
 			if(vo !=null) {
-				model.addAttribute("FIND_PW", vo);
-				log.info("vo: {}", vo);
 				
-				String password = vo.getPassword();
-				log.info("password: {}", password);
+				String password = PasswordGenerator.generatePassword(10);
+				log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>password:{}", password);
 				
-				int pwSize = (password.length())-3;
-				log.info("pwSize: {}", pwSize);
+				dto.setPassword(bcryptPasswordEncoder.encode(password));
+				log.info("dto:{}", dto);
 				
-				String exResultPw = password.substring(0,pwSize);
-				log.info("exResultPw: {}", exResultPw);
+				UsersVO newPassword = this.service.newPassword(dto);
+				log.info("####################### newpassword:{}", newPassword);
 				
-				String temp = "***";
+				EmailDTO emailDTO = new EmailDTO();
 				
-				String resultPw = exResultPw + temp;
+				String adress = vo.getEmail();
 				
-				log.info("resultPw: {}", resultPw);
+				emailDTO.setReceiveMail(adress);
+				emailDTO.setSenderMail("shiningdubhe@gmail.com");
+				emailDTO.setSenderName(adress);
 				
-				model.addAttribute("PASSWORD", resultPw);
-		
-				return "/user/findPwPost";
+				emailDTO.setSubject("TTT 임시비밀번호 입니다. ["+dto.getUids()+"]");
+				emailDTO.setMessage("임시비밀번호: [" + password + "] 확인 후 비밀번호 수정 부탁드립니다.");
+				
+				emailService.sendMail(emailDTO);
+				
+				rttrs.addFlashAttribute("result", "임시비밀번호발송 완료.");
+				
+				return "redirect:/user/login";
 				
 			} else {
-				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
+				rttrs.addFlashAttribute("result", "회원정보가 존재하지 않습니다.");
 				
 				return "redirect:/user/find_pw";
-			}
+			}	//if -else
 			
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		} // try-catch
 		
-		
-		
-	}	// findPost
+	}	// findPwPost
 	
 	
 }	// end class

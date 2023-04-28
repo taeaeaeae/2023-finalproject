@@ -1,7 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java/org/zerock/myapp/controller/AnswerController.java=UTF-8
+encoding//src/main/java/org/zerock/myapp/controller/FindController.java=UTF-8
 encoding//src/main/java/org/zerock/myapp/controller/FreeBoardCommentController.java=UTF-8
 encoding//src/main/java/org/zerock/myapp/controller/FreeBoardController.java=UTF-8
 encoding//src/main/java/org/zerock/myapp/controller/HomeController.java=UTF-8
 encoding//src/main/java/org/zerock/myapp/controller/QnaController.java=UTF-8
-encoding/<project>=UTF-8

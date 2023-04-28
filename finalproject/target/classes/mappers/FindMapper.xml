@@ -19,6 +19,12 @@
         WHERE uids = #{uids} 
         AND email = #{email}
     </select>
+    
+   	<update id="newPassword">
+        UPDATE users
+        SET password = #{password}
+        WHERE uids = #{uids}
+    </update>
 
   </mapper>
   

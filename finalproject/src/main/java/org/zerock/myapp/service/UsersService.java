@@ -18,11 +18,7 @@ public interface UsersService {
 	
 	// 회원탈퇴
 	public abstract boolean remove(UsersDTO dto) throws ServiceException;
-	
 
-	
-
-	
 
 }	// end interface
 	

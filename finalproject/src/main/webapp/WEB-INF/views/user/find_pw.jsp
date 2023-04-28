@@ -53,14 +53,14 @@
             location = "/main/index";
         }); //취소 시 메인으로
         
-        // 비밀번호 찾기 실패
+        // 일치하는 회원정보 존재하지 않음
 			  $(document).ready(function() {
 		        let message = "${result}";
 		        if (message != "") {
 		            alert(message);
 		        }else {
-		        }
-		    });        
+		      }
+		   });        
     </script>
 </body>
 </html>
