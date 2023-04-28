@@ -267,9 +267,10 @@ public class QnaController {
 		try {
 
 			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
-			System.out.println("6666666666666"+uploadPath);
+
 			if((login != null) && (login.getUids().equals(dto.getUids()))) {
 
+				//
 				String imgUploadPath = uploadPath + "/" + "imgUpload";
 				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 				System.out.println(imgUploadPath);
@@ -284,7 +285,7 @@ public class QnaController {
 				}
 
 				dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
-				
+				//
 				boolean success = this.service.register(dto);
 				rttrs.addAttribute("result", "등록완료");
 			} else {

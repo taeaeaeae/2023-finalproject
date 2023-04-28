@@ -24,7 +24,6 @@ public class UploadFileUtils {
 		
 		File imge = new File(imgPath + "/" + newFileName);
 		
-		
 		return newFileName;
 	}//fileUpload
 	
