@@ -34,7 +34,7 @@
 
     
 	<div id="wrapper">
-		<form action="/qna/answerRegister" method="POST">
+		<form action="/qna/answerRegister" method="POST" enctype="multipart/form-data">
 			
 			<input type="hidden" name="currPage" value="${param.currPage}">
 			<input type="hidden" name="amount" value="${param.amount}">
@@ -56,7 +56,7 @@
       </div>
       <div class="form-group">
         <label for="formFile" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">사진첨부</font></font></label>
-        <input name = "image" class="form-control" type="file" id="formFile">
+        <input name = "file" class="form-control" type="file" id="formFile">
       </div>
 			
 
