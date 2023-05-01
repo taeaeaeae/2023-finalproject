@@ -23,7 +23,6 @@
 %>
 
 <p>로그인한 유저 아이디: <%= userId %></p>
-
   <!-- 게시글 폼 -->
   <form action="/freeboard/get" method="post" class="board-post">
     <input type="hidden" name="currPage"value="${param.currPage}">
@@ -41,34 +40,47 @@
         <span class="post-author">작성자 : ${freeboard.uids}</span>
         <span class="post-date">작성일 : <fmt:formatDate value="${freeboard.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></span>
         <span class="post-views">조회수 : ${freeboard.view_count}</span>
-       	<button type="button" onclick="openReportPopup()">신고하기</button>
+       	<button type="button" onclick="openReportPopup()" id="report-post-btn">게시글 신고하기</button>
       </div>
     </section>
 
-    
     <section class="board-body">
       <hr class="board-divider">
-      <div class="post-content">${freeboard.content}</div>
+      <c:if test="${not empty freeboard.image}"><img src="/resources${freeboard.image}" alt="${freeboard.title}"></c:if>
+      <div class="post-content"><pre>${freeboard.content}</pre></div>
     </section>
   </form>
   
+  <!-- 북마크 / 목록창 -->
+  <p>${bookmarked}</p>
   <form action="/freeboard/list" method="post">
-    <div class="list_button">
-      <input type="hidden" name="fid"     value="${freeboard.fid}">
-      <input type="hidden" name="currPage"value="${param.currPage}">
-      <input type="hidden" name="amount"  value="${param.amount}">
-      <input type="hidden" name="type"    value="${param.type}">
-      <input type="hidden" name="keyword" value="${param.keyword}">
-      
-      <button type="button" id="prePostBtn"  class="button" ${empty prevFid ? 'disabled' : '' }>이전글</button>
-      <c:if test="${not empty sessionScope['__AUTH__'] and sessionScope['__AUTH__'].uids eq freeboard.uids}">
-	      <button type="button" id="modifyBtn" class="button">수정</button>
-	      <button type="button" id="removeBtn" class="button" >삭제</button>
-      </c:if>
-      <button type="button"  id="listBtn"    class="button">목록</button>
-      <button type="button" id="nextPostBtn" class="button" ${empty nextFid ? 'disabled' : '' }>다음글</button>
-    </div>
-	</form>
+    <section class="list_form">
+      <hr class="board-divider">
+        <c:if test="${not registered}">
+          <button class="bookmark_ico" onclick="toggleBookmark()">☆ 북마크 추가</button>
+        </c:if>
+        <c:if test="${registered}">
+          <button class="bookmark_ico" onclick="toggleBookmark()">★ 북마크 취소</button>
+        </c:if>
+
+        <div class="list_button">
+          <input type="hidden" name="fid"     value="${freeboard.fid}">
+          <input type="hidden" name="currPage"value="${param.currPage}">
+          <input type="hidden" name="amount"  value="${param.amount}">
+          <input type="hidden" name="type"    value="${param.type}">
+          <input type="hidden" name="keyword" value="${param.keyword}">
+          
+          <button type="button" id="prePostBtn"  class="button" ${empty prevFid ? 'disabled' : '' }>이전글</button>
+          <c:if test="${not empty sessionScope['__AUTH__'] and sessionScope['__AUTH__'].uids eq freeboard.uids}">
+            <button type="button" id="modifyBtn" class="button">수정</button>
+            <button type="button" id="removeBtn" class="button" >삭제</button>
+          </c:if>
+          <button type="button"  id="listBtn"    class="button">목록</button>
+          <button type="button" id="nextPostBtn" class="button" ${empty nextFid ? 'disabled' : '' }>다음글</button>
+        </div>
+      <hr class="board-divider">
+    </section>
+  </form>
     
   <!-- 댓글 -->
   <section class="comment">
@@ -120,9 +132,9 @@
       </form>
     </div>
   </section>
-    
 </body>
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
 // 글 버튼
 /* list button */
@@ -184,6 +196,7 @@ prePostBtn.addEventListener('click', function() {
     alert('이전 글이 없습니다.');
     return;
   };
+  
   let form = document.querySelector('form');
   
   form.setAttribute('method', 'GET');
@@ -237,10 +250,60 @@ if (commentRemoveLink) {
   });
 }
 
+/* 신고창 관련 */
 // 팝업창 띄우기
 function openReportPopup() {
   window.open("/reports/register", "신고하기", "width=500, height=500");
+};
+
+/* 북마크 */
+// function toggleBookmark() {
+//   const xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성
+//   xhr.onreadystatechange = function() {
+//     if (xhr.readyState === xhr.DONE) {
+//       if (xhr.status === 200) {
+//         const result = xhr.responseText;
+//         if (result === 'true') {
+//           // document.getElementById('bookmarkIcon').src = '/resources/bookmark/ico/bookmarked_ico.png';
+//         } else if (result === 'false') {
+//           // document.getElementById('bookmarkIcon').src = '/resources/bookmark/ico/bookmark_ico.png';
+//         }
+//       } else {
+//         console.error('Failed to toggle bookmark');
+//       }
+//     }
+//   };
+  
+//   const bookmarked = document.getElementById('bookmarked').value === 'true';
+//   const fid = document.getElementById('fid').value;
+  
+//   const data = new FormData();
+//   data.append('fid', fid);
+//   data.append('bookmarked', bookmarked);
+  
+//   xhr.open('POST', '/bookmark');
+//   xhr.send(data);
+// }
+
+function toggleBookmark(dto) {
+  $.ajax({
+    url : "/bookmark/register",
+    type : "POST",
+    data : JSON.stringify(dto),
+    contentType : "application/json",
+    success : function (result) {
+      if(result === "registered"){
+        alert("북마크가 등록되었습니다.");
+      } else if(result === "unregistered"){
+        alert("북마크가 취소되었습니다.");
+      }
+    },
+    error : function (xhr, status, error) {
+      console.error("Error occurred : " + error);     
+    }
+  });
 }
+
 </script>
 <script src="/resources/freeboard/js/validateForm.js"></script>
 <script src="/resources/freeboard/js/comment.js"></script>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.myapp.mapper.BookmarkMapper">
+    <select id="isBookmarked" resultType="java.lang.Integer">
+        SELECT COUNT(*) 
+        FROM fb_bookmark 
+        WHERE fid = #{fid} AND uids = #{uids}
+    </select>
+    <insert id="addBookmark">
+        INSERT INTO fb_bookmark(fid, uids, title)
+        SELECT fb.fid, #{uids}, fb.title
+        FROM free_board fb
+        WHERE fb.fid = #{fid}
+        AND NOT EXISTS (SELECT 1 
+                        FROM fb_bookmark 
+                        WHERE fid = #{fid} AND uids = #{uids})
+    </insert>
+
+    <delete id="removeBookmark">
+        DELETE FROM fb_bookmark
+        WHERE fid = #{fid} AND uids = #{uids}
+    </delete>
+</mapper>

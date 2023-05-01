@@ -18,17 +18,19 @@
   <h1>자유게시판</h1>
   <hr>
   <div id="main">
-    <form onsubmit="return validateForm()" method="POST" action="/freeboard/register">
+    <form method="POST" action="/freeboard/register" enctype="multipart/form-data">
       <input type="hidden" name="currPage" value="${param.currPage}">
       <input type="hidden" name="amount" value="${param.amount}">
       <input type="hidden" name="fid" value="${freeboard.fid}">
 
       <input type="text" name="title" placeholder="title">
-      <input type="text" name="image" placeholder="image">
       <hr>
-      <input type="file" name="pic" value="사진 선택"><br/>
-      <textarea name="content"></textarea>
-      <br>
+      <input type="file" name="file">
+      <br/>
+
+      <textarea name="content" placeholder="내용을 입력해주세요."></textarea>
+      <br/>
+
       <button type="reset" value="초기화" class="button" name="reset" onclick="return confirmReset()">초기화</button>
       <input type="submit" value="글쓰기" class="button">
       <a href="/freeboard/list" id="listBtn" class="button" onclick="return confirmGoToList()">목록으로</a>

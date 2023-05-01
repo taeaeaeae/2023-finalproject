@@ -161,6 +161,11 @@ body {
 }
 
 /* 목록창 */
+.list_form{
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .list_button {
   text-align: center;
 }
