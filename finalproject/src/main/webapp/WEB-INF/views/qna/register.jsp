@@ -57,18 +57,7 @@
         <label for="formFile" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">사진첨부</font></font></label>
         <input name = "file" class="form-control" type="file" id="formFile" accept="image/*">
       </div> 
-      
-      <script>
-		$("formFile").change(function() {
-			if(this.file && this.file[0]) {
-				var reader = new FileReader;
-				reader.onload = function(data) {
-					$(".form-group imge").arrt("src", data.target.result).wdith(500);
-				}
-				reader.readAsDataURL(this.file[0]);
-			}
-		});
-		</script>
+
 		
       <fieldset class="form-group">
         <legend class="mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비공개</font></font></legend>

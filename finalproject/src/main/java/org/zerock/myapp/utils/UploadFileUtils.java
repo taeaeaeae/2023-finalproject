@@ -22,7 +22,8 @@ public class UploadFileUtils {
 		File target = new File(imgPath, newFileName);
 		FileCopyUtils.copy(fileData, target);
 		
-		File imge = new File(imgPath + File.separator + newFileName);
+		File imge = new File(imgPath + "/" + newFileName);
+
 		
 		return newFileName;
 	}//fileUpload
