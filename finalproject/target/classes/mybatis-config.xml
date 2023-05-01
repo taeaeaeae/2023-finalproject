@@ -16,6 +16,8 @@
         <mapper resource="mappers/FindMapper.xml" />
         <mapper resource="mappers/JoinMapper.xml" />
         <mapper resource="mappers/MypageMapper.xml" />
+        <mapper resource="mappers/planboardMapper.xml" />
+        <mapper resource="mappers/planMapper.xml" />
     </mappers>
 
 

@@ -22,23 +22,26 @@
 	<div class="container">
 	
     <h1 align="center">회원탈퇴</h1>
+    
+    <%@include file="/WEB-INF/views/main/leftside.jsp" %>
 
     <br>
     <br>
-
-      <form action="/mypage/remove" method="post" id="delForm">
+	<section>
+      <form action="/mypage/remove" method="post">
 
         <div id="unregister">
           <h3 align="center">
             회원 탈퇴시의 아래 사항을 숙지하시기 바랍니다 <br>
-             ** 탈퇴 시 회원님께서 작성하신 글과 댓글은 삭제되지 않습니다. 삭제를 원하신다면 탈퇴 전 미리 삭제 부탁드립니다. **
+             ** 탈퇴 시 회원님께서 작성하신 글과 댓글은 삭제되지 않습니다. <br>
+             삭제를 원하신다면 탈퇴 전 미리 삭제 부탁드립니다. **
           </h3> 
           
           <br>
           <br>
 
         <div id="check">
-          <h4><input type="hidden" name="uids" value="${mypage.uids}"/></h4>    
+          <h4><input type="password" id="password" name="password" title="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required></h4>   
         </div>
 
         <br>
@@ -68,7 +71,7 @@
       </form>
   
     </div>
-    
+  </section>  
   <%@include file="/WEB-INF/views/main/footer.jsp" %>
   
   <script>

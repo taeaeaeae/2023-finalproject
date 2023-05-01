@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>bookmark</title>
+
+
 </head>
 <body>
 <%@include file="/WEB-INF/views/main/header.jsp" %>
@@ -13,6 +15,9 @@
    	<section>
 	  <h1>북마크 목록</h1>
 	  <hr>
+	  
+	  <%@include file="/WEB-INF/views/main/leftside.jsp" %>
+	  
 	  <div id="list">
 	    <table border="1px">
 			<thead>
@@ -23,17 +28,22 @@
 			
 			<tbody>
 				<c:forEach var="BookmarkVO" items="${mybookmark}">
+
 					<tr>
 						<td><a href="/${BookmarkVO.board_name}/get?${BookmarkVO.bm}=${BookmarkVO.bno} ">${BookmarkVO.title}</a></td>
 					</tr>
+
 				</c:forEach>
 			</tbody>	
-			
+
 	    </table>
 	  </div>
+	  
+
 	</section>
 	
 <%@include file="/WEB-INF/views/main/footer.jsp" %>	
+
 
 </body>
 </html>

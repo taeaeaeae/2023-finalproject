@@ -22,9 +22,10 @@
 	</beans:bean>
 	
 	<beans:bean class="java.lang.String" id="uploadPath">
-		<beans:constructor-arg value="C:\\Users\\LG\\git\\2023-finalproject\\finalproject\\src\\main\\webapp\\resources"/>
+		<beans:constructor-arg value="C:/Users/naa10/git/2023-finalproject/finalproject/src/main/webapp/resources"/>
 	</beans:bean>
 	
+
 	<resources location="/resources/imgUpload/" mapping="/imgUpload/**"/>
 	
 	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
@@ -42,12 +43,12 @@
 
 	<view-controller path="/main/header" 	view-name="/main/header" 	status-code="200" />
 	<view-controller path="/main/footer" 	view-name="/main/footer"	status-code="200" />
+	<view-controller path="/main/leftside" 	view-name="/main/leftside" 	status-code="200" />
 	<view-controller path="/main/root" 		view-name="/main/root"		status-code="200" />
 	<view-controller path="/main/index" 	view-name="/main/index"		status-code="200" />
 
 	<!-- interceptor 설정 -->
 	<interceptors>
-			
       <interceptor>
          <mapping path="/user/loginPost" />
 

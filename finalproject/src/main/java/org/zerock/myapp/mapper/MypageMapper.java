@@ -1,6 +1,8 @@
 package org.zerock.myapp.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.zerock.myapp.domain.BookmarkVO;
 import org.zerock.myapp.domain.ChecklistDTO;
@@ -36,5 +38,6 @@ public interface MypageMapper {
 	public abstract ArrayList<BookmarkVO> bookmark(String uids);
 	
 
+	public abstract List<Map<String,Object>> morelist(int startNum);
 
 }	// end interfaces
