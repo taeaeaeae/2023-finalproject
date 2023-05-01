@@ -57,6 +57,7 @@ public class FreeBoardServiceImpl implements FreeBoardService, InitializingBean 
 		log.trace("get({}) invoked.", fid);
 		
 		try {	
+			this.mapper.viewCountUp(fid);
 			return this.mapper.select(fid);
 		} catch (Exception e) {
 			throw new ServiceException(e);

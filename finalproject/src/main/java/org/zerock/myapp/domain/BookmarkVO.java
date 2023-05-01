@@ -1,8 +1,9 @@
 package org.zerock.myapp.domain;
 
 import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class BookmarkVO {
 	
 	private Integer fbbmid;

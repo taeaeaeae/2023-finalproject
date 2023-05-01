@@ -4,11 +4,11 @@
 
 <mapper namespace="org.zerock.myapp.mapper.ReportsMapper">
     <!-- 게시글 신고는 target_type이 0이다. -->
-    <insert id="PostReports">
-        INSERT INTO reports (uids, target_board_name, target_board_id, reason, reported_at, target_type, target_user)
-        SELECT #{uids}, #{target_board_name}, f.fid, #{reason}, current_date, 0, f.uids
+    <insert id="PostReportsInsert">
+        INSERT INTO reports (uids, target_board_name, target_board_id, reason, reported_at, target_type, target_user, reason_2)
+        SELECT #{uids}, #{target_board_name}, f.fid, #{reason}, current_date, 0, f.uids, #{reason_2}
         FROM free_board f
         LEFT JOIN reports r ON r.target_board_id = f.fid
-        WHERE f.fid = #{fid} AND r.target_board_id IS NULL;
+        WHERE f.fid = #{fid} AND r.target_board_id IS NULL
     </insert>
 </mapper>
