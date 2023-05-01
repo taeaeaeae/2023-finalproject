@@ -23,6 +23,7 @@ public class UploadFileUtils {
 		FileCopyUtils.copy(fileData, target);
 		
 		File imge = new File(imgPath + "/" + newFileName);
+
 		
 		return newFileName;
 	}//fileUpload
@@ -37,12 +38,11 @@ public class UploadFileUtils {
 		  return datePath;
 	 }//calcPath
 	
-	
 	private static void makeDir(String uploadPath, String ... paths) {
 		
 		if(new File(paths[paths.length -1]).exists()) { return; }
 		for(String path : paths) {
-			File dirPath = new File(uploadPath + path);
+			File dirPath = new File(uploadPath  + path);
 			
 			if(!dirPath.exists()) {
 				dirPath.mkdir();

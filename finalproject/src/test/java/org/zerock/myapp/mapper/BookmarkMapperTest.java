@@ -54,7 +54,7 @@ public class BookmarkMapperTest {
 		log.trace("addBookmarkTests() invoked.");
 		
 		BookmarkDTO dto = new BookmarkDTO();
-		dto.setUids("bbbb");
+		dto.setUids("admin");
 		dto.setFid(239);
 		
 		Integer affectedLines = this.mapper.addBookmark(dto);

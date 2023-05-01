@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.zerock.myapp.domain.BookmarkDTO;
 import org.zerock.myapp.exception.ServiceException;
 import org.zerock.myapp.service.BookmarkService;
@@ -25,45 +24,37 @@ public class BookmarkController {
 	@Setter(onMethod_ = {@Autowired})
 	private BookmarkService service;
 	
-	@GetMapping("/bookmark")
-	public ResponseEntity<String> getBookmark(@RequestParam Integer fid) {
-		log.debug("getBookmark({}) invoked.", fid);
+	@PostMapping("/bookmark/register")
+	public String registerBookmark(BookmarkDTO dto) throws ServiceException {
 		
+		try {
+			if(this.service.isBookmarked(dto)) {
+				this.service.remove(dto);
+				
+				return "unregistered";
+			} else {
+				this.service.register(dto);
+				
+				return "registered";
+			} // if-else
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	} // registerBookmark
+	
+	@GetMapping("/bookmark")
+	public ResponseEntity<String> getBookmark(Model model, Integer fid) throws ServiceException{
 		BookmarkDTO dto = new BookmarkDTO();
 		dto.setFid(fid);
-		
 		boolean result = false;
-		try {
-			result = this.service.isBookmarked(dto);
-		} catch (ServiceException e) {
-			log.error("Exception: {}", e);
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
 		
+		try {
+			model.addAttribute("dto", dto);
+			result = this.service.isBookmarked(dto);
+		} catch(Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} // try-catch
 		return new ResponseEntity<>(String.valueOf(result), HttpStatus.OK);
 	} // getBookmark
-	
-	@PostMapping("/bookmark")
-	public ResponseEntity<Void> toggleBookmark(@RequestBody BookmarkDTO dto) {
-		log.debug("toggleBookmark({}) invoked.", dto);
-		
-		boolean result = false;
-		try {
-			if (this.service.isBookmarked(dto)) {
-				result = this.service.remove(dto);
-			} else {
-				result = this.service.register(dto);
-			}
-		} catch (ServiceException e) {
-			log.error("Exception: {}", e);
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
-		if (result) {
-			return new ResponseEntity<>(HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-	} // toggleBookmark
 	
 } // end class
