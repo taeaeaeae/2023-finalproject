@@ -1,19 +1,19 @@
 package org.zerock.myapp.controller;
 
+import java.io.File;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.Criteria;
 import org.zerock.myapp.domain.FreeBoardCommentVO;
@@ -25,14 +25,16 @@ import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.exception.ServiceException;
 import org.zerock.myapp.service.FreeBoardCommentService;
 import org.zerock.myapp.service.FreeBoardService;
+import org.zerock.myapp.utils.UploadFileUtils;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-@NoArgsConstructor
-//@AllArgsConstructor
+//@NoArgsConstructor
+@AllArgsConstructor
 
 @RequestMapping("/freeboard")
 @Controller
@@ -45,6 +47,9 @@ public class FreeBoardController {
 	
 	@Setter(onMethod_ = {@Autowired})
 	private FreeBoardCommentService commentService;
+	
+	@Qualifier("uploadPath")
+	private String uploadPath;
 	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) throws ControllerException {
@@ -68,9 +73,9 @@ public class FreeBoardController {
 		
 	} // list 
 	
-	@GetMapping({"/get", "modify"})
+	@GetMapping({"/get", "/modify"})
 	public void get(Criteria cri, Integer fid, Model model) throws ControllerException{
-		log.trace("get({}, {}, {}, {}, {}) invoked.", cri, fid, model);
+		log.trace("get({}, {}, {}) invoked.", cri, fid, model);
 		
 		try {
 //			increaseViewCount(fid, req, res);
@@ -97,11 +102,10 @@ public class FreeBoardController {
 	} // get
 	
 	@PostMapping("/register")
-	public String register(Criteria cri, FreeBoardDTO dto, RedirectAttributes rttrs, HttpServletRequest req) throws ControllerException{
-		log.trace("register({}, {}, {}) invoked.", cri, dto, rttrs);
+	public String register(Criteria cri, FreeBoardDTO dto, RedirectAttributes rttrs, HttpSession session, MultipartFile file) throws ControllerException{
+		log.trace("register({}, {}, {}, {}, {}) invoked.", cri, dto, rttrs, session, file);
 		
 		try {
-			HttpSession session = req.getSession();
 			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
 			log.info("\t+ __AUTH__ : {}", loginVO);
 			
@@ -109,6 +113,25 @@ public class FreeBoardController {
 				
 				rttrs.addAttribute("result", "failure");
 			} else {
+				// image upload용
+				String imgUploadPath = uploadPath + "\\" + "imgUpload";
+				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+				System.out.println("1. : " + imgUploadPath);
+				System.out.println("2. : " + ymdPath);
+				System.out.println("3. : " + File.separator);
+				
+				String fileName = null;
+
+				if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+					System.out.printf("4. file.getOriginalFilename : %s", file.getOriginalFilename());
+					 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+					 System.out.println("5. fileName :" + fileName);
+					} else {
+					 fileName = uploadPath + "\\" + "images" + "\\" + "none.png";
+					 System.out.println("6. fileName :" + fileName);
+				}
+
+				dto.setImage("\\" + "imgUpload" + ymdPath + "\\" + fileName);
 				dto.setUids(loginVO.getUids());
 				boolean success = this.service.register(dto);
 
@@ -131,11 +154,10 @@ public class FreeBoardController {
 	} // register
 	
 	@PostMapping({"/remove"})
-	public String remove(Criteria cri, Integer fid, RedirectAttributes rttrs, HttpServletRequest req) throws ControllerException{
+	public String remove(Criteria cri, Integer fid, RedirectAttributes rttrs, HttpSession session) throws ControllerException{
 		log.trace("remove({}, {}, {}) invoked.", cri, fid, rttrs);
 		
 		try {
-			HttpSession session = req.getSession();
 			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
 			log.info("\t+ __AUTH__ : {}", loginVO);
 			
@@ -168,11 +190,10 @@ public class FreeBoardController {
 	} // remove
 	
 	@PostMapping("/modify")
-	public String modify(Criteria cri, FreeBoardDTO dto, RedirectAttributes rttrs, HttpServletRequest req) throws ControllerException {
+	public String modify(Criteria cri, FreeBoardDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
 		log.trace("modify() invoked.");
 		
 		try {
-			HttpSession session = req.getSession();
 			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
 			log.info("\t+ __AUTH__ : {}", loginVO);
 			
@@ -186,14 +207,14 @@ public class FreeBoardController {
 				boolean isAuth = freeboardVO.getUids().equals(loginVO.getUids());
 				
 				if(isAuth) {
-					
 					boolean success = this.service.modify(dto);
 					log.info("\t+ success() : {}", success);
 					
 					rttrs.addAttribute("currPage", cri.getCurrPage());
 					rttrs.addAttribute("amount", cri.getAmount());
+					rttrs.addAttribute("fid", dto.getFid());
 					
-					rttrs.addAttribute("result", (success) ? "sucess" : "failure");
+					rttrs.addAttribute("result", (success) ? "success" : "failure");
 				} else {
 					rttrs.addAttribute("result", (isAuth) ? "Auth : success" : "Auth : failure");
 				}  // if-else

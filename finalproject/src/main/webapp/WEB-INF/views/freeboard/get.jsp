@@ -46,26 +46,23 @@
 
     <section class="board-body">
       <hr class="board-divider">
-      <div class="post-content">${freeboard.content}</div>
+      <c:if test="${not empty freeboard.image}"><img src="/resources${freeboard.image}" alt="${freeboard.title}"></c:if>
+      <div class="post-content"><pre>${freeboard.content}</pre></div>
     </section>
   </form>
   
-  <!-- 목록창 -->
+  <!-- 북마크 / 목록창 -->
+  <p>${bookmarked}</p>
   <form action="/freeboard/list" method="post">
     <section class="list_form">
       <hr class="board-divider">
-        <c:if test="${not bookmarked}">
-          <button onclick="toggleBookmark()">
-            <img src="/resources/bookmark/ico/bookmark_ico.png"> 북마크 추가
-          </button>
+        <c:if test="${not registered}">
+          <button class="bookmark_ico" onclick="toggleBookmark()">☆ 북마크 추가</button>
         </c:if>
-        <c:if test="${bookmarked}">
-          <button onclick="toggleBookmark()">
-            <img src="/resources/bookmark/ico/bookmarked_ico.png"> 북마크 취소
-          </button>
+        <c:if test="${registered}">
+          <button class="bookmark_ico" onclick="toggleBookmark()">★ 북마크 취소</button>
         </c:if>
-      
-      
+
         <div class="list_button">
           <input type="hidden" name="fid"     value="${freeboard.fid}">
           <input type="hidden" name="currPage"value="${param.currPage}">
@@ -260,32 +257,51 @@ function openReportPopup() {
 };
 
 /* 북마크 */
-function toggleBookmark() {
-  const xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === xhr.DONE) {
-      if (xhr.status === 200) {
-        const result = xhr.responseText;
-        if (result === 'true') {
-          document.getElementById('bookmarkIcon').src = '/resources/bookmark/ico/bookmarked_ico.png';
-        } else if (result === 'false') {
-          document.getElementById('bookmarkIcon').src = '/resources/bookmark/ico/bookmark_ico.png';
-        }
-      } else {
-        console.error('Failed to toggle bookmark');
+// function toggleBookmark() {
+//   const xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성
+//   xhr.onreadystatechange = function() {
+//     if (xhr.readyState === xhr.DONE) {
+//       if (xhr.status === 200) {
+//         const result = xhr.responseText;
+//         if (result === 'true') {
+//           // document.getElementById('bookmarkIcon').src = '/resources/bookmark/ico/bookmarked_ico.png';
+//         } else if (result === 'false') {
+//           // document.getElementById('bookmarkIcon').src = '/resources/bookmark/ico/bookmark_ico.png';
+//         }
+//       } else {
+//         console.error('Failed to toggle bookmark');
+//       }
+//     }
+//   };
+  
+//   const bookmarked = document.getElementById('bookmarked').value === 'true';
+//   const fid = document.getElementById('fid').value;
+  
+//   const data = new FormData();
+//   data.append('fid', fid);
+//   data.append('bookmarked', bookmarked);
+  
+//   xhr.open('POST', '/bookmark');
+//   xhr.send(data);
+// }
+
+function toggleBookmark(dto) {
+  $.ajax({
+    url : "/bookmark/register",
+    type : "POST",
+    data : JSON.stringify(dto),
+    contentType : "application/json",
+    success : function (result) {
+      if(result === "registered"){
+        alert("북마크가 등록되었습니다.");
+      } else if(result === "unregistered"){
+        alert("북마크가 취소되었습니다.");
       }
+    },
+    error : function (xhr, status, error) {
+      console.error("Error occurred : " + error);     
     }
-  };
-  
-  const bookmarked = document.getElementById('bookmarked').value === 'true';
-  const fid = document.getElementById('fid').value;
-  
-  const data = new FormData();
-  data.append('fid', fid);
-  data.append('bookmarked', bookmarked);
-  
-  xhr.open('POST', '/bookmark');
-  xhr.send(data);
+  });
 }
 
 </script>

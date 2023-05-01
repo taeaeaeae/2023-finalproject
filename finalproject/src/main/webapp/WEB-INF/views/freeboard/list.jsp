@@ -12,7 +12,6 @@
 
 </head>
 <body>
-<%@include file="/WEB-INF/views/main/header.jsp" %>
 	<section>
 	  <h1>자유게시판</h1>
 	  <hr>
