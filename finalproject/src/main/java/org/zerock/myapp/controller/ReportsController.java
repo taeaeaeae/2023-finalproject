@@ -30,7 +30,7 @@ public class ReportsController {
 	private FreeBoardService freeboardService;
 	
 	@PostMapping("/register")
-	public String RegisterReports(Integer fid, ReportsDTO dto, Model model) throws ServiceException{
+	public void RegisterReports(Integer fid, ReportsDTO dto, Model model) throws ServiceException{
 		log.trace("RegisterReport({}, {}, {}) invoked", dto, fid, model);
 		
 		try {
@@ -41,7 +41,6 @@ public class ReportsController {
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		} // try-catch
-		return "redirect:/reports/register";
 	} // RegisterReport 가져오기
 	
 	@GetMapping("/register")

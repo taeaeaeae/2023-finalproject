@@ -42,12 +42,28 @@
 		<property name="dataSource" ref="hikariDataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 	</bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+       <property name="host" value="smtp.gmail.com" /> 
+       <property name="port" value="587" />
+       <property name="username" value="TravelTrademaTe@gmail.com" />
+       <property name="password" value="emrrbwxfcziifkti"></property>
+       <!-- <property name="password" value="TravelTrademaTe1!" />  -->
+       <property name="javaMailProperties">
+           <props>
+               <prop key="mail.smtp.auth">true</prop>
+               <prop key="mail.smtp.starttls.enable">true</prop>
+           </props>
+       </property>
+   </bean>
+	
 
 	<!-- Auto-Registration As A Bean -->
 	<context:component-scan base-package="org.zerock.myapp.service" />
 	<context:component-scan base-package="org.zerock.myapp.persistence" />
 	<context:component-scan base-package="org.zerock.myapp.mapper" />
 	<context:component-scan base-package="org.zerock.myapp.utils" />
+
 
 	
 	<mybatis-spring:scan base-package="org.zerock.myapp.mapper" />

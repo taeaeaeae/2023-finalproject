@@ -38,8 +38,7 @@
           <br>
 
         <div id="check">
-          <h4><input type="hidden" name="uids" value="${mypage.uids}"/></h4>
-          <h4>* 비밀번호 <input type="password" name="password" id="password" placeholder="비밀번호를 입력하세요." required></h4>
+          <h4><input type="hidden" name="uids" value="${mypage.uids}"/></h4>    
         </div>
 
         <br>
@@ -73,6 +72,7 @@
   <%@include file="/WEB-INF/views/main/footer.jsp" %>
   
   <script>
+	
    	// 취소시 메인
 		var cancleBtn = document.querySelector('#cancleBtn');
 	
@@ -80,35 +80,18 @@
 			location.href = '/mypage/main';
 		});
 	   	
-	// 비밀번호 확인
-		$("#submit").on("click", function(){
-			    
-			$.ajax({
-				url : "/mypage/passChk",
-			    type : "POST",
-			    dataType : "json",
-			    data : {"password" : $("#password").val()},
-			    success: function(data){
-			    	if(data==0){
-			        	alert("패스워드가 틀렸습니다.");
-			            return "redirect:/mypage/remove";
-			        	} else {
-				            if(confirm("회원탈퇴하시겠습니까?")){
-				            	$("#delForm").submit();
-			        	}
-			            	}
-			        			},
-			        			
-			        error: function() {
-			            alert("에러가 발생했습니다.");
-			        }
-			    });
-			});
 
 
-			
+	// 완료 알림
+		$(document).ready(function() {
+			  let message = "${result}";
+			  if (message != "" && message != null ) {
+			        alert(message);
+			  }else {
+			}
+		});
 
-  
+
   </script>
 
 </body>

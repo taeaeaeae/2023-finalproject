@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<beans:bean class="java.lang.String" id="uploadPath">
-		<beans:constructor-arg value="C:/app/scoop/apps/tomcat9/current/wtpwebapps/finalproject"/>
+		<beans:constructor-arg value="C:\\Users\\LG\\git\\2023-finalproject\\finalproject\\src\\main\\webapp\\resources"/>
 	</beans:bean>
 	
 	<resources location="/resources/imgUpload/" mapping="/imgUpload/**"/>
@@ -75,6 +75,12 @@
 
          <beans:ref bean="authInterceptor"/>
       </interceptor>
+	  
+	  <interceptor>
+	  	<mapping path="/reports/register" />
+
+		<beans:ref bean="authInterceptor"/>
+	  </interceptor>
 	</interceptors>
 	
 </beans:beans>

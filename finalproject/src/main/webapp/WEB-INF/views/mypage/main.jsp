@@ -8,8 +8,7 @@
 <title>회원정보조회</title>
 </head>
 <body>
-
-	<%@include file="/WEB-INF/views/main/header.jsp" %>
+<%@include file="/WEB-INF/views/main/header.jsp" %>
 	
 	<h1 align="center">회원정보조회</h1>
 	
@@ -34,8 +33,6 @@
 		
 					<h3>* 이름 : ${mypage.name}</h3></br>
 		
-					<h3>* 닉네임 : ${mypage.nickname}</h3></br>
-		
 					<h3>* 이메일 : ${mypage.email}</h3></br>
 						
 					<h3>* 전화번호 : ${mypage.phonenumber}</h3></br>
@@ -44,7 +41,6 @@
 		</section>
 
 	
-	<%@include file="/WEB-INF/views/main/footer.jsp" %>	
-
+<%@include file="/WEB-INF/views/main/footer.jsp" %>	
 </body>
 </html>
