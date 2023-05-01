@@ -10,7 +10,7 @@
         SELECT *
         FROM users 
         WHERE name = #{name} 
-        AND phonenumber = #{phonenumber}
+        AND email = #{email}
     </select>
     
     <select id="findPw" resultType="org.zerock.myapp.domain.FindVO">

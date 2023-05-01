@@ -11,6 +11,12 @@
         FROM users
         WHERE uids = #{uids}
     </select>
+    
+      <select id="selectEmail" resultType="org.zerock.myapp.domain.UsersVO">
+        SELECT * 
+        FROM users
+        WHERE email = #{email}
+    </select>
 
     <delete id="remove">
         UPDATE users 
@@ -40,10 +46,10 @@
         where uids=#{uids}
     </select>
     
-    <select id="checkPw" resultType="int">
+    <select id="checkEmail" resultType="int">
         select count(*) 
         from users 
-        where uids = {#uids} and password=#{password}
+        where email = #{email}
     </select>
 
 

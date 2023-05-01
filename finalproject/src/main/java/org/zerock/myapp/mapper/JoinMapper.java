@@ -6,8 +6,11 @@ import org.zerock.myapp.domain.UsersVO;
 
 public interface JoinMapper {
 	
-
-	public abstract UsersVO select(String uids);			
+	
+	public abstract UsersVO select(String uids);
+	
+	
+	public abstract UsersVO selectEmail(String email);	
 	
 
 	public abstract Integer join(UsersDTO dto);				

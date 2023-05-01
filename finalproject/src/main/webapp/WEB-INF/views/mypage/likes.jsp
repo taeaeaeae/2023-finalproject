@@ -14,6 +14,9 @@
    	<section>
 	  <h1>좋아요 목록</h1>
 	  <hr>
+	  
+	  <%@include file="/WEB-INF/views/main/leftside.jsp" %>
+	  
 	  <div id="list">
 	    <table border="1px">
 			<thead>

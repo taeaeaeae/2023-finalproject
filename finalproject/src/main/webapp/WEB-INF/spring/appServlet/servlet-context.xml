@@ -43,6 +43,7 @@
 
 	<view-controller path="/main/header" 	view-name="/main/header" 	status-code="200" />
 	<view-controller path="/main/footer" 	view-name="/main/footer"	status-code="200" />
+	<view-controller path="/main/leftside" 	view-name="/main/leftside" 	status-code="200" />
 	<view-controller path="/main/root" 		view-name="/main/root"		status-code="200" />
 	<view-controller path="/main/index" 	view-name="/main/index"		status-code="200" />
 

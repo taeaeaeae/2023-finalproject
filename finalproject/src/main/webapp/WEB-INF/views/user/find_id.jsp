@@ -31,7 +31,7 @@
 
                 <input type="text" id="name" name="name" placeholder="이름을 입력하세요." required> <br>
 
-                <input type="text" id="phonenumber" name="phonenumber" placeholder="전화번호를 입력하세요." required>
+                <input type="email" id="email" name="email" placeholder="이메일을 입력하세요." required>
       
             </div>
             

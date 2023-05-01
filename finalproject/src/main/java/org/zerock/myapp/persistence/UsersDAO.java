@@ -12,7 +12,7 @@ public interface UsersDAO {
 
 	public int checkId(CheckVO vo) throws Exception;
 	
-	public int checkPw(CheckVO vo) throws Exception;
+	public int checkEmail(CheckVO vo) throws Exception;
 	
 	public abstract UsersVO update(UsersDTO dto) throws DAOException;
 	

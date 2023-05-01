@@ -56,7 +56,7 @@ public class JoinController {
 
 				dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
 		
-			if(service.select(dto.getUids()) == null && dto.getPassword().equals(dto.getPwCheck())) {
+			if(service.select(dto.getUids()) == null && service.selectEmail(dto.getEmail()) == null && dto.getPassword().equals(dto.getPwCheck())) {
 				
 			dto.setPassword(bcryptPasswordEncoder.encode(dto.getPassword()));
 			
@@ -70,7 +70,7 @@ public class JoinController {
 			
 			}
 			
-			rttrs.addFlashAttribute("result", "아이디 및 비밀번호를 확인해주세요.");
+			rttrs.addFlashAttribute("result", "중복여부를 확인해주세요.");
 			return "redirect:/user/join";
 			
 		} catch(Exception e) {

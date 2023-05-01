@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/join.css" />
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <title>Join</title>
 
@@ -27,7 +27,7 @@
                     
             <h3>비밀번호 확인</h3>
 				<input type="password" id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
-				<button class="pwCheck" type="button" id="pwCheck" name="button" onclick="fn_checkPw();" value="N">확인</button>
+				<font id="pwNotice" size="2"></font>
                     
             <h3>이름</h3>
                 <input type="text" id="name" name="name" title="name" maxlength="18" required>
@@ -37,7 +37,8 @@
                 
             <h3>이메일</h3>
                 <input type="email" id="email" name="email" title="email" placeholder="example1@xxx.com" maxlength="38" required>
-			
+				<button class="checkEmail" type="button" id="checkEmail" name="button" onclick="fn_emailChk();" value="N">중복확인</button>
+				
 			<h3>프로필 사진</h3>
 			<input name = "file" class="form-control" type="file" id="formFile" accept="image/*">	
 					
@@ -100,24 +101,45 @@
 				        }
 			        }) // ajax
 			      }
+	    
+		    // 이메일 중복체크
+			function fn_emailChk(){
+				$.ajax({
+					url : "/join/checkEmail",
+					type : "post",
+					dataType : "json",
+					data : {"email" : $("#email").val()},
+					success : function(data){
+					if(data >= 1){
+						$("#checkEmail").attr("value", "N");
+						alert("이미 사용중이거나 탈퇴한 이메일입니다.");
+					}else if(data == 0){
+						$("#checkEmail").attr("value", "Y");
+						alert("사용가능한 이메일입니다.");
+					        }
+				        }
+			        }) // ajax
+			      }
 	   	    
-	    // 비밀번호 확인
-	         function fn_checkPw() {
-	         	  var pw = $("#password").val();
-	         	  var pwCheck = $("#pwCheck").val();
+		 // 비밀번호 확인
+            $(function(){
+                $('#password').keyup(function(){
+                $('#pwNotice').html('');
+                });
 
-	         	  if (pw !== pwCheck) {
-	         		 $("#pwCheck").attr("value", "N");
-	        	    alert("비밀번호가 일치하지 않습니다.");
-	         	    return false;
-	         	  } else if (pw == pwCheck) {
-	         		 $("#pwCheck").attr("value", "Y");
-	         		alert("비밀번호가 일치합니다.");
-	         	  }
-		             	  
-	        	  return true;
-	     	}
-	            
+                $('#pwCheck').keyup(function(){
+
+                    if($('#password').val() != $('#pwCheck').val()){
+                    $('#pwNotice').html('비밀번호가 일치하지 않습니다,<br><br>');
+                    $('#pwNotice').attr('color', '#ff000');
+                    } else{
+                    $('#pwNotice').html('비밀번호가 일치합니다.<br><br>');
+                    $('#pwNotice').attr('color', '#199894b3');
+                    }
+
+                });
+            }); 
+         
 	    // 전체동의
 	        const agreeChkAll = document.querySelector('input[name=agree_all]');
 	

@@ -15,6 +15,9 @@
    	<section>
 	  <h1>내가 쓴 댓글</h1>
 	  <hr>
+	  
+	  <%@include file="/WEB-INF/views/main/leftside.jsp" %>
+	  
 	  <div id="list">
 	    <table border="1px">
 			<thead>

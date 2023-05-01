@@ -47,6 +47,15 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 			throw new ServiceException(e);
 		}	// try-catch
 	}	//select
+	
+	@Override
+	public UsersVO selectEmail(String email) throws ServiceException {
+		try {
+			return this.mapper.selectEmail(email);
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		}	// try-catch
+	}	//selectemail
 
 	@Override
 	public boolean join(UsersDTO dto) throws ServiceException {
@@ -75,6 +84,8 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 			throw new ServiceException(e);
 		}	// try-catch
 	}	//remove
+
+
 
 
 }	// end class

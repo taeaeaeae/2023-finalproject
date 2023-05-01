@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+body {overflow:hidden;}
+a:link {text-decoration: none; color: black;}
+a:hover {text-decoration: underline; color: black;}
+a:visited {text-decoration: none; color: black;}
+a:active {text-decoration: none; color: black;}
+  
+.table, .table-striped{
+	text-align: center;
+	margin: 20px 0px 16px 0;
+}
+.page-item.active .page-link, .btn.btn-primary{
+	background-color: #F6BB43;
+	border-color: #F6BB43;
+}
+.search-form{
+	display: flex; 
+	justify-content: center;
+}
+.form-select{
+	width:100px; 
+	display:inline;
+}
+.input-keyword{
+	margin: 0px 5px 0px 5px;
+}
+.btn.btn-secondary{
+	float:right;
+}

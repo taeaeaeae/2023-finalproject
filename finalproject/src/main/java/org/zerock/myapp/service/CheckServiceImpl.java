@@ -30,16 +30,16 @@ public class CheckServiceImpl implements CheckService{
 		} //checkId
 
 	@Override
-	public int checkPw(CheckVO vo) throws ServiceException {
-		log.trace("checkPw({}) invoked.", vo);
+	public int checkEmail(CheckVO vo) throws ServiceException {
+		log.trace("checkEmail({}) invoked.", vo);
 		
 		try {
-			int result = UsersDAO.checkPw(vo);
+			int result = UsersDAO.checkEmail(vo);
 			return result;
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}	// try-catch
-	}	// checkPw
+	}	// checkEmail
 	
 
 	

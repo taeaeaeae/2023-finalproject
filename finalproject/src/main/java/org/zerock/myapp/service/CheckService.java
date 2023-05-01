@@ -8,7 +8,7 @@ public interface CheckService {
 	
 	public int checkId(CheckVO vo) throws ServiceException;
 	
-	public int checkPw(CheckVO vo) throws ServiceException;
+	public int checkEmail(CheckVO vo) throws ServiceException;
 
 }	// end interface
 	
