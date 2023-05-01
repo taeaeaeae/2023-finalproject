@@ -19,6 +19,8 @@
 
 		<h1 align="center">회원정보수정</h1>
 		<h3 align="center">비밀번호 및 이메일 , 전화번호만 수정 가능합니다.</h3>
+		
+		<%@include file="/WEB-INF/views/main/leftside.jsp" %>
 
 			<div class="container">
 
@@ -28,10 +30,10 @@
 
 						<h3>* 아이디 <input type="text" name="uids" value="${mypage.uids}" readonly/></h3>					
 
-						<h3>* 비밀번호 <input type="password" value="${mypage.password}" id="password" name="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/></h3>
+						<h3>* 비밀번호 <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/></h3>
 
-						<h3>* 비밀번호 확인 <input type="password" value="${mypage.password}" id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/></h3>						
-                		<button class="pwCheck" type="button" id="pwCheck" onclick="fn_checkPw();" value="N">확인</button>
+						<h3>* 비밀번호 확인 <input type="password"  id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/></h3>						
+                		<button class="pwCheck" type="button" id="pwCheck" onclick="fn_checkPw();" value="N" class="btn btn-outline-primary" >확인</button>
 						
 						<h3>* 이름 <input type="text" name="name" value="${mypage.name}" readonly/></h3>
 						

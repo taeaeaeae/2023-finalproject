@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,20 +13,8 @@
 	
 	<h1 align="center">회원정보조회</h1>
 	
-		<section>
-			<div id="text">
-				<ul>
-					<li><a href="/mypage/update">회원정보수정</a></li><br>
-					<li><a href="/mypage/remove">회원탈퇴</a></li><br>
-					<li><a href="/mypage/mywrite">나의 작성 글</a></li><br>
-					<li><a href="/mypage/mycomment">내가 쓴 댓글</a></li><br>
-					<li><a href="/mypage/likes">좋아요 목록</a></li><br>
-					<li><a href="/mypage/bookmark">북마크 목록</a></li><br>
-					<li><a href="/mypage/checklist">체크리스트</a></li><br>
-				</ul>
-			</div>		
-		</section>
-		
+	<%@include file="/WEB-INF/views/main/leftside.jsp" %>
+	
 		<section>		
 			<div id="center">
 				<form action="/mypage/main" method="post">
@@ -36,11 +25,16 @@
 					<h3>* 이메일 : ${mypage.email}</h3></br>
 						
 					<h3>* 전화번호 : ${mypage.phonenumber}</h3></br>
+					
+					<h3>* 프로필사진 : </h3>
+					<c:if test="${not empty mypage.image}"><img src="/resources${mypage.image}"></c:if>
+			
+					</br>
 				</form>
 			</div>
 		</section>
 
-	
-<%@include file="/WEB-INF/views/main/footer.jsp" %>	
+	<%@include file="/WEB-INF/views/main/footer.jsp" %>	
+
 </body>
 </html>

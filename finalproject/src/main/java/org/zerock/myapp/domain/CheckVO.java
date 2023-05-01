@@ -7,5 +7,6 @@ public class CheckVO {
 	
 	private String uids;
 	private String password;
+	private String email;
 	
 }	// end class

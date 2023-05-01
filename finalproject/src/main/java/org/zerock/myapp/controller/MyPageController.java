@@ -2,6 +2,8 @@ package org.zerock.myapp.controller;
 
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -14,11 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.BookmarkVO;
 import org.zerock.myapp.domain.ChecklistDTO;
 import org.zerock.myapp.domain.ChecklistVO;
 import org.zerock.myapp.domain.LikesVO;
+import org.zerock.myapp.domain.LoginDTO;
 import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.MycommentVO;
 import org.zerock.myapp.domain.MywriteVO;
@@ -26,6 +30,7 @@ import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.exception.ServiceException;
+import org.zerock.myapp.service.MorelistService;
 import org.zerock.myapp.service.MypageService;
 import org.zerock.myapp.service.UsersService;
 
@@ -44,6 +49,10 @@ public class MyPageController {
 	
 	@Autowired
 	private MypageService mservice;
+	
+	@Autowired
+	private MorelistService mlservice;
+	
 	
 	@Inject
 	BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -68,15 +77,20 @@ public class MyPageController {
 	public String update(UsersDTO dto, RedirectAttributes rttrs) throws ControllerException {
 		log.info("update({},{}) invoked.", dto, rttrs);	
 		try {
-			
+			if(dto.getPassword().equals(dto.getPwCheck())) {
 			dto.setPassword(bcryptPasswordEncoder.encode(dto.getPassword()));
 			
 			boolean success = this.service.update(dto);
 			log.info("\t+ success : {}", success);
 			
-			rttrs.addFlashAttribute("result",(success)? "회원수정이 완료되었습니다." : "failure");
+			rttrs.addFlashAttribute("result",(success)? "수정이 완료되었습니다." : "failure");
 			
 			return "redirect:/mypage/main";
+			}
+			
+			rttrs.addFlashAttribute("result", "수정에 실패하였습니다.");
+			return "redirect:/mypage/update";
+			
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		}	//try- catch
@@ -85,17 +99,44 @@ public class MyPageController {
 	
 
 	@PostMapping("/remove")
-	public String remove(UsersDTO dto, Model model, RedirectAttributes rttrs) throws ControllerException {
+	public String remove(LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttrs) throws ControllerException {
 		log.trace("remove() invoked.");
 		
-		try {
 			
-			boolean success = this.service.remove(dto);
+		try {
+			LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
+			UsersVO vo = service.select(uid.getUids());
+			log.info(">>>>>>>>>>>>>>>>>>vo: {}", vo);
+			
+			dto.setPassword(dto.getPassword());
+			
+	
+//			String inputPassword = ldto.getPassword();
+//			log.info("inputPassword: >>>>>>>>>>>>>>>>>>>>>>>>>>>> {}", inputPassword);
+//			
+//			String checkPassword = bcryptPasswordEncoder.encode(inputPassword);
+//			log.info("checkPassword: >>>>>>>>>>>>>>>>>>>>>>>>>>>> {}", checkPassword);
+			
+			String voPassword = vo.getPassword();
+			log.info("voPassword: >>>>>>>>>>>>>>>>>>>>>>>>>>>> {}", voPassword);
+			
+			// 문제 ... 새로 암호화된 패스워드가 vo의 패스워드랑 일치하지 않는다 .....분명 같은 문자열인데 ㅠㅠㅠ
+			
+			if(bcryptPasswordEncoder.matches(dto.getPassword(),voPassword)) {
+				
+			UsersDTO udto = new UsersDTO ();
+			udto.setUids(voPassword);
+			boolean success = this.service.remove(udto);
 			log.info("\t+ success : {}", success);
 			
 			rttrs.addFlashAttribute("result",(success)? "회원탈퇴가 완료되었습니다." : "failure");
-			
 			return "redirect:/user/login";
+			
+			}
+			
+			rttrs.addFlashAttribute("result", "비밀번호가 일치하지 않습니다." );
+			
+			return "redirect:/mypage/remove";
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		}	//try- catch
@@ -246,8 +287,14 @@ public class MyPageController {
         return "/mypage/bookmark";
     }	//bookmark
 	
+	@PostMapping("/morelist")
+	@ResponseBody
+	public List<Map<String, Object>> morelist(Model model, @RequestParam Integer startNum)throws Exception {
+	
+		List<Map<String, Object>> result = mlservice.morelist(startNum);
 
-
-
+			return result;
+	}
+	
 }	// end class
 

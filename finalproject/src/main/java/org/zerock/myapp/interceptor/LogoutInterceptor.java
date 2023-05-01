@@ -28,7 +28,7 @@ public class LogoutInterceptor implements HandlerInterceptor {
 		
 		HttpSession session = req.getSession(false);	
 		session.invalidate();
-		log.info("\t+ 靹胳厴臧濎泊 韺岅创鞕勲");
+		log.info("\t+ 技记按眉 颇鲍肯丰");
 		
 		res.sendRedirect("/user/login");
 		
