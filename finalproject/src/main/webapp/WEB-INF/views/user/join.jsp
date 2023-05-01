@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/css/join.css" />
+<link rel="stylesheet" href="/resources/css/join.css" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <title>Join</title>

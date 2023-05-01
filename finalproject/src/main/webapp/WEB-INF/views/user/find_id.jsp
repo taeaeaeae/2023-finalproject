@@ -8,7 +8,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/css/find_id.css" />
+	<link rel="stylesheet" href="/resources/css/find_id.css" />
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	
 	<title>find_id</title>
