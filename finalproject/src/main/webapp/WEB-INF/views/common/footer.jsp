@@ -18,7 +18,7 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous" />
 
-<link rel="stylesheet" href="${path}/resources/csss/root.css" />
+<link rel="stylesheet" href="${path}/resources/css/root.css" />
 
 </head>
 <body>

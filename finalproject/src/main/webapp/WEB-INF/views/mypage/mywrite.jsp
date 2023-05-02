@@ -29,10 +29,16 @@
 			</thead>
 			
 			<tbody>
+			<p>SESSION : ${sessionScope['__AUTH__'].uids}</p>
+			<p>plan : ${MywriteVO.board_name eq plan}</p>
 				<c:forEach var="MywriteVO" items="${mywrite}">
 					<tr>
 						<td>${MywriteVO.uids}</td>
-						<td><a href="/${MywriteVO.board_name}/get?${MywriteVO.bm}=${MywriteVO.bno} ">${MywriteVO.title}</a></td>
+						<td>
+							<c:choose>
+								<c:when test="${MywriteVO.board_name eq 'plan'}"><a href="/${MywriteVO.board_name}/view?${MywriteVO.bm}=${MywriteVO.bno}&uids=${sessionScope['__AUTH__'].uids} ">${MywriteVO.title}</a></c:when>
+								<c:otherwise><a href="/${MywriteVO.board_name}/get?${MywriteVO.bm}=${MywriteVO.bno} ">${MywriteVO.title}</a></c:otherwise>
+							</c:choose></td>
 						<td><fmt:formatDate value="${MywriteVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></td>
 					</tr>
 				</c:forEach>

@@ -40,12 +40,8 @@
 
 	<view-controller path="/common/information" view-name="/common/information" status-code="200" />
 	<view-controller path="/common/clause" 		view-name="/common/clause" 		status-code="200" />
+	<view-controller path="/common/leftside" 	view-name="/common/leftside" 	status-code="200" />
 
-	<view-controller path="/main/header" 	view-name="/main/header" 	status-code="200" />
-	<view-controller path="/main/footer" 	view-name="/main/footer"	status-code="200" />
-	<view-controller path="/main/leftside" 	view-name="/main/leftside" 	status-code="200" />
-	<view-controller path="/main/root" 		view-name="/main/root"		status-code="200" />
-	<view-controller path="/main/index" 	view-name="/main/index"		status-code="200" />
 
 	<!-- interceptor 설정 -->
 	<interceptors>

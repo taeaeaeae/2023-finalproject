@@ -2,6 +2,7 @@ package org.zerock.myapp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.Paging;
 import org.zerock.myapp.domain.PlanVO;
 import org.zerock.myapp.domain.ScheduleVO;
@@ -17,7 +18,6 @@ import org.zerock.myapp.service.BoardService;
 import org.zerock.myapp.service.PlanService;
 
 import lombok.extern.log4j.Log4j2;
-
 
 @Controller
 public class BoardController {
@@ -33,7 +33,7 @@ public class BoardController {
 	public String planList(Model model, @RequestParam("num") int num
 			, @RequestParam(value="searchType", required=false, defaultValue="planTitle") String searchType	
 			, @RequestParam(value="keyword", required=false, defaultValue="") String keyword
-			) throws Exception {
+			,HttpSession session) throws Exception {
 		// 정적 계획 리스트 초기화
 		PlanController.allPlanListClear();
 		//페이징 필드 값 생성자 통해서 초기화
@@ -45,6 +45,11 @@ public class BoardController {
 		//Model에 필요 값들 담아 list page로 리턴
 		model.addAttribute("planList", planList);
 		model.addAttribute("page", page);
+		
+		LoginVO users = (LoginVO)session.getAttribute("__AUTH__");
+		
+		model.addAttribute("users",users);
+		
 		return "/plan/list";
 	}
 	
@@ -53,7 +58,7 @@ public class BoardController {
 	public String planListForUser(Model model, @RequestParam("uids") String uids
 			, @RequestParam("num") int num
 			, @RequestParam(value="searchType", required=false, defaultValue="planTitle") String searchType	
-			, @RequestParam(value="keyword", required=false, defaultValue="") String keyword
+			, @RequestParam(value="keyword", required=false, defaultValue="") String keyword, HttpSession session
 			) throws Exception {
 		// 정적 계획 리스트 초기화
 		PlanController.allPlanListClear();
@@ -67,12 +72,22 @@ public class BoardController {
 		List<PlanVO> planListForUser = planService.planListForUser(uids, page.getDisplayPost(), page.getPostNum(), searchType, keyword);
 		model.addAttribute("planListForUser", planListForUser);
 		model.addAttribute("page", page);
+		
+
+		LoginVO users = (LoginVO)session.getAttribute("__AUTH__");
+		
+		model.addAttribute("users",users);
+		
 		return "/plan/list_user";
 	}
 	
 	//계획 조회하기
 	@RequestMapping(value="/plan/view", method = RequestMethod.GET)
-	public String planView(Model model,@RequestParam("pid") int pid, @RequestParam("uids") String uids) throws Exception {
+	public String planView(Model model,@RequestParam("pid") int pid, @RequestParam("uids") String uids, HttpSession session) throws Exception {
+		
+		LoginVO users = (LoginVO)session.getAttribute("__AUTH__");
+		
+		model.addAttribute("users",users);
 		
 		//계획 호출
 		PlanVO planView = planService.planView(pid, uids);

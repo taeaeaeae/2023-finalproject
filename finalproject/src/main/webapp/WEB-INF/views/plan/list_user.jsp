@@ -1,22 +1,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 <!-- custom css -->
 <link href="/resources/css/list.css" rel="stylesheet" type="text/css">
-<title>내 일정 목록</title>
+<title>공유 일정 목록</title>
 </head>
 <body>
-	<header>
-	</header>
+<header>
+</header>
 	<!-- 계획 출력 시작 -->
-	<c:if test="${users.uids != null}">
+	<c:if test="${users != null}">
 		<div class="container">
 			<div class="table-responsive">
 				<table class="table table-striped">
@@ -31,14 +31,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${planListForUser}" var="planListForUser">
+						<c:forEach items="${planList}" var="planList">
 							<tr>
-								<td>${planListForUser.pid}</td>
-								<td><fmt:formatDate value="${planListForUser.startDate}" pattern="yyyy-MM-dd"/></td>
-								<td>${planListForUser.planTotalDay} 일</td>
-								<td><a href="<c:url value="/plan/view?planNo=${planListForUser.pid}&userId=${planListForUser.userId}"/>">${planListForUser.planTitle}</a></td>
-								<td>${planListForUser.uids}</td>
-								<td><fmt:formatDate value="${planListForUser.regDate}" pattern="yyyy-MM-dd"/></td>
+								<td>${planList.pid}</td>
+								<td><fmt:formatDate value="${planList.startDate}" pattern="yyyy-MM-dd"/></td>
+								<td>${planList.planTotalDay} 일</td>
+								<td><a href="<c:url value="/plan/view?pid=${planList.pid}&uids=${planList.uids}"/>">${planList.planTitle}</a></td>
+								<td>${planList.uids}</td>
+								<td><fmt:formatDate value="${planList.regDate}" pattern="yyyy-MM-dd"/></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -47,20 +47,20 @@
 				<!-- 페이징 -->
 				<div class="col-md-offset-3">
 					<ul class="pagination justify-content-center">
-					<c:if test="${page.prev}">
-						<li class="page-item"><a href="/plan/list/user?userId=${users.uids}&num=${page.startPageNum -1}${page.searchTypeAndKeyword}">이전</a></li>
-					</c:if>
-					<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
-						<c:if test="${page.num != num}">
-							<li class="page-item"><a class="page-link" href="/plan/list/user?userId=${users.uids}&num=${num}${page.searchTypeAndKeyword}">${num}</a></li>
+						<c:if test="${page.prev}">
+							<li class="page-item"><a class="page-link" href="/plan/list?num=${page.startPageNum -1}${page.searchTypeAndKeyword}">이전</a></li>
 						</c:if>
-						<c:if test="${page.num == num}">
-							<li class="page-item active"><a class="page-link" class="page-link"href="/plan/list/user?userId=${users.uids}&num=${num}${page.searchTypeAndKeyword}">${num}</a></li>
+						<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
+							<c:if test="${page.num != num}">
+								<li class="page-item"><a class="page-link" href="/plan/list?num=${num}${page.searchTypeAndKeyword}">${num}</a></li>
+							</c:if>
+							<c:if test="${page.num == num}">
+								<li class="page-item active"><a class="page-link" href="/plan/list?num=${num}${page.searchTypeAndKeyword}">${num}</a></li>
+							</c:if>
+						</c:forEach>
+						<c:if test="${page.next}">
+							<li class="page-item"><a class="page-link" href="/plan/list?num=${page.endPageNum +1}${page.searchTypeAndKeyword}">다음</a></li>
 						</c:if>
-					</c:forEach>
-					<c:if test="${page.next}">
-						<li class="page-item"><a class="page-link" href="/plan/list/user?userId=${member.userId}&num=${page.endPageNum +1}${page.searchTypeAndKeyword}">다음</a></li>
-					</c:if>
 					</ul>
 				</div>
 				<!-- 페이징 끝 -->
@@ -68,6 +68,7 @@
 					<span class="search-form">
 						<select name="searchType" class="form-select">
 							<option value="planTitle" <c:if test="${page.searchType eq 'planTitle'}">selected</c:if>>제목</option>
+							<option value="uids" <c:if test="${page.searchType eq 'uids'}">selected</c:if>>아이디</option>
 						</select>
 					 
 						<input type="text" class="input-keyword" name="keyword" value="${page.keyword}"/>
@@ -75,25 +76,28 @@
 					</span>
 					<button type="button" class="btn btn-secondary" onclick="location.href='/plan/write'">돌아가기</button>
 				</div>
-			</div>		
+			</div>
 		</div>
 	</c:if>
 	<c:if test="${users.uids == null}">
-		<script>
-			alert("로그인이 필요합니다.");
-			document.location.href="/user/login";
-		</script>
+  		<script>
+  			alert("로그인이 필요합니다.");
+  			document.location.href="/";
+  		</script>
 	</c:if>
 	<script>
 		document.getElementById("searchBtn").onclick = function () {
-		var searchType = document.getElementsByName("searchType")[0].value;
-		var keyword =  document.getElementsByName("keyword")[0].value;
-		location.href="/plan/list/user?userId=${member.userId}&num=1&searchType="+searchType+"&keyword="+keyword;
+		 var searchType = document.getElementsByName("searchType")[0].value;
+		 var keyword =  document.getElementsByName("keyword")[0].value;
+		 console.log(searchType)
+		 console.log(keyword)
+		 location.href="/plan/list?num=1"+"&searchType="+searchType+"&keyword="+keyword;
 		};
 	</script>
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
 			crossorigin="anonymous">d</script> 
+
 </body>
 </html>

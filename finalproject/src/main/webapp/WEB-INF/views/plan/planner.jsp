@@ -50,7 +50,7 @@
 </style>
 </head>
 <body>
-	<input type="hidden" id="userIdCheck" value="${users.uids}">
+	<input type="hidden" id="uidsCheck" value="${users.uids}">
 	<div id="plannerDiv">
 	<!-- 계획 입력 -->
 	<div class="col-md-12">

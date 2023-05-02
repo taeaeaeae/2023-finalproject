@@ -3,6 +3,7 @@ package org.zerock.myapp.persistence;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -22,89 +23,89 @@ public class PlanDAOImpl implements PlanDAO {
 	
 	
 	
-	@Autowired
+	@Inject
 	private SqlSessionFactory sqlSessionFactory;
 	private static String namespace = "org.zerock.myapp.mappers.plan";
 	
-	//怨꾪쉷 �꽕�젙 異붽�
+	//계획 설정 추가
 	@Override
 	public void planAdd(PlanVO vo) throws Exception {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		sqlSession.insert(namespace+".planAdd", vo);
 	}
 	
-	//PlanNo 媛��졇�삤湲�
+	//pid 가져오기
 	@Override
-	public int planNoCheck(PlanVO vo) throws Exception {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+	public int pidCheck(PlanVO vo) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
-		int result = sqlSession.selectOne(namespace+".planNoGet", vo);
+		int result = sqlSession.selectOne(namespace+".pidGet", vo);
 		return result;
 	}
 
-	//怨꾪쉷 �씪�젙 媛쒕퀎 異붽�
+	//계획 일정 개별 추가
 	@Override
 	public void planSchAdd(ScheduleVO vo) throws Exception {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		sqlSession.insert(namespace+".planSchAdd", vo);
 	}
 	
-	//寃뚯떆�뙋�슜 怨꾪쉷 紐⑸줉 諛� �럹�씠吏�
+	//게시판용 계획 목록 및 페이징
 	@Override
 	public List<PlanVO> planList(HashMap<String, Object> data) throws Exception {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		return sqlSession.selectList(namespace + ".planList", data);
 	}
 	
-	//怨꾪쉷�씪�젙 紐⑸줉
+	//계획일정 목록
 	@Override
 	public List<ScheduleVO> planSchList(int pid) throws Exception {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		return sqlSession.selectList(namespace + ".planSchList", pid);
 	}
 	
-	//�쑀��蹂� 怨꾪쉷 紐⑸줉
+	//유저별 계획 목록
 	@Override
 	public List<PlanVO> planListForUser(HashMap<String, Object> data) throws Exception{
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		return sqlSession.selectList(namespace + ".planListForUser", data);
 	}
 	
-	//怨꾪쉷 議고쉶
+	//계획 조회
 	@Override
 	public PlanVO planView(PlanVO vo) throws Exception {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		return sqlSession.selectOne(namespace + ".planView", vo);
 	}
 	
-	//怨꾪쉷 �닔�젙
+	//계획 수정
 	@Override
 	public void viewPlanModify(PlanVO vo) {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		sqlSession.update(namespace + ".viewPlanModify", vo);
 	}
 	
-	//怨꾪쉷 �궘�젣
+	//계획 삭제
 	@Override
 	public void viewPlanDelete(PlanVO vo) throws Exception {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		log.info("view Plan Delete"+vo.toString());
 		sqlSession.delete(namespace + ".viewPlanDelete", vo);
 	}
 	
 	
-	//view �궘�젣 異붽� �닔�젙 �셿猷뚮쾭�듉
+	//view 삭제 추가 수정 완료버튼
 	@Override
 	public void viewSchDelete(HashMap<String,Object> map) throws Exception {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		sqlSession.delete(namespace+".viewSchDelete", map);
 	}

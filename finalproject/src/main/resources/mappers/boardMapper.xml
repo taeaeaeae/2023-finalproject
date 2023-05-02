@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.zerock.myapp.mappers.planboard">
+<mapper namespace="org.zerock.myapp.mappers.board">
 	<!-- 계획 총 갯수 -->
 	<select id="boardPlanCnt" parameterType="hashMap" resultType="int" >
 		SELECT count(pid) FROM plan_board
