@@ -56,12 +56,9 @@
   <form action="/freeboard/list" method="post">
     <section class="list_form">
       <hr class="board-divider">
-        <c:if test="${not registered}">
-          <button class="bookmark_ico" onclick="toggleBookmark()">☆ 북마크 추가</button>
-        </c:if>
-        <c:if test="${registered}">
-          <button class="bookmark_ico" onclick="toggleBookmark()">★ 북마크 취소</button>
-        </c:if>
+        <button type="button" class="bookmark" onclick="toggleBookmark(${freeboard.fid}, ${isBookmarked})">
+          ${isBookmarked ? "★ 북마크 취소" : "☆ 북마크 추가"}
+        </button>
 
         <div class="list_button">
           <input type="hidden" name="fid"     value="${freeboard.fid}">
@@ -257,49 +254,19 @@ function openReportPopup() {
 };
 
 /* 북마크 */
-// function toggleBookmark() {
-//   const xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성
-//   xhr.onreadystatechange = function() {
-//     if (xhr.readyState === xhr.DONE) {
-//       if (xhr.status === 200) {
-//         const result = xhr.responseText;
-//         if (result === 'true') {
-//           // document.getElementById('bookmarkIcon').src = '/resources/bookmark/ico/bookmarked_ico.png';
-//         } else if (result === 'false') {
-//           // document.getElementById('bookmarkIcon').src = '/resources/bookmark/ico/bookmark_ico.png';
-//         }
-//       } else {
-//         console.error('Failed to toggle bookmark');
-//       }
-//     }
-//   };
-  
-//   const bookmarked = document.getElementById('bookmarked').value === 'true';
-//   const fid = document.getElementById('fid').value;
-  
-//   const data = new FormData();
-//   data.append('fid', fid);
-//   data.append('bookmarked', bookmarked);
-  
-//   xhr.open('POST', '/bookmark');
-//   xhr.send(data);
-// }
-
-function toggleBookmark(dto) {
+// 북마크 토글
+function toggleBookmark(fid, isBookmarked) {
+  // Ajax 요청 보내기
   $.ajax({
-    url : "/bookmark/register",
-    type : "POST",
-    data : JSON.stringify(dto),
-    contentType : "application/json",
-    success : function (result) {
-      if(result === "registered"){
-        alert("북마크가 등록되었습니다.");
-      } else if(result === "unregistered"){
-        alert("북마크가 취소되었습니다.");
-      }
-    },
-    error : function (xhr, status, error) {
-      console.error("Error occurred : " + error);     
+    url: "/bookmark/" + (isBookmarked ? "remove" : "register"),
+    method: "POST",
+    data: {fid: fid},
+    success: function(response) {
+      // 성공적으로 처리되었을 때 버튼의 텍스트와 아이콘을 바꾸기
+      var $button = $(".bookmark");
+      var newIsBookmarked = isBookmarked ? false : true;
+      $button.text(newIsBookmarked ? "★ 북마크 취소" : "☆ 북마크 추가");
+      $button.attr("onclick", "toggleBookmark(" + fid + ", " + newIsBookmarked + ")");
     }
   });
 }
