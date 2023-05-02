@@ -17,13 +17,13 @@
 </head>
 <body>
 
-  <%@include file="/WEB-INF/views/main/header.jsp" %>
+  <%@include file="/WEB-INF/views/common/header.jsp" %>
 
 	<div class="container">
 	
     <h1 align="center">회원탈퇴</h1>
     
-    <%@include file="/WEB-INF/views/main/leftside.jsp" %>
+    <%@include file="/WEB-INF/views/common/leftside.jsp" %>
 
     <br>
     <br>
@@ -72,7 +72,7 @@
   
     </div>
   </section>  
-  <%@include file="/WEB-INF/views/main/footer.jsp" %>
+  <%@include file="/WEB-INF/views/common/footer.jsp" %>
   
   <script>
 	

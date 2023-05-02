@@ -38,7 +38,7 @@
 					</li>
 					<li><a href="/freeboard/list?currPage=1&amount=10" class="nav-link px-2 link-dark">자유게시판</a></li>
 					<li><a href="/freeboard/list" class="nav-link px-2 link-dark">자유게시판</a></li>
-					<li><a href="#" class="nav-link px-2 link-dark">공지사항</a></li>
+					<li><a href="/notice/list" class="nav-link px-2 link-dark">공지사항</a></li>
 					<li><a href="/qna/list" class="nav-link px-2 link-dark">Q&A</a></li>
 				</ul>
 	

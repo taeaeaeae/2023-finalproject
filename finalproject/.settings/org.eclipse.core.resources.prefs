@@ -6,6 +6,7 @@ encoding//src/main/java/org/zerock/myapp/controller/FreeBoardController.java=UTF
 encoding//src/main/java/org/zerock/myapp/controller/HomeController.java=UTF-8
 encoding//src/main/java/org/zerock/myapp/controller/LoginController.java=UTF-8
 encoding//src/main/java/org/zerock/myapp/controller/MyPageController.java=UTF-8
+encoding//src/main/java/org/zerock/myapp/controller/NoticeBoardController.java=UTF-8
 encoding//src/main/java/org/zerock/myapp/controller/QnaController.java=UTF-8
 encoding//src/main/java/org/zerock/myapp/persistence/BoardDAOImpl.java=UTF-8
 encoding//src/main/java/org/zerock/myapp/persistence/PlanDAOImpl.java=UTF-8

@@ -15,12 +15,12 @@
 </head>
 <body>
 	
-	<%@include file="/WEB-INF/views/main/header.jsp" %>
+	<%@include file="/WEB-INF/views/common/header.jsp" %>
 
 		<h1 align="center">회원정보수정</h1>
 		<h3 align="center">비밀번호 및 이메일 , 전화번호만 수정 가능합니다.</h3>
 		
-		<%@include file="/WEB-INF/views/main/leftside.jsp" %>
+		<%@include file="/WEB-INF/views/common/leftside.jsp" %>
 
 			<div class="container">
 
@@ -52,7 +52,7 @@
 				</form>
 		</div>
 	
-	<%@include file="/WEB-INF/views/main/footer.jsp" %>
+	<%@include file="/WEB-INF/views/common/footer.jsp" %>
 
 	<script>
 		// 비밀번호 확인

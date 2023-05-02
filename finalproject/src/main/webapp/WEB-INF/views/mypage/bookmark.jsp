@@ -10,13 +10,13 @@
 
 </head>
 <body>
-<%@include file="/WEB-INF/views/main/header.jsp" %>
+<%@include file="/WEB-INF/views/common/header.jsp" %>
 
    	<section>
 	  <h1>북마크 목록</h1>
 	  <hr>
 	  
-	  <%@include file="/WEB-INF/views/main/leftside.jsp" %>
+	  <%@include file="/WEB-INF/views/common/leftside.jsp" %>
 	  
 	  <div id="list">
 	    <table border="1px">
@@ -42,7 +42,7 @@
 
 	</section>
 	
-<%@include file="/WEB-INF/views/main/footer.jsp" %>	
+<%@include file="/WEB-INF/views/common/footer.jsp" %>	
 
 
 </body>

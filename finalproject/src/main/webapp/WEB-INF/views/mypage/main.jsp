@@ -9,11 +9,11 @@
 <title>회원정보조회</title>
 </head>
 <body>
-<%@include file="/WEB-INF/views/main/header.jsp" %>
+<%@include file="/WEB-INF/views/common/header.jsp" %>
 	
 	<h1 align="center">회원정보조회</h1>
 	
-	<%@include file="/WEB-INF/views/main/leftside.jsp" %>
+	<%@include file="/WEB-INF/views/common/leftside.jsp" %>
 	
 		<section>		
 			<div id="center">
@@ -34,7 +34,7 @@
 			</div>
 		</section>
 
-	<%@include file="/WEB-INF/views/main/footer.jsp" %>	
+	<%@include file="/WEB-INF/views/common/footer.jsp" %>	
 
 </body>
 </html>

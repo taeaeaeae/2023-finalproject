@@ -16,13 +16,13 @@ crossorigin="anonymous" />
 </head>
 <body>
 
-<%@include file="/WEB-INF/views/main/header.jsp" %>
+<%@include file="/WEB-INF/views/common/header.jsp" %>
 	
 	<section>
 		<h1>체크리스트</h1>
 		<hr>
 		
-		<%@include file="/WEB-INF/views/main/leftside.jsp" %>
+		<%@include file="/WEB-INF/views/common/leftside.jsp" %>
 		
 		    <table id="table" class="table">
 				<thead>
@@ -83,7 +83,7 @@ crossorigin="anonymous" />
 			
 		</section>
 		
-<%@include file="/WEB-INF/views/main/footer.jsp" %>
+<%@include file="/WEB-INF/views/common/footer.jsp" %>
 	
 <script>
 

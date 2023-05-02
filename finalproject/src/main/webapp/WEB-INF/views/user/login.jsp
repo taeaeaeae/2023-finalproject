@@ -17,7 +17,7 @@
     </head>
     <body>
 
-    <%@include file="/WEB-INF/views/main/header.jsp" %>
+    <%@include file="/WEB-INF/views/common/header.jsp" %>
         
         <div id="center"> 
             <form action="/user/loginPost" method="post">
@@ -57,7 +57,7 @@
                 
         </div> 
 
-		<%@include file="/WEB-INF/views/main/footer.jsp" %>
+		<%@include file="/WEB-INF/views/common/footer.jsp" %>
         
         <script>
         

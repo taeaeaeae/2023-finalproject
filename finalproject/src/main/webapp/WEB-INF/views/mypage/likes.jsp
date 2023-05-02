@@ -9,13 +9,13 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-<%@include file="/WEB-INF/views/main/header.jsp" %>
+<%@include file="/WEB-INF/views/common/header.jsp" %>
 
    	<section>
 	  <h1>좋아요 목록</h1>
 	  <hr>
 	  
-	  <%@include file="/WEB-INF/views/main/leftside.jsp" %>
+	  <%@include file="/WEB-INF/views/common/leftside.jsp" %>
 	  
 	  <div id="list">
 	    <table border="1px">
@@ -37,7 +37,7 @@
 	  </div>
 	</section>
 	
-<%@include file="/WEB-INF/views/main/footer.jsp" %>	
+<%@include file="/WEB-INF/views/common/footer.jsp" %>	
 
 </body>
 </html>

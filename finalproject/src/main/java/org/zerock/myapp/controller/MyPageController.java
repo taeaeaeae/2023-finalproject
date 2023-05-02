@@ -99,7 +99,7 @@ public class MyPageController {
 	
 
 	@PostMapping("/remove")
-	public String remove(LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttrs) throws ControllerException {
+	public String remove(UsersDTO dto, HttpSession session, Model model, RedirectAttributes rttrs) throws ControllerException {
 		log.trace("remove() invoked.");
 		
 			
@@ -110,23 +110,11 @@ public class MyPageController {
 			
 			dto.setPassword(dto.getPassword());
 			
-	
-//			String inputPassword = ldto.getPassword();
-//			log.info("inputPassword: >>>>>>>>>>>>>>>>>>>>>>>>>>>> {}", inputPassword);
-//			
-//			String checkPassword = bcryptPasswordEncoder.encode(inputPassword);
-//			log.info("checkPassword: >>>>>>>>>>>>>>>>>>>>>>>>>>>> {}", checkPassword);
-			
-			String voPassword = vo.getPassword();
-			log.info("voPassword: >>>>>>>>>>>>>>>>>>>>>>>>>>>> {}", voPassword);
-			
-			// 문제 ... 새로 암호화된 패스워드가 vo의 패스워드랑 일치하지 않는다 .....분명 같은 문자열인데 ㅠㅠㅠ
-			
-			if(bcryptPasswordEncoder.matches(dto.getPassword(),voPassword)) {
+			if(bcryptPasswordEncoder.matches(dto.getPassword(),vo.getPassword())) {
 				
-			UsersDTO udto = new UsersDTO ();
-			udto.setUids(voPassword);
-			boolean success = this.service.remove(udto);
+			dto.setUids(vo.getUids());
+			
+			boolean success = this.service.remove(dto);
 			log.info("\t+ success : {}", success);
 			
 			rttrs.addFlashAttribute("result",(success)? "회원탈퇴가 완료되었습니다." : "failure");
