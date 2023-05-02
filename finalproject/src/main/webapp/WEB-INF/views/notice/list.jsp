@@ -9,9 +9,11 @@
 <meta charset="UTF-8">
 <title>공지사항 | 목록</title>
 <link rel="stylesheet" type="text/css" href="/resources/freeboard/css/freeboard_list.css">
-
 </head>
 <body>
+
+<%@include file="/WEB-INF/views/common/header.jsp" %>
+
 	<section>
 	  <h1>공지사항</h1>
 	  <hr>
@@ -48,7 +50,10 @@
 			</tbody>	
 	    </table>
 	  </div>
-	  <button type="button" class="button" id="registerBtn">글 작성하기</button>
+	   <c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
+           <button type="button" class="button" id="registerBtn">글 작성하기</button>
+       </c:if>
+	  
 	</section>
 	
 	<div id="search">
@@ -92,7 +97,7 @@
 			</c:if>
 		</form>
 	</div>
-	
+	<%@include file="/WEB-INF/views/common/footer.jsp" %>	
 
 <script>
 var registerBtn = document.querySelector('#registerBtn');

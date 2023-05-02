@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!DOCTYPE html>
     <html lang="ko">
       <head>
@@ -16,17 +17,24 @@
           <header>
             <div class="logo-img">
               <h1>
-                <a href="#"></a>
+                <a href="/main/index"></a>
               </h1>
             </div>
     
             <div class="menu-box">
               <div class="menu-link">
-                <ul>
-                  <li><a href="#">로그인</a></li>
-                  <li><a href="#">회원가입</a></li>
-                  <li><a href="#">마이페이지</a></li>
-                </ul>
+ 					<c:if test="${sessionScope['__AUTH__'] != null}">
+						<ol class="breadcrumb">
+							<li><a href="/mypage/main" class="nav-link px-2 link-dark">마이페이지</a></li>
+							<li><a href="/user/logout" class="nav-link px-2 link-dark">로그아웃</a></li>	
+						</ol>
+		            </c:if> 
+		            
+		            <c:if test="${sessionScope['__AUTH__'] == null}">
+		            	<ol class="breadcrumb">
+		            		<li><a href="/user/login" class="nav-link px-2 link-dark">로그인</a></li>
+						</ol>
+		            </c:if>
               </div>
     
               <div class="menu-list">
@@ -50,10 +58,10 @@
                       text-decoration: none;
                     }
                   </style>
-                  <li><a href="#">루트공유게시판</a></li>
-                  <li><a href="#">자유게시판</a></li>
-                  <li><a href="#">공지사항</a></li>
-                  <li><a href="#">QnA</a></li>
+                  <li><a href="/main/root">루트공유게시판</a></li>
+                  <li><a href="/freeboard/list">자유게시판</a></li>
+                  <li><a href="/notice/list">공지사항</a></li>
+                  <li><a href="/qna/list">QnA</a></li>
                 </ul>
               </div>
             </div>
@@ -95,7 +103,7 @@
                 <div class="left-content">
                   <h2>자유롭게 글을 작성해보세요</h2>
                   <h3>자유<br />게시판</h3>
-                  <button class="btn" onclick="location.href='#'">공유하기</button>
+                  <button class="btn" onclick="location.href='/freeboard/list'">공유하기</button>
                 </div>
                 <div class="right-content">
                   <video src="${path}/resources/videos/video3.mp4" autoplay loop muted></video>
@@ -108,7 +116,7 @@
                 <div class="left-content">
                   <h2>NOTICE</h2>
                   <h3>공지<br />사항</h3>
-                  <button class="btn" onclick="location.href='#'">공유하기</button>
+                  <button class="btn" onclick="location.href='/notice/list'">공유하기</button>
                 </div>
                 <div class="right-content">
                   <video src="${path}/resources/videos/video4.mp4" autoplay loop muted></video>
@@ -120,7 +128,7 @@
                 <div class="left-content">
                   <h2>질문 게시판</h2>
                   <h3>Q&A</h3>
-                  <button class="btn" onclick="location.href='#'">공유하기</button>
+                  <button class="btn" onclick="location.href='/qna/list'">공유하기</button>
                 </div>
                 <div class="right-content">
                   <video src="${path}/resources/videos/video5.mp4" autoplay loop muted></video>

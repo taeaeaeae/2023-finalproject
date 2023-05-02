@@ -22,6 +22,8 @@
   }
 %>
 
+<%@include file="/WEB-INF/views/common/header.jsp" %>
+
 <p>로그인한 유저 아이디: <%= userId %></p>
   <!-- 게시글 폼 -->
   <form action="/notice/get" method="post" class="board-post">
@@ -64,7 +66,7 @@
           <input type="hidden" name="keyword" value="${param.keyword}">
           
           <button type="button" id="prePostBtn"  class="button" ${empty prevNid ? 'disabled' : '' }>이전글</button>
-          <c:if test="${not empty sessionScope['__AUTH__'] and sessionScope['__AUTH__'].uids eq noticeboard.uids}">
+         <c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
             <button type="button" id="modifyBtn" class="button">수정</button>
             <button type="button" id="removeBtn" class="button" >삭제</button>
           </c:if>
@@ -74,7 +76,7 @@
       <hr class="board-divider">
     </section>
   </form>
-    
+    <%@include file="/WEB-INF/views/common/footer.jsp" %>	
 </body>
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>

@@ -51,6 +51,9 @@
 					<li><a href="/mypage/likes">좋아요 목록</a></li><br>
 					<li><a href="/mypage/bookmark">북마크 목록</a></li><br>
 					<li><a href="/mypage/checklist">체크리스트</a></li><br>
+				<c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
+ 					<li><a href="/mypage/report">신고내역</a></li><br>
+          		</c:if>
 				</ul>
 		</nav>		
 	</section>

@@ -14,6 +14,8 @@
 	String uids = vo.getUids();%>
 <p>작성자 아이디 : <%= uids %></p>
 
+<%@include file="/WEB-INF/views/common/header.jsp" %>
+
 <section>
   <h1>공지사항</h1>
   <hr>
@@ -36,6 +38,7 @@
       <a href="/notice/list" id="listBtn" class="button" onclick="return confirmGoToList()">목록으로</a>
     </form>
   </div>
+  <%@include file="/WEB-INF/views/common/footer.jsp" %>	
 </section>
 <script>
 		var listBtn = document.querySelector('#listBtn');

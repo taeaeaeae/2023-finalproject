@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<%@include file="/WEB-INF/views/common/header.jsp" %>
 <section>
     <h1>공지사항</h1>
     <hr>
@@ -29,7 +30,7 @@
         </form>
     </div>
 </section>
-
+<%@include file="/WEB-INF/views/common/footer.jsp" %>	
 <script>
 var listBtn = document.querySelector('#listBtn');
 
