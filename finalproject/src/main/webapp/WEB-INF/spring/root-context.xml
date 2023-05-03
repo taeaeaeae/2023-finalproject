@@ -63,7 +63,6 @@
 	<context:component-scan base-package="org.zerock.myapp.persistence" />
 	<context:component-scan base-package="org.zerock.myapp.mapper" />
 	<context:component-scan base-package="org.zerock.myapp.utils" />
-	<context:component-scan base-package="org.zerock.myapp.domain" />
 
 
 	
