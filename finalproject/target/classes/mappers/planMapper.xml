@@ -80,14 +80,14 @@
 		<delete id="viewPlanDelete" parameterType="org.zerock.myapp.domain.PlanVO">
 			DELETE
 			FROM plan_board
-			WHERE pid = #{pid} AND uids = #{uids};
+			WHERE pid = #{pid} AND uids = #{uids}
 		</delete>
 		
 		<!-- viewDeleteSch 뷰페이지 일정 삭제 -->
 		<delete id="viewSchDelete" parameterType="hashMap">
 			DELETE 
 			FROM schedule
-			WHERE pid = #{pid} AND rowNo = #{rowNo};
+			WHERE pid = #{pid} AND rowNo = #{rowNo}
 		</delete>
 
 </mapper>

@@ -7,7 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>mywrite</title>
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.2/examples/album/" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 </head>
 <body>
 <%@include file="/WEB-INF/views/common/header.jsp" %>
@@ -15,20 +18,19 @@
 
    	<section>
 	  <h1 style="text-align: center">나의 작성 글</h1>
-
-	  <div class="list">
-	    <table>
+	  
+	    <table class="table table-hover" style="width:60%; margin-left: auto; margin-right: auto;">
 			<thead>
 				<tr>
-					<th>작성자</th>
-					<th>제목</th>
-					<th>작성날짜</th>
+					<th scope="col">작성자</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성일자</th>
 				</tr>
 			</thead>
 			
 			<tbody>
 				<c:forEach var="MywriteVO" items="${mywrite}">
-					<tr>
+					<tr class="table-primary">
 						<td>${MywriteVO.uids}</td>
 						<td>
 							<c:choose>
@@ -41,10 +43,14 @@
 			</tbody>
 				
 	    </table>
-	  </div>
+
 	</section>
 
 <%@include file="/WEB-INF/views/common/footer.jsp" %>	
 
+<script
+   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+   crossorigin="anonymous"></script>
 </body>
 </html>
