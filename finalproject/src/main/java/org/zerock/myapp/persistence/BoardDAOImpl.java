@@ -4,23 +4,25 @@ package org.zerock.myapp.persistence;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
-@Repository("BoardDAO")
+@Repository
 public class BoardDAOImpl implements BoardDAO{
 	
-	@Autowired
+	@Inject
 	private SqlSessionFactory sqlSessionFactory;
 	private static String namespace = "org.zerock.myapp.mappers.board";
 	
-	//怨꾪쉷 珥� 媛��닔
+	//계획 총 갯수
 	@Override
 	public int boardPlanCnt(String searchType, String keyword) throws Exception {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		Map<String, String> data = new HashMap<>();
 		
@@ -32,9 +34,9 @@ public class BoardDAOImpl implements BoardDAO{
 
 	@Override
 	public int boardUserPlanCnt(String uids, String searchType, String keyword) throws Exception {
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
-		
 		Map<String, String> data = new HashMap<>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		data.put("uids", uids);
 		data.put("searchType", searchType);
@@ -42,6 +44,6 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSession.selectOne(namespace+".boardPlanCnt", data);
 	}
 	
-	//�쑀��蹂� 怨꾪쉷 珥� 媛��닔
+	//유저별 계획 총 갯수
 	
 }

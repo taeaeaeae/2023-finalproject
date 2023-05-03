@@ -5,18 +5,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.PlanVO;
 import org.zerock.myapp.domain.ScheduleVO;
+
 import org.zerock.myapp.service.PlanService;
 
 import lombok.extern.log4j.Log4j2;
@@ -37,7 +41,12 @@ public class PlanController {
 	static List<HashMap<String,Object>> delList = new ArrayList<>();
 	//로그인 후 일정 만들기 화면으로 이동
 	@RequestMapping(value="/plan/write", method = RequestMethod.GET)
-	public void plannerMain() throws Exception{
+	public void plannerMain(HttpSession session, Model model) throws Exception{
+		
+		LoginVO users = (LoginVO)session.getAttribute("__AUTH__");
+		
+		model.addAttribute("users",users);
+		
 	}
 	
 	//계획 초기 설정
@@ -108,7 +117,7 @@ public class PlanController {
 		planService.viewPlanAdd(vo, schList);
 		//list초기화
 		allPlanListClear();
-		return "redirect:/plan/view?planNo=" + vo.getPid() + "&uids=" +vo.getUids();
+		return "redirect:/plan/view?pid=" + vo.getPid() + "&uids=" +vo.getUids();
 	}
 	
 	//view planDelete

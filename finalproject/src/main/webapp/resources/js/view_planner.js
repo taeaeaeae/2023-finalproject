@@ -39,11 +39,11 @@ $(function(){
 			//이전페이지의 url 가져오기
 			var parentLocation = document.referrer;
 			var uids = $('#viewuids').val();
-			var planNo = $('#viewPlanNo').val();
+			var pid = $('#viewpid').val();
 			$.ajax({
 				url : "/plan/view/planDel",
 				type : "POST",
-				data: {uids: uids, planNo: planNo},
+				data: {uids: uids, pid: pid},
 				dataType:"text",
 				success : function() {
 					location.href=parentLocation;
@@ -57,7 +57,7 @@ $(function(){
 	$(document).on('click', '.deleteSch', function(){
 		// deleteMap 생성
 		var deleteMap = {startTime :$(this).siblings('h3').html(),
-				planNo : $(this).siblings('.planNo').html(),
+				pid : $(this).siblings('.pid').html(),
 				planDay : $(this).siblings('h4').html(), 
 				descript :$(this).siblings('.descript').html(), 
 				place :  $(this).siblings('h5').html(), 

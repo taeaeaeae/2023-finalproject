@@ -15,7 +15,7 @@ public interface PlanService {
 	//장바구니 일정 삭제 (데이터 받아와서 List에서 삭제)
 	public HashMap<String, Object> planDel(ScheduleVO vo) throws Exception;
 	
-	//계획 설정 추가, PlanNo 확인, 계획 DB 추가
+	//계획 설정 추가, pid 확인, 계획 DB 추가
 	public void planAdd(PlanVO vo, List<Map<String,Object>> schList) throws Exception;
 	//게시판용 계획 목록 및 페이징 처리
 	public List<PlanVO> planList(int displayPost, int postNum, String searchType, String keyword) throws Exception;

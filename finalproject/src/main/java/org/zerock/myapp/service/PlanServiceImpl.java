@@ -25,7 +25,7 @@ public class PlanServiceImpl implements PlanService{
 		@Override
 		public void planAdd(PlanVO vo, List<Map<String, Object>> schList) throws Exception {
 		dao.planAdd(vo);
-		int pid = dao.planNoCheck(vo);
+		int pid = dao.pidCheck(vo);
 		for(int i = 0; i<schList.size(); i++) {
 			ScheduleVO schVo = new ScheduleVO();
 			//vo 값 세팅
@@ -96,7 +96,7 @@ public class PlanServiceImpl implements PlanService{
 	@Override
 	public List<PlanVO> planListForUser(String uids, int displayPost, int postNum, String searchType, String keyword) throws Exception {
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		data.put("userId", uids);
+		data.put("uids", uids);
 		
 		data.put("displayPost", displayPost);
 		data.put("postNum", postNum);
