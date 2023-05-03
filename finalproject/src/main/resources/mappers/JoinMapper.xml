@@ -11,6 +11,12 @@
         FROM users
         WHERE uids = #{uids}
     </select>
+    
+      <select id="selectEmail" resultType="org.zerock.myapp.domain.UsersVO">
+        SELECT * 
+        FROM users
+        WHERE email = #{email}
+    </select>
 
     <delete id="remove">
         UPDATE users 
@@ -19,15 +25,14 @@
     </delete>
 
     <insert id="join">
-      Insert into users(uids, password, name, nickname, phonenumber, email) 
-      values(#{uids}, #{password}, #{name}, #{nickname}, #{phonenumber}, #{email})
+      Insert into users(uids, password, name, phonenumber, email, image) 
+      values(#{uids}, #{password}, #{name}, #{phonenumber}, #{email}, #{image})
     </insert>
 
     <update id="update">
         UPDATE users
         SET password = #{password},
         	name = #{name},
-            nickname = #{nickname},
             phonenumber = #{phonenumber},
             email = #{email}
         WHERE
@@ -41,10 +46,10 @@
         where uids=#{uids}
     </select>
     
-    <select id="checkNickName" resultType="int">
+    <select id="checkEmail" resultType="int">
         select count(*) 
         from users 
-        where nickname=#{nickname}
+        where email = #{email}
     </select>
 
 

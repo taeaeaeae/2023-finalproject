@@ -161,6 +161,11 @@ body {
 }
 
 /* 목록창 */
+.list_form{
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .list_button {
   text-align: center;
 }
@@ -196,6 +201,29 @@ body {
   cursor: pointer;
 }
 
+
 #button:hover {
   background-color: #ddd;
+}
+
+/* 북마크 버튼 */
+button.bookmark {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #333;
+}
+
+button.bookmark:hover span {
+  color: #555;
+}
+
+button.bookmark:focus span {
+  color: #555;
+}
+
+button.bookmark.bookmarked span {
+  color: #FFD700;
 }

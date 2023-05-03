@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.myapp.mappers.plan">
+
+		<!-- 계획 DB 추가 -->
+		<insert id="planAdd" parameterType="org.zerock.myapp.domain.PlanVO">
+			INSERT INTO plan_board(uids, planTitle, planTotalDay, startDate)
+			VALUES(#{uids}, #{planTitle}, #{planTotalDay}, #{startDate})
+		</insert>
+		
+		<!-- 계획 번호 확인--> 
+		<select id="pidGet" resultType="int">
+			SELECT Max(pid)
+			FROM plan_board
+		</select> 
+		
+		<!-- 일정 DB 추가 -->
+		<insert id="planSchAdd" parameterType="org.zerock.myapp.domain.PlanVO">
+			INSERT INTO schedule(pid, uids, descript, place, addr,  planDay, startTime, latitude, longitude)
+			VALUES(#{pid}, #{uids}, #{descript}, #{place}, #{addr}, #{planDay}, #{startTime}, #{latitude}, #{longitude})
+		</insert>
+		
+		<!-- 계획 목록 -->
+		<select id="planList" parameterType="hashMap" resultType="org.zerock.myapp.domain.PlanVO">
+			SELECT pid, uids, planTitle, startDate, planTotalDay, regDate 
+			 FROM plan_board
+			<if test='searchType.equals("planTitle")'>
+				WHERE planTitle LIKE concat('%'|| #{keyword}, '%')
+			</if>
+			 
+			<if test='searchType.equals("uids")'>
+				WHERE uids LIKE concat('%'|| #{keyword}, '%')
+			</if>
+			  <!-- ORDER BY pid DESC
+			  limit #{displayPost}, #{postNum}  -->
+			  ORDER BY pid DESC
+			  OFFSET #{displayPost}ROWS
+			  FETCH NEXT #{postNum} ROWS ONLY
+		</select>
+		
+		<!-- 유저별 계획 목록 -->
+		<select id="planListForUser" parameterType="hashMap" resultType="org.zerock.myapp.domain.PlanVO">
+			SELECT pid, uids, planTitle, startDate, planTotalDay, regDate
+			 FROM plan_board
+			 <if test='searchType.equals("planTitle")'>
+				WHERE uids = #{uids} AND planTitle LIKE concat('%'|| #{keyword}, '%')
+			</if>
+			 <!-- ORDER BY pid DESC
+			   limit #{displayPost}, #{postNum} -->
+			   ORDER BY pid DESC
+			   OFFSET #{displayPost}ROWS
+			   FETCH NEXT #{postNum} ROWS ONLY
+		</select>
+		
+		<!-- 계획 상세 조회 -->
+		<select id="planView" parameterType="org.zerock.myapp.domain.PlanVO" resultType="org.zerock.myapp.domain.PlanVO">
+			SELECT pid, uids, planTitle, startDate, planTotalDay, regDate 
+			 FROM plan_board 
+			  WHERE uids = #{uids} AND pid = #{pid}
+		</select>
+		
+		<!-- 일정 조회 -->
+		<select id="planSchList" parameterType="int" resultType="org.zerock.myapp.domain.ScheduleVO">
+			SELECT pid, uids, descript, place, addr, startTime, planDay, latitude, longitude, rowNo
+			FROM schedule
+			WHERE pid = #{pid}
+			ORDER BY planDay, startTime
+		</select>
+		
+		<!-- 계획 수정 -->
+		<update id="viewPlanModify" parameterType="org.zerock.myapp.domain.PlanVO">
+			UPDATE plan_board
+			SET	planTitle = #{planTitle}, startDate = #{startDate} 
+			WHERE uids = #{uids} AND pid = #{pid} <!-- uids 와 pid이 모두 만족하면 계획수정-->
+		</update>
+		
+		<!-- 계획 삭제 -->
+		<delete id="viewPlanDelete" parameterType="org.zerock.myapp.domain.PlanVO">
+			DELETE
+			FROM plan_board
+			WHERE pid = #{pid} AND uids = #{uids};
+		</delete>
+		
+		<!-- viewDeleteSch 뷰페이지 일정 삭제 -->
+		<delete id="viewSchDelete" parameterType="hashMap">
+			DELETE 
+			FROM schedule
+			WHERE pid = #{pid} AND rowNo = #{rowNo};
+		</delete>
+
+</mapper>

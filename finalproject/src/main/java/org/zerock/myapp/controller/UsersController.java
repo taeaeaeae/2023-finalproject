@@ -46,7 +46,7 @@ public class UsersController {
 			boolean success = this.service.remove(dto);
 			log.info("\t+ success : {}", success);
 			
-			rttrs.addAttribute("result",(success)? "success" : "failure");	//
+			rttrs.addAttribute("result",(success)? "success" : "failure");
 					
 			return "redirect:/users/login";
 		} catch(Exception e) {

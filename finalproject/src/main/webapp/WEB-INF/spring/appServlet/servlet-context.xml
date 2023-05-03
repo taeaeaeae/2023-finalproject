@@ -22,9 +22,10 @@
 	</beans:bean>
 	
 	<beans:bean class="java.lang.String" id="uploadPath">
-		<beans:constructor-arg value="C:/app/scoop/apps/tomcat9/current/wtpwebapps/finalproject"/>
+		<beans:constructor-arg value="C:/Users/LG/git/2023-finalproject/finalproject/src/main/webapp/resources"/>
 	</beans:bean>
 	
+
 	<resources location="/resources/imgUpload/" mapping="/imgUpload/**"/>
 	
 	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
@@ -39,15 +40,11 @@
 
 	<view-controller path="/common/information" view-name="/common/information" status-code="200" />
 	<view-controller path="/common/clause" 		view-name="/common/clause" 		status-code="200" />
+	<view-controller path="/common/leftside" 	view-name="/common/leftside" 	status-code="200" />
 
-	<view-controller path="/main/header" 	view-name="/main/header" 	status-code="200" />
-	<view-controller path="/main/footer" 	view-name="/main/footer"	status-code="200" />
-	<view-controller path="/main/root" 		view-name="/main/root"		status-code="200" />
-	<view-controller path="/main/index" 	view-name="/main/index"		status-code="200" />
 
 	<!-- interceptor 설정 -->
 	<interceptors>
-			
       <interceptor>
          <mapping path="/user/loginPost" />
 
@@ -75,6 +72,12 @@
 
          <beans:ref bean="authInterceptor"/>
       </interceptor>
+	  
+	  <interceptor>
+	  	<mapping path="/reports/register" />
+
+		<beans:ref bean="authInterceptor"/>
+	  </interceptor>
 	</interceptors>
 	
 </beans:beans>

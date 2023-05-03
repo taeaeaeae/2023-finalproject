@@ -11,21 +11,14 @@ import lombok.extern.log4j.Log4j2;
 @NoArgsConstructor
 
 @Controller
-@RequestMapping("/TTT")
+@RequestMapping("/")
 public class MainController {
 	
-	@GetMapping("/index")
+	@GetMapping("/TTT")
 	public String main() {
-		
-		
+			
 		return "index";
 	}
 	
-	@GetMapping("/root")
-	public String root() {
-		
-		
-		return "board/root";
-	}
 	
 }

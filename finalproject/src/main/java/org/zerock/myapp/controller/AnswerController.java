@@ -1,22 +1,26 @@
 package org.zerock.myapp.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.AnswerDTO;
-import org.zerock.myapp.domain.AnswerVO;
 import org.zerock.myapp.domain.Criteria;
+import org.zerock.myapp.domain.EmailDTO;
 import org.zerock.myapp.domain.LoginVO;
-import org.zerock.myapp.domain.QnaVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.service.AnswerService;
+import org.zerock.myapp.service.EmailService;
 import org.zerock.myapp.service.QnaService;
+import org.zerock.myapp.service.UsersService;
+import org.zerock.myapp.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -33,9 +37,15 @@ public class AnswerController {
 	
 //	@Setter(onMethod_ = @Autowired)
 	
-	private QnaService qService;
+	private QnaService qna;
 	private AnswerService service;
+	private UsersService users;
 	
+	@Autowired
+	EmailService emailService;
+	
+	@Qualifier("uploadPath")
+	private String uploadPath;
 	
 	@PostMapping("/answerModify")
 	public String modify(Criteria cri,AnswerDTO dto, RedirectAttributes rttrs) throws ControllerException {
@@ -57,14 +67,50 @@ public class AnswerController {
 	
 	
 	@PostMapping("/answerRegister")
-	public String register(Criteria cri, AnswerDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
+	public String register(Criteria cri, AnswerDTO dto, RedirectAttributes rttrs, HttpSession session, MultipartFile file) throws ControllerException {
 		log.trace("register({}, {}, {}, {}) invoked.", dto, rttrs, cri);
 		
 		try {
+			
 			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
 			
 			if((login != null) && (login.getUids().equals("admin"))) {
+				
+				String imgUploadPath = uploadPath + "/" + "answerImgUpload";
+				System.out.println("imgUlopopopopo"+imgUploadPath);
+				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+				System.out.println("yyyyyyyyyyy"+ymdPath);
+				System.out.println(imgUploadPath);
+				System.out.println(File.separator);
+				
+				String fileName = null;
+
+				if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+					System.out.println("1111111111111111111111111111");
+				 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+				 System.out.println("22222222222222222222222222222222"+"fileName: "+fileName);
+				} else {
+				 fileName = uploadPath + "/" + "images" + "/" + "none.png";
+				}
+				System.out.println("?????????????????");
+				dto.setImage("/" + "answerImgUpload" + ymdPath + "/" + fileName);
+				//
 				boolean success = this.service.register(dto);
+				EmailDTO emailDTO = new EmailDTO();
+				
+				log.info("{},{},{},{},{}",dto.getQid(), qna.get(dto.getQid()), qna.get(dto.getQid()).getUids());
+				String adress = users.select(qna.get(dto.getQid()).getUids()).getEmail();
+				
+				emailDTO.setReceiveMail(adress);
+				emailDTO.setSenderMail("shiningdubhe@gmail.com");
+				emailDTO.setSenderName(adress);
+				
+				emailDTO.setSubject("["+dto.getTitle()+"] 답변이 작성되었어요 ");
+				
+				emailDTO.setMessage(dto.getContent());
+				
+				emailService.sendMail(emailDTO);
+				
 				rttrs.addAttribute("result", (success)?"등록완료":"왠진모르지만실패");
 			} else {
 				rttrs.addAttribute("result", "답변은 관리자만 가능해요");

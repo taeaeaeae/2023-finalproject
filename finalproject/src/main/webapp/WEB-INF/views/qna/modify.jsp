@@ -18,7 +18,7 @@
     font-weight: normal;
     font-style: normal;
   }
-  h1 {
+  h1.board_name {
   text-align: center;
   	color: black;
   } 
@@ -41,7 +41,7 @@
 			<input type="hidden" name="amount" value="${param.amount}">
 			
     <fieldset>
-		<h1>QnA</h1>
+		<h1 class="board_name">QnA</h1>
       <div class="form-group">
       	<input name="qid" type="text" class="form-control" placeholder="글번호" value="${qna.qid}" readonly>
         <label for="" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></label>

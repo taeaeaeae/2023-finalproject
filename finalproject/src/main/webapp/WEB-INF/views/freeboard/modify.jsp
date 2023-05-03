@@ -16,10 +16,9 @@
         <form onsubmit="return validateForm()" method="POST" action="/freeboard/modify">
         <input type="hidden" name="currPage" value="${param.currPage}">
         <input type="hidden" name="amount" value="${param.amount}">
-        <input type="hidden" name="fid" value="${freeboard.fid}">
+        <input type="text" name="fid" value="${freeboard.fid}">
 
         <input type="text" name="title" value="${freeboard.title}" placeholder="title">
-        <input type="text" name="image" value="${freeboard.image}" placeholder="image">
         <hr>
         <input type="file" name="pic" value="사진 선택"><br/>
         <textarea name="content">${freeboard.content}</textarea>

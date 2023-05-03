@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
 import org.zerock.myapp.domain.FindDTO;
 import org.zerock.myapp.domain.FindVO;
+import org.zerock.myapp.domain.UsersDTO;
+import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.DAOException;
 
 import lombok.AllArgsConstructor;
@@ -56,6 +58,25 @@ public class FindDAOImpl implements FindDAO {
 		}	// try-catch
 
 	}	//findPw
+
+	@Override
+	public UsersVO newPassword(FindDTO dto) throws DAOException {
+		
+		SqlSession sqlSession = this.sqlSessionFactory.openSession();
+		
+		try (sqlSession) {
+			
+			String namespace = "org.zerock.myapp.persistence.FindDAO";
+			String sqlId = "newPassword";
+			String mappedStmt = namespace + "." + sqlId;
+			
+			return sqlSession.<UsersVO>selectOne(mappedStmt, dto);
+		} catch(Exception e) {
+			throw new DAOException(e);
+		}	// try-catch
+	}	//newPassword
+	
+
 	
 
 }	// end class

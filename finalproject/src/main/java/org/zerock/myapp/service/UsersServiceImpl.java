@@ -28,7 +28,7 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 	private JoinMapper mapper;
 	
 	@Override
-	public void afterPropertiesSet() throws ServiceException{	// 1È¸¼º ÀüÃ³¸®
+	public void afterPropertiesSet() throws ServiceException{	// 1íšŒì„± ì „ì²˜ë¦¬
 		log.trace("afterPropertiesSet() invoked.");
 		
 		try {
@@ -47,6 +47,15 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 			throw new ServiceException(e);
 		}	// try-catch
 	}	//select
+	
+	@Override
+	public UsersVO selectEmail(String email) throws ServiceException {
+		try {
+			return this.mapper.selectEmail(email);
+		} catch(Exception e) {
+			throw new ServiceException(e);
+		}	// try-catch
+	}	//selectemail
 
 	@Override
 	public boolean join(UsersDTO dto) throws ServiceException {
@@ -75,7 +84,6 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 			throw new ServiceException(e);
 		}	// try-catch
 	}	//remove
-
 
 
 

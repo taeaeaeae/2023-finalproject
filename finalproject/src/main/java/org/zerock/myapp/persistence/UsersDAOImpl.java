@@ -30,13 +30,12 @@ public class UsersDAOImpl implements UsersDAO {
 	}	// checkId
 	
 	@Override
-	public int checkNickName(CheckVO vo) throws Exception {
-		
+	public int checkEmail(CheckVO vo) throws Exception {
 		SqlSession sqlSession = this.sqlSessionFactory.openSession();
 		
-		int result = sqlSession.selectOne("checkNickName", vo);
+		int result = sqlSession.selectOne("checkEmail", vo);
 		return result;
-	}	// checkNickName
+	}	//checkEmail
 
 	@Override
 	public UsersVO update(UsersDTO dto) throws DAOException {
@@ -91,18 +90,10 @@ public class UsersDAOImpl implements UsersDAO {
 		} catch(Exception e) {
 			throw new DAOException(e);
 		}	// try-catch
-	}
+	} //remove
 
-	@Override
-	public int passChk(UsersVO vo) throws Exception {
-		
-		SqlSession sqlSession = this.sqlSessionFactory.openSession();
-		
-		int result = sqlSession.selectOne("passChk", vo);
-		
-		return result;
-		
-	}	//passChk
+
+
 
 }	// end class
 

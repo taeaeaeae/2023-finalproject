@@ -30,19 +30,21 @@ public class CheckController {
 		log.trace(">>>>>>> checkId({}) invoked.", vo);
 		
 		int result = service.checkId(vo);
+		
 		return result;
 		
 	}	// checkId
 	
-	@PostMapping("/checkNickName")
+	@PostMapping("/checkEmail")
 	@ResponseBody
-	public int checkNickName(CheckVO vo) throws ControllerException, ServiceException {
-		log.trace(">>>>>>> checkNickName({}) invoked.", vo);
+	public int checkEmail(CheckVO vo) throws ControllerException, ServiceException {
+		log.trace(">>>>>>> checkEmail({}) invoked.", vo);
 		
-		int result = service.checkNickName(vo);
+		int result = service.checkEmail(vo);
+		
 		return result;
 		
-	}	// checkNickName
+	}	// checkEmail
 
 
 }	// end class 

@@ -27,32 +27,20 @@ public class CheckServiceImpl implements CheckService{
 			} catch(Exception e) {
 				throw new ServiceException(e);
 			}	// try-catch
-		}	// checkId
-	
-	@Override
-	public int checkNickName(CheckVO vo) throws ServiceException {
-		log.trace("checkNickName({}) invoked.", vo);
-		
-			try {
-				int result = UsersDAO.checkNickName(vo);
-				return result;
-			} catch(Exception e) {
-				throw new ServiceException(e);
-			}	// try-catch
-		}
+		} //checkId
 
 	@Override
-	public int passChk(CheckVO vo) throws ServiceException {
-		log.trace("passChk({}) invoked.", vo);
+	public int checkEmail(CheckVO vo) throws ServiceException {
+		log.trace("checkEmail({}) invoked.", vo);
 		
 		try {
-			int result = UsersDAO.checkNickName(vo);
+			int result = UsersDAO.checkEmail(vo);
 			return result;
 		} catch(Exception e) {
 			throw new ServiceException(e);
 		}	// try-catch
-	}
-
+	}	// checkEmail
+	
 
 	
 }	// end class

@@ -11,19 +11,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/freeboard/css/freeboard_view.css">
 </head>
 <body>
-<% 
-  HttpSession se = request.getSession();
-  LoginVO user = (LoginVO) session.getAttribute("__AUTH__"); 
-  
-  String userId = "";
-  
-  if (user != null) {
-    userId = user.getUids();
-  }
-%>
-
-<p>로그인한 유저 아이디: <%= userId %></p>
-
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
   <!-- 게시글 폼 -->
   <form action="/freeboard/get" method="post" class="board-post">
     <input type="hidden" name="currPage"value="${param.currPage}">
@@ -41,34 +29,44 @@
         <span class="post-author">작성자 : ${freeboard.uids}</span>
         <span class="post-date">작성일 : <fmt:formatDate value="${freeboard.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></span>
         <span class="post-views">조회수 : ${freeboard.view_count}</span>
-       	<button type="button" onclick="openReportPopup()">신고하기</button>
+       	<button type="button" onclick="openReportPopup()" id="report-post-btn">게시글 신고하기</button>
       </div>
     </section>
 
-    
     <section class="board-body">
       <hr class="board-divider">
-      <div class="post-content">${freeboard.content}</div>
+      <c:if test="${not empty freeboard.image}"><img src="/resources${freeboard.image}" alt="${freeboard.title}"></c:if>
+      <div class="post-content"><pre>${freeboard.content}</pre></div>
     </section>
   </form>
   
+  <!-- 북마크 / 목록창 -->
+  <p>${bookmarked}</p>
   <form action="/freeboard/list" method="post">
-    <div class="list_button">
-      <input type="hidden" name="fid"     value="${freeboard.fid}">
-      <input type="hidden" name="currPage"value="${param.currPage}">
-      <input type="hidden" name="amount"  value="${param.amount}">
-      <input type="hidden" name="type"    value="${param.type}">
-      <input type="hidden" name="keyword" value="${param.keyword}">
-      
-      <button type="button" id="prePostBtn"  class="button" ${empty prevFid ? 'disabled' : '' }>이전글</button>
-      <c:if test="${not empty sessionScope['__AUTH__'] and sessionScope['__AUTH__'].uids eq freeboard.uids}">
-	      <button type="button" id="modifyBtn" class="button">수정</button>
-	      <button type="button" id="removeBtn" class="button" >삭제</button>
-      </c:if>
-      <button type="button"  id="listBtn"    class="button">목록</button>
-      <button type="button" id="nextPostBtn" class="button" ${empty nextFid ? 'disabled' : '' }>다음글</button>
-    </div>
-	</form>
+    <section class="list_form">
+      <hr class="board-divider">
+        <button type="button" class="bookmark" onclick="toggleBookmark(${freeboard.fid}, ${isBookmarked})">
+          ${isBookmarked ? "★ 북마크 취소" : "☆ 북마크 추가"}
+        </button>
+
+        <div class="list_button">
+          <input type="hidden" name="fid"     value="${freeboard.fid}">
+          <input type="hidden" name="currPage"value="${param.currPage}">
+          <input type="hidden" name="amount"  value="${param.amount}">
+          <input type="hidden" name="type"    value="${param.type}">
+          <input type="hidden" name="keyword" value="${param.keyword}">
+          
+          <button type="button" id="prePostBtn"  class="button" ${empty prevFid ? 'disabled' : '' }>이전글</button>
+          <c:if test="${not empty sessionScope['__AUTH__'] and sessionScope['__AUTH__'].uids eq freeboard.uids}">
+            <button type="button" id="modifyBtn" class="button">수정</button>
+            <button type="button" id="removeBtn" class="button" >삭제</button>
+          </c:if>
+          <button type="button"  id="listBtn"    class="button">목록</button>
+          <button type="button" id="nextPostBtn" class="button" ${empty nextFid ? 'disabled' : '' }>다음글</button>
+        </div>
+      <hr class="board-divider">
+    </section>
+  </form>
     
   <!-- 댓글 -->
   <section class="comment">
@@ -120,9 +118,10 @@
       </form>
     </div>
   </section>
-    
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>  
 </body>
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
 // 글 버튼
 /* list button */
@@ -184,6 +183,7 @@ prePostBtn.addEventListener('click', function() {
     alert('이전 글이 없습니다.');
     return;
   };
+  
   let form = document.querySelector('form');
   
   form.setAttribute('method', 'GET');
@@ -237,10 +237,30 @@ if (commentRemoveLink) {
   });
 }
 
+/* 신고창 관련 */
 // 팝업창 띄우기
 function openReportPopup() {
   window.open("/reports/register", "신고하기", "width=500, height=500");
+};
+
+/* 북마크 */
+// 북마크 토글
+function toggleBookmark(fid, isBookmarked) {
+  // Ajax 요청 보내기
+  $.ajax({
+    url: "/bookmark/" + (isBookmarked ? "remove" : "register"),
+    method: "POST",
+    data: {fid: fid},
+    success: function(response) {
+      // 성공적으로 처리되었을 때 버튼의 텍스트와 아이콘을 바꾸기
+      var $button = $(".bookmark");
+      var newIsBookmarked = isBookmarked ? false : true;
+      $button.text(newIsBookmarked ? "★ 북마크 취소" : "☆ 북마크 추가");
+      $button.attr("onclick", "toggleBookmark(" + fid + ", " + newIsBookmarked + ")");
+    }
+  });
 }
+
 </script>
 <script src="/resources/freeboard/js/validateForm.js"></script>
 <script src="/resources/freeboard/js/comment.js"></script>

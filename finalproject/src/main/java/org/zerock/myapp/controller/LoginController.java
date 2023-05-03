@@ -1,5 +1,8 @@
 package org.zerock.myapp.controller;
 
+import javax.inject.Inject;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,9 @@ public class LoginController {
 	
 	private LoginService service;
 	
+	@Inject
+	BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	@GetMapping("/join")
 	public void join() {
 		log.info("join() invoked.");
@@ -42,17 +48,18 @@ public class LoginController {
 			LoginVO vo = this.service.login(dto);
 			log.info("\t+vo:{}", vo);
 			
-			if(vo != null) {	
+			if(vo != null && bcryptPasswordEncoder.matches(dto.getPassword(), vo.getPassword())) {	
 				
 				model.addAttribute("__AUTH__",vo);	
-				
 				//rttrs.addAttribute("__AUTH__", vo);	// 강사코드
-				return "/main/root";	 
+				
+				return "/index";	 
 				
 			} else {
 				
-				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
+				rttrs.addFlashAttribute("result", "회원정보가 존재하지 않습니다.");
 				//model.addAttribute("result", "일치하는 회원정보가 없습니다.");
+				
 				return "redirect:/user/login";	
 				
 			}	//if-else

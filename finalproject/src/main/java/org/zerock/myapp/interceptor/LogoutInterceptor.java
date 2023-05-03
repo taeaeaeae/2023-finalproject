@@ -28,7 +28,7 @@ public class LogoutInterceptor implements HandlerInterceptor {
 		
 		HttpSession session = req.getSession(false);	
 		session.invalidate();
-		log.info("\t+ 세션객체 파괴완료");
+		log.info("\t+ 세션영역에서 인증객체(__AUTH__) 삭제 완료");
 		
 		res.sendRedirect("/user/login");
 		

@@ -3,19 +3,19 @@ package org.zerock.myapp.controller;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.BookmarkVO;
-import org.zerock.myapp.domain.CheckVO;
 import org.zerock.myapp.domain.ChecklistDTO;
 import org.zerock.myapp.domain.ChecklistVO;
 import org.zerock.myapp.domain.LikesVO;
@@ -26,12 +26,10 @@ import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.exception.ServiceException;
-import org.zerock.myapp.service.CheckService;
 import org.zerock.myapp.service.MypageService;
 import org.zerock.myapp.service.UsersService;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -46,9 +44,10 @@ public class MyPageController {
 	
 	@Autowired
 	private MypageService mservice;
+
 	
-	@Setter(onMethod_= @Autowired)
-	private CheckService cservice;
+	@Inject
+	BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@GetMapping({"/main","/update","/remove"})
 	public void myPage(HttpSession session, Model model) throws ServiceException {
@@ -64,33 +63,60 @@ public class MyPageController {
 		
 		model.addAttribute("mypage", vo);
 		
-	}//mypage
+	}	//mypage
 	
 	@PostMapping("/update")
-	public String update(UsersDTO dto, RedirectAttributes rttrs) throws ServiceException {
+	public String update(UsersDTO dto, RedirectAttributes rttrs) throws ControllerException {
 		log.info("update({},{}) invoked.", dto, rttrs);	
-
-		boolean success = this.service.update(dto);
-		
-		rttrs.addAttribute("result", (success)? "success":"failure");
-		
-		return "redirect:/mypage/main";
+		try {
+			if(dto.getPassword().equals(dto.getPwCheck())) {
+			dto.setPassword(bcryptPasswordEncoder.encode(dto.getPassword()));
+			
+			boolean success = this.service.update(dto);
+			log.info("\t+ success : {}", success);
+			
+			rttrs.addFlashAttribute("result",(success)? "ìˆ˜ì •ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤." : "failure");
+			
+			return "redirect:/mypage/main";
+			}
+			
+			rttrs.addFlashAttribute("result", "ìˆ˜ì •ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
+			return "redirect:/mypage/update";
+			
+		} catch(Exception e) {
+			throw new ControllerException(e);
+		}	//try- catch
 		
 	}	//update
 	
 
 	@PostMapping("/remove")
-	public String remove(UsersDTO dto, Model model, RedirectAttributes rttrs) throws ControllerException {
+	public String remove(UsersDTO dto, HttpSession session, Model model, RedirectAttributes rttrs) throws ControllerException {
 		log.trace("remove() invoked.");
 		
+			
 		try {
+			LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
+			UsersVO vo = service.select(uid.getUids());
+			log.info(">>>>>>>>>>>>>>>>>>vo: {}", vo);
+			
+			dto.setPassword(dto.getPassword());
+			
+			if(bcryptPasswordEncoder.matches(dto.getPassword(),vo.getPassword())) {
+				
+			dto.setUids(vo.getUids());
 			
 			boolean success = this.service.remove(dto);
 			log.info("\t+ success : {}", success);
 			
-			rttrs.addAttribute("result",(success)? "success" : "failure");
-			
+			rttrs.addFlashAttribute("result",(success)? "íšŒì›íƒˆí‡´ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤." : "failure");
 			return "redirect:/user/login";
+			
+			}
+			
+			rttrs.addFlashAttribute("result", "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤." );
+			
+			return "redirect:/mypage/remove";
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		}	//try- catch
@@ -98,14 +124,13 @@ public class MyPageController {
 	
 	@GetMapping("/mywrite")
     public String myWrite(Model model, HttpSession session) {
-        // ¼¼¼Ç¿¡¼­ ·Î±×ÀÎÇÑ »ç¿ëÀÚ Á¤º¸ °¡Á®¿À±â
+
         LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
-            // ·Î±×ÀÎÇÏÁö ¾ÊÀº °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+
             return "redirect:/user/login";
         }
-        
-        // ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ ÀÛ¼ºÇÑ ±Û Á¶È¸
+     
         ArrayList<MywriteVO> uids = mservice.mywrite(uid.getUids());
         
         log.info("{}",uids);
@@ -117,14 +142,14 @@ public class MyPageController {
 	
 	@GetMapping("/mycomment")
     public String mycomment(Model model, HttpSession session) {
-        // ¼¼¼Ç¿¡¼­ ·Î±×ÀÎÇÑ »ç¿ëÀÚ Á¤º¸ °¡Á®¿À±â
+
         LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
-            // ·Î±×ÀÎÇÏÁö ¾ÊÀº °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+
             return "redirect:/user/login";
         }
+
         
-        // ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ ÀÛ¼ºÇÑ ´ñ±Û Á¶È¸
         ArrayList<MycommentVO> uids = mservice.mycomment(uid.getUids());
         model.addAttribute("mycomment", uids);
         
@@ -136,7 +161,7 @@ public class MyPageController {
 		
 		LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
-            // ·Î±×ÀÎÇÏÁö ¾ÊÀº °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+
             return "redirect:/user/login";
         }
 		
@@ -148,16 +173,17 @@ public class MyPageController {
 		
 		return "/mypage/checklist";
 		
-	}
+	}	//viewChecklist
 	
 	@PostMapping("/listadd")
 	public String addChecklist(ChecklistDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
 		LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
-            // ·Î±×ÀÎÇÏÁö ¾ÊÀº °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+
             return "redirect:/user/login"; 
         }       
         try {
+        	dto.getCid();
 			boolean success = this.mservice.listadd(dto);
 			log.info("\t+ success : {}", success);
 			
@@ -168,16 +194,17 @@ public class MyPageController {
 			throw new ControllerException(e);
 		}	//try- catch
 		
-	}
+	} //addChecklist
 	
 	@PostMapping("/listupdate")
 	public String updateChecklist(@RequestParam("cid") Integer cid, ChecklistDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
 		LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
-            // ·Î±×ÀÎÇÏÁö ¾ÊÀº °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+
             return "redirect:/user/login";
         }       
         try {
+        	dto.getCid();
 			boolean success = this.mservice.listupdate(dto);
 			log.info("\t+ success : {}", success);
 			
@@ -188,17 +215,21 @@ public class MyPageController {
 			throw new ControllerException(e);
 		}	//try- catch
 		
-	}
+	} //updateChecklist
 
 	
 	@PostMapping("/listdelete")
 	public String deleteChecklist(@RequestParam("cid") Integer cid, ChecklistDTO dto, RedirectAttributes rttrs, HttpSession session) throws ControllerException {
 		LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
-            // ·Î±×ÀÎÇÏÁö ¾ÊÀº °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+
             return "redirect:/user/login";
         }       
         try {
+        	
+        	dto.getUids();
+        	dto.getCid();
+        	
 			boolean success = this.mservice.listdelete(dto);
 			log.info("\t+ success : {}", success);
 			
@@ -209,52 +240,39 @@ public class MyPageController {
 			throw new ControllerException(e);
 		}	//try- catch
 		
-	}
+	} //deleteChecklist
 	
 	@GetMapping("/likes")
     public String likes(Model model, HttpSession session) {
-        // ¼¼¼Ç¿¡¼­ ·Î±×ÀÎÇÑ »ç¿ëÀÚ Á¤º¸ °¡Á®¿À±â
+
         LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
-            // ·Î±×ÀÎÇÏÁö ¾ÊÀº °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+
             return "redirect:/user/login";
         }
         
-        // ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ ÀÛ¼ºÇÑ ±Û Á¶È¸
         ArrayList<LikesVO> uids = mservice.likes(uid.getUids());
         model.addAttribute("mylikes", uids);
         
         return "/mypage/likes";
     }	//likes
 	
+	
 	@GetMapping("/bookmark")
     public String bookmark(Model model, HttpSession session) {
-        // ¼¼¼Ç¿¡¼­ ·Î±×ÀÎÇÑ »ç¿ëÀÚ Á¤º¸ °¡Á®¿À±â
+
         LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
-            // ·Î±×ÀÎÇÏÁö ¾ÊÀº °æ¿ì ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
+
             return "redirect:/user/login";
         }
         
-        // ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ ÀÛ¼ºÇÑ ±Û Á¶È¸
         ArrayList<BookmarkVO> uids = mservice.bookmark(uid.getUids());
         model.addAttribute("mybookmark", uids);
         
         return "/mypage/bookmark";
-    }	//likes
+    }	//bookmark
 	
-	@PostMapping("/passChk")
-	@ResponseBody
-	public int passChk(CheckVO vo) throws Exception {
-		log.trace(">>>>>>> passChk({}) invoked.", vo);
-		
-		int result = cservice.passChk(vo);
-		
-		return result;
-		
-	}	// checkNickName
-
-
-
+	
 }	// end class
 
