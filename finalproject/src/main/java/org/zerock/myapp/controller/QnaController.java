@@ -138,7 +138,6 @@ public class QnaController {
 					link.add(temp);
 				} else if((vo.isOpeny_n() == false) && ((loginId == null) || (writer.equals(loginId) != true))) {
 					link.add(vo.getTitle());
-					rttrs.addAttribute("result", "비밀글입니다.");
 				} else {
 					String temp = "0";
 					link.add(temp);
@@ -147,6 +146,7 @@ public class QnaController {
 			
 			rttrs.addAttribute("currPage", cri.getCurrPage());
 			rttrs.addAttribute("amount", cri.getAmount());
+			rttrs.addAttribute("result","비밀");
 			
 			int totalAmount = this.service.getTotalAmount();
 			PageDTO pageDTO = new PageDTO(cri, totalAmount);
@@ -267,28 +267,33 @@ public class QnaController {
 		try {
 
 			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
-			System.out.println("6666666666666"+uploadPath);
+
 			if((login != null) && (login.getUids().equals(dto.getUids()))) {
 
+				//
 				String imgUploadPath = uploadPath + "/" + "imgUpload";
 				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 				System.out.println(imgUploadPath);
 				System.out.println(File.separator);
 				
 				String fileName = null;
+				System.out.println("imgUploadPath"+imgUploadPath);
+				System.out.println(" file.getOriginalFilename()"+ file.getOriginalFilename());
 
 				if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 				 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+				 dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
 				} else {
 				 fileName = uploadPath + "/" + "images" + "/" + "none.png";
 				}
 
-				dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
-				
+				//
 				boolean success = this.service.register(dto);
 				rttrs.addAttribute("result", "등록완료");
 			} else {
+				
 				rttrs.addAttribute("result", "회원만 이용할 수 있습니다.");
+				
 //				return "redirect:/user/login";
 			}//if-else
 			

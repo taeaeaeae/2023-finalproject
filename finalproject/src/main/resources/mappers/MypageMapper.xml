@@ -3,9 +3,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+  
+  
   <mapper namespace="org.zerock.myapp.mapper.MypageMapper">
-
+  
     <select id="mywrite" resultType="org.zerock.myapp.domain.MywriteVO">
         SELECT uids,title, insert_ts, 'freeboard' as board_name, fid as bno, 'fid' as bm
         FROM free_board a
@@ -16,6 +17,14 @@
         SELECT uids,title, insert_ts, 'qna' as board_name, qid as bno, 'qid' as bm
         FROM qna_board a
         WHERE uids = #{uids}
+        
+        UNION ALL
+        
+        SELECT uids, plantitle, insert_ts, 'plan' as board_name, pid as bno, 'pid' as bm
+        FROM plan_board a
+        WHERE uids = #{uids}
+        
+        ORDER BY insert_ts desc
     </select>
     
     <select id="mycomment" resultType="org.zerock.myapp.domain.MycommentVO">
@@ -28,12 +37,15 @@
         SELECT uids,content, insert_ts, 'plan_board' as board_name, pid as bno, 'pid' as bm
         FROM plan_comment a
         WHERE uids = #{uids}
+        
+        ORDER BY insert_ts desc
     </select>
     
     <select id="checklist" resultType="org.zerock.myapp.domain.ChecklistVO">
        	SELECT *
         FROM checklist
         WHERE uids = #{uids}
+        ORDER BY cid asc
     </select>
     
     <insert id="listadd">
@@ -73,9 +85,12 @@
         WHERE uids = #{uids}
     </select>
   
-    
- 
+	  <select id="morelist" parameterType="int" resultType="java.util.Map">
+	    SELECT * FROM checklist WHERE cid > #{startNum} ORDER BY cid asc
+	  </select>
 
-  </mapper>
+  
+  </mapper>  
+
   
  

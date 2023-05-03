@@ -24,7 +24,7 @@
 		<property name="maximumPoolSize" value="10" />
 		<property name="minimumIdle" value="2" />
 		<property name="idleTimeout" value="10000" />
-		<property name="connectionTimeout" value="2000" />
+		<property name="connectionTimeout" value="10000" />
 		<property name="connectionTestQuery" value="SELECT 1 FROM dual" />
 		<property name="connectionInitSql" value="SELECT 1 FROM dual" />
 		<property name="dataSourceJNDI" value="jdbc/HikariCP" />
@@ -46,8 +46,9 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
        <property name="host" value="smtp.gmail.com" /> 
        <property name="port" value="587" />
-       <property name="username" value="shiningdubhe@gmail.com" />
-       <property name="password" value="xptiamqbmltzwmrr" />
+       <property name="username" value="TravelTrademaTe@gmail.com" />
+       <property name="password" value="emrrbwxfcziifkti"></property>
+       <!-- <property name="password" value="TravelTrademaTe1!" />  -->
        <property name="javaMailProperties">
            <props>
                <prop key="mail.smtp.auth">true</prop>

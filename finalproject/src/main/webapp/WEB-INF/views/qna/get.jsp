@@ -19,9 +19,22 @@
     font-weight: normal;
     font-style: normal;
     }
-      h1.board_name {
+    h1.board_name {
   text-align: center;
   	color: black;
+  }
+  div.card {
+  	width: 70%;
+  	margin: 0 auto;
+  }
+  img {
+  
+  	margin: 0 auto;
+  }
+  .butt {
+  float: right;
+  margin-bottom: 10px;
+  margin-left: 5px;
   }
 	</style>
 
@@ -46,50 +59,64 @@
 		<input type="hidden" name="result" value="${param.result}">
 		<input type="hidden" name="qid" value="${qna.qid}">
 		<input type="hidden" name="qid" value="${param.qid}">
+    <input type="hidden" name="type"    value="${param.type}">
+    <input type="hidden" name="keyword" value="${param.keyword}">
 
 		
+
 <div class="card mb-3">
   <h3 class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.title}</font></font></h3>
   <div class="card-body">
     <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.uids}</font></font></h5>
     <h6 class="card-subtitle text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.insert_ts}</font></font></h6>
   </div>
-  	<c:if test="${not empty qna.image}"><img src="/resources${qna.image}" alt="${qna.title}"></c:if>
+  
+  <div style="width: 50%; text-align: center; margin: 0 auto;">
+  	<c:if test="${not empty qna.image}"><img src="/resources${qna.image}" alt="${qna.title}" ></c:if>
+  </div>
   
   <div class="card-body">
     <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.content}</</font></font></p>
   </div>
   
   <div class="card-body">
-			<button type="button" id="listBtn">LIST</button>
+			<button class="butt" type="button" id="listBtn">LIST</button>
 			
   	<c:if test="${sessionScope['__AUTH__'].uids eq qna.uids}">
-			<input type="button" value="수정하기" id="modifyBtn">
-			<button type="submit" id="submitBtn">삭제하기</button>
+			<input class="butt" type="button" value="수정하기" id="modifyBtn">
+			<button class="butt" type="submit" id="submitBtn">삭제하기</button>
 	</c:if>
 	
   </div>
-  <div class="card-footer text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-  
-  </font></font></div>
 </div>
 </form>
-<div class="card">
-  <div class="card-body">
-    <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.title}</font></font></h4>
-    <h6 class="card-subtitle mb-2 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.uids}</font></font></h6>
-	<c:if test="${not empty answer.image}"><img src="${answer.image}" alt="${answer.title}"></c:if>
-    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.content}</font></font></p>
-	
-	
-	
-	<c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
-		<input type="button" value="수정하기" id="answerModifyBtn">
-		<button type="button" id="answerRegisterBtn">답변하기</button>
-	</c:if>
+<br> <br>
 
+  <div class="card mb-3">
+    <h4 class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.title}</font></font></h4>
+  <div class="card-body">
+    <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.uids}</font></font></h5>
+    <h6 class="card-subtitle text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+		<fmt:formatDate value="${QnaVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></font></font></h6>
   </div>
-</div>
+  
+  <div style="width: 50%; text-align: center; margin: 0 auto;">
+	<c:if test="${not empty answer.image}"><img src="/resources${answer.image}" alt="${answer.title}"></c:if>
+	</div>
+  <div class="card-body">
+    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.content}</</font></font></p>
+  </div>
+
+	
+  <div class="card-body">
+	<c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
+		<input class= "butt" type="button" value="수정하기" id="answerModifyBtn">
+		<c:if test="${empty answer.qid}">
+		<button class="butt" type="button" id="answerRegisterBtn">답변하기</button>
+		</c:if>
+	</c:if>
+	</div>
+  </div>
 
 
 	<script>

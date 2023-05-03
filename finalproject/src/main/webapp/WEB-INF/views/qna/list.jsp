@@ -33,6 +33,28 @@ button {
 a {
   text-decoration-line: none;
 }
+
+input[type=submit]{
+  padding: 3px;
+  margin: 10px;
+  background-color: #eee;
+  border-color: grey;
+}
+
+#search{
+  position: static;
+  text-align: right;
+  padding-right: 11%;
+}
+
+#searchWord{
+  padding: 4px;
+}
+
+section {
+  height: 80%;
+  text-align: center;
+}
 	</style>
     
     <link rel="stylesheet" href="WEB-INF/views/common/font.css">
@@ -43,7 +65,6 @@ a {
 
 <body>
 
-
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 			<input type="hidden" name="currPage" value="${param.currPage}">
 			<input type="hidden" name="amount" value="${param.amount}">
@@ -52,7 +73,27 @@ a {
 	<h1 class="board_name">QnA</h1>
 	<br>
 	
+	<c:if test="${not empty sessionScope['__AUTH__'].uids}">
 	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="float: right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
+	</c:if> <br> <br>
+
+	<div id="" style="float: right;">
+		<form action="/qna/list" method="GET" id="search-form" >
+			<div id="input-group rounded" >
+				<input type="hidden" name="currPage" value="1" id="currPage">
+				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+				<select style="height: 32px; padding: 2px;">
+					<option value="title"> 제목</option>
+					<option value="content">내용</option>
+					<option value="title_content">제목 + 내용</option>
+					<option value="uids">아이디</option>
+				</select>
+				<input type="text" name="keyword">
+				<button type="submit">검색</button>
+			</div>
+		</form>
+	</div>
+	
 	<div id="wrapper">
 	
 	<table class="table table-hover">
@@ -62,18 +103,19 @@ a {
       <th scope="col">제목</th>
       <th scope="col">글쓴사람</th>
       <th scope="col">쓴날짜</th>
-      <th scope="col">수정날짜</th>
     </tr>
   </thead>
   <tbody>
   	<c:forEach items="${list}" var="QnaVO" varStatus="qqid">
     <tr class="table-primary">
+
 		<td>${QnaVO.qid}</td>
 		<td>
 		<script>
 		document.write(${QnaVO.openy_n}?'🔓':'🔒');
 		</script>
 		<c:if test="${QnaVO.title eq link[qqid.index]}">
+
 			<a href="/qna/list?result=${param.result}">[${ans[qqid.index]}] ${QnaVO.title}</a>
 		</c:if>
 		<c:if test="${'0' eq link[qqid.index]}">
@@ -81,8 +123,9 @@ a {
 		</c:if>
 		</td>
 		<td>${QnaVO.uids}</td>
-		<td>${QnaVO.insert_ts}</td>
-		<td>${QnaVO.update_ts}</td>
+		<td>
+		<fmt:formatDate value="${QnaVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/>
+		</td>
     </tr>
     </c:forEach>
     
@@ -129,12 +172,17 @@ a {
             location = '/qna/register?currPage=${param.currPage}&amount=${param.amount}';
         }); // .addEventListener
 
-        var result = "${param.result}";
+        //var result = "${param.result}";
 
-        if(result != null && result != "") {
-            alert(result);
-        } // if
+
         
+		 $(document).ready(function() {
+	            let message = "${result}";
+	            if (message != "" && message != null ) {
+	                  alert("비밀글입니다");
+	            }else {
+	           }
+	        });
 
     </script>
 	
