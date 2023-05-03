@@ -32,7 +32,7 @@ $(document).on('click', '.commentModifyBtn', function() {
         // 수정된 comment 받기
         var modifiedComment = data.FreeBoardCommentVO;
         // 해당 comment의 내용을 변경합니다.
-        $(".commentList li[data-fbcid='" + modifiedComment.fbcid + "'] .commentContent").html(modifiedComment.content);
+        $(".commentList li[data-fbcid='" + modifiedComment.fbcid + "'].commentContent").html(modifiedComment.content);
 		$('#comment-content').focus();
      }
     },

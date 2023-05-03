@@ -31,7 +31,11 @@ public class BookmarkServiceImpl implements BookmarkService {
 		log.trace("isBookmarked({}) invoked.", dto);
 		
 		try {
-			return this.dao.isBookmarked(dto);
+			if (this.mapper.isBookmarked(dto) == 1) {
+				return true;
+			} else {
+				return false;
+			}
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		} // try-catch
