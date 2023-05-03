@@ -103,7 +103,6 @@ section {
       <th scope="col">제목</th>
       <th scope="col">글쓴사람</th>
       <th scope="col">쓴날짜</th>
-      <th scope="col">수정날짜</th>
     </tr>
   </thead>
   <tbody>
@@ -124,8 +123,9 @@ section {
 		</c:if>
 		</td>
 		<td>${QnaVO.uids}</td>
-		<td>${QnaVO.insert_ts}</td>
-		<td>${QnaVO.update_ts}</td>
+		<td>
+		<fmt:formatDate value="${QnaVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/>
+		</td>
     </tr>
     </c:forEach>
     
