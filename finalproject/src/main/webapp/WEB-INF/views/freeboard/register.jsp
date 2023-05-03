@@ -10,9 +10,7 @@
 <title>자유게시판 | 글 작성하기</title>
 </head>
 <body>
-<% LoginVO vo = (LoginVO) session.getAttribute("__AUTH__");
-	String uids = vo.getUids();%>
-<p>작성자 아이디 : <%= uids %></p>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <section>
   <h1>자유게시판</h1>
@@ -37,6 +35,7 @@
     </form>
   </div>
 </section>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %> 
 <script>
 		var listBtn = document.querySelector('#listBtn');
 
