@@ -11,18 +11,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/freeboard/css/freeboard_view.css">
 </head>
 <body>
-<% 
-  HttpSession se = request.getSession();
-  LoginVO user = (LoginVO) session.getAttribute("__AUTH__"); 
-  
-  String userId = "";
-  
-  if (user != null) {
-    userId = user.getUids();
-  }
-%>
-
-<p>로그인한 유저 아이디: <%= userId %></p>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
   <!-- 게시글 폼 -->
   <form action="/freeboard/get" method="post" class="board-post">
     <input type="hidden" name="currPage"value="${param.currPage}">
@@ -129,6 +118,7 @@
       </form>
     </div>
   </section>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>  
 </body>
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
