@@ -50,11 +50,12 @@ public class JoinController {
 
 				if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 				 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+				 dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
+				 
 				} else {
 				 fileName = uploadPath + "/" + "images" + "/" + "none.png";
 				}
 
-				dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
 		
 			if(service.select(dto.getUids()) == null && service.selectEmail(dto.getEmail()) == null && dto.getPassword().equals(dto.getPwCheck())) {
 				

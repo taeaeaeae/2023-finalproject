@@ -50,8 +50,8 @@
         var logoutBtn = document.querySelector('#cancleBtn');
 
         logoutBtn.addEventListener('click', function () {
-            location = "/main/index";
-        }); //취소 시 메인으로
+            location = "/TTT";
+        }); //취소 시 로그인으로
         
         // 일치하는 회원정보 존재하지 않음
 			  $(document).ready(function() {
