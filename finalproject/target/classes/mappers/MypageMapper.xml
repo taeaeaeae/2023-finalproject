@@ -18,6 +18,12 @@
         FROM qna_board a
         WHERE uids = #{uids}
         
+        UNION ALL
+        
+        SELECT uids, plantitle, insert_ts, 'plan' as board_name, pid as bno, 'pid' as bm
+        FROM plan_board a
+        WHERE uids = #{uids}
+        
         ORDER BY insert_ts desc
     </select>
     

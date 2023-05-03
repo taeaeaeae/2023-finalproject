@@ -45,14 +45,14 @@
 </style>
 </head>
 <body>
-	<input type="hidden" id="userIdCheck" value="${users.uids}">
+	<input type="hidden" id="uidsCheck" value="${users.uids}">
 	<div id="plannerDiv">
 	<!-- 계획 입력 -->
 	<div class="col-md-12">
 	<form id="planFrm" name="planFrm" method="post" action="/plan/view/modify" >
 		<div class="row">
-			<input type="hidden" id="viewPlanNo" name="planNo" value="${planView.pid}"/>
-			<input type="hidden" id="viewUserId" name="userId" value="${users.uids}"/>
+			<input type="hidden" id="viewpid" name="pid" value="${planView.pid}"/>
+			<input type="hidden" id="viewuids" name="uids" value="${users.uids}"/>
 			<div class="form-group col-sm-12">
 				<label>계획 제목</label>
 				<input type="text" class="form-control" id="planTitle" name="planTitle" value="${planView.planTitle}" placeholder="일정 타이틀" readonly/>
@@ -68,7 +68,7 @@
 				  <option value="${planView.planTotalDay}" selected>${planView.planTotalDay}일</option>
 				</select>
 			</div>
-			<c:if test="${member.userId == planView.userId}">
+			<c:if test="${member.uids == planView.uids}">
 				<div class="form-group col-mb-6" style="text-align: right;">
 					<input type="button" class="btn btn-primary mb-3" id="planModifyStart" name="planModifyStart" value="수정">
 					<input type="submit" class="btn btn-primary mb-3" id="planModifyEnd" name="planModifyEnd" value="완료">
@@ -92,7 +92,7 @@
 			<div class="collapse" id="collapse${dayCnt}">
 				<div class="card card-body">
 				<form id="schFrm${dayCnt}">
-					<input type="hidden" id="userId${dayCnt}" name="userId" value="${users.uids}">
+					<input type="hidden" id="uids${dayCnt}" name="uids" value="${users.uids}">
 					<input type="hidden" id="schDay${dayCnt}" name="planDay" value="${dayCnt}" readonly	style="width: 20px; text-align: center"/>
 					<input type="hidden" id="addr${dayCnt}" name="addr" value="" readonly/>
 					<input type="hidden" id="longitude${dayCnt}" name="longitude" value="" readonly/>
@@ -128,7 +128,7 @@
 						<p class="rowNo" style="display:none;">${scheduleList.rowNo}</p>
 						<p class="longitude" style="display:none;">${scheduleList.longitude}</p>
 						<p class="latitude" style="display:none;">${scheduleList.latitude}</p>
-						<p class="planNo" style="display:none;">${scheduleList.planNo}</p>
+						<p class="pid" style="display:none;">${scheduleList.pid}</p>
 						<p class="markerNo" id="markerNo${status.count}" style="display:none;">${status.count}</p>
 						<h6 class="card-subtitle mb-2 text-muted">${scheduleList.startTime} : 00</h6>
 						<p class="card-text descript">${scheduleList.descript}</p>

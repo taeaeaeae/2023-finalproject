@@ -8,6 +8,7 @@ public class MywriteDTO {
 
 	private String uids;
 	private String title;
+	private String plantitle;
 
 	
 } // end class

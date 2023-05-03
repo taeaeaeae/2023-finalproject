@@ -4,16 +4,16 @@ public class ScheduleVO {
 	
 /*
 CREATE TABLE `schedule` (
-	`planNo` INT NOT NULL,
-	`userId` VARCHAR(50) NOT NULL,
+	`pid` INT NOT NULL,
+	`uids` VARCHAR(50) NOT NULL,
 	`descript` VARCHAR(200) NULL DEFAULT NULL,
 	`place` VARCHAR(50) NOT NULL, 
 	`addr` VARCHAR(50) NOT NULL,
 	`planDay` INT NOT NULL DEFAULT '0',
 	`startTime` INT NULL DEFAULT '900',
 	`rowNo` INT DEFAULT '0',
-	INDEX `SCHEDULE_FK_SET` (`planNo`, `userId`) USING BTREE,
-	CONSTRAINT `SCHEDULE_FK_SET` FOREIGN KEY (`planNo`, `userId`) REFERENCES `project`.`plan` (`planNo`, `userId`) ON UPDATE NO ACTION ON DELETE CASCADE
+	INDEX `SCHEDULE_FK_SET` (`pid`, `uids`) USING BTREE,
+	CONSTRAINT `SCHEDULE_FK_SET` FOREIGN KEY (`pid`, `uids`) REFERENCES `project`.`plan` (`pid`, `uids`) ON UPDATE NO ACTION ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
  */

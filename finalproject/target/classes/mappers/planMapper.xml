@@ -11,7 +11,7 @@
 		</insert>
 		
 		<!-- 계획 번호 확인--> 
-		<select id="planNoGet" resultType="int">
+		<select id="pidGet" resultType="int">
 			SELECT Max(pid)
 			FROM plan_board
 		</select> 
@@ -33,7 +33,7 @@
 			<if test='searchType.equals("uids")'>
 				WHERE uids LIKE concat('%'|| #{keyword}, '%')
 			</if>
-			  <!-- ORDER BY planNo DESC
+			  <!-- ORDER BY pid DESC
 			  limit #{displayPost}, #{postNum}  -->
 			  ORDER BY pid DESC
 			  OFFSET #{displayPost}ROWS
@@ -47,7 +47,7 @@
 			 <if test='searchType.equals("planTitle")'>
 				WHERE uids = #{uids} AND planTitle LIKE concat('%'|| #{keyword}, '%')
 			</if>
-			 <!-- ORDER BY planNo DESC
+			 <!-- ORDER BY pid DESC
 			   limit #{displayPost}, #{postNum} -->
 			   ORDER BY pid DESC
 			   OFFSET #{displayPost}ROWS
@@ -73,7 +73,7 @@
 		<update id="viewPlanModify" parameterType="org.zerock.myapp.domain.PlanVO">
 			UPDATE plan_board
 			SET	planTitle = #{planTitle}, startDate = #{startDate} 
-			WHERE uids = #{uids} AND pid = #{pid} <!-- userid 와 planno이 모두 만족하면 계획수정-->
+			WHERE uids = #{uids} AND pid = #{pid} <!-- uids 와 pid이 모두 만족하면 계획수정-->
 		</update>
 		
 		<!-- 계획 삭제 -->

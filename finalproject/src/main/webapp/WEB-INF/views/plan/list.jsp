@@ -34,10 +34,10 @@
 					<tbody>
 						<c:forEach items="${planList}" var="planList">
 							<tr>
-								<td>${planList.planNo}</td>
+								<td>${planList.pid}</td>
 								<td><fmt:formatDate value="${planList.startDate}" pattern="yyyy-MM-dd"/></td>
 								<td>${planList.planTotalDay} 일</td>
-								<td><a href="<c:url value="/plan/view?planNo=${planList.pid}&userId=${planList.uids}"/>">${planList.planTitle}</a></td>
+								<td><a href="<c:url value="/plan/view?pid=${planList.pid}&uids=${planList.uids}"/>">${planList.planTitle}</a></td>
 								<td>${planList.uids}</td>
 								<td><fmt:formatDate value="${planList.regDate}" pattern="yyyy-MM-dd"/></td>
 							</tr>
@@ -69,7 +69,7 @@
 					<span class="search-form">
 						<select name="searchType" class="form-select">
 							<option value="planTitle" <c:if test="${page.searchType eq 'planTitle'}">selected</c:if>>제목</option>
-							<option value="userId" <c:if test="${page.searchType eq 'uids'}">selected</c:if>>아이디</option>
+							<option value="uids" <c:if test="${page.searchType eq 'uids'}">selected</c:if>>아이디</option>
 						</select>
 					 
 						<input type="text" class="input-keyword" name="keyword" value="${page.keyword}"/>
