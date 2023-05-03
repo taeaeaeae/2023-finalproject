@@ -15,8 +15,8 @@
    	<section>
 	  <h1 style="text-align: center">내가 쓴 댓글</h1>
   
-	  <div id="list">
-	    <table>
+	    <table class="table table-hover" style="width:60%; margin-left: auto; margin-right: auto;">
+	    
 			<thead>
 				<tr>
 					<th>작성자</th>
@@ -27,7 +27,7 @@
 			
 			<tbody>
 				<c:forEach var="MycommentVO" items="${mycomment}">
-					<tr>
+					<tr class="table-primary">
 						<td>${MycommentVO.uids}</td>
 						<td><a href="/${MycommentVO.board_name}/get?${MycommentVO.bm}=${MycommentVO.bno} ">${MycommentVO.content}</a></td>
 						<td><fmt:formatDate value="${MycommentVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></td>
@@ -36,7 +36,6 @@
 			</tbody>	
 			
 	    </table>
-	  </div>
 	</section>
 	
 <%@include file="/WEB-INF/views/common/footer.jsp" %>	
