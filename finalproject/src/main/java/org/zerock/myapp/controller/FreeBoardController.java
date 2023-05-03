@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.myapp.domain.BookmarkDTO;
 import org.zerock.myapp.domain.Criteria;
 import org.zerock.myapp.domain.FreeBoardCommentVO;
 import org.zerock.myapp.domain.FreeBoardDTO;
@@ -23,6 +24,7 @@ import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.PageDTO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.exception.ServiceException;
+import org.zerock.myapp.service.BookmarkService;
 import org.zerock.myapp.service.FreeBoardCommentService;
 import org.zerock.myapp.service.FreeBoardService;
 import org.zerock.myapp.utils.UploadFileUtils;
@@ -47,6 +49,9 @@ public class FreeBoardController {
 	
 	@Setter(onMethod_ = {@Autowired})
 	private FreeBoardCommentService commentService;
+	
+	@Setter(onMethod_ = {@Autowired})
+	private BookmarkService bookmarkService;
 	
 	@Qualifier("uploadPath")
 	private String uploadPath;
@@ -74,7 +79,7 @@ public class FreeBoardController {
 	} // list 
 	
 	@GetMapping({"/get", "/modify"})
-	public void get(Criteria cri, Integer fid, Model model) throws ControllerException{
+	public void get(Criteria cri, Integer fid, Model model, HttpSession session) throws ControllerException{
 		log.trace("get({}, {}, {}) invoked.", cri, fid, model);
 		
 		try {
@@ -95,6 +100,21 @@ public class FreeBoardController {
 			List<FreeBoardCommentVO> commentList = this.commentService.getList(fid);
 			model.addAttribute("commentList", commentList);
 			
+			// bookmark
+			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
+			log.info("\t+ __AUTH__ : {}", loginVO);
+			
+			if(loginVO == null) {
+				model.addAttribute("result", "bookmark failed");
+			} else {
+				BookmarkDTO bookmarkDTO = new BookmarkDTO();
+				bookmarkDTO.setFid(fid);
+				bookmarkDTO.setUids(loginVO.getUids());
+				boolean isBookmarked = this.bookmarkService.isBookmarked(bookmarkDTO);
+				
+				model.addAttribute("isBookmarked", isBookmarked);
+				log.info("\t+ isBookmarked : {}", isBookmarked);
+			} // if-else
 //			return "/freeboard/get";
 		} catch (Exception e) {
 			throw new ControllerException(e);

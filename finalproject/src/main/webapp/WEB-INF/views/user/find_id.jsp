@@ -55,8 +55,8 @@
         var logoutBtn = document.querySelector('#cancleBtn');
 
         logoutBtn.addEventListener('click', function () {
-            location = "/main/index";
-        }); //취소 시 메인으로
+            location = "/user/login";
+        }); //취소 시 로그인으로
         
         // 아이디 찾기 실패
 			  $(document).ready(function() {

@@ -70,7 +70,8 @@ public class MyPageController {
 		log.info("update({},{}) invoked.", dto, rttrs);	
 		try {
 			if(dto.getPassword().equals(dto.getPwCheck())) {
-			dto.setPassword(bcryptPasswordEncoder.encode(dto.getPassword()));
+			dto.setPassword(bcryptPasswordEncoder.encode(dto.getPassword()));		
+			
 			
 			boolean success = this.service.update(dto);
 			log.info("\t+ success : {}", success);

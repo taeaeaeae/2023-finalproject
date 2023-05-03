@@ -1,5 +1,10 @@
 package org.zerock.myapp.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,16 +12,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.myapp.domain.BookmarkDTO;
+import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.exception.ServiceException;
 import org.zerock.myapp.service.BookmarkService;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
 @NoArgsConstructor
 @Log4j2
+@ToString
 
 @Controller
 public class BookmarkController {
@@ -24,37 +33,54 @@ public class BookmarkController {
 	@Setter(onMethod_ = {@Autowired})
 	private BookmarkService service;
 	
+	@ResponseBody
 	@PostMapping("/bookmark/register")
-	public String registerBookmark(BookmarkDTO dto) throws ServiceException {
+	public Map<String, Object> registerBookmark(BookmarkDTO dto, HttpSession session) throws ServiceException {
 		
 		try {
-			if(this.service.isBookmarked(dto)) {
-				this.service.remove(dto);
-				
-				return "unregistered";
-			} else {
-				this.service.register(dto);
-				
-				return "registered";
-			} // if-else
+			
+			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
+			log.info("\t+ __AUTH__ : {}", loginVO);
+			
+			dto.setUids(loginVO.getUids());
+			boolean success = this.service.register(dto);
+			log.trace("register success", success);
+			
+			Map<String, Object> response = new HashMap<>();
+			response.put("bookmarking", success);
+			response.put("unbookmarking", false);
+			
+			log.trace("response : {}", response);
+			
+			return response;
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		} // try-catch
 	} // registerBookmark
 	
-	@GetMapping("/bookmark")
-	public ResponseEntity<String> getBookmark(Model model, Integer fid) throws ServiceException{
-		BookmarkDTO dto = new BookmarkDTO();
-		dto.setFid(fid);
-		boolean result = false;
+	@ResponseBody
+	@PostMapping("/bookmark/remove")
+	public Map<String, Object> removeBookmark(BookmarkDTO dto, HttpSession session) throws ServiceException {
 		
 		try {
-			model.addAttribute("dto", dto);
-			result = this.service.isBookmarked(dto);
-		} catch(Exception e){
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			
+			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
+			log.info("\t+ __AUTH__ : {}", loginVO);
+			
+			dto.setUids(loginVO.getUids());
+			boolean success = this.service.remove(dto);
+			log.trace("remove success", success);
+			
+			Map<String, Object> response = new HashMap<>();
+			response.put("bookmarking", false);
+			response.put("unbookmarking", success);
+			
+			log.trace("response : {}", response);
+			
+			return response;
+		} catch (Exception e){
+			throw new ServiceException(e);
 		} // try-catch
-		return new ResponseEntity<>(String.valueOf(result), HttpStatus.OK);
-	} // getBookmark
+	} // removeBookmark
 	
 } // end class
