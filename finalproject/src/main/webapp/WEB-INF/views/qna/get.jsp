@@ -96,7 +96,8 @@
     <h4 class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.title}</font></font></h4>
   <div class="card-body">
     <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.uids}</font></font></h5>
-    <h6 class="card-subtitle text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${answer.insert_ts}</font></font></h6>
+    <h6 class="card-subtitle text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+		<fmt:formatDate value="${QnaVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></font></font></h6>
   </div>
   
   <div style="width: 50%; text-align: center; margin: 0 auto;">
