@@ -82,7 +82,8 @@
   <div class="card-body">
 			<button class="butt" type="button" id="listBtn">LIST</button>
 			
-  	<c:if test="${sessionScope['__AUTH__'].uids eq qna.uids}">
+	
+  	<c:if test="${(sessionScope['__AUTH__'].uids eq qna.uids) || (sessionScope['__AUTH__'].uids eq 'admin')}">
 			<input class="butt" type="button" value="수정하기" id="modifyBtn">
 			<button class="butt" type="submit" id="submitBtn">삭제하기</button>
 	</c:if>
@@ -125,13 +126,7 @@
 		var AnswerModifyBtn = document.querySelector('#answerModifyBtn');
         var answerRegisterBtn = document.querySelector('#answerRegisterBtn');
 		
-        answerRegisterBtn.addEventListener('click', function () {
-            location = '/qna/answerRegister?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-        })        
 		
-		answerModifyBtn.addEventListener('click', function () {
-			location = '/qna/answerModify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
-		})
         
         listBtn.addEventListener('click', function () {
 			location='/qna/list?currPage=${param.currPage}&amount=${param.amount}';
@@ -141,6 +136,13 @@
 			location = '/qna/modify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
 		})
 
+        answerRegisterBtn.addEventListener('click', function () {
+            location = '/qna/answerRegister?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
+        })        
+        
+		answerModifyBtn.addEventListener('click', function () {
+			location = '/qna/answerModify?currPage=${param.currPage}&amount=${param.amount}&qid=${qna.qid}';
+		})
 	</script>
 	
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
