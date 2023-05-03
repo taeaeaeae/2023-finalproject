@@ -2,8 +2,6 @@ package org.zerock.myapp.controller;
 
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -16,13 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.BookmarkVO;
 import org.zerock.myapp.domain.ChecklistDTO;
 import org.zerock.myapp.domain.ChecklistVO;
 import org.zerock.myapp.domain.LikesVO;
-import org.zerock.myapp.domain.LoginDTO;
 import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.MycommentVO;
 import org.zerock.myapp.domain.MywriteVO;
@@ -30,7 +26,6 @@ import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.exception.ServiceException;
-import org.zerock.myapp.service.MorelistService;
 import org.zerock.myapp.service.MypageService;
 import org.zerock.myapp.service.UsersService;
 
@@ -49,10 +44,7 @@ public class MyPageController {
 	
 	@Autowired
 	private MypageService mservice;
-	
-	@Autowired
-	private MorelistService mlservice;
-	
+
 	
 	@Inject
 	BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -191,6 +183,7 @@ public class MyPageController {
             return "redirect:/user/login"; 
         }       
         try {
+        	dto.getCid();
 			boolean success = this.mservice.listadd(dto);
 			log.info("\t+ success : {}", success);
 			
@@ -211,6 +204,7 @@ public class MyPageController {
             return "redirect:/user/login";
         }       
         try {
+        	dto.getCid();
 			boolean success = this.mservice.listupdate(dto);
 			log.info("\t+ success : {}", success);
 			
@@ -232,6 +226,10 @@ public class MyPageController {
             return "redirect:/user/login";
         }       
         try {
+        	
+        	dto.getUids();
+        	dto.getCid();
+        	
 			boolean success = this.mservice.listdelete(dto);
 			log.info("\t+ success : {}", success);
 			
@@ -275,14 +273,6 @@ public class MyPageController {
         return "/mypage/bookmark";
     }	//bookmark
 	
-	@PostMapping("/morelist")
-	@ResponseBody
-	public List<Map<String, Object>> morelist(Model model, @RequestParam Integer startNum)throws Exception {
-	
-		List<Map<String, Object>> result = mlservice.morelist(startNum);
-
-			return result;
-	}
 	
 }	// end class
 

@@ -9,21 +9,18 @@
 <title>mycomment</title>
 </head>
 <body>
-
 <%@include file="/WEB-INF/views/common/header.jsp" %>
+<%@include file="/WEB-INF/views/common/leftside.jsp" %>
 
    	<section>
-	  <h1>내가 쓴 댓글</h1>
-	  <hr>
-	  
-	  <%@include file="/WEB-INF/views/common/leftside.jsp" %>
-	  
+	  <h1 style="text-align: center">내가 쓴 댓글</h1>
+  
 	  <div id="list">
-	    <table border="1px">
+	    <table>
 			<thead>
-				<tr style="background-color: #eee; color: black">
+				<tr>
 					<th>작성자</th>
-					<th id="tb2">내용</th>
+					<th>내용</th>
 					<th>작성날짜</th>
 				</tr>
 			</thead>

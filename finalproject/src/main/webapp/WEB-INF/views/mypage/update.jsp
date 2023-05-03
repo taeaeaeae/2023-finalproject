@@ -10,49 +10,46 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/update.css">
+<link rel="stylesheet" href="/resources/css/update.css">
 <title>회원정보수정</title>
 </head>
-<body>
-	
-	<%@include file="/WEB-INF/views/common/header.jsp" %>
+<body>	
+<%@include file="/WEB-INF/views/common/header.jsp" %>
+<%@include file="/WEB-INF/views/common/leftside.jsp" %>
 
-		<h1 align="center">회원정보수정</h1>
-		<h3 align="center">비밀번호 및 이메일 , 전화번호만 수정 가능합니다.</h3>
-		
-		<%@include file="/WEB-INF/views/common/leftside.jsp" %>
+	<h1 align="center">회원정보수정</h1>
+	<h3 align="center">비밀번호 및 이메일 , 전화번호만 수정 가능합니다.</h3>
 
-			<div class="container">
+		<div class="container">
 
-				<form action="/mypage/update" method="post">
+			<form action="/mypage/update" method="post">
 					
-					<div id="center">
+				<div id="center">
 
-						<h3>* 아이디 <input type="text" name="uids" value="${mypage.uids}" readonly/></h3>					
+					<h3>* 아이디 <input type="text" name="uids" value="${mypage.uids}" readonly/></h3>					
 
-						<h3>* 비밀번호 <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/></h3>
+					<h3>* 비밀번호 <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/></h3>
 
-						<h3>* 비밀번호 확인 <input type="password"  id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/></h3>						
-                		<button class="pwCheck" type="button" id="pwCheck" onclick="fn_checkPw();" value="N" class="btn btn-outline-primary" >확인</button>
+					<h3>* 비밀번호 확인 <input type="password"  id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/>					
+                	<button type="button" id="pwCheck" onclick="fn_checkPw();" value="N" class="btn btn-outline-primary">확인</button></h3>	
+					<h3>* 이름 <input type="text" name="name" value="${mypage.name}" readonly/></h3>
 						
-						<h3>* 이름 <input type="text" name="name" value="${mypage.name}" readonly/></h3>
+					<h3>* 전화번호 <input type="text" name="phonenumber" value="${mypage.phonenumber}" placeholder="숫자만 입력하세요" pattern="[0-9]{11}" maxlength="11" required/></h3>
 						
-						<h3>* 전화번호 <input type="text" name="phonenumber" value="${mypage.phonenumber}" placeholder="숫자만 입력하세요" pattern="[0-9]{11}" maxlength="11" required/></h3>
-						
-						<h3>* 이메일 <input type="email" name="email" value="${mypage.email}" placeholder="example1@xxx.com" maxlength="38" required/></h3>
+					<h3>* 이메일 <input type="email" name="email" value="${mypage.email}" placeholder="example1@xxx.com" maxlength="38" required/></h3>
 						
 
-					</div>	
+				</div>	
 
-					<div id="gogo">
-				      <button type="submit" id="submit" class="btn btn-outline-primary">수정</button>
+				<div id="gogo">
+					<button type="submit" id="submit" class="btn btn-outline-primary">수정</button>
 				      
-				      <button type="button" id="cancleBtn" class="btn btn-outline-primary">취소</button>
-					</div>				
-				</form>
+				    <button type="button" id="cancleBtn" class="btn btn-outline-primary">취소</button>
+				</div>				
+			</form>
 		</div>
 	
-	<%@include file="/WEB-INF/views/common/footer.jsp" %>
+<%@include file="/WEB-INF/views/common/footer.jsp" %>
 
 	<script>
 		// 비밀번호 확인

@@ -5,16 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/css/mypage.css">
+<link rel="stylesheet" href="/resources/css/mypage.css">
 <title>회원정보조회</title>
 </head>
 <body>
 <%@include file="/WEB-INF/views/common/header.jsp" %>
+<%@include file="/WEB-INF/views/common/leftside.jsp" %>
 	
 	<h1 align="center">회원정보조회</h1>
-	
-	<%@include file="/WEB-INF/views/common/leftside.jsp" %>
-	
+
 		<section>		
 			<div id="center">
 				<form action="/mypage/main" method="post">
@@ -28,13 +27,11 @@
 					
 					<h3>* 프로필사진 : </h3>
 					<c:if test="${not empty mypage.image}"><img src="/resources${mypage.image}"></c:if>
-			
-					</br>
 				</form>
 			</div>
 		</section>
 
-	<%@include file="/WEB-INF/views/common/footer.jsp" %>	
+<%@include file="/WEB-INF/views/common/footer.jsp" %>	
 
 </body>
 </html>

@@ -7,30 +7,26 @@
 <head>
 <meta charset="UTF-8">
 <title>mywrite</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-
 <%@include file="/WEB-INF/views/common/header.jsp" %>
+<%@include file="/WEB-INF/views/common/leftside.jsp" %>
 
    	<section>
-	  <h1>나의 작성 글</h1>
-	  <hr>
-	  
-	  <%@include file="/WEB-INF/views/common/leftside.jsp" %>
-	  
-	  <div id="list">
-	    <table border="1px">
+	  <h1 style="text-align: center">나의 작성 글</h1>
+
+	  <div class="list">
+	    <table>
 			<thead>
-				<tr style="background-color: #eee; color: black">
+				<tr>
 					<th>작성자</th>
-					<th id="tb2">제목</th>
+					<th>제목</th>
 					<th>작성날짜</th>
 				</tr>
 			</thead>
 			
 			<tbody>
-			<p>SESSION : ${sessionScope['__AUTH__'].uids}</p>
-			<p>plan : ${MywriteVO.board_name eq plan}</p>
 				<c:forEach var="MywriteVO" items="${mywrite}">
 					<tr>
 						<td>${MywriteVO.uids}</td>
@@ -42,12 +38,12 @@
 						<td><fmt:formatDate value="${MywriteVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></td>
 					</tr>
 				</c:forEach>
-			</tbody>	
-			
+			</tbody>
+				
 	    </table>
 	  </div>
 	</section>
-	
+
 <%@include file="/WEB-INF/views/common/footer.jsp" %>	
 
 </body>

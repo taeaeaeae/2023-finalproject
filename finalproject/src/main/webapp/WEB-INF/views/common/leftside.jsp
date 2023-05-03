@@ -21,7 +21,7 @@
 		nav{
 			width: 169px;
 			margin-top: 5%;
-			margin-left: 10%;
+			margin-left: 9%;
 			border-right: none;
 			position:fixed;
 		}
@@ -44,6 +44,7 @@
 	<section>
 		<nav>
 				<ul class="menu">
+					<li><a href="/mypage/main">회원정보조회</a></li><br>
 					<li><a href="/mypage/update">회원정보수정</a></li><br>
 					<li><a href="/mypage/remove">회원탈퇴</a></li><br>
 					<li><a href="/mypage/mywrite">나의 작성 글</a></li><br>
@@ -51,6 +52,7 @@
 					<li><a href="/mypage/likes">좋아요 목록</a></li><br>
 					<li><a href="/mypage/bookmark">북마크 목록</a></li><br>
 					<li><a href="/mypage/checklist">체크리스트</a></li><br>
+					
 				<c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
  					<li><a href="/mypage/report">신고내역</a></li><br>
           		</c:if>

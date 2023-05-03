@@ -9,7 +9,7 @@
 			rel="stylesheet"
 			integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 			crossorigin="anonymous" />
-        <link rel="stylesheet" href="/css/login.css">
+        <link rel="stylesheet" href="/resources/css/login.css">
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <%@include file="/WEB-INF/views/common/favicon.jsp" %>
         
@@ -19,7 +19,7 @@
 
     <%@include file="/WEB-INF/views/common/header.jsp" %>
         
-        <div id="center"> 
+        <div id="center" > 
             <form action="/user/loginPost" method="post">
             
                     <div class="form-group">
@@ -33,12 +33,9 @@
                     </div> 
                     
                     <div class="d-grid gap-2">
-						  <button class="btn btn-lg btn-primary" type="submit" id="loginBtn">로그인</button>
+						  <button class="btn btn-lg btn-primary" type="submit" id="loginBtn" >로그인</button>
 					</div>
-				
-
-
-                                            
+				                                       
             </form>
             
                 <div class="find">
