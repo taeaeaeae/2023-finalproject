@@ -8,6 +8,7 @@
 <title>자유게시판 | 글 수정하기</title>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 <section>
     <h1>자유게시판</h1>
@@ -16,7 +17,7 @@
         <form onsubmit="return validateForm()" method="POST" action="/freeboard/modify">
         <input type="hidden" name="currPage" value="${param.currPage}">
         <input type="hidden" name="amount" value="${param.amount}">
-        <input type="text" name="fid" value="${freeboard.fid}">
+        <input type="hidden" name="fid" value="${freeboard.fid}">
 
         <input type="text" name="title" value="${freeboard.title}" placeholder="title">
         <hr>
@@ -29,7 +30,7 @@
         </form>
     </div>
 </section>
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>  
 <script>
 var listBtn = document.querySelector('#listBtn');
 
