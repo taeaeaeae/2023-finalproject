@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "GangwonEdu";
+}
+
+@font-face {
+  font-family: "GangwonEdu";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+header,
+.content {
+  display: flex;
+}
+header {
+  font-weight: bold;
+  color: #fff;
+  position: fixed;
+  justify-content: space-between;
+  z-index: 999;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0);
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+body {
+  overflow: hidden;
+}
+
+swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content {
+  justify-content: center;
+  width: 100%;
+}
+
+.logo-img img {
+  padding-left: 50px;
+}
+ul {
+  list-style: none;
+}
+
+.menu-box ul {
+  display: flex;
+}
+
+.menu-link ul {
+  justify-content: end;
+  padding-right: 20px;
+  margin-top: 30px;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+.menu-link ul li {
+  padding: 0px 20px;
+}
+.menu-link ul li:last-child {
+  border: none;
+}
+
+.menu-list ul li {
+  margin: 2rem;
+  font-size: 1.4em;
+}
+.left-content {
+  display: flex;
+  width: 30%;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 5px 5px 9px rgba(120, 120, 120, 0.628);
+  z-index: 100;
+}
+.left-content > h2 {
+  vertical-align: baseline;
+  margin: 0 0 20px 0;
+  font-weight: 200px;
+  color: #333;
+  text-transform: none;
+  line-height: 20px;
+  font-size: 2rem;
+  padding-top: 5px;
+  margin-bottom: 0px;
+}
+.left-content > h3 {
+  font-size: 9rem;
+  font-style: bold;
+  margin-bottom: 0px;
+}
+.left-content > button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #d2eefa;
+  color: #333;
+  font-size: 30px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #39f;
+  color: #fff;
+}
+.right-content {
+  width: 80%;
+  height: auto;
+  /* padding-bottom: 56.25%; 16:9 비율 */
+  overflow: hidden;
+  margin: 0px auto;
+  position: relative;
+}
+.right-content > video {
+  height: 100%;
+  overflow-x: hidden;
+}

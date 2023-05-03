@@ -44,6 +44,7 @@ public class MyPageController {
 	
 	@Autowired
 	private MypageService mservice;
+
 	
 	@Inject
 	BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -68,15 +69,20 @@ public class MyPageController {
 	public String update(UsersDTO dto, RedirectAttributes rttrs) throws ControllerException {
 		log.info("update({},{}) invoked.", dto, rttrs);	
 		try {
-			
+			if(dto.getPassword().equals(dto.getPwCheck())) {
 			dto.setPassword(bcryptPasswordEncoder.encode(dto.getPassword()));
 			
 			boolean success = this.service.update(dto);
 			log.info("\t+ success : {}", success);
 			
-			rttrs.addFlashAttribute("result",(success)? "회원수정이 완료되었습니다." : "failure");
+			rttrs.addFlashAttribute("result",(success)? "수정이 완료되었습니다." : "failure");
 			
 			return "redirect:/mypage/main";
+			}
+			
+			rttrs.addFlashAttribute("result", "수정에 실패하였습니다.");
+			return "redirect:/mypage/update";
+			
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		}	//try- catch
@@ -85,17 +91,32 @@ public class MyPageController {
 	
 
 	@PostMapping("/remove")
-	public String remove(UsersDTO dto, Model model, RedirectAttributes rttrs) throws ControllerException {
+	public String remove(UsersDTO dto, HttpSession session, Model model, RedirectAttributes rttrs) throws ControllerException {
 		log.trace("remove() invoked.");
 		
+			
 		try {
+			LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
+			UsersVO vo = service.select(uid.getUids());
+			log.info(">>>>>>>>>>>>>>>>>>vo: {}", vo);
+			
+			dto.setPassword(dto.getPassword());
+			
+			if(bcryptPasswordEncoder.matches(dto.getPassword(),vo.getPassword())) {
+				
+			dto.setUids(vo.getUids());
 			
 			boolean success = this.service.remove(dto);
 			log.info("\t+ success : {}", success);
 			
 			rttrs.addFlashAttribute("result",(success)? "회원탈퇴가 완료되었습니다." : "failure");
-			
 			return "redirect:/user/login";
+			
+			}
+			
+			rttrs.addFlashAttribute("result", "비밀번호가 일치하지 않습니다." );
+			
+			return "redirect:/mypage/remove";
 		} catch(Exception e) {
 			throw new ControllerException(e);
 		}	//try- catch
@@ -162,6 +183,7 @@ public class MyPageController {
             return "redirect:/user/login"; 
         }       
         try {
+        	dto.getCid();
 			boolean success = this.mservice.listadd(dto);
 			log.info("\t+ success : {}", success);
 			
@@ -182,6 +204,7 @@ public class MyPageController {
             return "redirect:/user/login";
         }       
         try {
+        	dto.getCid();
 			boolean success = this.mservice.listupdate(dto);
 			log.info("\t+ success : {}", success);
 			
@@ -203,6 +226,10 @@ public class MyPageController {
             return "redirect:/user/login";
         }       
         try {
+        	
+        	dto.getUids();
+        	dto.getCid();
+        	
 			boolean success = this.mservice.listdelete(dto);
 			log.info("\t+ success : {}", success);
 			
@@ -246,8 +273,6 @@ public class MyPageController {
         return "/mypage/bookmark";
     }	//bookmark
 	
-
-
-
+	
 }	// end class
 

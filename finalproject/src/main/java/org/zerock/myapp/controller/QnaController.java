@@ -277,14 +277,16 @@ public class QnaController {
 				System.out.println(File.separator);
 				
 				String fileName = null;
+				System.out.println("imgUploadPath"+imgUploadPath);
+				System.out.println(" file.getOriginalFilename()"+ file.getOriginalFilename());
 
 				if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 				 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+				 dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
 				} else {
 				 fileName = uploadPath + "/" + "images" + "/" + "none.png";
 				}
 
-				dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
 				//
 				boolean success = this.service.register(dto);
 				rttrs.addAttribute("result", "등록완료");

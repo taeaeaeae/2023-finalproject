@@ -9,16 +9,17 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-<%@include file="/WEB-INF/views/main/header.jsp" %>
+<%@include file="/WEB-INF/views/common/header.jsp" %>
+<%@include file="/WEB-INF/views/common/leftside.jsp" %>
 
    	<section>
-	  <h1>좋아요 목록</h1>
-	  <hr>
+	  <h1 style="text-align: center">좋아요 목록</h1>
+
 	  <div id="list">
-	    <table border="1px">
+	    <table>
 			<thead>
-				<tr style="background-color: #eee; color: black">
-					<th id="tb2">제목</th>
+				<tr>
+					<th>제목</th>
 				</tr>
 			</thead>
 			
@@ -34,7 +35,7 @@
 	  </div>
 	</section>
 	
-<%@include file="/WEB-INF/views/main/footer.jsp" %>	
+<%@include file="/WEB-INF/views/common/footer.jsp" %>	
 
 </body>
 </html>

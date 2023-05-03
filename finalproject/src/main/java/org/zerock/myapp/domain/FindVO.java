@@ -8,7 +8,6 @@ public class FindVO {
 	private String uids;
 	private String name;
 	private String phonenumber;
-	
 	private String password;
 	private String email;
 	

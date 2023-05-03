@@ -53,11 +53,11 @@ public class LoginController {
 				model.addAttribute("__AUTH__",vo);	
 				//rttrs.addAttribute("__AUTH__", vo);	// 강사코드
 				
-				return "/main/root";	 
+				return "/index";	 
 				
 			} else {
 				
-				rttrs.addFlashAttribute("result", "일치하는 회원정보가 없습니다.");
+				rttrs.addFlashAttribute("result", "회원정보가 존재하지 않습니다.");
 				//model.addAttribute("result", "일치하는 회원정보가 없습니다.");
 				
 				return "redirect:/user/login";	
