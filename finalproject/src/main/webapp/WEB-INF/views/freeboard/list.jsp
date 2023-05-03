@@ -12,6 +12,7 @@
 
 </head>
 <body>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
 	  <h1>자유게시판</h1>
 	  <hr>
@@ -93,7 +94,7 @@
 		</form>
 	</div>
 	
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>  
 <script>
 var registerBtn = document.querySelector('#registerBtn');
 
