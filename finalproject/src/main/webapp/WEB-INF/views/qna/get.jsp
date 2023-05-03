@@ -76,7 +76,7 @@
   </div>
   
   <div class="card-body">
-    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${qna.content}</</font></font></p>
+    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><pre>${qna.content}</pre></</font></font></p>
   </div>
   
   <div class="card-body">
