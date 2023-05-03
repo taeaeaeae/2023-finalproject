@@ -31,9 +31,9 @@
 		            </c:if> 
 		            
 		            <c:if test="${sessionScope['__AUTH__'] == null}">
-		            	<ol class="breadcrumb">
+		            	<ul class="breadcrumb">
 		            		<li><a href="/user/login" class="nav-link px-2 link-dark">로그인</a></li>
-						</ol>
+						</ul>
 		            </c:if>
               </div>
     

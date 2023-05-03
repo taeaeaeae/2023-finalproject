@@ -14,7 +14,7 @@
 </head>
 <body>
 <header>
-
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 </header>
 	<!-- 계획 출력 시작 -->
 	<c:if test="${users != null}">
@@ -75,7 +75,7 @@
 						<input type="text" class="input-keyword" name="keyword" value="${page.keyword}"/>
 						<button class="btn btn-primary" type="submit" id="searchBtn">검색</button>
 					</span>
-					<button type="button" class="btn btn-secondary" onclick="location.href='/plan/write'">돌아가기</button>
+					<button type="button" class="btn btn-secondary" onclick="location.href='/plan/write'">글쓰기</button>
 				</div>
 			</div>
 		</div>
