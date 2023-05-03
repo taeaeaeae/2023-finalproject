@@ -24,7 +24,7 @@
 		<property name="maximumPoolSize" value="20" />
 		<property name="minimumIdle" value="2" />
 		<property name="idleTimeout" value="10000" />
-		<property name="connectionTimeout" value="30000" />
+		<property name="connectionTimeout" value="50000" />
 		<property name="connectionTestQuery" value="SELECT 1 FROM dual" />
 		<property name="connectionInitSql" value="SELECT 1 FROM dual" />
 		<property name="dataSourceJNDI" value="jdbc/HikariCP" />
