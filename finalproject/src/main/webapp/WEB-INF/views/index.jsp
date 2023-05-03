@@ -24,10 +24,10 @@
             <div class="menu-box">
               <div class="menu-link">
  					<c:if test="${sessionScope['__AUTH__'] != null}">
-						<ol class="breadcrumb">
+						<ul class="breadcrumb">
 							<li><a href="/mypage/main" class="nav-link px-2 link-dark">마이페이지</a></li>
 							<li><a href="/user/logout" class="nav-link px-2 link-dark">로그아웃</a></li>	
-						</ol>
+						</ul>
 		            </c:if> 
 		            
 		            <c:if test="${sessionScope['__AUTH__'] == null}">
