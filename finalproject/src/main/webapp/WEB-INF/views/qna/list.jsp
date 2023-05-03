@@ -66,17 +66,16 @@ section {
 <body>
 
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
-			<input type="hidden" name="currPage" value="${param.currPage}">
-			<input type="hidden" name="amount" value="${param.amount}">
-			<input type="hidden" name="result" value="${param.result}">
+	
+	<input type="hidden" name="currPage" value="${param.currPage}">
+	<input type="hidden" name="amount" value="${param.amount}">
+	<input type="hidden" name="result" value="${param.result}">
+	
 	<br>
 	<h1 class="board_name">QnA</h1>
 	<br>
 	
-	<c:if test="${not empty sessionScope['__AUTH__'].uids}">
-	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="float: right"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
-	</c:if> <br> <br>
-
+	
 	<div id="" style="float: right;">
 		<form action="/qna/list" method="GET" id="search-form" >
 			<div id="input-group rounded" >
@@ -93,16 +92,16 @@ section {
 			</div>
 		</form>
 	</div>
-	
+	<br>
 	<div id="wrapper">
-	
-	<table class="table table-hover">
+	<div>
+	<table class="table table-hover" style="width: 50%; margin-left:auto; margin-right:auto;">
   <thead>
     <tr>
       <th scope="col" width="10px">No.</th>
       <th scope="col">제목</th>
-      <th scope="col">글쓴사람</th>
-      <th scope="col">쓴날짜</th>
+      <th scope="col">작성자</th>
+      <th scope="col">작성일자</th>
     </tr>
   </thead>
   <tbody>
@@ -131,8 +130,9 @@ section {
     
   </tbody>
 </table>
+	</div>
 
-<div>
+<div style="text-align: center; margin: 0px;">
   <ul class="pagination pagination-sm" id="ulululul">
     <li class="page-item disabled">
       <a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&laquo;</font></font></a>
@@ -162,7 +162,10 @@ section {
     </li>
   </ul>
 </div>
-
+<br>
+	<c:if test="${not empty sessionScope['__AUTH__'].uids}">
+	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="float: right; width: 100px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
+	</c:if> 
 	</div>
     <script>
         var registerBtn = document.querySelector('#registerBtn');
@@ -191,5 +194,6 @@ section {
    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
    crossorigin="anonymous"></script>
+   
 </body>
 </html>
