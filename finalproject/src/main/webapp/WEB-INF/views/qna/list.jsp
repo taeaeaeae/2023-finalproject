@@ -75,27 +75,9 @@ section {
 	<h1 class="board_name">QnA</h1>
 	<br>
 	
-	
-	<div id="" style="float: right;">
-		<form action="/qna/list" method="GET" id="search-form" >
-			<div id="input-group rounded" >
-				<input type="hidden" name="currPage" value="1" id="currPage">
-				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-				<select style="height: 32px; padding: 2px;">
-					<option value="title"> 제목</option>
-					<option value="content">내용</option>
-					<option value="title_content">제목 + 내용</option>
-					<option value="uids">아이디</option>
-				</select>
-				<input type="text" name="keyword">
-				<button type="submit">검색</button>
-			</div>
-		</form>
-	</div>
-	<br>
 	<div id="wrapper">
 	<div>
-	<table class="table table-hover" style="width: 50%; margin-left:auto; margin-right:auto;">
+	<table class="table table-hover" style="width: 80%; margin-left:auto; margin-right:auto;">
   <thead>
     <tr>
       <th scope="col" width="10px">No.</th>
@@ -129,8 +111,31 @@ section {
     </c:forEach>
     
   </tbody>
+  
 </table>
+
+	<c:if test="${not empty sessionScope['__AUTH__'].uids}">
+	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="margin-left:10%; width: 100px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
+	</c:if> 
+	
+	<div id="" style="float: right; margin-right: 10%;">
+		<form action="/qna/list" method="GET" id="search-form" >
+			<div id="input-group rounded" >
+				<input type="hidden" name="currPage" value="1" id="currPage">
+				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+				<select style="height: 32px; padding: 2px;">
+					<option value="title"> 제목</option>
+					<option value="content">내용</option>
+					<option value="title_content">제목 + 내용</option>
+					<option value="uids">아이디</option>
+				</select>
+				<input type="text" name="keyword">
+				<button type="submit" class="btn btn-primary btn-sm">검색</button>
+			</div>
+		</form>
 	</div>
+	<br> <br>
+</div>
 
 <div style="text-align: center; margin: 0px;">
   <ul class="pagination pagination-sm" id="ulululul">
@@ -163,9 +168,6 @@ section {
   </ul>
 </div>
 <br>
-	<c:if test="${not empty sessionScope['__AUTH__'].uids}">
-	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="float: right; width: 100px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
-	</c:if> 
 	</div>
     <script>
         var registerBtn = document.querySelector('#registerBtn');
@@ -182,9 +184,9 @@ section {
 		 $(document).ready(function() {
 	            let message = "${result}";
 	            if (message != "" && message != null ) {
-	                  alert("비밀글입니다");
 	            }else {
 	           }
+	                  alert("비밀글입니다");
 	        });
 
     </script>
