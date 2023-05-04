@@ -185,7 +185,7 @@ a:hover{
 	margin-top: 70px;
 }
 .map-area {
-	background-color: coral;
+	background-color: #D2EEFA;
 	text-align: center;
 }
 .row {
@@ -209,29 +209,29 @@ a:hover{
 }
 /* btn-primary 색깔 바꾸기 css */
 .btn-primary {
-	background-color: #F6BB43;
-	border-color: #F6BB43;
+	background-color: #D2EEFA !important;
+	border-color: #D2EEFA !important;
 	color: #FFF;
 	font-weight: bold;
 }
 .btn-primary:hover,
 .btn-primary:focus {
-	border-color: #ef8c14;
-	background-color: #ef8c14;
-	color: #FFF; 
+	border-color: #FFF;
+	background-color: #FFF;
+	color: #000000; 
 }
 .btn-primary:active, .btn-primary:visited, .btn-primary:active:focus, .btn-primary:active:hover {
-	border-color: #F6BB43;
-	background-color: #F6BB43;
+	border-color: #D2EEFA;
+	background-color: #D2EEFA;
 	color: #FFF; 
 }
 .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary, .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle {
-    border-color: #ef8c14;
-	background-color: #ef8c14;
+    border-color: #D2EEFA;
+	background-color: #D2EEFA;
 	color: #FFF; 
 }
 #method_type{
-	text-decoration-color: #F6BB43;
+	text-decoration-color: #D2EEFA;
 }
 .dropdown-item{
 	padding: 2px 0px 2px 0px;
