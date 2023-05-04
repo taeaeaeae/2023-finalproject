@@ -51,7 +51,7 @@
     </section>
   
   <div class="card-body" align="right">
-			<button class="butt" type="button" id="listBtn" class="btn btn-primary btn-sm">LIST</button>
+			<button class="butt" type="button" id="listBtn" class="button">LIST</button>
 			
 	
   	<c:if test="${(sessionScope['__AUTH__'].uids eq qna.uids) || (sessionScope['__AUTH__'].uids eq 'admin')}">
