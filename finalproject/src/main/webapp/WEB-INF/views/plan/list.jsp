@@ -11,16 +11,70 @@
 <!-- custom css -->
 <link href="/resources/css/list.css" rel="stylesheet" type="text/css">
 <title>공유 일정 목록</title>
+<link rel="stylesheet" href="WEB-INF/views/common/font.css">
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.2/examples/album/" />
+<style>
+#ulululul {
+  width: 300px;
+  margin-left: 554px;
+  }
+
+a {
+  text-decoration-line: none;
+}
+input[type=submit]{
+  padding: 3px;
+  margin: 10px;
+  background-color: #eee;
+  border-color: grey;
+}
+.board_name {
+   text-align: center;
+  	color: black;
+}
+section {
+  height: 80%;
+  text-align: center;
+}
+#search{
+  position: static;
+  text-align: right;
+  padding-right: 11%;
+}
+#searchWord{
+  padding: 4px;
+}
+.search-form {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 30%;
+      margin: auto;
+    }
+#searchBtn{
+	background-color: #D2EEFA;
+	height: 40px;
+	width: 100px;
+}
+</style>
 </head>
 <body>
 <header>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 </header>
+
+    <br>
+	<h1 class="board_name">루트공유게시판</h1>
+	<br>
+
 	<!-- 계획 출력 시작 -->
 	<c:if test="${users != null}">
 		<div class="container">
 			<div class="table-responsive">
-				<table class="table table-striped">
+				<!-- <table class="table table-striped"> -->
+				<table class="table table-hover" style="width: 80%; margin-left:auto; margin-right:auto;">
+
 					<thead>	
 						<tr>
 							<th class="col-md-1">번호</th>
@@ -43,10 +97,10 @@
 							</tr>
 						</c:forEach>
 					</tbody>
-				</table>
+				</table> 
 				<!-- 계획 출력 끝 -->
 				<!-- 페이징 -->
-				<div class="col-md-offset-3">
+				<!-- <div class="col-md-offset-3">
 					<ul class="pagination justify-content-center">
 						<c:if test="${page.prev}">
 							<li class="page-item"><a class="page-link" href="/plan/list?num=${page.startPageNum -1}${page.searchTypeAndKeyword}">이전</a></li>
@@ -63,7 +117,34 @@
 							<li class="page-item"><a class="page-link" href="/plan/list?num=${page.endPageNum +1}${page.searchTypeAndKeyword}">다음</a></li>
 						</c:if>
 					</ul>
-				</div>
+				</div> -->
+				
+				<!-- 태경씨 페이징 -->
+		<div style="text-align: center; margin: 0px;">
+			<ul class="pagination pagination-sm" id="ulululul">
+			  <li class="page-item disabled">
+				<a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&laquo;</font></font></a>
+			  </li>
+			  <c:if test="${page.prev}">
+				<li class="page-item"><a class="page-link" href="/plan/list?num=${page.startPageNum -1}${page.searchTypeAndKeyword}">이전</a></li>
+			</c:if>
+			<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
+				<c:if test="${page.num != num}">
+					<li class="page-item"><a class="page-link" href="/plan/list?num=${num}${page.searchTypeAndKeyword}">${num}</a></li>
+				</c:if>
+				<c:if test="${page.num == num}">
+					<li class="page-item active"><a class="page-link" href="/plan/list?num=${num}${page.searchTypeAndKeyword}">${num}</a></li>
+				</c:if>
+			</c:forEach>
+			<c:if test="${page.next}">
+				<li class="page-item"><a class="page-link" href="/plan/list?num=${page.endPageNum +1}${page.searchTypeAndKeyword}">다음</a></li>
+			</c:if>
+			  <li class="page-item">
+				<a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&raquo;</font></font></a>
+			  </li>
+			</ul>
+		  </div>
+
 				<!-- 페이징 끝 -->
 				<div>
 					<span class="search-form">
@@ -99,6 +180,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
 			crossorigin="anonymous">d</script> 
+		
 
 </body>
 </html>
