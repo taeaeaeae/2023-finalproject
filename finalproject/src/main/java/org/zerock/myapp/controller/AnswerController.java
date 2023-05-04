@@ -89,11 +89,11 @@ public class AnswerController {
 					System.out.println("1111111111111111111111111111");
 				 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
 				 System.out.println("22222222222222222222222222222222"+"fileName: "+fileName);
+				 dto.setImage("/" + "answerImgUpload" + ymdPath + "/" + fileName);
+				 System.out.println("?????????????????");
 				} else {
 				 fileName = uploadPath + "/" + "images" + "/" + "none.png";
 				}
-				System.out.println("?????????????????");
-				dto.setImage("/" + "answerImgUpload" + ymdPath + "/" + fileName);
 				//
 				boolean success = this.service.register(dto);
 				EmailDTO emailDTO = new EmailDTO();
