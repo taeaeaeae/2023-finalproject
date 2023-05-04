@@ -187,7 +187,7 @@ a {
                 <div class="or">ㅠㅠ</div>
             </div>
             <div class="error-textbox">
-            	<a href="/ttt">메인으로돌아가기</a>
+            	<a href="/TTT">메인으로돌아가기</a>
             </div>
             <div class="error-or">
                 <div class="or-line"></div>
