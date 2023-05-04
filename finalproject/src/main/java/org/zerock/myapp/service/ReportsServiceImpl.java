@@ -45,4 +45,22 @@ public class ReportsServiceImpl implements ReportsService {
 		} // try-catch
 	}
 
+	@Override
+	public boolean dropout(ReportsDTO dto) throws ServiceException {
+		try {
+			return this.mapper.dropout(dto);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	}
+
+	@Override
+	public boolean status(ReportsDTO dto) throws ServiceException {
+		try {
+			return this.mapper.dropout(dto);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	}
+
 } // end class

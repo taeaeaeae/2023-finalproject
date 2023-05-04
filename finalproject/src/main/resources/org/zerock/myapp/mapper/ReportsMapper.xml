@@ -18,4 +18,19 @@
         ORDER BY reported_at desc
     </select>
     
+    <update id="dropout">
+		UPDATE users
+		SET is_delete = 1
+		WHERE uids in (
+			SELECT target_user
+			FROM reports
+			WHERE target_user = #{target_user})
+    </update>
+    
+    <update id="status">
+		UPDATE reports
+		SET status = 1
+		WHERE target_user = #{target_user}
+    </update>
+
 </mapper>

@@ -12,4 +12,8 @@ public interface ReportsService {
 	
 	public abstract ArrayList<ReportsVO> reportList(String uids) throws ServiceException;
 	
+	public abstract boolean dropout(ReportsDTO dto) throws ServiceException;
+	
+	public abstract boolean status(ReportsDTO dto) throws ServiceException;
+	
 } // end class

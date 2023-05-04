@@ -19,4 +19,5 @@ public class ReportsVO {
 	private String board_name;
 	private Integer bno;
 	private String bm;
+	
 } // end class

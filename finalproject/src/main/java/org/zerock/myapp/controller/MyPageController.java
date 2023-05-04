@@ -22,6 +22,7 @@ import org.zerock.myapp.domain.LikesVO;
 import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.MycommentVO;
 import org.zerock.myapp.domain.MywriteVO;
+import org.zerock.myapp.domain.ReportsDTO;
 import org.zerock.myapp.domain.ReportsVO;
 import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.domain.UsersVO;
@@ -293,6 +294,8 @@ public class MyPageController {
         
         return "/mypage/report";
     }	//bookmark
+	
+	
 	
 	
 }	// end class
