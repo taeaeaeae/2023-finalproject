@@ -83,7 +83,7 @@
 				</div>
 			</div>
 			<div class="form-group col-sm-2">
-				<input type="button" class="btn btn-primary mb-3" id="planFrmSubmit" name="planFrmSubmit" value="작성" style="float:right; margin-top: 25px;">
+				<input type="button" class="btn btn-primary mb-3" id="planFrmSubmit" name="planFrmSubmit" value="작성" style="float:right; margin-top: 25px; border-color: white;">
 			</div>
 		</div>
 	</form>
