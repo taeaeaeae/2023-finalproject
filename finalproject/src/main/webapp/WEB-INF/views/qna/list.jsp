@@ -134,8 +134,8 @@ section {
 			</div>
 		</form>
 	</div>
-<br> <br>
-	</div>
+	<br> <br>
+</div>
 
 <div style="text-align: center; margin: 0px;">
   <ul class="pagination pagination-sm" id="ulululul">
