@@ -15,6 +15,7 @@
 </head>
 <body id="body">
 	<header id="header">
+	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	</header>
 	<main id="main">
 		<section id="container">
