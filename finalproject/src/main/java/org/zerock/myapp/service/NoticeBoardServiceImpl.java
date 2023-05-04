@@ -166,5 +166,16 @@ public class NoticeBoardServiceImpl implements NoticeBoardService, InitializingB
 //		} // try-catch
 //	} // getNextPost
 	
+	@Override
+	public Integer top(Integer nid) throws ServiceException {
+		log.trace("top({}) invoked", nid);
+		
+		try {
+			return this.noticemapper.top(nid);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	}  // viewCountUp
+	
 
 } // end class

@@ -19,5 +19,6 @@ public interface NoticeBoardService {
 	public abstract Integer getNextPost(Integer nid) throws ServiceException;
 	public abstract List<NoticeVO> getListPageSearch(Criteria cri) throws ServiceException;
 	public abstract Integer viewCountUp(Integer nid) throws ServiceException;
+	public abstract Integer top(Integer nid) throws ServiceException;
 	
 } // end interface

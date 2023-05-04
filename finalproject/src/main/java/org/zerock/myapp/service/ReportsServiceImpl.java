@@ -1,8 +1,11 @@
 package org.zerock.myapp.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.myapp.domain.ReportsDTO;
+import org.zerock.myapp.domain.ReportsVO;
 import org.zerock.myapp.exception.ServiceException;
 import org.zerock.myapp.mapper.ReportsMapper;
 
@@ -29,6 +32,17 @@ public class ReportsServiceImpl implements ReportsService {
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		} // try-catch
-	} // InsertPostReports
+	}
+
+	@Override
+	public ArrayList<ReportsVO> reportList(String uids) throws ServiceException {
+		log.trace("reportList({}) invoked.", uids);
+		
+		try {
+			return this.mapper.reportList(uids);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	}
 
 } // end class

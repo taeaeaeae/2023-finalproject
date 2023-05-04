@@ -34,6 +34,7 @@ public class ReportsController {
 		log.trace("RegisterReport({}, {}, {}) invoked", dto, fid, model);
 		
 		try {
+			
 			boolean success = this.service.InsertPostReports(dto);
 			log.info("\t+ success : {}", success);
 			

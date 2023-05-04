@@ -11,4 +11,11 @@
         LEFT JOIN reports r ON r.target_board_id = f.fid
         WHERE f.fid = #{fid} AND r.target_board_id IS NULL
     </insert>
+    
+    <select id="reportList" resultType="org.zerock.myapp.domain.ReportsVO">
+       	SELECT uids, target_user, target_board_id, reason, reason_2 , reported_at, status, 'freeboard' as board_name, target_board_id as bno, 'fid' as bm
+        FROM reports
+        ORDER BY reported_at desc
+    </select>
+    
 </mapper>

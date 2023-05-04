@@ -22,11 +22,13 @@ import org.zerock.myapp.domain.LikesVO;
 import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.MycommentVO;
 import org.zerock.myapp.domain.MywriteVO;
+import org.zerock.myapp.domain.ReportsVO;
 import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.exception.ServiceException;
 import org.zerock.myapp.service.MypageService;
+import org.zerock.myapp.service.ReportsService;
 import org.zerock.myapp.service.UsersService;
 
 import lombok.AllArgsConstructor;
@@ -44,6 +46,9 @@ public class MyPageController {
 	
 	@Autowired
 	private MypageService mservice;
+	
+	@Autowired
+	private ReportsService rservice;
 
 	
 	@Inject
@@ -272,6 +277,21 @@ public class MyPageController {
         model.addAttribute("mybookmark", uids);
         
         return "/mypage/bookmark";
+    }	//bookmark
+	
+	@GetMapping("/report")
+    public String report(Model model, HttpSession session) throws ServiceException {
+
+        LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
+        if (uid == null) {
+
+            return "redirect:/user/login";
+        }
+        
+        ArrayList<ReportsVO> uids = rservice.reportList(uid.getUids());
+        model.addAttribute("report", uids);
+        
+        return "/mypage/report";
     }	//bookmark
 	
 	

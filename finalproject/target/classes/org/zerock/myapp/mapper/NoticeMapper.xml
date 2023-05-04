@@ -60,6 +60,7 @@
                 </when>
             </choose>
         </if>
+        ORDER BY top desc, nid desc
     </select>
 
     <!-- 게시물 목록 + 페이지 -->
@@ -85,7 +86,7 @@
                 </when>
             </choose>
         </if>
-        ORDER BY nid DESC
+        ORDER BY top desc, nid desc
         OFFSET (#{currPage} - 1) * #{amount} ROWS	
 		FETCH NEXT #{amount} ROWS ONLY
     </select>
@@ -102,8 +103,8 @@
     </delete>
     
     <insert id="insert">
-        INSERT INTO notice_board(uids, title, content, image, view_count, insert_ts)
-        VALUES (#{uids}, #{title}, #{content}, #{image}, 0, current_date)
+        INSERT INTO notice_board(uids, title, content, image, view_count, insert_ts, top)
+        VALUES (#{uids}, #{title}, #{content}, #{image}, 0, current_date, #{top})
     </insert>
 
     <update id="update">
@@ -112,7 +113,8 @@
             title = #{title},
             content = #{content},
             image = #{image},
-            update_ts = current_date
+            update_ts = current_date,
+            top = #{top}
         WHERE 
             nid = #{nid}
     </update>
