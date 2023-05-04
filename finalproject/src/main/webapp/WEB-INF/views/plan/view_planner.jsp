@@ -52,11 +52,12 @@
 	<form id="planFrm" name="planFrm" method="post" action="/plan/view/modify" >
 		<div class="row">
 			<input type="hidden" id="viewpid" name="pid" value="${planView.pid}"/>
-			<input type="hidden" id="viewuids" name="uids" value="${users.uids}"/>
+			<input type="hidden" id="viewuids" name="uids" value="${sessionScope['__AUTH__'].uids}"/>
 			<div class="form-group col-sm-12">
 				<label>계획 제목</label>
 				<input type="text" class="form-control" id="planTitle" name="planTitle" value="${planView.planTitle}" placeholder="일정 타이틀" readonly/>
 			</div>
+			<!-- 주석입니다 -->
 			<div class="form-group col-sm-8"> 
 				<label>여행 날짜</label>
 				<input type="date" class="form-control" id="startDate" name="startDate" value="<fmt:formatDate value="${planView.startDate}" pattern="yyyy-MM-dd"/>" readonly/>
@@ -68,7 +69,7 @@
 				  <option value="${planView.planTotalDay}" selected>${planView.planTotalDay}일</option>
 				</select>
 			</div>
-			<c:if test="${member.uids == planView.uids}">
+			<c:if test="${sessionScope['__AUTH__'].uids == planView.uids}">
 				<div class="form-group col-mb-6" style="text-align: right;">
 					<input type="button" class="btn btn-primary mb-3" id="planModifyStart" name="planModifyStart" value="수정">
 					<input type="submit" class="btn btn-primary mb-3" id="planModifyEnd" name="planModifyEnd" value="완료">

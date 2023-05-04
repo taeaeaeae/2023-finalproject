@@ -24,6 +24,9 @@
         <input type="file" name="pic" value="사진 선택"><br/>
         <textarea name="content">${noticeboard.content}</textarea>
         <br>
+        <p> 상단 고정 
+		<input type="checkbox" name="top" value="1" id="input_check" <c:if test="${noticeboard.top == 1}">checked</c:if>>
+		<input type="hidden" name="top" value="0" id="input_check_hidden"/> </p>
         <button type="reset" value="초기화" class="button" name="reset" onclick="return confirmReset()">초기화</button>
         <input type="submit" value="글쓰기" class="button">
         <a href="/notice/list" id="listBtn" class="button" onclick="return confirmGoToList()">목록으로</a>
@@ -37,6 +40,12 @@ var listBtn = document.querySelector('#listBtn');
 listBtn.addEventListener('click', function () {
     location.href="/notice/list?currPage=${ param.currPage }&amount=${ param.amount }";
 }); // .addEventListener
+
+//체크박스
+if(document.getElementById("input_check").checked) {
+    document.getElementById("input_check_hidden").disabled = true;
+}
+
 </script>
 </body>
 </html>
