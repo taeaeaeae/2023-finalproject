@@ -11,8 +11,8 @@ a:active {text-decoration: none; color: black;}
 	margin: 20px 0px 16px 0;
 }
 .page-item.active .page-link, .btn.btn-primary{
-	background-color: #F6BB43;
-	border-color: #F6BB43;
+	background-color: #D2EEFA;
+	border-color: #FFF;
 }
 .search-form{
 	display: flex; 

@@ -53,10 +53,13 @@ section {
       margin: auto;
     }
 #searchBtn{
+    color:black;
 	background-color: #D2EEFA;
 	height: 40px;
 	width: 100px;
+	
 }
+
 </style>
 </head>
 <body>
@@ -73,7 +76,7 @@ section {
 		<div class="container">
 			<div class="table-responsive">
 				<!-- <table class="table table-striped"> -->
-				<table class="table table-hover" style="width: 80%; margin-left:auto; margin-right:auto;">
+				<table class="table table-hover" style="width: 100%; margin-left:auto; margin-right:auto;">
 
 					<thead>	
 						<tr>
