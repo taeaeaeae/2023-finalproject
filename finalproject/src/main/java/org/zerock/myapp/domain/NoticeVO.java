@@ -16,6 +16,6 @@ public class NoticeVO {
 	private Timestamp insert_ts;
 	private Timestamp update_ts;
 	private Integer view_count;
-
+	private Integer top;
 	
 } // end class

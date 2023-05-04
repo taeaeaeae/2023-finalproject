@@ -37,4 +37,6 @@ public interface NoticeMapper {
 	
 	// 검색 + 목록 + 페이징
 	public abstract List<NoticeVO> listPageSearch(Criteria cri); // 10. 검색 + 목록 + 페이징
+	
+	public abstract Integer top(Integer nid);	// 상단ㄱ노정
 } // end interface
