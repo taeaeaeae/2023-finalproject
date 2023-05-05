@@ -34,7 +34,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
     
-	<div id="wrapper">
+	<div id="wrapper" style="margin-left: 10%; margin-right: 10%; ">
 		<form action="/qna/modify" method="POST">
 			
 			<input type="hidden" name="currPage" value="${param.currPage}">

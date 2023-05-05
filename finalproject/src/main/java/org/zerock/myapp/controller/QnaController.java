@@ -314,6 +314,8 @@ public class QnaController {
 		LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
 		model.addAttribute("id",login);
 	} // register
-	
+	@GetMapping("/listt")
+	void temp(HttpSession session, Model model) {
+	} // register
 
 } // end class
