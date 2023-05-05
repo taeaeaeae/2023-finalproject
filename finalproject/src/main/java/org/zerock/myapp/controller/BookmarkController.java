@@ -42,16 +42,18 @@ public class BookmarkController {
 			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
 			log.info("\t+ __AUTH__ : {}", loginVO);
 			
-			dto.setUids(loginVO.getUids());
-			boolean success = this.service.register(dto);
-			log.trace("register success", success);
-			
 			Map<String, Object> response = new HashMap<>();
-			response.put("bookmarking", success);
-			response.put("unbookmarking", false);
-			
-			log.trace("response : {}", response);
-			
+
+			if(loginVO != null) {
+				dto.setUids(loginVO.getUids());
+				boolean success = this.service.register(dto);
+				log.trace("register success", success);
+				
+				response.put("bookmarking", success);
+				response.put("unbookmarking", false);
+				
+				log.trace("response : {}", response);
+			} // if
 			return response;
 		} catch (Exception e) {
 			throw new ServiceException(e);
@@ -66,17 +68,19 @@ public class BookmarkController {
 			
 			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
 			log.info("\t+ __AUTH__ : {}", loginVO);
-			
-			dto.setUids(loginVO.getUids());
-			boolean success = this.service.remove(dto);
-			log.trace("remove success", success);
-			
 			Map<String, Object> response = new HashMap<>();
-			response.put("bookmarking", false);
-			response.put("unbookmarking", success);
-			
-			log.trace("response : {}", response);
-			
+
+			if(loginVO != null) {
+				dto.setUids(loginVO.getUids());
+				boolean success = this.service.remove(dto);
+				log.trace("remove success", success);
+				
+				response.put("bookmarking", false);
+				response.put("unbookmarking", success);
+				
+				log.trace("response : {}", response);
+				
+			} // if
 			return response;
 		} catch (Exception e){
 			throw new ServiceException(e);
