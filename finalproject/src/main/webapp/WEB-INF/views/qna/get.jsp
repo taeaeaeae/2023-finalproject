@@ -18,19 +18,17 @@
     
 	<br>
 	<br>
-	
+
     
-		<form action="/qna/remove" method="POST" class="board-post">
+	<form action="/qna/remove" method="POST" class="board-post" style="width: 80%; margin: 0 auto;">
 		
 		<input type="hidden" name="currPage" value="${param.currPage}">
 		<input type="hidden" name="amount" value="${param.amount}">
 		<input type="hidden" name="result" value="${param.result}">
 		<input type="hidden" name="qid" value="${qna.qid}">
 		<input type="hidden" name="qid" value="${param.qid}">
-    <input type="hidden" name="type"    value="${param.type}">
-    <input type="hidden" name="keyword" value="${param.keyword}">
-
-		
+	    <input type="hidden" name="type"    value="${param.type}">
+    	<input type="hidden" name="keyword" value="${param.keyword}">
 
     <section class="board-header">
       <h1 class="board-title">Question</h1>
@@ -49,6 +47,8 @@
       <c:if test="${not empty qna.image}"><img src="/resources${qna.image}" alt="${qna.title}"></c:if>
       <div class="post-content"><pre style="font-family: 'GangwonEdu'; ">${qna.content}</pre></div>
     </section>
+    
+    <br><br>
   
   <div class="card-body" align="right">
 			<button class="butt" type="button" id="listBtn" class="button">LIST</button>
@@ -58,6 +58,7 @@
 			<input class="butt" type="button" value="수정하기" id="modifyBtn" class="btn btn-primary btn-sm">
 			<button class="butt" type="submit" id="submitBtn" class="btn btn-primary btn-sm">삭제하기</button>
 	</c:if>
+
 	
   </div>
 </div>

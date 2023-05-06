@@ -12,6 +12,16 @@
 	* {
 	font-family: "GangwonEdu";
 }
+body {overflow:hidden;}
+a:link {text-decoration: none; color: black;}
+a:hover {text-decoration: underline; color: black;}
+a:visited {text-decoration: none; color: black;}
+a:active {text-decoration: none; color: black;}
+
+.page-item.active .page-link, .btn.btn-primary{
+	background-color: #D2EEFA;
+	border-color: #FFF;
+}
 @font-face {
 	font-family: "GangwonEdu";
     src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
@@ -88,7 +98,7 @@ section {
   </thead>
   <tbody>
   	<c:forEach items="${list}" var="QnaVO" varStatus="qqid">
-    <tr class="table-primary">
+    <tr>
 
 		<td>${QnaVO.qid}</td>
 		<td>
@@ -150,10 +160,13 @@ section {
                     </c:if>
                     
                     <c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                        <li class="${param.currPage eq pageNum ? 'currPage' : ''}">
-                            <a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageNum)}"
-                                href="/qna/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${pageNum}</font></font></a>
-                        </li>
+                 <c:if test="${param.currPage != pageNum}">
+					<li class="page-item"><a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageNum)}" href="/qna/list${pageMaker.cri.pagingUri}">${pageNum}</a></font></font></li>
+				</c:if>
+				<c:if test="${param.currPage == pageNum}">
+					<li class="page-item active"><a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageNum)}" href="/qna/list${pageMaker.cri.pagingUri}">${pageNum}</a></font></font></li>
+				</c:if>
+                        
                     </c:forEach>
                     
                     <c:if test="${pageMaker.next}">
