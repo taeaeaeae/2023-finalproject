@@ -88,22 +88,22 @@ public class FreeBoardController {
 			FreeBoardVO vo = this.service.get(fid);
 			Integer totalAmount = this.service.getTotalAmount(cri);
 			PageDTO pageDTO = new PageDTO(cri, totalAmount);
+			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
+			log.info("\t+ __AUTH__ : {}", loginVO);
 			
 			model.addAttribute("freeboard", vo);
 			model.addAttribute("pageMaker", pageDTO);
 			model.addAttribute("fid", vo.getFid());
+			model.addAttribute("loginVO", loginVO);
 			
 			model.addAttribute("prevFid", this.service.getPrevPost(fid));
 			model.addAttribute("nextFid", this.service.getNextPost(fid));
 			
 			// comment
-			List<FreeBoardCommentVO> commentList = this.commentService.getList(fid);
-			model.addAttribute("commentList", commentList);
+			Integer commentCount = this.commentService.getList(fid).size();
+			model.addAttribute("commentCount", commentCount);
 			
 			// bookmark
-			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
-			log.info("\t+ __AUTH__ : {}", loginVO);
-			
 			if(loginVO == null) {
 				model.addAttribute("result", "bookmark failed");
 			} else {
@@ -134,7 +134,7 @@ public class FreeBoardController {
 				rttrs.addAttribute("result", "failure");
 			} else {
 				// image upload용
-				String imgUploadPath = uploadPath + "\\" + "imgUpload";
+				String imgUploadPath = uploadPath + "/" + "imgUpload";
 				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 				System.out.println("1. : " + imgUploadPath);
 				System.out.println("2. : " + ymdPath);
@@ -147,11 +147,11 @@ public class FreeBoardController {
 					 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
 					 System.out.println("5. fileName :" + fileName);
 					} else {
-					 fileName = uploadPath + "\\" + "images" + "\\" + "none.png";
+					 fileName = uploadPath + "/" + "images" + "/" + "none.png";
 					 System.out.println("6. fileName :" + fileName);
 				}
 
-				dto.setImage("\\" + "imgUpload" + ymdPath + "\\" + fileName);
+				dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
 				dto.setUids(loginVO.getUids());
 				boolean success = this.service.register(dto);
 

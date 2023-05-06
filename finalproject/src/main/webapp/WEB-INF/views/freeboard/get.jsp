@@ -11,6 +11,18 @@
 <link rel="stylesheet" type="text/css" href="/resources/freeboard/css/freeboard_view.css">
 </head>
 <body>
+<% 
+  HttpSession se = request.getSession();
+  LoginVO user = (LoginVO) session.getAttribute("__AUTH__"); 
+  
+  String userId = "";
+  
+  if (user != null) {
+    userId = user.getUids();
+  }
+%>
+
+<p>로그인한 유저 아이디: <%= userId %></p>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
   <!-- 게시글 폼 -->
   <form action="/freeboard/get" method="post" class="board-post">
@@ -29,7 +41,7 @@
         <span class="post-author">작성자 : ${freeboard.uids}</span>
         <span class="post-date">작성일 : <fmt:formatDate value="${freeboard.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></span>
         <span class="post-views">조회수 : ${freeboard.view_count}</span>
-       	<button type="button" onclick="openReportPopup()" id="report-post-btn">게시글 신고하기</button>
+       	
       </div>
     </section>
 
@@ -41,13 +53,15 @@
   </form>
   
   <!-- 북마크 / 목록창 -->
-  <p>${bookmarked}</p>
   <form action="/freeboard/list" method="post">
     <section class="list_form">
       <hr class="board-divider">
-        <button type="button" class="bookmark" onclick="toggleBookmark(${freeboard.fid}, ${isBookmarked})">
-          ${isBookmarked ? "★ 북마크 취소" : "☆ 북마크 추가"}
-        </button>
+        <div class="bookmark-container">
+          <button type="button" class="bookmark" onclick="toggleBookmark(${freeboard.fid}, ${isBookmarked})">
+            ${isBookmarked ? "★ 북마크 취소" : "☆ 북마크 추가"}
+          </button>
+          <button type="button" onclick="openReportPopup()" id="report-post-btn">게시글 신고하기</button>
+        </div>
 
         <div class="list_button">
           <input type="hidden" name="fid"     value="${freeboard.fid}">
@@ -68,60 +82,27 @@
     </section>
   </form>
     
-  <!-- 댓글 -->
+  <!-- 댓글 등록-->
   <section class="comment">
     <div class="comment-wrap">
       <h2 class="comment-title">댓글</h2>
-      
-      <ul class="comment-list">
-        <c:forEach var="FreeBoardCommentVO" items="${commentList}">
-          <li class="comment-item">
-            <div class="comment-info">
-              <p class="comment-author">${FreeBoardCommentVO.uids} | <fmt:formatDate value="${FreeBoardCommentVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></p>
-              <p class="comment-content">${FreeBoardCommentVO.content}</p>
-              <div class="comment-actions">
-                <c:if test="${not empty sessionScope['__AUTH__'] and sessionScope['__AUTH__'].uids eq FreeBoardCommentVO.uids}">
-                  <a href="#" class="comment-modify-link" data-fbcid="${FreeBoardCommentVO.fbcid}" data-uids="${FreeBoardCommentVO.uids}" data-content="${FreeBoardCommentVO.content}">수정</a>
-                  <form action="/comment/remove" method="post">
-                    <input type="hidden" name="fbcid" value="${FreeBoardCommentVO.fbcid}">
-                    <button type="submit" class="comment-remove-btn">삭제</button>
-                  </form>
-                </c:if>
-              </div>
-            </div>
-          </li>
-        </c:forEach>
-      </ul>
-      
-       <!-- 댓글 수정 -->
-       <form class="commentModifyForm" style="display: none;"  >
-         <input type="hidden" name="fid" value="${freeboard.fid}">
-         <div class="form-group">
-           <textarea class="form-control" id="comment-content" rows="3"></textarea>
-         </div>
-         <input type="hidden" id="comment_fbcid">
-         <input type="hidden" id="comment_uids">
-         <button type="button" class="commentModifyBtn">수정 완료</button>
-       </form>
-      
-      <!-- 댓글 등록 -->
-      <form class="comment-form" action="/comment/register" method="post" onsubmit="return commentForm()">
-        <input type="hidden" name="fid" value="${freeboard.fid}">
-        <input type="hidden" name="currPage" value="${param.currPage}">
-        <input type="hidden" name="amount" value="${param.amount}">
+      <p>[${commentCount}]개의 댓글이 달렸습니다.</p>
+      <ul class="comment-list" ></ul>
 
-        <div class="form-group">
-          <label for="comment_content">댓글</label>
-          <textarea name="content" id="comment_content" rows="3" ${empty sessionScope['__AUTH__'] ? 'disabled placeholder="로그인 후 댓글을 작성할 수 있습니다. 로그인해주세요."' : '' }></textarea>
-        </div>
-        <button type="submit" class="comment-submit-btn">댓글 작성</button>
-      </form>
+      <div class="form-group">
+        <label for="comment-content">댓글 작성창</label>
+        <input type="hidden" name="auth_uids" value="${loginVO.uids}">
+        <input type="hidden" name="uids" value="${loginVO.uids}">
+        <input type="hidden" name="fid" value="${freeboard.fid}"> 
+        <textarea name="content" id="comment_content" cols="30" rows="10" ${empty sessionScope['__AUTH__'] ? 'disabled placeholder="로그인 후 댓글을 작성할 수 있습니다. 로그인해주세요."' : '' }></textarea>
+        <button type="button" id="comment-submit-btn">댓글 작성</button>
+      </div>
     </div>
   </section>
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>  
-</body>
+  
+<%@ include file="/WEB-INF/views/common/footer.jsp" %> 
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.4.1/jquery-migrate.min.js"></script>
 <script>
 // 글 버튼
 /* list button */
@@ -162,18 +143,6 @@ if(modifyBtn){
   });
 };
 
-// let modifyBtn = document.querySelector("#modifyBtn");
-
-// if(modifyBtn){
-//   modifyBtn.addEventListener('click', function() {
-//     let form = document.querySelector('form');
-    
-//     form.setAttribute('method', 'POST');
-//     form.setAttribute('action', '/freeboard/modify');
-//     form.submit();
-//   });
-// };
-
 /* prePost button */
 let prePostBtn = document.querySelector("#prePostBtn");
 
@@ -207,33 +176,162 @@ nextPostBtn.addEventListener('click', function() {
 });
 
 // 댓글 버튼
-/* commentModifyBtn button */
-let commentModifyBtn = document.querySelector(".commentModifyBtn");
-
-commentModifyBtn.addEventListener('click', function () {
-  alert("수정 완료");
-  location.href="/freeboard/get?currPage=${param.currPage}&amount=${param.amount}&fid=${freeboard.fid}&type=${param.type}&keyword=${param.keyword}";
-});
-
-/* removeComment button */
-let commentRemoveLink = document.querySelector(".comment-remove-btn");
-
-function confirmCommentRemove() {
-  const result = confirm("댓글을 삭제하시겠습니까?");
-
-  return result;
+// removeCommentBtn(댓글 삭제 버튼)
+function removeComment(fbcid) {
+  $.ajax({
+    type : 'delete',
+    url : '/comment/remove/' + fbcid,
+    headers : {
+      'Content-type' : 'application/json',
+      'X-HTTP-Method-Override' : 'POST'
+    },
+    dataType : 'text',
+    success : function (result) {
+      if(result === 'success'){
+        getAllList();
+      } else{
+        alert('댓글 삭제에 실패하셨습니다.');
+      } // if-else
+    } // success
+  });
 }
 
-if (commentRemoveLink) {
-  commentRemoveLink.addEventListener('click', function(event) {
-    event.preventDefault(); // 기본 동작 중단
-    if (confirmCommentRemove()) {
-      let form = document.querySelector('form');
-      
-      form.setAttribute('method', 'POST');
-      form.setAttribute('action', '/comment/remove');
-      form.submit();
+/* comment 등록 */
+let fid = $('input[name=fid]').val();
+
+$.getJSON("/comment/list/" + fid, function (data) {
+    
+    $(data).each(
+        function () {
+            console.log(this);
+            console.log("------------");
+        });
+    console.log(data.length);
+});
+
+// 댓글 list javascript
+function getAllList() {
+  let htmls = "";
+
+  $.getJSON("/comment/list/" + fid, function (data) {
+    if(data.length === 0){
+      htmls = "<p>등록된 댓글이 없습니다. 첫번째 댓글을 작성해보세요.</p>";
+    } else{
+      $(data).each(
+          function () {
+            htmls += `<li class='comment-item'>`;
+            htmls += `<div class='comment-info'>`;
+            htmls += `<p class='comment-author'> \${this.uids} | \${this.insert_ts}</p>`;
+            htmls += `<p class='comment-content'>\${this.content}</p>`;
+            htmls += `<div class='comment-actions'>`;
+  
+            let currentUserId = $("input[name='auth_uids']").val();
+  
+            if (currentUserId && this.uids === currentUserId) {
+              htmls += '<button type="button" class="comment-modify-btn" data-comment=\'' + JSON.stringify(this) + '\' onclick="commentModify(event)">수정</button>';
+              htmls += '<button type="button" class="comment-remove-btn" data-fbcid="' + this.fbcid + '">삭제</button>';
+            }
+  
+            htmls += `</div></div></li>`;
+  
+        });
     }
+    $(".comment-list").html(htmls);
+
+    $(".comment-remove-btn").click(function () {
+      let fbcid = $(this).data("fbcid");
+      removeComment(fbcid);
+    });
+  });
+}
+
+getAllList();
+
+// 댓글 등록 js
+$("#comment-submit-btn").on("click", function () {
+    let uids = $('input[name=uids]').val();
+    let content = $("#comment_content").val();
+
+    $.ajax({
+        type : 'post',
+        url : '/comment/register',
+        headers : {
+            "Content-type" : "application/json",
+            "X-HTTP-Method-Override" : "POST"
+        },
+        dataType : "text",
+        data : JSON.stringify({
+            fid : fid,
+            uids : uids,
+            content : content
+        }),
+        success : function (result) {
+            if(result == 'success'){
+              getAllList();
+            } // if
+        } // success
+    }); // ajax
+}); // jq
+
+// 댓글 수정 폼
+function commentModify(event) {
+  let data = JSON.parse($(event.target).attr('data-comment'));
+  
+  let $commentItem = $(event.target).closest(".comment-item");
+  let $commentForm = $commentItem.find(".commentModifyForm");
+
+  if($commentForm.length === 0) {
+    let ModifyFormHtml = 
+    `<form class="commentModifyForm" style="display: none;">
+      <div class="comment-form">
+        <textarea class="comment-input" id="comment-modify-content" rows="3"></textarea>
+      </div>
+      <button type="button" class="comment-save-btn">저장</button>
+      <button type="button" class="comment-cancel-btn">취소</button>
+    </form>`;
+    $commentItem.append(ModifyFormHtml);
+    $commentForm = $commentItem.find(".commentModifyForm");
+  }
+  
+  let $commentContent = $commentItem.find(".comment-content");
+  let $commentInput = $commentForm.find(".comment-input");
+
+  $commentInput.val(data.content);
+  $commentContent.hide();
+  $commentForm.show();
+
+  // 저장 버튼 클릭 시 댓글 내용 수정 요청 보내기
+  $commentForm.find(".comment-save-btn").off().click(function(event) {
+    event.stopImmediatePropagation(); // 이벤트 전파 중지
+    
+    let fbcid = data.fbcid;
+    let content = $commentInput.val();
+
+    $.ajax({
+      type: 'post',
+      url: `/comment/modify/` + fbcid,
+      headers: {
+        "Content-type": "application/json",
+        "X-HTTP-Method-Override": "POST"
+      },
+      dataType: "text",
+      data: JSON.stringify({
+        content: content
+      }),
+      success: function(result) {
+        if (result === 'success') {
+          // 댓글 수정 성공 시 화면 업데이트
+          data.content = content;
+          $commentForm.hide();
+          $commentContent.text(content).show();
+        }
+      }
+    });
+  });
+
+  $commentForm.find(".comment-cancel-btn").off().click(function() {
+    $commentForm.hide();
+    $commentContent.show();
   });
 }
 
@@ -244,7 +342,6 @@ function openReportPopup() {
 };
 
 /* 북마크 */
-// 북마크 토글
 function toggleBookmark(fid, isBookmarked) {
   // Ajax 요청 보내기
   $.ajax({
@@ -263,6 +360,6 @@ function toggleBookmark(fid, isBookmarked) {
 
 </script>
 <script src="/resources/freeboard/js/validateForm.js"></script>
-<script src="/resources/freeboard/js/comment.js"></script>
-
+<!-- <script src="/resources/freeboard/js/comment.js"></script> -->
+</body>
 </html>
