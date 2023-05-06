@@ -14,11 +14,19 @@
   margin-left: auto;
   margin-right: auto;
   }
-    .board_name {
+.board_name {
   text-align: center;
   	color: black;
   }
-  
+.page-item.active .page-link, .btn.btn-primary{
+	background-color: #D2EEFA;
+	border-color: #FFF;
+}
+body {overflow:hidden;}
+a:link {text-decoration: none; color: black;}
+a:hover {text-decoration: underline; color: black;}
+a:visited {text-decoration: none; color: black;}
+a:active {text-decoration: none; color: black;}
 </style>
 <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/" />
 </head>
@@ -38,13 +46,13 @@
 					<th scope="col" width="10px">No.</th>
 					<th scope="col">제목</th>
 					<th scope="col">작성자</th>
-					<th scope="col">작성날짜</th>
+					<th scope="col">작성일자</th>
 					<th scope="col">조회수</th>
 				</tr>
 			</thead>
 			<tbody>
 					<c:forEach var="NoticeVO" items="${list}">
-						<tr class="table-primary">
+						<tr>
 							<td>${NoticeVO.nid}</td>
 							<td>
 								<script>
@@ -64,7 +72,7 @@
 	</section>
 	
 	  <c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
-           <button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="margin-left:10%; width: 100px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
+           <button type="button" id="registerBtn" class="btn btn-secondary" style="margin-left:10%; width: 100px; background-color: #D2EEFA; border: none; color: black;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
        </c:if>
 	
 	<div id="" style="float: right; margin-right: 10%">
@@ -79,41 +87,49 @@
 					<option value="uids">아이디</option>
 				</select>
 				<input type="text" name="keyword">
-				<button type="submit" class="btn btn-primary btn-sm" >검색</button>
+				<button type="submit" class="btn btn-secondary" style="background-color: #D2EEFA; border: none; color: black;">검색</button>
 			</div>
 		</form>
 	</div>
 </div>
+
+<br>
+<br>
+
 <div style="text-align: center; margin: 0px;">
-<ul class="pagination pagination-sm" id="ulululul">
-<li class="page-item disabled">
-<a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&laquo;</font></font></a>
-</li>	
-			<c:if test="${pageMaker.prev}">
-				<li class="page-item disabled">
-					<a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageMaker.startPage - 1)}"
-						href="/notice/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;">&laquo;</font></font></a>
-				</li>
-			</c:if>
-
-			<c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-				<li class="${param.currPage eq pageNum ? 'currPage' : ''}">
-					<a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageNum)}"
-						href="/notice/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${pageNum}</font></font></a>
-				</li>
-			</c:forEach>
-
-			<c:if test="${pageMaker.next}">
-				<li class="page-item">
-					<a  data-temp="${pageMaker.cri.setCurrPage(pageMaker.endPage + 1)}"
-						href="/notice/list${pageMaker.cri.pagingUri}">&raquo;</a>
-				</li>
-			</c:if>
-			 <li class="page-item">
+  <ul class="pagination pagination-sm" id="ulululul">
+    <li class="page-item disabled">
+      <a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&laquo;</font></font></a>
+    </li>
+                    <c:if test="${pageMaker.prev}">
+                        <li class="page-item disabled">
+                            <a class="page-link"  data-temp="${pageMaker.cri.setCurrPage(pageMaker.startPage - 1)}"
+                                href="/notice/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;">&laquo;</font></font></a>
+                        </li>
+                    </c:if>
+                    
+                    <c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                 <c:if test="${param.currPage != pageNum}">
+               <li class="page-item"><a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageNum)}" href="/notice/list${pageMaker.cri.pagingUri}">${pageNum}</a></font></font></li>
+            </c:if>
+            <c:if test="${param.currPage == pageNum}">
+               <li class="page-item active" style="background-color: #D2EEFA" ><a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageNum)}" href="/notice/list${pageMaker.cri.pagingUri}">${pageNum}</a></font></font></li>
+            </c:if>
+                        
+                    </c:forEach>
+                    
+                    <c:if test="${pageMaker.next}">
+                        <li class="page-item">
+                            <a  data-temp="${pageMaker.cri.setCurrPage(pageMaker.endPage + 1)}"
+                                href="/notice/list${pageMaker.cri.pagingUri}">&raquo;</a>
+                        </li>
+                    </c:if>
+    <li class="page-item">
       <a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&raquo;</font></font></a>
     </li>
-      </ul>
+  </ul>
 </div>
+
 
 <br>
 	 
