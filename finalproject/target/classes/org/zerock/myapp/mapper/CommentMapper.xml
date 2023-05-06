@@ -24,7 +24,6 @@
     <update id="update">
         UPDATE fb_comment
         SET 
-            uids = #{uids},
             content = #{content},
             update_ts = current_date
         WHERE fbcid = #{fbcid}
