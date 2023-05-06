@@ -30,7 +30,7 @@
 			
 			<tbody>
 				<c:forEach var="MywriteVO" items="${mywrite}">
-					<tr class="table-primary">
+					<tr>
 						<td>${MywriteVO.uids}</td>
 						<td>
 							<c:choose>

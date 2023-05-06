@@ -109,7 +109,7 @@ public class NoticeBoardController {
 				rttrs.addAttribute("result", "failure");
 			} else {
 				// image upload용
-				String imgUploadPath = uploadPath + "\\" + "imgUpload";
+				String imgUploadPath = uploadPath + "/" + "imgUpload";
 				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 				System.out.println("1. : " + imgUploadPath);
 				System.out.println("2. : " + ymdPath);
@@ -121,12 +121,12 @@ public class NoticeBoardController {
 					System.out.printf("4. file.getOriginalFilename : %s", file.getOriginalFilename());
 					 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
 					 System.out.println("5. fileName :" + fileName);
+					 dto.setImage("\\" + "imgUpload" + ymdPath + "/" + fileName);
 					} else {
-					 fileName = uploadPath + "\\" + "images" + "\\" + "none.png";
+					 fileName = uploadPath + "/" + "images" + "/" + "none.png";
 					 System.out.println("6. fileName :" + fileName);
 				}
 
-				dto.setImage("\\" + "imgUpload" + ymdPath + "\\" + fileName);
 				dto.setUids(loginVO.getUids());
 				boolean success = this.service.register(dto);
 
@@ -134,7 +134,7 @@ public class NoticeBoardController {
 
 				rttrs.addAttribute("currPage", cri.getCurrPage());
 				rttrs.addAttribute("amount", cri.getAmount());
-				rttrs.addAttribute("result", (success) ? "success" : "failure");
+				rttrs.addAttribute("result", (success) ? "등록 완료" : "failure");
 			} // if-else
 			return "redirect:/notice/list";
 		} catch (Exception e) {
@@ -172,7 +172,7 @@ public class NoticeBoardController {
 					rttrs.addAttribute("currPage", cri.getCurrPage());
 					rttrs.addAttribute("amount", cri.getAmount());
 					
-					rttrs.addAttribute("result", ( success ) ? "success" : "failure");
+					rttrs.addAttribute("result", ( success ) ? "삭제 완료" : "failure");
 					
 				} else {
 					rttrs.addAttribute("result", ( isAuth ) ? "success" : "failure");
@@ -210,7 +210,7 @@ public class NoticeBoardController {
 					rttrs.addAttribute("amount", cri.getAmount());
 					rttrs.addAttribute("nid", dto.getNid());
 					
-					rttrs.addAttribute("result", (success) ? "success" : "failure");
+					rttrs.addAttribute("result", (success) ? "수정 완료" : "failure");
 				} else {
 					rttrs.addAttribute("result", (isAuth) ? "Auth : success" : "Auth : failure");
 				}  // if-else
