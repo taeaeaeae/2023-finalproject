@@ -8,95 +8,133 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 | 목록</title>
-<link rel="stylesheet" type="text/css" href="/resources/freeboard/css/freeboard_list.css">
+<style>
+ #ulululul {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  }
+.board_name {
+  text-align: center;
+  	color: black;
+  }
+.page-item.active .page-link, .btn.btn-primary{
+	background-color: #D2EEFA;
+	border-color: #FFF;
+}
+body {overflow:hidden;}
+a:link {text-decoration: none; color: black;}
+a:hover {text-decoration: underline; color: black;}
+a:visited {text-decoration: none; color: black;}
+a:active {text-decoration: none; color: black;}
+</style>
+<link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/" />
 </head>
 <body>
 
 <%@include file="/WEB-INF/views/common/header.jsp" %>
 
 	<section>
-	  <h1>공지사항</h1>
-	  <hr>
+	<br>
+	<h1 class="board_name">공지사항</h1>
+	<br>
+	  <div>
 	  <div id="list">
-	    <table border="1px">
+	    <table class="table table-hover" style="width: 80%; margin-left:auto; margin-right:auto;">
 			<thead>
-				<tr style="background-color: #eee; color: black">
-					<th>글번호</th>
-					<th id="tb2">제목</th>
-					<th>작성자</th>
-					<th>작성날짜</th>
-					<th>조회수</th>
+				<tr>
+					<th scope="col" width="10px">No.</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">작성일자</th>
+					<th scope="col">조회수</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:choose>
-					<c:when test="${empty list}">
+					<c:forEach var="NoticeVO" items="${list}">
 						<tr>
-							<td colspan="5">${param.keyword}와 일치하는 게시글이 없습니다.</td>
+							<td>${NoticeVO.nid}</td>
+							<td>
+								<script>
+									document.write(${NoticeVO.top}?'📌':' ');
+								</script>
+							<a href="/notice/get?currPage=${param.currPage}&amount=${param.amount}&nid=${NoticeVO.nid}&type=${param.type}&keyword=${param.keyword}">${NoticeVO.title}</a></td>
+							<td>${NoticeVO.uids}</td>
+							<td><fmt:formatDate value="${NoticeVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></td>
+							<td>${NoticeVO.view_count}</td>
 						</tr>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="NoticeVO" items="${list}">
-							<tr>
-								<td>${NoticeVO.nid}</td>
-								<td><a href="/notice/get?currPage=${param.currPage}&amount=${param.amount}&nid=${NoticeVO.nid}&type=${param.type}&keyword=${param.keyword}">${NoticeVO.title}</a></td>
-								<td>${NoticeVO.uids}</td>
-								<td><fmt:formatDate value="${NoticeVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></td>
-								<td>${NoticeVO.view_count}</td>
-							</tr>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
+					</c:forEach>
 			</tbody>	
 	    </table>
 	  </div>
-	   <c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
-           <button type="button" class="button" id="registerBtn">글 작성하기</button>
-       </c:if>
+</div>
 	  
 	</section>
 	
-	<div id="search">
+	  <c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
+           <button type="button" id="registerBtn" class="btn btn-secondary" style="margin-left:10%; width: 100px; background-color: #D2EEFA; border: none; color: black;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
+       </c:if>
+	
+	<div id="" style="float: right; margin-right: 10%">
 		<form action="/notice/list" method="GET" id="search-form">
 			<div id="search_area">
 				<input type="hidden" name="currPage" value="1" id="currPage">
 				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-				<select name="type">
+				<select style="height: 32px; padding: 2px;">
 					<option value="title">제목</option>
 					<option value="content">내용</option>
 					<option value="title_content">제목 + 내용</option>
 					<option value="uids">아이디</option>
 				</select>
 				<input type="text" name="keyword">
-				<button type="submit">검색</button>
+				<button type="submit" class="btn btn-secondary" style="background-color: #D2EEFA; border: none; color: black;">검색</button>
 			</div>
 		</form>
 	</div>
+</div>
 
-	<div id="pagination">
-		<form id="paginationForm">
-			<c:if test="${pageMaker.prev}">
-				<li class="prev">
-					<a 	data-temp="${pageMaker.cri.setCurrPage(pageMaker.startPage - 1)}"
-						href="/notice/list${pageMaker.cri.pagingUri}">PREV</a>
-				</li>
-			</c:if>
+<br>
+<br>
 
-			<c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-				<li class="${param.currPage eq pageNum ? 'currPage' : ''}">
-					<a	data-temp="${pageMaker.cri.setCurrPage(pageNum)}"
-						href="/notice/list${pageMaker.cri.pagingUri}">${pageNum}</a>
-				</li>
-			</c:forEach>
+<div style="text-align: center; margin: 0px;">
+  <ul class="pagination pagination-sm" id="ulululul">
+    <li class="page-item disabled">
+      <a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&laquo;</font></font></a>
+    </li>
+                    <c:if test="${pageMaker.prev}">
+                        <li class="page-item disabled">
+                            <a class="page-link"  data-temp="${pageMaker.cri.setCurrPage(pageMaker.startPage - 1)}"
+                                href="/notice/list${pageMaker.cri.pagingUri}"><font style="vertical-align: inherit;">&laquo;</font></font></a>
+                        </li>
+                    </c:if>
+                    
+                    <c:forEach var="pageNum" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                 <c:if test="${param.currPage != pageNum}">
+               <li class="page-item"><a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageNum)}" href="/notice/list${pageMaker.cri.pagingUri}">${pageNum}</a></font></font></li>
+            </c:if>
+            <c:if test="${param.currPage == pageNum}">
+               <li class="page-item active" style="background-color: #D2EEFA" ><a class="page-link" data-temp="${pageMaker.cri.setCurrPage(pageNum)}" href="/notice/list${pageMaker.cri.pagingUri}">${pageNum}</a></font></font></li>
+            </c:if>
+                        
+                    </c:forEach>
+                    
+                    <c:if test="${pageMaker.next}">
+                        <li class="page-item">
+                            <a  data-temp="${pageMaker.cri.setCurrPage(pageMaker.endPage + 1)}"
+                                href="/notice/list${pageMaker.cri.pagingUri}">&raquo;</a>
+                        </li>
+                    </c:if>
+    <li class="page-item">
+      <a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&raquo;</font></font></a>
+    </li>
+  </ul>
+</div>
 
-			<c:if test="${pageMaker.next}">
-				<li class="next">
-					<a  data-temp="${pageMaker.cri.setCurrPage(pageMaker.endPage + 1)}"
-						href="/notice/list${pageMaker.cri.pagingUri}">NEXT</a>
-				</li>
-			</c:if>
-		</form>
-	</div>
+
+<br>
+	 
+
+
 	<%@include file="/WEB-INF/views/common/footer.jsp" %>	
 
 <script>
@@ -146,5 +184,9 @@ $(document).ready(function() {
 });
 </script>
 <script src="/resources/freeboard/js/validateForm.js"></script>
+<script
+   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+   crossorigin="anonymous"></script>
 </body>
 </html>

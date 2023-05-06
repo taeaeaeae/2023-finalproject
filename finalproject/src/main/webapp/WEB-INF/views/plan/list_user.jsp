@@ -14,6 +14,7 @@
 </head>
 <body>
 <header>
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 </header>
 	<!-- 계획 출력 시작 -->
 	<c:if test="${users != null}">

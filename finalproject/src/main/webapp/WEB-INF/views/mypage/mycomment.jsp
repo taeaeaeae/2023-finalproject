@@ -27,7 +27,7 @@
 			
 			<tbody>
 				<c:forEach var="MycommentVO" items="${mycomment}">
-					<tr class="table-primary">
+					<tr>
 						<td>${MycommentVO.uids}</td>
 						<td><a href="/${MycommentVO.board_name}/get?${MycommentVO.bm}=${MycommentVO.bno} ">${MycommentVO.content}</a></td>
 						<td><fmt:formatDate value="${MycommentVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></td>

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +41,8 @@ public class PlanController {
 	//view 일정 삭제 리스트
 	static List<HashMap<String,Object>> delList = new ArrayList<>();
 	//로그인 후 일정 만들기 화면으로 이동
+	
+	
 	@RequestMapping(value="/plan/write", method = RequestMethod.GET)
 	public void plannerMain(HttpSession session, Model model) throws Exception{
 		
@@ -84,7 +87,13 @@ public class PlanController {
 	//장바구니 일정 삭제 (데이터 받아와서 List에서 삭제)
 	@RequestMapping(value="/plan/write/planDel", method=RequestMethod.POST)
 	@ResponseBody
-	public void planDel(@RequestBody ScheduleVO vo) throws Exception {
+	public void planDel(@RequestBody ScheduleVO vo,HttpSession session, Model model) throws Exception {
+		
+		//세션추가
+		ScheduleVO plan = (ScheduleVO)session.getAttribute("plan");
+		
+		model.addAttribute("plan",plan);
+		
 		schList.remove(planService.planDel(vo));
 		log.info("schList : " + schList.toString());
 	}

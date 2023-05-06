@@ -24,7 +24,6 @@
 
 <%@include file="/WEB-INF/views/common/header.jsp" %>
 
-<p>로그인한 유저 아이디: <%= userId %></p>
   <!-- 게시글 폼 -->
   <form action="/notice/get" method="post" class="board-post">
     <input type="hidden" name="currPage"value="${param.currPage}">
@@ -48,7 +47,7 @@
     <section class="board-body">
       <hr class="board-divider">
       <c:if test="${not empty noticeboard.image}"><img src="/resources${noticeboard.image}" alt="${noticeboard.title}"></c:if>
-      <div class="post-content"><pre>${noticeboard.content}</pre></div>
+      <div class="post-content"><pre style="font-family: 'GangwonEdu'; ">${noticeboard.content}</pre></div>
     </section>
   </form>
   
