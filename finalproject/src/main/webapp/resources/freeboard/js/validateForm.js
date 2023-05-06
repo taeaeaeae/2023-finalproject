@@ -18,6 +18,7 @@ function validateForm() {
     return true;
 }
 
+/* 초기화 */
 function confirmReset() {
   const result = confirm("모든 내용을 초기화 하시겠습니까?");
 
@@ -34,8 +35,8 @@ function confirmGoToList() {
         if (!result) {
             return false;
         }
+        return true;
     }
-    return true;
 }
 
 function commentForm() {
