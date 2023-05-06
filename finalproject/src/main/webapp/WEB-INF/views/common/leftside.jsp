@@ -23,7 +23,7 @@
 			margin-top: 5%;
 			margin-left: 9%;
 			border-right: none;
-			position:fixed;
+			position:absolute;
 		}
 		.menu li{
 			list-style-type: none;
@@ -49,7 +49,6 @@
 					<li><a href="/mypage/remove">회원탈퇴</a></li><br>
 					<li><a href="/mypage/mywrite">나의 작성 글</a></li><br>
 					<li><a href="/mypage/mycomment">내가 쓴 댓글</a></li><br>
-					<li><a href="/mypage/likes">좋아요 목록</a></li><br>
 					<li><a href="/mypage/bookmark">북마크 목록</a></li><br>
 					<li><a href="/mypage/checklist">체크리스트</a></li><br>
 					

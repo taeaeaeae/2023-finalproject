@@ -35,7 +35,7 @@
 			
 			<tbody>
 				<c:forEach var="ReportVO" items="${report}">
-					<tr class="table-primary">
+					<tr>
 						<td>${ReportVO.uids}</td>
 						<td>${ReportVO.target_user}</td>
 						<td><a href="/${ReportVO.board_name}/get?${ReportVO.bm}=${ReportVO.bno} ">${ReportVO.target_board_id}</a></td>
