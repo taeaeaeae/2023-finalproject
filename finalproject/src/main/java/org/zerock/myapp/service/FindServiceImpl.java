@@ -61,5 +61,4 @@ public class FindServiceImpl implements FindService {
 	}	//newPassword
 
 
-
 }	// end class

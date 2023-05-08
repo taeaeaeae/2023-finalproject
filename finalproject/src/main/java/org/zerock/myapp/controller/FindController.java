@@ -31,7 +31,7 @@ import lombok.extern.log4j.Log4j2;
 
 @RequestMapping("/user")
 @Controller
-public class FindController {
+public class FindController {	// 아이디, 비밀번호 찾기
 	
 	@Setter(onMethod_= @Autowired)
 	private FindService service;
@@ -52,7 +52,7 @@ public class FindController {
 		log.info("find_pw() invoked.");
 	}	//find_pw
 	
-	public class PasswordGenerator {
+	public class PasswordGenerator {	// 임시 비밀번호 발급
 
 	    private static final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
 	    private static final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
@@ -117,15 +117,19 @@ public class FindController {
 			
 			if(vo !=null) {
 				
+				// 임시비밀번호 발급
 				String password = PasswordGenerator.generatePassword(10);
 				log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>password:{}", password);
 				
+				// 임시비밀번호 암호화
 				dto.setPassword(bcryptPasswordEncoder.encode(password));
 				log.info("dto:{}", dto);
 				
+				// 암호화된 임시비밀번호를 DB에 저장 (업데이트)
 				UsersVO newPassword = this.service.newPassword(dto);
 				log.info("####################### newpassword:{}", newPassword);
 				
+				// 임시비밀번호 메일 발송
 				EmailDTO emailDTO = new EmailDTO();
 				
 				String adress = vo.getEmail();

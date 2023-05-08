@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j2;
 
 @RequestMapping("/join")
 @Controller
-public class CheckController {
+public class CheckController {	// 회원가입시 아이디, 이메일 중복확인
 	
 	@Setter(onMethod_= @Autowired)
 	private CheckService service;

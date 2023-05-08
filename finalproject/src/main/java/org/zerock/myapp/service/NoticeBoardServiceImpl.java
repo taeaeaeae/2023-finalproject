@@ -86,7 +86,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService, InitializingB
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		} // try-catch
-	}
+	}	//register
 
 	@Override
 	public boolean modify(NoticeDTO dto) throws ServiceException {
@@ -97,7 +97,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService, InitializingB
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
-	}
+	}	//modify
 
 	@Override
 	public Integer getTotalAmount(Criteria cri) throws ServiceException {
@@ -154,17 +154,6 @@ public class NoticeBoardServiceImpl implements NoticeBoardService, InitializingB
 		} // try-catch
 	}  // viewCountUp
 		
-//	@Override
-//	public FreeBoardVO getNextPost(Integer fid) throws ServiceException {
-//		log.trace("getNextPost() invoked.");
-//		
-//		try {
-//			Integer nextFid = this.mapper.next(fid);
-//			return this.mapper.select(nextFid);
-//		} catch (Exception e) {
-//			throw new ServiceException(e);
-//		} // try-catch
-//	} // getNextPost
 	
 	@Override
 	public Integer top(Integer nid) throws ServiceException {
@@ -175,7 +164,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService, InitializingB
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		} // try-catch
-	}  // viewCountUp
+	}  // top
 	
 
 } // end class

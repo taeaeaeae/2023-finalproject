@@ -16,7 +16,7 @@
    	<section>
 	  <h1 style="text-align: center">북마크 목록</h1>
 	  
-	    <table class="table table-hover" style="width:60%; margin-left: auto; margin-right: auto;">
+	    <table class="table table-hover" style="width:60%; margin-left: auto; margin-right: auto; margin-bottom: 10%;">
 			<thead>
 				<tr>
 					<td>제목</td>
@@ -36,7 +36,7 @@
 	    </table>
 	</section>
 	
-<%@include file="/WEB-INF/views/common/footer.jsp" %>
+
 
 <script
    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

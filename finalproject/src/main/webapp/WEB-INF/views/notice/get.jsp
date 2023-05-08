@@ -11,16 +11,6 @@
 <link rel="stylesheet" type="text/css" href="/resources/freeboard/css/freeboard_view.css">
 </head>
 <body>
-<% 
-  HttpSession se = request.getSession();
-  LoginVO user = (LoginVO) session.getAttribute("__AUTH__"); 
-  
-  String userId = "";
-  
-  if (user != null) {
-    userId = user.getUids();
-  }
-%>
 
 <%@include file="/WEB-INF/views/common/header.jsp" %>
 
@@ -76,96 +66,87 @@
     </section>
   </form>
     <%@include file="/WEB-INF/views/common/footer.jsp" %>	
-</body>
+
+
 <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
-// 글 버튼
-/* list button */
-let listBtn = document.querySelector("#listBtn");
-
-listBtn.addEventListener('click', function () {
-  location.href="/notice/list?currPage=${param.currPage}&amount=${param.amount}&type=${param.type}&keyword=${param.keyword}";
-});
-
-/* remove button */
-let removeBtn = document.querySelector("#removeBtn");
-
-function confirmRemove() {
-  const result = confirm("삭제하시겠습니까?");
-
-  return result;
-}
-
-if (removeBtn) {
-  removeBtn.addEventListener('click', function(event) {
-    event.preventDefault(); // 기본 동작 중단
-    if (confirmRemove()) {
-      let form = document.querySelector('form');
-      
-      form.setAttribute('method', 'POST');
-      form.setAttribute('action', '/notice/remove');
-      form.submit();
-    }
-  });
-}
-
-/* modify button */
-let modifyBtn = document.querySelector("#modifyBtn");
-
-if(modifyBtn){
-    modifyBtn.addEventListener('click', function () {
-    location.href="/notice/modify?currPage=${param.currPage}&amount=${param.amount}&nid=${noticeboard.nid}";
-  });
-};
-
-// let modifyBtn = document.querySelector("#modifyBtn");
-
-// if(modifyBtn){
-//   modifyBtn.addEventListener('click', function() {
-//     let form = document.querySelector('form');
-    
-//     form.setAttribute('method', 'POST');
-//     form.setAttribute('action', '/freeboard/modify');
-//     form.submit();
-//   });
-// };
-
-/* prePost button */
-let prePostBtn = document.querySelector("#prePostBtn");
-
-prePostBtn.addEventListener('click', function() {
-  
-  if(prePostBtn.hasAttribute('disabled')){
-    alert('이전 글이 없습니다.');
-    return;
-  };
-  
-  let form = document.querySelector('form');
-  
-  form.setAttribute('method', 'GET');
-  form.setAttribute('action', '/notice/prev');
-  form.submit();
-});
-
-/* nextPost button */
-let nextPostBtn = document.querySelector("#nextPostBtn");
-
-nextPostBtn.addEventListener('click', function() {
-  if(nextPostBtn.hasAttribute('disabled')){
-    alert('다음 글이 없습니다.');
-    return;
-  };
-  let form = document.querySelector('form');
-  
-  form.setAttribute('method', 'GET');
-  form.setAttribute('action', '/notice/next');
-  form.submit();
-});
-
+	// 글 버튼
+	/* list button */
+	let listBtn = document.querySelector("#listBtn");
+	
+	listBtn.addEventListener('click', function () {
+	  location.href="/notice/list?currPage=${param.currPage}&amount=${param.amount}&type=${param.type}&keyword=${param.keyword}";
+	});
+	
+	/* remove button */
+	let removeBtn = document.querySelector("#removeBtn");
+	
+	function confirmRemove() {
+	  const result = confirm("삭제하시겠습니까?");
+	
+	  return result;
+	}
+	
+	if (removeBtn) {
+	  removeBtn.addEventListener('click', function(event) {
+	    event.preventDefault(); // 기본 동작 중단
+	    if (confirmRemove()) {
+	      let form = document.querySelector('form');
+	      
+	      form.setAttribute('method', 'POST');
+	      form.setAttribute('action', '/notice/remove');
+	      form.submit();
+	    }
+	  });
+	}
+	
+	/* modify button */
+	let modifyBtn = document.querySelector("#modifyBtn");
+	
+	if(modifyBtn){
+	    modifyBtn.addEventListener('click', function () {
+	    location.href="/notice/modify?currPage=${param.currPage}&amount=${param.amount}&nid=${noticeboard.nid}";
+	  });
+	};
+	
+	/* prePost button */
+	let prePostBtn = document.querySelector("#prePostBtn");
+	
+	prePostBtn.addEventListener('click', function() {
+	  
+	  if(prePostBtn.hasAttribute('disabled')){
+	    alert('이전 글이 없습니다.');
+	    return;
+	  };
+	  
+	  let form = document.querySelector('form');
+	  
+	  form.setAttribute('method', 'GET');
+	  form.setAttribute('action', '/notice/prev');
+	  form.submit();
+	});
+	
+	/* nextPost button */
+	let nextPostBtn = document.querySelector("#nextPostBtn");
+	
+	nextPostBtn.addEventListener('click', function() {
+	  if(nextPostBtn.hasAttribute('disabled')){
+	    alert('다음 글이 없습니다.');
+	    return;
+	  };
+	  let form = document.querySelector('form');
+	  
+	  form.setAttribute('method', 'GET');
+	  form.setAttribute('action', '/notice/next');
+	  form.submit();
+	});
+	
 
 </script>
+
 <script src="/resources/freeboard/js/validateForm.js"></script>
 <script src="/resources/freeboard/js/comment.js"></script>
 
+</body>
 </html>

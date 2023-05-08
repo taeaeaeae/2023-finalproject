@@ -3,40 +3,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.zerock.myapp.mapper.NoticeMapper">
-    <!-- <sql id="criteria">
-        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
-            <foreach collection="typeArr" item="type">
-                <choose>
-                    <when test="type == 'T'.toString()">
-                        title LIKE '%' || #{keyword} || '%'
-                    </when>
-                    <when test="type == 'C'.toString()">
-                        content LIKE '%' || #{keyword} || '%'
-                    </when>
-                    <when test="type == 'U'.toString()">
-                        uids LIKE '%' || #{keyword} || '%'
-                    </when>
-                </choose>
-            </foreach>
-        </trim>
-    </sql>
-    
-    <select id="selectAll" resultType="org.zerock.myapp.domain.FreeBoardVO"> 
-        <![CDATA[ 
-        SELECT fid, uids, title, content, insert_ts, update_ts
-        FROM (
-                SELECT /*+ index_desc(free_board) */ rownum as rn, fid, title, content, uids, insert_ts, update_ts
-                FROM free_board
-                WHERE rownum <= #{currPage} * #{amount}
-        ]]>
-        <if test="keyword != null">
-            <include refid="criteria"></include>
-        </if>
-        <![CDATA[ 
-        )
-        WHERE rn > (#{currPage} -1) * #{amount}
-        ]]>
-    </select> -->
 
     <select id="selectTotalCount" resultType="Integer">
         SELECT count(*)

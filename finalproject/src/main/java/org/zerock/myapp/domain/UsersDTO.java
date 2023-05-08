@@ -15,5 +15,4 @@ public class UsersDTO {
 	private String reason;
 	private String image;
 	
-
 }	// end class

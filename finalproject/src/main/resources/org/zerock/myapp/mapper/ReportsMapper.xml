@@ -13,24 +13,39 @@
     </insert>
     
     <select id="reportList" resultType="org.zerock.myapp.domain.ReportsVO">
-       	SELECT uids, target_user, target_board_id, reason, reason_2 , reported_at, status, 'freeboard' as board_name, target_board_id as bno, 'fid' as bm
+       	SELECT rid, uids, target_user, target_board_id, reason, reason_2 , reported_at, status, 'freeboard' as board_name, target_board_id as bno, 'fid' as bm
         FROM reports
         ORDER BY reported_at desc
     </select>
     
     <update id="dropout">
 		UPDATE users
-		SET is_delete = 1
+		SET is_delete = 1, status = '강퇴'
 		WHERE uids in (
 			SELECT target_user
 			FROM reports
 			WHERE target_user = #{target_user})
     </update>
     
-    <update id="status">
+   	<update id="status">
 		UPDATE reports
-		SET status = 1
-		WHERE target_user = #{target_user}
+		SET status = '처리완료'
+		WHERE rid = #{rid}
     </update>
-
+    
+    <update id="dropin">
+		UPDATE users
+		SET is_delete = 0, status = '강퇴취소'
+		WHERE uids in (
+			SELECT target_user
+			FROM reports
+			WHERE target_user = #{target_user})
+    </update>
+    
+    <update id="dropinStatus">
+		UPDATE reports
+		SET status = '취소완료'
+		WHERE rid = #{rid}
+    </update>
+    
 </mapper>
