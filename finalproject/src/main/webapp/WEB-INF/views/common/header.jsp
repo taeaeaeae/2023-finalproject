@@ -25,8 +25,8 @@
 	.p-3{
 		padding:0.6rem !important;
 	}
-	.img{
-		width: 70%;
+	header > div > div > a > img{
+		width: 70% !important;
 	}
 </style>
 
