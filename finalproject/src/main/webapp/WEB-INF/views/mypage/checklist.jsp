@@ -76,8 +76,7 @@ crossorigin="anonymous" />
 			</div>	
 		</section>
 		
-<%@include file="/WEB-INF/views/common/footer.jsp" %>
-	
+
 <script>
 
 	// 체크박스

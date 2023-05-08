@@ -50,8 +50,9 @@
 			</form>
 		</div>
 	
-<%@include file="/WEB-INF/views/common/footer.jsp" %>
 
+
+	
 	<script>
 		// 비밀번호 확인
 	    function fn_checkPw() {

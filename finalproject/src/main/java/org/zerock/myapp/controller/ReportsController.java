@@ -115,6 +115,24 @@ public class ReportsController {
 			log.info("\t+ success : {}", success);
 			log.info("\t+ dropinStatus : {}", dropinStatus);
 			
+			 // 임시비밀번호 메일 발송
+			EmailDTO emailDTO = new EmailDTO();
+			
+	        UsersVO vo = this.uservice.select(dto.getTarget_user());
+	        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\t+ vo : {}", vo);
+	        
+	        String email = vo.getEmail();
+	        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>\t+ email : {}", email);
+			
+			emailDTO.setReceiveMail(email);
+			emailDTO.setSenderMail("traveltrademate@gmail.com");
+			emailDTO.setSenderName(email);
+			
+			emailDTO.setSubject("TTT에서 알립니다.");
+			emailDTO.setMessage("귀하의 탈퇴처리가 취소되었으니 이용부탁드립니다.");
+			
+			eservice.sendMail(emailDTO);
+			
 			model.addAttribute("result", (success) ? "success" : "failure");
 			
 			return "redirect:/mypage/report";
