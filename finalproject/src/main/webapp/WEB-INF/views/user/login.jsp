@@ -29,7 +29,7 @@
                     
                     <div class="form-group">
 	                    <label for="exampleInputPassword" class="form-label mt-4">PW</label>
-	                    <input type="password" class="form-control" id="password" placeholder="PW" name="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
+	                    <input type="password" class="form-control" id="password" placeholder="PW" name="password" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?\/|=~-]*$" maxlength="18" required>
                     </div> 
                     
                     <div class="d-grid gap-2">

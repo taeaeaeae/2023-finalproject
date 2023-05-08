@@ -39,7 +39,7 @@
 	
 	        <div id="check">
 	          <h4> 비밀번호 확인 </h4>
-	          <input type="password" id="password" name="password" title="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>  
+	          <input type="password" id="password" name="password" title="password" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?\/|=~-]*$" maxlength="18" required>  
 	        </div>
 	
 	        <br>

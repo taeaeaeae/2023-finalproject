@@ -6,9 +6,12 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/join.css" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous" />
 <title>Join</title>
-
 
 </head>
 <body>
@@ -20,13 +23,13 @@
 
             <h3>아이디 <span>(영문, 숫자 사용가능)</span></h3>
                 <input type="text" id="uids" name="uids" onkeydown="inputIdChk()" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
-                <button class="checkId" type="button" id="checkId" name="button" onclick="fn_idChk();" value="N">중복확인</button>
+                <button class="btn btn-lg btn-primary" type="button" id="checkId" name="button" onclick="fn_idChk();" value="N" style="background-color: #D2EEFA; color: black; border: none;">중복확인</button>
                                          
             <h3>비밀번호</h3>
-                <input type="password" id="password" name="password" title="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
+                <input type="password" id="password" name="password" title="password" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?\/|=~-]*$" maxlength="18" required>
                     
             <h3>비밀번호 확인</h3>
-				<input type="password" id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" maxlength="18" required>
+				<input type="password" id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?\/|=~-]*$" maxlength="18" required>
 				<font id="pwNotice" size="2"></font>
                     
             <h3>이름</h3>
@@ -37,10 +40,10 @@
                 
             <h3>이메일</h3>
                 <input type="email" id="email" name="email" title="email" placeholder="example1@xxx.com" maxlength="38" required>
-				<button class="checkEmail" type="button" id="checkEmail" name="button" onclick="fn_emailChk();" value="N">중복확인</button>
+				<button class="btn btn-lg btn-primary" type="button" id="checkEmail" name="button" onclick="fn_emailChk();" value="N" style="background-color: #D2EEFA; color: black; border: none;">중복확인</button>
 				
 			<h3>프로필 사진</h3>
-			<input name = "file" class="form-control" type="file" id="formFile" accept="image/*">	
+			<input name = "file" class="form-control" type="file" id="formFile" accept="image/*" style="width: 350px">	
 					
                 <br>
                 <br>
@@ -70,11 +73,11 @@
 
         <div class="join">
         
-            <button type="submit" id="joinBtn">
+            <button type="submit" id="joinBtn" class="btn btn-lg btn-primary" style="background-color: #D2EEFA; color: black; border: none;">
                 회원가입
             </button>
             
-            <button type="button" id="cancleBtn">
+            <button type="button" id="cancleBtn" class="btn btn-lg btn-primary" style="background-color: #D2EEFA; color: black; border: none;">
                 취소
             </button>
   
@@ -164,7 +167,7 @@
 	        var cancleBtn = document.querySelector('#cancleBtn');
 	
 	        cancleBtn.addEventListener('click', function () {
-	        location.href = '/main/index';
+	        location.href = '/TTT';
 	    });
 	        
     </script>

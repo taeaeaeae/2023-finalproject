@@ -28,9 +28,9 @@
 
 					<h3>* 아이디 <input type="text" name="uids" value="${mypage.uids}" readonly/></h3>					
 
-					<h3>* 비밀번호 <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/></h3>
+					<h3>* 비밀번호 <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?\/|=~-]*$" maxlength="18" required/></h3>
 
-					<h3>* 비밀번호 확인 <input type="password"  id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9]*$" maxlength="18" required/>					
+					<h3>* 비밀번호 확인 <input type="password"  id="pwCheck" name="pwCheck" title="pwCheck" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?\/|=~-]*$" maxlength="18" required/>					
                 	<button type="button" id="pwCheck" onclick="fn_checkPw();" value="N" class="btn btn-outline-primary">확인</button></h3>	
 					<h3>* 이름 <input type="text" name="name" value="${mypage.name}" readonly/></h3>
 						
@@ -50,7 +50,6 @@
 			</form>
 		</div>
 	
-
 
 	
 	<script>
