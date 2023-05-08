@@ -12,7 +12,8 @@
 	* {
 	font-family: "GangwonEdu";
 }
-body {overflow:hidden;}
+body {overflow-y: scroll;
+}
 a:link {text-decoration: none; color: black;}
 a:hover {text-decoration: underline; color: black;}
 a:visited {text-decoration: none; color: black;}
@@ -101,7 +102,7 @@ section {
     <tr>
 
 		<td>${QnaVO.qid}</td>
-		<td>
+		<td style="width: 70%;">
 		<script>
 		document.write(${QnaVO.openy_n}?'🔓':'🔒');
 		</script>
@@ -113,7 +114,9 @@ section {
 			<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">[${ans[qqid.index]}] ${QnaVO.title}</a>
 		</c:if>
 		</td>
-		<td>${QnaVO.uids}</td>
+		<td>
+		<img src="${img[qqid.index]}" alt="" width="32" height="32" class="rounded-circle" />
+		${QnaVO.uids}</td>
 		<td>
 		<fmt:formatDate value="${QnaVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/>
 		</td>
@@ -125,7 +128,7 @@ section {
 </table>
 
 	<c:if test="${not empty sessionScope['__AUTH__'].uids}">
-	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="margin-left:10%; width: 100px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
+	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="margin-left:10%; width: 100px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: black;">등록하기</font></font></button>
 	</c:if> 
 	
 	<div id="" style="float: right; margin-right: 10%;">
@@ -140,7 +143,7 @@ section {
 					<option value="uids">아이디</option>
 				</select>
 				<input type="text" name="keyword">
-				<button type="submit" class="btn btn-primary btn-sm">검색</button>
+				<button type="submit" class="btn btn-primary btn-sm" style="color: black;">검색</button>
 			</div>
 		</form>
 	</div>

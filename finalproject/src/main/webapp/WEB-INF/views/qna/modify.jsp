@@ -60,11 +60,12 @@
         <label for="formFile" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">사진첨부</font></font></label>
         <input name = "image" class="form-control" type="file" id="formFile">
       </div>
+      </fieldset>
       <fieldset class="form-group">
         <legend class="mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">비공개</font></font></legend>
 
 		<div class="form-check">
-        <input class="form-check-input" type="radio" name="openy_n" id="optionsRadios1" value="true" checked="">
+        <input class="form-check-input" type="radio" name="openy_n" id="optionsRadios1" value="true" checked>
         <label class="form-check-label" for="optionsRadios1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
           공개
         </font></font></label>
