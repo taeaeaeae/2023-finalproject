@@ -22,7 +22,7 @@ body{
 #ulululul {
   width: 300px;
   margin-left: 554px;
-  margin-top:70px;
+  margin-top:70px; 
 }
 input[type=submit]{
   padding: 3px;
