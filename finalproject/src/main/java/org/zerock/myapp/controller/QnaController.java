@@ -119,9 +119,12 @@ public class QnaController {
 			
 			LoginVO login= (LoginVO)session.getAttribute("__AUTH__");
 			log.info("login: {}", login);
+
 			
 			List<String> link = new ArrayList<String>();
 			List<String> ans = new ArrayList<String>();
+			
+			List<String> img = new ArrayList<String>();
 			
 			for(QnaVO vo : list) {
 				
@@ -134,7 +137,8 @@ public class QnaController {
 				
 				String loginId = (login == null)?null:login.getUids();				
 				String writer = vo.getUids();
-				
+				String imge = this.users.select(vo.getUids()).getImage();
+				img.add((imge == null)?"https://png.pngtree.com/png-clipart/20200701/big/pngtree-character-default-avatar-png-image_5407167.png":"/resources"+this.users.select(vo.getUids()).getImage());
 
 				if((loginId != null)&&(loginId.equals("admin"))) {
 					String temp = "0";
@@ -155,6 +159,7 @@ public class QnaController {
 			PageDTO pageDTO = new PageDTO(cri, totalAmount);
 			log.info("\t+ pageDTO : {}", pageDTO);
 			
+			model.addAttribute("img", img);
 			model.addAttribute("ans",ans);
 			model.addAttribute("pageMaker", pageDTO);
 			model.addAttribute("link", link);
@@ -174,6 +179,7 @@ public class QnaController {
 			QnaVO vo = this.service.get(qid);
 			AnswerVO answer = this.aService.get(qid);
 			UsersVO user = this.users.select(vo.getUids());
+			model.addAttribute("user", user);
 			
 			LoginVO login = (LoginVO)session.getAttribute("__AUTH__");	
 			
@@ -191,7 +197,6 @@ public class QnaController {
 				model.addAttribute("qna", vo);
 				model.addAttribute("answer", answer);
 			}//if-else if-else
-			model.addAttribute("user", user);
 			
 		} catch(Exception e) {
 			throw new ControllerException(e);

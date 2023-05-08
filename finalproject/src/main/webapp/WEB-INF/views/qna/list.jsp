@@ -12,7 +12,8 @@
 	* {
 	font-family: "GangwonEdu";
 }
-body {overflow:hidden;}
+body {overflow-y: scroll;
+}
 a:link {text-decoration: none; color: black;}
 a:hover {text-decoration: underline; color: black;}
 a:visited {text-decoration: none; color: black;}
@@ -101,7 +102,7 @@ section {
     <tr>
 
 		<td>${QnaVO.qid}</td>
-		<td>
+		<td style="width: 70%;">
 		<script>
 		document.write(${QnaVO.openy_n}?'🔓':'🔒');
 		</script>
@@ -113,7 +114,9 @@ section {
 			<a href="/qna/get?currPage=${param.currPage}&amount=${param.amount}&qid=${QnaVO.qid}">[${ans[qqid.index]}] ${QnaVO.title}</a>
 		</c:if>
 		</td>
-		<td>${QnaVO.uids}</td>
+		<td>
+		<img src="${img[qqid.index]}" alt="" width="32" height="32" class="rounded-circle" />
+		${QnaVO.uids}</td>
 		<td>
 		<fmt:formatDate value="${QnaVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/>
 		</td>
