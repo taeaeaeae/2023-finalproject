@@ -25,18 +25,32 @@ function confirmReset() {
   return result;
 }
 
-function confirmGoToList() {
-    const title = document.getElementsByName("title")[0].value;
-    const content = document.getElementsByName("content")[0].value;
+// function confirmGoToList() {
+//   const title = document.getElementsByName("title")[0].value;
+//   const content = document.getElementsByName("content")[0].value;
 
-    if (title.trim() !== "" || content.trim() !== "") {
-        const result = confirm("작성 중인 내용이 있습니다. 목록으로 이동하시겠습니까?");
+//   if (title.trim() !== "" || content.trim() !== "") {
+//     const result = confirm("작성 중인 내용이 있습니다. 목록으로 이동하시겠습니까?");
 
-        if (!result) {
-            return false;
-        }
-        return true;
+//     if (!result) {
+//         return false;
+//     }
+//   }
+//   return true;
+// }
+document.getElementById("listBtn").addEventListener("click", confirmGoToList);
+
+function confirmGoToList(event) {
+  const title = document.getElementsByName("title")[0].value;
+  const content = document.getElementsByName("content")[0].value;
+
+  if (title.trim() !== "" || content.trim() !== "") {
+    const result = confirm("작성 중인 내용이 있습니다. 목록으로 이동하시겠습니까?");
+
+    if (!result) {
+      event.preventDefault();
     }
+  }
 }
 
 function commentForm() {
