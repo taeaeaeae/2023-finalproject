@@ -97,6 +97,10 @@ public class BoardController {
 		List<ScheduleVO> scheduleList = planService.planSchList(pid);
 		model.addAttribute("scheduleList", scheduleList);
 		return "/plan/view";
+		
+		
+		
+		
 	}
 	
-}
+}//end
