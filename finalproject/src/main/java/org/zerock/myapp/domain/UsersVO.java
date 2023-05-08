@@ -13,6 +13,6 @@ public class UsersVO {
 	private Integer is_delete;
 	private String reason;
 	private String image;
-	
+	private String status;
 	
 }	// end class

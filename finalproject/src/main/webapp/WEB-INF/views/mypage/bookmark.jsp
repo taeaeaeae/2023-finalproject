@@ -16,7 +16,7 @@
    	<section>
 	  <h1 style="text-align: center">북마크 목록</h1>
 	  
-	    <table class="table table-hover" style="width:60%; margin-left: auto; margin-right: auto;">
+	    <table class="table table-hover" style="width:60%; margin-left: auto; margin-right: auto; margin-bottom: 10%;">
 			<thead>
 				<tr>
 					<td>제목</td>

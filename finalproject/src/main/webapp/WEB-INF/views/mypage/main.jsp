@@ -26,7 +26,7 @@
 					<h3>* 전화번호 : ${mypage.phonenumber}</h3></br>
 					
 					<h3>* 프로필사진 : </h3>
-					<c:if test="${not empty mypage.image}"><img src="/resources${mypage.image}"></c:if>
+					<c:if test="${not empty mypage.image}"><img src="/resources${mypage.image}" width="150" height="150" class="rounded-circle"></c:if>
 				</form>
 			</div>
 		</section>

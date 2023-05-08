@@ -13,6 +13,5 @@ public class NoticeDTO {
 	private String image;
 	private Integer view_count;
 	private Integer top;
-	
 
 } // end class

@@ -1,12 +1,14 @@
 package org.zerock.myapp.controller;
 
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.BookmarkVO;
 import org.zerock.myapp.domain.ChecklistDTO;
@@ -31,6 +34,7 @@ import org.zerock.myapp.exception.ServiceException;
 import org.zerock.myapp.service.MypageService;
 import org.zerock.myapp.service.ReportsService;
 import org.zerock.myapp.service.UsersService;
+import org.zerock.myapp.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -50,15 +54,16 @@ public class MyPageController {
 	
 	@Autowired
 	private ReportsService rservice;
-
 	
+	@Qualifier("uploadPath")
+	private String uploadPath;
+
 	@Inject
 	BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@GetMapping({"/main","/update","/remove"})
 	public void myPage(HttpSession session, Model model) throws ServiceException {
 		log.info("mypage({},{}) invoked.", session, model);	
-		
 		log.info("session: {}", session);
 		
 		LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
@@ -72,12 +77,27 @@ public class MyPageController {
 	}	//mypage
 	
 	@PostMapping("/update")
-	public String update(UsersDTO dto, RedirectAttributes rttrs) throws ControllerException {
+	public String update(UsersDTO dto, RedirectAttributes rttrs, MultipartFile file) throws ControllerException {
 		log.info("update({},{}) invoked.", dto, rttrs);	
 		try {
 			if(dto.getPassword().equals(dto.getPwCheck())) {
-			dto.setPassword(bcryptPasswordEncoder.encode(dto.getPassword()));		
+			dto.setPassword(bcryptPasswordEncoder.encode(dto.getPassword()));	
 			
+			// 프로필 사진 저장
+			String imgUploadPath = uploadPath + "/" + "imgUpload";
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+			System.out.println(imgUploadPath);
+			System.out.println(File.separator);
+			
+			String fileName = null;
+
+			if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+			 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			 dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
+			 
+			} else {
+			 fileName = uploadPath + "/" + "images" + "/" + "none.png";
+			}
 			
 			boolean success = this.service.update(dto);
 			log.info("\t+ success : {}", success);
@@ -85,7 +105,7 @@ public class MyPageController {
 			rttrs.addFlashAttribute("result",(success)? "수정이 완료되었습니다." : "failure");
 			
 			return "redirect:/mypage/main";
-			}
+			}	//if
 			
 			rttrs.addFlashAttribute("result", "수정에 실패하였습니다.");
 			return "redirect:/mypage/update";
@@ -101,14 +121,15 @@ public class MyPageController {
 	public String remove(UsersDTO dto, HttpSession session, Model model, RedirectAttributes rttrs) throws ControllerException {
 		log.trace("remove() invoked.");
 		
-			
 		try {
 			LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
 			UsersVO vo = service.select(uid.getUids());
 			log.info(">>>>>>>>>>>>>>>>>>vo: {}", vo);
 			
+			// 입력한 비밀번호를 dto에 set해준다.
 			dto.setPassword(dto.getPassword());
 			
+			// dto의 비밀번호와 vo의 비밀번호가 같을시 회원탈퇴 진행
 			if(bcryptPasswordEncoder.matches(dto.getPassword(),vo.getPassword())) {
 				
 			dto.setUids(vo.getUids());
@@ -119,7 +140,7 @@ public class MyPageController {
 			rttrs.addFlashAttribute("result",(success)? "회원탈퇴가 완료되었습니다." : "failure");
 			return "redirect:/user/login";
 			
-			}
+			}	// if
 			
 			rttrs.addFlashAttribute("result", "비밀번호가 일치하지 않습니다." );
 			
@@ -152,10 +173,10 @@ public class MyPageController {
 
         LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
-
+        	
             return "redirect:/user/login";
+            
         }
-
         
         ArrayList<MycommentVO> uids = mservice.mycomment(uid.getUids());
         model.addAttribute("mycomment", uids);
@@ -188,6 +209,7 @@ public class MyPageController {
         if (uid == null) {
 
             return "redirect:/user/login"; 
+            
         }       
         try {
         	dto.getCid();
@@ -281,7 +303,7 @@ public class MyPageController {
     }	//bookmark
 	
 	@GetMapping("/report")
-    public String report(Model model, HttpSession session) throws ServiceException {
+    public String report(Model model, ReportsDTO dto, HttpSession session) throws ServiceException {
 
         LoginVO uid = (LoginVO)session.getAttribute("__AUTH__");
         if (uid == null) {
@@ -290,6 +312,7 @@ public class MyPageController {
         }
         
         ArrayList<ReportsVO> uids = rservice.reportList(uid.getUids());
+
         model.addAttribute("report", uids);
         
         return "/mypage/report";

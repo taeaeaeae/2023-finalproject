@@ -10,5 +10,4 @@ public class FindDTO {
 	private String uids;
 	private String password;	
 	
-	
 }	// end class

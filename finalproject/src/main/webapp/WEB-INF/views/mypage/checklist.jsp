@@ -20,11 +20,11 @@ crossorigin="anonymous" />
 	<section>
 		<h1 style="text-align: center">체크리스트</h1>
 		
-			<div id="add" style="text-align: center">
+			<div id="add" style="text-align: center;">
 				<form action="/mypage/listadd" method="POST">
 			  		<input type="hidden" name="uids" value="${uids.uids}">
-					<input type="text" style="width:300px" maxlength="20" name="item" value="${ChecklistVO.item}" placeholder="아이템">
-					<input type="text" style="width:600px" maxlength="50" name="memo" value="${ChecklistVO.memo}" placeholder="메모">
+					<input type="text" style="width:300px" maxlength="20" name="item" value="${ChecklistVO.item}" placeholder="아이템" required>
+					<input type="text" style="width:600px" maxlength="50" name="memo" value="${ChecklistVO.memo}" placeholder="메모" required>
 					<button type="submit" class="btn btn-default btn-sm">추가</button>
 				</form>
 			</div>
@@ -85,10 +85,7 @@ crossorigin="anonymous" />
 	    document.getElementById("input_check_hidden").disabled = true;
 	}
 	
-</script>	
-
-	
-	
+</script>		
 
 </body>
 </html>

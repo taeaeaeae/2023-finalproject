@@ -41,6 +41,7 @@ public class JoinController {
 		
 		try {
 			
+				// 프로필 사진 저장
 				String imgUploadPath = uploadPath + "/" + "imgUpload";
 				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 				System.out.println(imgUploadPath);
@@ -57,17 +58,19 @@ public class JoinController {
 				}
 
 		
-			if(service.select(dto.getUids()) == null && service.selectEmail(dto.getEmail()) == null && dto.getPassword().equals(dto.getPwCheck())) {
+				// DB에 저장된 아이디 및 이메일이 없으며, 입력한 비밀번호가 일치 할 경우 회원가입 완료
+				if(service.select(dto.getUids()) == null && service.selectEmail(dto.getEmail()) == null && dto.getPassword().equals(dto.getPwCheck())) {
 				
-			dto.setPassword(bcryptPasswordEncoder.encode(dto.getPassword()));
-			
-			boolean success = this.service.join(dto);
-			log.info("\t+ success : {}", success);
-			
-			rttrs.addFlashAttribute("dto", dto);
-			rttrs.addFlashAttribute("result",(success)? "회원가입이 완료되었습니다." : "failure");
-			
-			return "redirect:/user/login";
+				// 입력한 비밀번호를 암호화 한 후 DB에 저장
+				dto.setPassword(bcryptPasswordEncoder.encode(dto.getPassword()));
+				
+				boolean success = this.service.join(dto);
+				log.info("\t+ success : {}", success);
+				
+				rttrs.addFlashAttribute("dto", dto);
+				rttrs.addFlashAttribute("result",(success)? "회원가입이 완료되었습니다." : "failure");
+				
+				return "redirect:/user/login";
 			
 			}
 			
