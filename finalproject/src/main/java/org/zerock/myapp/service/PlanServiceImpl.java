@@ -131,7 +131,7 @@ public class PlanServiceImpl implements PlanService{
 	public HashMap<String, Object> viewDeleteSch(ScheduleVO vo) throws Exception {
 		//view_planner.jsp 일정 삭제 리스트
 		HashMap<String, Object> deleteMap = new HashMap<String, Object>();
-		deleteMap.put("pids", vo.getPid());
+		deleteMap.put("pid", vo.getPid());
 		deleteMap.put("rowNo", vo.getRowNo());
 		log.info("deleteMap : " + deleteMap.toString());
 		
