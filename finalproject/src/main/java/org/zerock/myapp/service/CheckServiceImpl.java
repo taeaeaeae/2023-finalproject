@@ -42,5 +42,4 @@ public class CheckServiceImpl implements CheckService{
 	}	// checkEmail
 	
 
-	
 }	// end class

@@ -20,7 +20,7 @@
 
     <delete id="remove">
         UPDATE users 
-        SET is_delete = 1 , reason = #{reason}
+        SET is_delete = 1 , reason = #{reason}, status = '탈퇴'
         WHERE uids = #{uids}
     </delete>
 
@@ -34,11 +34,11 @@
         SET password = #{password},
         	name = #{name},
             phonenumber = #{phonenumber},
-            email = #{email}
+            email = #{email},
+            image = #{image}
         WHERE
             uids = #{uids}
     </update>
-
    
     <select id="checkId" resultType="int">
         select count(*) 
@@ -51,7 +51,6 @@
         from users 
         where email = #{email}
     </select>
-
 
   </mapper>
   
