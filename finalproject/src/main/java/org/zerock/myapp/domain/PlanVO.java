@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Data;
+
+@Data
 public class PlanVO {
   
 	private int pid;			
@@ -20,96 +23,6 @@ public class PlanVO {
 	private List<ScheduleVO> scheduleVOList;
 	
 	
-	
-	public int getPid() {
-		return pid;
-	}
-
-
-
-	public void setPid(int pid) {
-		this.pid = pid;
-	}
-
-
-
-	public String getUids() {
-		return uids;
-	}
-
-
-
-	public void setUids(String uids) {
-		this.uids = uids;
-	}
-
-
-
-	public Date getRegDate() {
-		return regDate;
-	}
-
-
-
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-
-
-
-	public String getPlanTitle() {
-		return planTitle;
-	}
-
-
-
-	public void setPlanTitle(String planTitle) {
-		this.planTitle = planTitle;
-	}
-
-
-
-	public Date getStartDate() {
-		return startDate;
-	}
-
-
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-
-
-	public int getPlanTotalDay() {
-		return planTotalDay;
-	}
-
-
-
-	public void setPlanTotalDay(int planTotalDay) {
-		this.planTotalDay = planTotalDay;
-	}
-
-
-
-	public List<ScheduleVO> getScheduleVOList() {
-		return scheduleVOList;
-	}
-
-
-
-	public void setScheduleVOList(List<ScheduleVO> scheduleVOList) {
-		this.scheduleVOList = scheduleVOList;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "PlanVO [pid=" + pid + ", uids=" + uids + ", regDate=" + regDate + ", planTitle=" + planTitle
-				+ ", startDate=" + startDate + ", planTotalDay=" + planTotalDay + ", planHit=" + "]";
-	}
 	
 	
 }

@@ -1,5 +1,8 @@
 package org.zerock.myapp.domain;
 
+import lombok.Data;
+
+@Data
 public class Paging {
 	
 	public Paging(int num, String searchType, String keyword) {
@@ -41,55 +44,7 @@ public class Paging {
 	private boolean prev;
 	private boolean next;
 	
-	public int getNum() {
-		return num;
-	}
-	public int getCount() {
-		return count;
-	}
-	public int getPostNum() {
-		return postNum;
-	}
-	public int getPageNum() {
-		return pageNum;
-	}
-	public int getDisplayPost() {
-		return displayPost;
-	}
-	public int getPageNumCnt() {
-		return pageNumCnt;
-	}
-	public int getEndPageNum() {
-		return endPageNum;
-	}
-	public int getStartPageNum() {
-		return startPageNum;
-	}
-	public boolean isPrev() {
-		return prev;
-	}
-	public boolean isNext() {
-		return next;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
-	public void setCount(int count) {
-		this.count = count;
-		dataCalc();
-	}
-	public String getSearchType() {
-		return searchType;
-	}
-	public String getKeyword() {
-		return keyword;
-	}
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
-	}
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
+	
 	//각 필드 계산 메서드
 	private void dataCalc() {
 		 

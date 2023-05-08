@@ -11,9 +11,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.myapp.domain.LoginVO;
@@ -41,7 +41,9 @@ public class PlanController {
 	//로그인 후 일정 만들기 화면으로 이동
 	
 	
-	@RequestMapping(value="/plan/write", method = RequestMethod.GET)
+
+	@GetMapping("/plan/write")
+	
 	public void plannerMain(HttpSession session, Model model) throws Exception{
 		
 		LoginVO users = (LoginVO)session.getAttribute("__AUTH__");
@@ -51,7 +53,7 @@ public class PlanController {
 	}
 	
 	//계획 초기 설정
-	@RequestMapping(value="/plan/write/planSet", method=RequestMethod.POST)
+	@PostMapping("/plan/write/planSet")
 	@ResponseBody
 	public PlanVO planSet(PlanVO vo,RedirectAttributes rttr)throws Exception{
 		if(planSetList.size()!=0) {
@@ -66,7 +68,7 @@ public class PlanController {
 	}
 	
 	//일정 추가
-	@RequestMapping(value="/plan/write/schAdd", method=RequestMethod.POST)
+	@PostMapping("/plan/write/schAdd")
 	@ResponseBody
 	public Map<String, Object> schAdd(ScheduleVO vo) throws Exception{
 		schList.add(planService.schAdd(vo));
@@ -74,7 +76,7 @@ public class PlanController {
       return planService.schAdd(vo);
 	}
 	//계획 추가
-	@RequestMapping(value="/plan/write/planAdd", method=RequestMethod.GET)
+	@GetMapping("/plan/write/planAdd")
 	public String planAdd() throws Exception {
 		planService.planAdd(planSetList.get(0), schList);
 		allPlanListClear();
@@ -83,7 +85,7 @@ public class PlanController {
 	}
 	
 	//장바구니 일정 삭제 (데이터 받아와서 List에서 삭제)
-	@RequestMapping(value="/plan/write/planDel", method=RequestMethod.POST)
+	@PostMapping("/plan/write/planDel")
 	@ResponseBody
 	public void planDel(@RequestBody ScheduleVO vo,HttpSession session, Model model) throws Exception {
 		
@@ -95,8 +97,9 @@ public class PlanController {
 		log.info("schList : " + schList.toString());
 	}
 	// 새로고침 시 리스트 초기화
+	
+	@GetMapping("/plan/write/clear")
 	@ResponseBody
-	@RequestMapping(value="/plan/write/clear", method=RequestMethod.GET)
 	public String planRefresh(String param) throws Exception{
 		log.info("refreshMapping: "+param);
 		allPlanListClear();
@@ -113,7 +116,7 @@ public class PlanController {
 		
 	//계획 수정하기(완료버튼)
 	
-	@RequestMapping(value = "/plan/view/modify", method = RequestMethod.POST)
+	@PostMapping("/plan/view/modify")
 	public String viewPlanModify(PlanVO vo) throws Exception {
 		log.info("PlanVO : " + vo.toString());
 		//계획 수정하기 함수
@@ -128,7 +131,7 @@ public class PlanController {
 	}
 	
 	//view planDelete
-	@RequestMapping(value="/plan/view/planDel", method=RequestMethod.POST)
+	@PostMapping("/plan/view/planDel")
 	@ResponseBody
 	public void viewPlanDelete(PlanVO vo) throws Exception {
 		
@@ -137,7 +140,7 @@ public class PlanController {
 	}
 	
 	//view schDelete
-	@RequestMapping(value="/plan/view/schDel", method=RequestMethod.POST)
+	@PostMapping("/plan/view/schDel")
 	@ResponseBody
 	public void viewSchDelete(@RequestBody ScheduleVO vo,HttpSession session, Model model) throws Exception {
 	   LoginVO users = (LoginVO)session.getAttribute("__AUTH__");
