@@ -48,17 +48,16 @@ public class LoginController {
 			LoginVO vo = this.service.login(dto);
 			log.info("\t+vo:{}", vo);
 			
+			// 로그인 vo가 null 이고 입력한 비밀번호와 DB에 저장된 비밀번호가 일치할 시 로그인가능 (matches 메소드 활용)
 			if(vo != null && bcryptPasswordEncoder.matches(dto.getPassword(), vo.getPassword())) {	
 				
 				model.addAttribute("__AUTH__",vo);	
-				//rttrs.addAttribute("__AUTH__", vo);	// 강사코드
 				
 				return "/index";	 
 				
 			} else {
 				
 				rttrs.addFlashAttribute("result", "회원정보가 존재하지 않습니다.");
-				//model.addAttribute("result", "일치하는 회원정보가 없습니다.");
 				
 				return "redirect:/user/login";	
 				

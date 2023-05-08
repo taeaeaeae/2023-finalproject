@@ -1,6 +1,7 @@
 <%@page import="org.zerock.myapp.domain.LoginVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,13 +30,13 @@
         <p>신고자 명 : <input type="text" name="target_user" value="${freeboard.uids}" readonly></p>
         <p>신고 사유 :
             <select name="reason" id="reports_reasons">
-                <option value="0">욕설 및 비방</option>
-                <option value="1">부적절한 게시물</option>
-                <option value="2">도배성 게시물</option>
-                <option value="3">개인정보 침해 게시물</option>
-                <option value="4">저작권 침해 게시물</option>
-                <option value="5">홍보성 게시물</option>
-                <option value="6">사유 직접 작성</option>
+                <option value="욕설 및 비방">욕설 및 비방</option>
+                <option value="부적절한 게시물">부적절한 게시물</option>
+                <option value="도배성 게시물">도배성 게시물</option>
+                <option value="개인정보 침해 게시물">개인정보 침해 게시물</option>
+                <option value="저작권 침해 게시물">저작권 침해 게시물</option>
+                <option value="홍보성 게시물">홍보성 게시물</option>
+                <option value="기타사유">사유 직접 작성</option>
             </select>
             <div id="reason_6_textarea" style="display: none;">
                 <textarea id="reason_opt_6" name="reason_2" cols="30" rows="10" placeholder="사유를 작성해주세요"></textarea>
@@ -93,7 +94,7 @@
 // });
 $(function () {
     $('#reports_reasons').change(function () {
-        if ($(this).val() === '6') {
+        if ($(this).val() === '기타사유') {
             $('#reason_6_textarea').show();
             $('#reason_opt_6').focus();
         } else {
@@ -104,7 +105,7 @@ $(function () {
     $('form').submit(function (event) {
         event.preventDefault();
 
-        if ($('#reports_reasons').val() === '6' && $('#reason_opt_6').val().trim() === '') {
+        if ($('#reports_reasons').val() === '기타사유' && $('#reason_opt_6').val().trim() === '') {
             alert('사유를 입력해주세요.');
             $('#reason_opt_6').focus();
             return false;

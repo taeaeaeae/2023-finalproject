@@ -25,7 +25,7 @@
 		<input type="hidden" name="currPage" value="${param.currPage}">
 		<input type="hidden" name="amount" value="${param.amount}">
 		<input type="hidden" name="result" value="${param.result}">
-		<input type="hidden" name="qid" value="${qna.qid}">
+		<input type="hidden" name="qid" value="${qna.qid}"  id="aaaaaaaaaa">
 		<input type="hidden" name="qid" value="${param.qid}">
 	    <input type="hidden" name="type"    value="${param.type}">
     	<input type="hidden" name="keyword" value="${param.keyword}">
@@ -34,10 +34,18 @@
       <h1 class="board-title">Question</h1>
       <hr class="board-divider">
       <h3 class="post-title">${qna.title}</h3>
-      <div class="post-meta">
-        <span class="post-number">글번호 : ${qna.qid}</span>
-        <span class="post-author">작성자 : ${qna.uids}</span>
-        <span class="post-date">작성일 : <fmt:formatDate value="${qna.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></span>
+      <div class="post-meta" style="height: 32px;">
+        <span class="post-author" style="float: left;'">
+      <c:if test="${not empty user.image}">
+		<img src="/resources${user.image}" alt="" width="32" height="32" class="rounded-circle" />
+      </c:if>
+      <c:if test="${empty user.image}">
+		<img src="https://png.pngtree.com/png-clipart/20200701/big/pngtree-character-default-avatar-png-image_5407167.png" alt="" width="32" height="32" class="rounded-circle" />
+      </c:if>
+        ${qna.uids}</span>
+        
+      
+        <span class="post-date" style="float: right;">작성일 : <fmt:formatDate value="${qna.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></span>
 
       </div>
     </section>
@@ -64,8 +72,8 @@
 </div>
 </form>
 <br> <br>
-<c:if test="${not empty answer.qid}">
 <div class="board-post">
+<c:if test="${not empty answer.qid}">
     <section class="board-header">
       <h1 class="board-title">Answer</h1>
       <hr class="board-divider">
@@ -83,6 +91,7 @@
       <c:if test="${not empty answer.image}"><img src="/resources${answer.image}" alt="${answer.title}"></c:if>
       <div class="post-content"><pre style="font-family: 'GangwonEdu';">${answer.content}</pre></div>
     </section>
+</c:if>
   <div class="card-body" align="right">
 	<c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
 		<input class= "butt" type="button" value="수정하기" id="answerModifyBtn">
@@ -92,7 +101,6 @@
 	</c:if>
 	</div>
 </div>
-</c:if>
 	
 
 
