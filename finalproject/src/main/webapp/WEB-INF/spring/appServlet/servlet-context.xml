@@ -78,6 +78,13 @@
 
 		<beans:ref bean="authInterceptor"/>
 	  </interceptor>
+	  
+	  <interceptor>
+	  	<mapping path="/plan/list" />
+
+		<beans:ref bean="authInterceptor"/>
+	  </interceptor>
+	  
 	</interceptors>
 	
 </beans:beans>

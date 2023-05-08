@@ -1,23 +1,7 @@
 package org.zerock.myapp.domain;
 
 public class ScheduleVO {
-	
-/*
-CREATE TABLE `schedule` (
-	`pid` INT NOT NULL,
-	`uids` VARCHAR(50) NOT NULL,
-	`descript` VARCHAR(200) NULL DEFAULT NULL,
-	`place` VARCHAR(50) NOT NULL, 
-	`addr` VARCHAR(50) NOT NULL,
-	`planDay` INT NOT NULL DEFAULT '0',
-	`startTime` INT NULL DEFAULT '900',
-	`rowNo` INT DEFAULT '0',
-	INDEX `SCHEDULE_FK_SET` (`pid`, `uids`) USING BTREE,
-	CONSTRAINT `SCHEDULE_FK_SET` FOREIGN KEY (`pid`, `uids`) REFERENCES `project`.`plan` (`pid`, `uids`) ON UPDATE NO ACTION ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
- */
-	
 	private int rowNo;
 	private int pid;
 	private String uids;
@@ -90,6 +74,7 @@ CREATE TABLE `schedule` (
 	public void setRowNo(int rowNo) {
 		this.rowNo = rowNo;
 	}
+	
 	@Override
 	public String toString() {
 		return "ScheduleVO [pid=" + pid + ", uids=" + uids + ", descript=" + descript + ", place=" + place

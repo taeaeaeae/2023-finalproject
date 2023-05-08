@@ -34,7 +34,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
     
-	<div id="wrapper">
+	<div id="wrapper" style="margin-left: 10%; margin-right: 10%; ">
 		<form action="/qna/answerModify" method="POST">
 			
 			<input type="hidden" name="currPage" value="${param.currPage}">
@@ -60,7 +60,8 @@
         <label for="formFile" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">사진첨부</font></font></label>
         <input name = "image" class="form-control" type="file" id="formFile">
       </div>
-			
+	
+	</fieldset>	
 
 			<button type="button" id="listBtn">LIST</button>
 			<button type="submit" id="submitBtn">registerBtn</button>
