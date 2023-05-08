@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.zerock.myapp.domain.ReportsDTO;
 import org.zerock.myapp.domain.ReportsVO;
-import org.zerock.myapp.exception.ServiceException;
 
 public interface ReportsMapper {
 
@@ -15,5 +14,9 @@ public interface ReportsMapper {
 	public abstract boolean dropout(ReportsDTO dto);
 	
 	public abstract boolean status(ReportsDTO dto);
+	
+	public abstract boolean dropin(ReportsDTO dto);
+	
+	public abstract boolean dropinStatus(ReportsDTO dto);
 	
 } // end interface

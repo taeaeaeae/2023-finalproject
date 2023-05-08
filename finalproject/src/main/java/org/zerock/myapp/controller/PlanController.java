@@ -7,12 +7,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -91,7 +89,6 @@ public class PlanController {
 		
 		//세션추가
 		ScheduleVO plan = (ScheduleVO)session.getAttribute("plan");
-		
 		model.addAttribute("plan",plan);
 		
 		schList.remove(planService.planDel(vo));
@@ -115,6 +112,7 @@ public class PlanController {
 	}
 		
 	//계획 수정하기(완료버튼)
+	
 	@RequestMapping(value = "/plan/view/modify", method = RequestMethod.POST)
 	public String viewPlanModify(PlanVO vo) throws Exception {
 		log.info("PlanVO : " + vo.toString());
@@ -133,6 +131,7 @@ public class PlanController {
 	@RequestMapping(value="/plan/view/planDel", method=RequestMethod.POST)
 	@ResponseBody
 	public void viewPlanDelete(PlanVO vo) throws Exception {
+		
 		log.info("planDel: "+vo.toString());
 		planService.viewPlanDelete(vo);
 	}
@@ -140,7 +139,11 @@ public class PlanController {
 	//view schDelete
 	@RequestMapping(value="/plan/view/schDel", method=RequestMethod.POST)
 	@ResponseBody
-	public void viewSchDelete(@RequestBody ScheduleVO vo) throws Exception {
+	public void viewSchDelete(@RequestBody ScheduleVO vo,HttpSession session, Model model) throws Exception {
+	   LoginVO users = (LoginVO)session.getAttribute("__AUTH__");
+		
+		model.addAttribute("users",users);
+		
 		log.info("schDelete : " + vo.toString());
 		planService.viewDeleteSch(vo);
 		//delList에 만든 deleteMap 추가

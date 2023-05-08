@@ -22,7 +22,7 @@
 
 		<div class="container">
 
-			<form action="/mypage/update" method="post">
+			<form action="/mypage/update" method="post" enctype="multipart/form-data">
 					
 				<div id="center">
 
@@ -38,7 +38,8 @@
 						
 					<h3>* 이메일 <input type="email" name="email" value="${mypage.email}" placeholder="example1@xxx.com" maxlength="38" required/></h3>
 						
-
+					<h3>* 프로필사진  </h3> <input name = "file" class="form-control" type="file" id="formFile" accept="image/*" style="width: 500px; margin-left: 180px">
+					
 				</div>	
 
 				<div id="gogo">
@@ -49,8 +50,9 @@
 			</form>
 		</div>
 	
-<%@include file="/WEB-INF/views/common/footer.jsp" %>
 
+
+	
 	<script>
 		// 비밀번호 확인
 	    function fn_checkPw() {

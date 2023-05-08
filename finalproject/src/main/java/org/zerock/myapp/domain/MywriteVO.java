@@ -14,4 +14,4 @@ public class MywriteVO {
 	private Integer bno;
 	private String bm;
 	
-}
+}	// end class
