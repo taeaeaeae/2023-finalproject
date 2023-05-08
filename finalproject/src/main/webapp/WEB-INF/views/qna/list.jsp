@@ -125,7 +125,7 @@ section {
 </table>
 
 	<c:if test="${not empty sessionScope['__AUTH__'].uids}">
-	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="margin-left:10%; width: 100px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">등록하기</font></font></button>
+	<button type="button" id="registerBtn" class="btn btn-primary btn-sm" style="margin-left:10%; width: 100px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: black;">등록하기</font></font></button>
 	</c:if> 
 	
 	<div id="" style="float: right; margin-right: 10%;">
@@ -140,7 +140,7 @@ section {
 					<option value="uids">아이디</option>
 				</select>
 				<input type="text" name="keyword">
-				<button type="submit" class="btn btn-primary btn-sm">검색</button>
+				<button type="submit" class="btn btn-primary btn-sm" style="color: black;">검색</button>
 			</div>
 		</form>
 	</div>

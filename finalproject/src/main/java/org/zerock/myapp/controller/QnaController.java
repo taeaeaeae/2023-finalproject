@@ -21,9 +21,11 @@ import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.PageDTO;
 import org.zerock.myapp.domain.QnaDTO;
 import org.zerock.myapp.domain.QnaVO;
+import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.service.AnswerService;
 import org.zerock.myapp.service.QnaService;
+import org.zerock.myapp.service.UsersService;
 import org.zerock.myapp.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;
@@ -43,6 +45,7 @@ public class QnaController {
 	
 	private QnaService service;
 	private AnswerService aService;
+	private UsersService users;
 	
 	@Qualifier("uploadPath")
 	private String uploadPath;
@@ -170,6 +173,7 @@ public class QnaController {
 
 			QnaVO vo = this.service.get(qid);
 			AnswerVO answer = this.aService.get(qid);
+			UsersVO user = this.users.select(vo.getUids());
 			
 			LoginVO login = (LoginVO)session.getAttribute("__AUTH__");	
 			
@@ -187,7 +191,7 @@ public class QnaController {
 				model.addAttribute("qna", vo);
 				model.addAttribute("answer", answer);
 			}//if-else if-else
-			
+			model.addAttribute("user", user);
 			
 		} catch(Exception e) {
 			throw new ControllerException(e);
