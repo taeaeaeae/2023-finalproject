@@ -35,7 +35,7 @@
       <hr class="board-divider">
       <h3 class="post-title">${qna.title}</h3>
       <div class="post-meta" style="height: 32px;">
-        <span class="post-author" style="float: left;'">
+        <span class="post-author" style="float: left;">
       <c:if test="${not empty user.image}">
 		<img src="/resources${user.image}" alt="" width="32" height="32" class="rounded-circle" />
       </c:if>
@@ -52,8 +52,8 @@
     
     <section class="board-body">
       <hr class="board-divider">
-      <c:if test="${not empty qna.image}"><img src="/resources${qna.image}" alt="${qna.title}"></c:if>
-      <div class="post-content"><pre style="font-family: 'GangwonEdu'; ">${qna.content}</pre></div>
+      <c:if test="${not empty qna.image}"><img  style="width: 100%;" src="/resources${qna.image}" alt="${qna.title}"></c:if>
+      <div  class="post-content"><pre style="font-family: 'GangwonEdu'; ">${qna.content}</pre></div>
     </section>
     
     <br><br>
@@ -80,7 +80,9 @@
       <h3 class="post-title">${answer.title}</h3>
       <div class="post-meta">
         <span class="post-number">글번호 : ${answer.qid}</span>
-        <span class="post-author">작성자 : ${answer.uids}</span>
+        <span class="post-author">
+		<img src="https://png.pngtree.com/png-clipart/20200701/big/pngtree-character-default-avatar-png-image_5407167.png" alt="" width="32" height="32" class="rounded-circle" />
+         ${answer.uids}</span>
         <span class="post-date">작성일 : <fmt:formatDate value="${answer.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></span>
 
       </div>
@@ -88,13 +90,15 @@
     
     <section class="board-body">
       <hr class="board-divider">
-      <c:if test="${not empty answer.image}"><img src="/resources${answer.image}" alt="${answer.title}"></c:if>
+      <c:if test="${not empty answer.image}"><img  style="width: 100%;" src="/resources${answer.image}" alt="${answer.title}"></c:if>
       <div class="post-content"><pre style="font-family: 'GangwonEdu';">${answer.content}</pre></div>
     </section>
 </c:if>
-  <div class="card-body" align="right">
+  <div class="card-body" align="right" style="margin-right: 10%;">
 	<c:if test="${sessionScope['__AUTH__'].uids eq 'admin'}">
-		<input class= "butt" type="button" value="수정하기" id="answerModifyBtn">
+		<c:if test="${not empty answer.qid}">
+		<input class= "butt" type="button" value="수정하기" id="answerModifyBtn" >
+		</c:if>
 		<c:if test="${empty answer.qid}">
 		<button class="butt" type="button" id="answerRegisterBtn">답변하기</button>
 		</c:if>

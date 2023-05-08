@@ -123,7 +123,6 @@ public class QnaController {
 			
 			List<String> link = new ArrayList<String>();
 			List<String> ans = new ArrayList<String>();
-			
 			List<String> img = new ArrayList<String>();
 			
 			for(QnaVO vo : list) {

@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<beans:bean class="java.lang.String" id="uploadPath">
-		<beans:constructor-arg value="C:/Users/naa10/git/2023-finalproject/finalproject/src/main/webapp/resources"/>
+		<beans:constructor-arg value="C:/Users/shini/git/2023-finalproject/finalproject/src/main/webapp/resources"/>
 	</beans:bean>
 	
 
