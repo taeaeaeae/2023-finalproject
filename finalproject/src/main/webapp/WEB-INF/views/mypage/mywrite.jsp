@@ -35,7 +35,7 @@
 						<td>
 							<c:choose>
 								<c:when test="${MywriteVO.board_name eq 'plan'}"><a href="/${MywriteVO.board_name}/view?${MywriteVO.bm}=${MywriteVO.bno}&uids=${sessionScope['__AUTH__'].uids} ">${MywriteVO.title}</a></c:when>
-								<c:otherwise><a href="/${MywriteVO.board_name}/get?${MywriteVO.bm}=${MywriteVO.bno} ">${MywriteVO.title}</a></c:otherwise>
+								<c:otherwise><a href="/${MywriteVO.board_name}/get?${MywriteVO.bm}=${MywriteVO.bno}&currPage=1&amount=10 ">${MywriteVO.title}</a></c:otherwise>
 							</c:choose></td>
 						<td><fmt:formatDate value="${MywriteVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></td>
 					</tr>
@@ -46,7 +46,7 @@
 
 	</section>
 
-<%@include file="/WEB-INF/views/common/footer.jsp" %>	
+
 
 <script
    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

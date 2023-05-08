@@ -185,7 +185,6 @@ a:hover{
 	margin-top: 70px;
 }
 .map-area {
-	background-color: #D2EEFA;
 	text-align: center;
 }
 .row {
@@ -211,24 +210,22 @@ a:hover{
 .btn-primary {
 	background-color: #D2EEFA !important;
 	border-color: #D2EEFA !important;
-	color: #FFF;
+	color: #000 !important;
 	font-weight: bold;
 }
 .btn-primary:hover,
 .btn-primary:focus {
 	border-color: #FFF;
 	background-color: #FFF;
-	color: #000000; 
+	/* color: #000;  */
 }
 .btn-primary:active, .btn-primary:visited, .btn-primary:active:focus, .btn-primary:active:hover {
 	border-color: #D2EEFA;
 	background-color: #D2EEFA;
-	color: #FFF; 
 }
 .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary, .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle {
     border-color: #D2EEFA;
 	background-color: #D2EEFA;
-	color: #FFF; 
 }
 #method_type{
 	text-decoration-color: #D2EEFA;

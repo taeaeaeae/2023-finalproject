@@ -15,8 +15,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
-
-
 @ToString
 @Log4j2
 @NoArgsConstructor
@@ -84,8 +82,6 @@ public class UsersServiceImpl implements UsersService, InitializingBean {
 			throw new ServiceException(e);
 		}	// try-catch
 	}	//remove
-
-
 
 
 }	// end class

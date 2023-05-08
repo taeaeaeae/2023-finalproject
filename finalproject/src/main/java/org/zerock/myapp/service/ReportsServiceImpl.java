@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.myapp.domain.ReportsDTO;
 import org.zerock.myapp.domain.ReportsVO;
+import org.zerock.myapp.domain.UsersDTO;
 import org.zerock.myapp.exception.ServiceException;
 import org.zerock.myapp.mapper.ReportsMapper;
 
@@ -52,15 +53,34 @@ public class ReportsServiceImpl implements ReportsService {
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		} // try-catch
-	}
+	}	//dropout
 
 	@Override
 	public boolean status(ReportsDTO dto) throws ServiceException {
 		try {
-			return this.mapper.dropout(dto);
+			return this.mapper.status(dto);
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		} // try-catch
 	}
+
+	@Override
+	public boolean dropin(ReportsDTO dto) throws ServiceException {
+		try {
+			return this.mapper.dropin(dto);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	}
+
+	@Override
+	public boolean dropinStatus(ReportsDTO dto) throws ServiceException {
+		try {
+			return this.mapper.dropinStatus(dto);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		} // try-catch
+	} //dropin
+
 
 } // end class

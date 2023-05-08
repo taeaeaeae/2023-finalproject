@@ -31,7 +31,6 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-//@NoArgsConstructor
 @AllArgsConstructor
 
 @RequestMapping("/notice")
@@ -51,7 +50,6 @@ public class NoticeBoardController {
 		log.trace("list({}, {}) invoked.", cri, model);
 		
 		try {
-//			List<FreeBoardVO> list = this.service.getList(cri);
 			List<NoticeVO> list = this.service.getListPageSearch(cri);
 			model.addAttribute("list", list);
 			log.trace("\t+ list : {}", list);
@@ -73,7 +71,6 @@ public class NoticeBoardController {
 		log.trace("get({}, {}, {}) invoked.", cri, nid, model);
 		
 		try {
-//			increaseViewCount(fid, req, res);
 			
 			NoticeVO vo = this.service.get(nid);
 			Integer totalAmount = this.service.getTotalAmount(cri);
@@ -86,11 +83,6 @@ public class NoticeBoardController {
 			model.addAttribute("prevNid", this.service.getPrevPost(nid));
 			model.addAttribute("nextNid", this.service.getNextPost(nid));
 			
-			// comment
-//			List<FreeBoardCommentVO> commentList = this.commentService.getList(fid);
-//			model.addAttribute("commentList", commentList);
-			
-//			return "/freeboard/get";
 		} catch (Exception e) {
 			throw new ControllerException(e);
 		} // try-catch
@@ -257,26 +249,5 @@ public class NoticeBoardController {
 		} // try-catch
 	} // next
 	
-	// 조회수 증가 중복 cookie
-//	public void increaseViewCount(Integer fid, HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-//	    Cookie[] cookies = request.getCookies();
-//	    boolean isDuplicated = false;
-//	    
-//	    if (cookies != null) {
-//	        for (Cookie cookie : cookies) {
-//	            if (cookie.getName().equals("viewed_" + fid)) {
-//	                isDuplicated = true;
-//	                break;
-//	            } // if
-//	        } // for
-//	    } // if
-//	    if (!isDuplicated) {
-//	        Cookie cookie = new Cookie("viewed_" + fid, "true");
-//	        cookie.setMaxAge(24 * 60 * 60);
-//	        cookie.setPath("/");
-//	        response.addCookie(cookie);
-//	        service.viewCountUp(fid);
-//	    } // if
-//	} // increaseViewCount
 
 } // end class

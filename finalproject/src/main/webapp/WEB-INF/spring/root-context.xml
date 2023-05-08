@@ -21,7 +21,8 @@
 
 		<property name="password" value="Oracle12345678"/>
 
-		<property name="maximumPoolSize" value="100" />
+
+		<property name="maximumPoolSize" value="90" />
 		<property name="minimumIdle" value="2" />
 		<property name="idleTimeout" value="10000" />
 		<property name="connectionTimeout" value="50000" />
