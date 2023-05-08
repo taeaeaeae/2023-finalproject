@@ -11,18 +11,6 @@
 <link rel="stylesheet" type="text/css" href="/resources/freeboard/css/freeboard_view.css">
 </head>
 <body>
-<% 
-  HttpSession se = request.getSession();
-  LoginVO user = (LoginVO) session.getAttribute("__AUTH__"); 
-  
-  String userId = "";
-  
-  if (user != null) {
-    userId = user.getUids();
-  }
-%>
-
-<p>로그인한 유저 아이디: <%= userId %></p>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
   <!-- 게시글 폼 -->
   <form action="/freeboard/get" method="post" class="board-post">
@@ -86,7 +74,7 @@
   <section class="comment">
     <div class="comment-wrap">
       <h2 class="comment-title">댓글</h2>
-      <p>[${commentCount}]개의 댓글이 달렸습니다.</p>
+      <p id="comment-count"></p>
       <ul class="comment-list" ></ul>
 
       <div class="form-group">
@@ -214,6 +202,8 @@ function getAllList() {
   let htmls = "";
 
   $.getJSON("/comment/list/" + fid, function (data) {
+    
+
     if(data.length === 0){
       htmls = "<p>등록된 댓글이 없습니다. 첫번째 댓글을 작성해보세요.</p>";
     } else{
@@ -236,6 +226,7 @@ function getAllList() {
   
         });
     }
+    $("#comment-count").text(`[\${data.length}]개의 댓글이 달렸습니다.`);
     $(".comment-list").html(htmls);
 
     $(".comment-remove-btn").click(function () {
@@ -245,7 +236,9 @@ function getAllList() {
   });
 }
 
-getAllList();
+$(document).ready(function () {
+  getAllList();
+});
 
 // 댓글 등록 js
 $("#comment-submit-btn").on("click", function () {

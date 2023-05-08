@@ -145,13 +145,13 @@ public class FreeBoardController {
 				if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 					System.out.printf("4. file.getOriginalFilename : %s", file.getOriginalFilename());
 					 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+					 dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
 					 System.out.println("5. fileName :" + fileName);
 					} else {
 					 fileName = uploadPath + "/" + "images" + "/" + "none.png";
 					 System.out.println("6. fileName :" + fileName);
 				}
 
-				dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
 				dto.setUids(loginVO.getUids());
 				boolean success = this.service.register(dto);
 
@@ -161,6 +161,7 @@ public class FreeBoardController {
 				rttrs.addAttribute("amount", cri.getAmount());
 				rttrs.addAttribute("result", (success) ? "success" : "failure");
 			} // if-else
+
 			return "redirect:/freeboard/list";
 		} catch (Exception e) {
 			throw new ControllerException(e);
