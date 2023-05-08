@@ -26,7 +26,11 @@
       <h3 class="post-title">${freeboard.title}</h3>
       <div class="post-meta">
         <span class="post-number">글번호 : ${freeboard.fid}</span>
-        <span class="post-author">작성자 : ${freeboard.uids}</span>
+        <span class="post-author">
+          <c:if test="${not empty user.image}">
+            <img src="/resources${user.image}" width="32" height="32" class="rounded-circle"> 작성자 : ${freeboard.uids}
+          </c:if>
+        </span>
         <span class="post-date">작성일 : <fmt:formatDate value="${freeboard.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></span>
         <span class="post-views">조회수 : ${freeboard.view_count}</span>
        	
@@ -35,8 +39,8 @@
 
     <section class="board-body">
       <hr class="board-divider">
-      <c:if test="${not empty freeboard.image}"><img src="/resources${freeboard.image}" alt="${freeboard.title}"></c:if>
-      <div class="post-content"><pre>${freeboard.content}</pre></div>
+      <c:if test="${not empty freeboard.image}"><img src="/resources${freeboard.image}" alt="${freeboard.title}" width="100%"></c:if>
+      <div class="post-content"><pre style="font-family: 'GangwonEdu';">${freeboard.content}</pre></div>
     </section>
   </form>
   
@@ -202,7 +206,6 @@ function getAllList() {
   let htmls = "";
 
   $.getJSON("/comment/list/" + fid, function (data) {
-    
 
     if(data.length === 0){
       htmls = "<p>등록된 댓글이 없습니다. 첫번째 댓글을 작성해보세요.</p>";

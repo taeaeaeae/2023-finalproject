@@ -63,7 +63,7 @@ a:active {text-decoration: none; color: black;}
 				<thead>
 					<tr>
 						<th>No.</th>
-						<th>제목</th>
+						<th style="width: 60%;">제목</th>
 						<th>작성자</th>
 						<th>작성일자</th>
 						<th>조회수</th>
@@ -77,11 +77,14 @@ a:active {text-decoration: none; color: black;}
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var="FreeBoardVO" items="${list}">
+							<c:forEach var="FreeBoardVO" items="${list}" varStatus="fid_index">
 								<tr>
 									<td>${FreeBoardVO.fid}</td>
-									<td><a href="/freeboard/get?currPage=${param.currPage}&amount=${param.amount}&fid=${FreeBoardVO.fid}&type=${param.type}&keyword=${param.keyword}">${FreeBoardVO.title}</a></td>
-									<td>${FreeBoardVO.uids}</td>
+									<td style="width: 60%;"><a href="/freeboard/get?currPage=${param.currPage}&amount=${param.amount}&fid=${FreeBoardVO.fid}&type=${param.type}&keyword=${param.keyword}">${FreeBoardVO.title}</a></td>
+									<td>
+										<img src="${img[fid_index.index]}" width="32" height="32" class="rounded-circle" />
+										${FreeBoardVO.uids}
+									</td>
 									<td><fmt:formatDate value="${FreeBoardVO.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></td>
 									<td>${FreeBoardVO.view_count}</td>
 								</tr>
