@@ -30,7 +30,7 @@
 
       <button type="reset" value="초기화" class="button" name="reset" onclick="return confirmReset()">초기화</button>
       <input type="submit" value="글쓰기" class="button" onclick="return validateForm()">
-      <a href="/freeboard/list" id="listBtn" class="button" onclick="return confirmGoToList()">목록으로</a>
+      <a href="/freeboard/list" id="listBtn" class="button">목록으로</a>
     </form>
   </div>
 </section>

@@ -1,6 +1,7 @@
 package org.zerock.myapp.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -22,11 +23,13 @@ import org.zerock.myapp.domain.FreeBoardDTO;
 import org.zerock.myapp.domain.FreeBoardVO;
 import org.zerock.myapp.domain.LoginVO;
 import org.zerock.myapp.domain.PageDTO;
+import org.zerock.myapp.domain.UsersVO;
 import org.zerock.myapp.exception.ControllerException;
 import org.zerock.myapp.exception.ServiceException;
 import org.zerock.myapp.service.BookmarkService;
 import org.zerock.myapp.service.FreeBoardCommentService;
 import org.zerock.myapp.service.FreeBoardService;
+import org.zerock.myapp.service.UsersService;
 import org.zerock.myapp.utils.UploadFileUtils;
 
 import lombok.AllArgsConstructor;
@@ -53,6 +56,8 @@ public class FreeBoardController {
 	@Setter(onMethod_ = {@Autowired})
 	private BookmarkService bookmarkService;
 	
+	private UsersService usersService;
+	
 	@Qualifier("uploadPath")
 	private String uploadPath;
 	
@@ -63,7 +68,16 @@ public class FreeBoardController {
 		try {
 //			List<FreeBoardVO> list = this.service.getList(cri);
 			List<FreeBoardVO> list = this.service.getListPageSearch(cri);
+			List<String> userImage = new ArrayList<String>();	// 프사용
+			
+			for(FreeBoardVO vo : list) {
+				String img = usersService.select(vo.getUids()).getImage();
+				
+				userImage.add((img == null) ? "https://png.pngtree.com/png-clipart/20200701/big/pngtree-character-default-avatar-png-image_5407167.png" : "/resources" + img );
+			} // for문
+			
 			model.addAttribute("list", list);
+			model.addAttribute("img", userImage);
 			log.trace("\t+ list : {}", list);
 			
 			Integer totalAmount = this.service.getTotalAmount(cri);
@@ -89,6 +103,10 @@ public class FreeBoardController {
 			Integer totalAmount = this.service.getTotalAmount(cri);
 			PageDTO pageDTO = new PageDTO(cri, totalAmount);
 			LoginVO loginVO = (LoginVO)session.getAttribute("__AUTH__");
+			
+			UsersVO usersVO = usersService.select(vo.getUids());
+			
+			model.addAttribute("user", usersVO);
 			log.info("\t+ __AUTH__ : {}", loginVO);
 			
 			model.addAttribute("freeboard", vo);
@@ -145,13 +163,13 @@ public class FreeBoardController {
 				if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 					System.out.printf("4. file.getOriginalFilename : %s", file.getOriginalFilename());
 					 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+					 dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
 					 System.out.println("5. fileName :" + fileName);
 					} else {
 					 fileName = uploadPath + "/" + "images" + "/" + "none.png";
 					 System.out.println("6. fileName :" + fileName);
 				}
 
-				dto.setImage("/" + "imgUpload" + ymdPath + "/" + fileName);
 				dto.setUids(loginVO.getUids());
 				boolean success = this.service.register(dto);
 
@@ -161,6 +179,7 @@ public class FreeBoardController {
 				rttrs.addAttribute("amount", cri.getAmount());
 				rttrs.addAttribute("result", (success) ? "success" : "failure");
 			} // if-else
+
 			return "redirect:/freeboard/list";
 		} catch (Exception e) {
 			throw new ControllerException(e);
