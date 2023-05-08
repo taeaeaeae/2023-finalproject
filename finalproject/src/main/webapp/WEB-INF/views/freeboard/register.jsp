@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/resources/freeboard/css/freeboard_register.css">
-<script src="/resources/freeboard/js/validateForm.js"></script>
 <title>자유게시판 | 글 작성하기</title>
 </head>
 <body>
@@ -30,18 +29,34 @@
       <br/>
 
       <button type="reset" value="초기화" class="button" name="reset" onclick="return confirmReset()">초기화</button>
-      <input type="submit" value="글쓰기" class="button">
+      <input type="submit" value="글쓰기" class="button" onclick="return validateForm()">
       <a href="/freeboard/list" id="listBtn" class="button" onclick="return confirmGoToList()">목록으로</a>
     </form>
   </div>
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 
 <script>
-		var listBtn = document.querySelector('#listBtn');
+/* 목록 이동 버튼 */
+var listBtn = document.querySelector('#listBtn');
 
-		listBtn.addEventListener('click', function () {
-			location.href="/board/list?currPage=${ param.currPage }&amount=${ param.amount }";
-		}); // .addEventListener
-	</script>
+listBtn.addEventListener('click', function () {
+  location.href="/freeboard/list?currPage=${ param.currPage }&amount=${ param.amount }";
+}); // .addEventListener
+
+// function confirmGoToList() {
+//   const title = document.getElementsByName("title")[0].value;
+//   const content = document.getElementsByName("content")[0].value;
+
+//   if (title.trim() !== "" || content.trim() !== "") {
+//       const result = confirm("작성 중인 내용이 있습니다. 목록으로 이동하시겠습니까?");
+
+//       if (!result) {
+//           return false;
+//       }
+//   }
+//   return true;
+// } 
+</script>
+<script src="/resources/freeboard/js/validateForm.js"></script>
 </body>
 </html>

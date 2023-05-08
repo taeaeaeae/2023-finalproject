@@ -25,7 +25,7 @@
 			
 			<tbody>
 				<c:forEach var="BookmarkVO" items="${mybookmark}">
-					<tr class="table-primary">
+					<tr>
 					<td><c:choose>
 							<c:when test="${BookmarkVO.board_name eq 'plan'}"><a href="/${BookmarkVO.board_name}/view?${BookmarkVO.bm}=${BookmarkVO.bno}&uids=${sessionScope['__AUTH__'].uids} ">${BookmarkVO.title}</a></c:when>
 							<c:otherwise><a href="/${BookmarkVO.board_name}/get?${BookmarkVO.bm}=${BookmarkVO.bno} ">${BookmarkVO.title}</a></c:otherwise>

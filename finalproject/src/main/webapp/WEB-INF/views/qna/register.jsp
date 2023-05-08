@@ -33,13 +33,13 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
     
-	<div id="wrapper">
+	<div id="wrapper" style="margin-left: 10%; margin-right: 10%; ">
 		<form action="/qna/register" method="POST" enctype="multipart/form-data">
 			
 			<input type="hidden" name="currPage" value="${param.currPage}">
 			<input type="hidden" name="amount" value="${param.amount}">
 			
-   <fieldset>
+   <fieldset >
 		<h1 class="board_name">QnA</h1>
       <div class="form-group">
         <label for="" class="form-label mt-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">제목</font></font></label>
@@ -78,8 +78,8 @@
       </fieldset>
 			
 
-			<button type="button" id="listBtn">LIST</button>
-			<button type="submit" id="submitBtn">등록</button>
+			<button type="button" id="listBtn" class="btn btn-primary btn-sm" style="float: right;">LIST</button>
+			<button type="submit" id="submitBtn"class="btn btn-primary btn-sm" style="float: right;">등록</button>
 			
 		</form>
 	</div>

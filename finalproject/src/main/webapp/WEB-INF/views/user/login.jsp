@@ -33,12 +33,12 @@
                     </div> 
                     
                     <div class="d-grid gap-2">
-						  <button class="btn btn-lg btn-primary" type="submit" id="loginBtn" >로그인</button>
+						  <button class="btn btn-lg btn-primary" type="submit" id="loginBtn"  style="background-color: #D2EEFA; color: black; border: none;">로그인</button>
 					</div>
 				                                       
             </form>
             
-                <div class="find">
+                <ul class="find">
                     <li>
                         <a href="/user/find_id">아이디 찾기</a>
                     </li>
@@ -50,7 +50,7 @@
                     <li>
                         <a href="/user/join">회원가입</a>
                     </li>
-                </div>
+                </ul>
                 
         </div> 
 

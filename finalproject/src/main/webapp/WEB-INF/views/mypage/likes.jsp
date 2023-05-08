@@ -26,7 +26,7 @@
 			
 			<tbody>
 				<c:forEach var="LikesVO" items="${mylikes}">
-					<tr class="table-primary">
+					<tr>
 						<td><a href="/${LikesVO.board_name}/get?${LikesVO.bm}=${LikesVO.bno} ">${LikesVO.title}</a></td>
 					</tr>
 				</c:forEach>
