@@ -21,6 +21,15 @@
 
 <link rel="stylesheet" href="${path}/resources/css/root.css" />
 
+<style>
+	.p-3{
+		padding:0.6rem !important;
+	}
+	header > div > div > a > img{
+		width: 70% !important;
+	}
+</style>
+
 </head>
 <body>
 	<header class="p-3 mb-3 border-bottom">
@@ -29,7 +38,7 @@
 				class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 				<a href="/TTT"
 					class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-					<img src="https://picsum.photos/id/684/100/50" alt=""> </svg>
+					<img src="/resources/images/Logo.png" alt="">
 				</a>
 	
 				<ul

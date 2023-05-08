@@ -15,13 +15,13 @@
    	<section>
 	  <h1 style="text-align: center">내가 쓴 댓글</h1>
   
-	    <table class="table table-hover" style="width:60%; margin-left: auto; margin-right: auto;">
+	    <table class="table table-hover" style="width:60%; margin-left: auto; margin-right: auto; margin-bottom: 10%;">
 	    
 			<thead>
 				<tr>
 					<th>작성자</th>
 					<th>내용</th>
-					<th>작성날짜</th>
+					<th>작성일자</th>
 				</tr>
 			</thead>
 			
@@ -38,6 +38,10 @@
 	    </table>
 	</section>
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'JH' of https://github.com/taeaeaeae/2023-finalproject.git
 
 <%@include file="/WEB-INF/views/common/footer.jsp" %>	
 <script

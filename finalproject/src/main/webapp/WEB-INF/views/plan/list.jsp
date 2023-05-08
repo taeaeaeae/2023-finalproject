@@ -15,13 +15,14 @@
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.2/examples/album/" />
 <style>
+body{
+  overflow: scroll;
+
+}
 #ulululul {
   width: 300px;
   margin-left: 554px;
-  }
-
-a {
-  text-decoration-line: none;
+  margin-top:70px;
 }
 input[type=submit]{
   padding: 3px;
@@ -46,20 +47,17 @@ section {
   padding: 4px;
 }
 .search-form {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 30%;
-      margin: auto;
-    }
-#searchBtn{
-    color:black;
-	background-color: #D2EEFA;
-	height: 40px;
-	width: 100px;
-	
+   float:right;
 }
-
+#searchBtn{
+    color: black;
+    background-color: #D2EEFA;
+    height: 40px;
+    width: 117px;
+}
+.btn.btn-secondary{
+	float:left;
+}
 </style>
 </head>
 <body>
@@ -120,33 +118,7 @@ section {
 							<li class="page-item"><a class="page-link" href="/plan/list?num=${page.endPageNum +1}${page.searchTypeAndKeyword}">다음</a></li>
 						</c:if>
 					</ul>
-				</div> -->
-				
-				<!-- 태경씨 페이징 -->
-		<div style="text-align: center; margin: 0px;">
-			<ul class="pagination pagination-sm" id="ulululul">
-			  <li class="page-item disabled">
-				<a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&laquo;</font></font></a>
-			  </li>
-			  <c:if test="${page.prev}">
-				<li class="page-item"><a class="page-link" href="/plan/list?num=${page.startPageNum -1}${page.searchTypeAndKeyword}">이전</a></li>
-			</c:if>
-			<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
-				<c:if test="${page.num != num}">
-					<li class="page-item"><a class="page-link" href="/plan/list?num=${num}${page.searchTypeAndKeyword}">${num}</a></li>
-				</c:if>
-				<c:if test="${page.num == num}">
-					<li class="page-item active"><a class="page-link" href="/plan/list?num=${num}${page.searchTypeAndKeyword}">${num}</a></li>
-				</c:if>
-			</c:forEach>
-			<c:if test="${page.next}">
-				<li class="page-item"><a class="page-link" href="/plan/list?num=${page.endPageNum +1}${page.searchTypeAndKeyword}">다음</a></li>
-			</c:if>
-			  <li class="page-item">
-				<a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&raquo;</font></font></a>
-			  </li>
-			</ul>
-		  </div>
+				</div> --> 
 
 				<!-- 페이징 끝 -->
 				<div>
@@ -159,7 +131,33 @@ section {
 						<input type="text" class="input-keyword" name="keyword" value="${page.keyword}"/>
 						<button class="btn btn-primary" type="submit" id="searchBtn">검색</button>
 					</span>
-					<button type="button" class="btn btn-secondary" onclick="location.href='/plan/write'">글쓰기</button>
+					<button type="button" class="btn btn-secondary"  onclick="location.href='/plan/write'">글쓰기</button>
+				</div>
+
+						<!-- 태경씨 페이징 -->
+				<div style="text-align: center; margin: 0px;">
+					<ul class="pagination pagination-sm" id="ulululul">
+					<li class="page-item disabled">
+						<a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&laquo;</font></font></a>
+					</li>
+					<c:if test="${page.prev}">
+						<li class="page-item"><a class="page-link" href="/plan/list?num=${page.startPageNum -1}${page.searchTypeAndKeyword}">이전</a></li>
+					</c:if>
+					<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
+						<c:if test="${page.num != num}">
+							<li class="page-item"><a class="page-link" href="/plan/list?num=${num}${page.searchTypeAndKeyword}">${num}</a></li>
+						</c:if>
+						<c:if test="${page.num == num}">
+							<li class="page-item active"><a class="page-link" href="/plan/list?num=${num}${page.searchTypeAndKeyword}">${num}</a></li>
+						</c:if>
+					</c:forEach>
+					<c:if test="${page.next}">
+						<li class="page-item"><a class="page-link" href="/plan/list?num=${page.endPageNum +1}${page.searchTypeAndKeyword}">다음</a></li>
+					</c:if>
+					<li class="page-item">
+						<a class="page-link" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&raquo;</font></font></a>
+					</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -170,6 +168,7 @@ section {
   			document.location.href="/";
   		</script>
 	</c:if>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>  
 	<script>
 		document.getElementById("searchBtn").onclick = function () {
 		 var searchType = document.getElementsByName("searchType")[0].value;

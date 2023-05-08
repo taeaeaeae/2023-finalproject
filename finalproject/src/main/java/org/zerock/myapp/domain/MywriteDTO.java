@@ -10,5 +10,4 @@ public class MywriteDTO {
 	private String title;
 	private String plantitle;
 
-	
 } // end class

@@ -65,8 +65,5 @@ public class MypageServiceImpl implements MypageService {
 		return this.mapper.bookmark(uids);
 	} //bookmark
 
-	
-
-
 
 }	// end class
