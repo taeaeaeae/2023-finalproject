@@ -24,7 +24,7 @@
   }
   .card-marker{
   	margin : 5px auto;
-  	border-color : orange;
+  	border-color : #D2EEFA;
   }
   .day{
   	text-align:center;
@@ -53,6 +53,7 @@
 		<div class="row">
 			<input type="hidden" id="viewpid" name="pid" value="${planView.pid}"/>
 			<input type="hidden" id="viewuids" name="uids" value="${sessionScope['__AUTH__'].uids}"/>
+			
 			<div class="form-group col-sm-12">
 				<label>계획 제목</label>
 				<input type="text" class="form-control" id="planTitle" name="planTitle" value="${planView.planTitle}" placeholder="일정 타이틀" readonly/>

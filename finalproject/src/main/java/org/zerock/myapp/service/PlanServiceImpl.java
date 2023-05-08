@@ -4,20 +4,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import org.zerock.myapp.controller.PlanController;
-import org.zerock.myapp.persistence.PlanDAO;
 import org.zerock.myapp.domain.PlanVO;
 import org.zerock.myapp.domain.ScheduleVO;
+import org.zerock.myapp.persistence.PlanDAO;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Repository
 public class PlanServiceImpl implements PlanService{
 	
-	private static final Logger log = LoggerFactory.getLogger(PlanController.class);
 	@Autowired
 	private PlanDAO dao;
 	
@@ -40,9 +39,9 @@ public class PlanServiceImpl implements PlanService{
 			schVo.setLatitude(Double.parseDouble(schList.get(i).get("latitude").toString()));
 			log.info(schVo.toString());
 			dao.planSchAdd(schVo);
-		}
+		}//for
 		log.info("Insert Plan END");
-	}
+	}//planAdd
 	
 	//일정 List 객체
 	@Override
@@ -56,7 +55,7 @@ public class PlanServiceImpl implements PlanService{
 		schMap.put("longitude", vo.getLongitude());
 		schMap.put("latitude", vo.getLatitude());
 		return schMap;
-	}
+	}//schAdd
 	
 	//장바구니 일정 삭제 (데이터 받아와서 List에서 삭제)
 	@Override
@@ -71,7 +70,7 @@ public class PlanServiceImpl implements PlanService{
 		delMap.put("latitude", vo.getLatitude());
 		log.info("delMap : " + delMap.toString());
 		return delMap;
-	}
+	}//planDel
 	
 	//게시판용 계획 목록 및 페이징 및 페이징 처리
 	@Override
@@ -84,13 +83,13 @@ public class PlanServiceImpl implements PlanService{
 		data.put("searchType", searchType);
 		data.put("keyword", keyword);
 		return dao.planList(data);
-	}
+	}//planList
 
 	//일정 목록 출력
 	@Override
 	public List<ScheduleVO> planSchList(int pid) throws Exception {
 		return dao.planSchList(pid);
-	}
+	}//planSchList
 	
 	//유저별 계획 목록
 	@Override
@@ -104,7 +103,7 @@ public class PlanServiceImpl implements PlanService{
 		data.put("searchType", searchType);
 		data.put("keyword", keyword);
 		return dao.planListForUser(data);
-	}
+	}//planListForUser
 	
 	//계획 조회
 	@Override
@@ -113,7 +112,7 @@ public class PlanServiceImpl implements PlanService{
 		vo.setPid(pid);
 		vo.setUids(uids);
 		return dao.planView(vo);
-	}
+	}//planView
 	
 	//계획 수정
 	@Override
@@ -125,7 +124,7 @@ public class PlanServiceImpl implements PlanService{
 	@Override
 	public void viewPlanDelete(PlanVO vo) throws Exception {
 		dao.viewPlanDelete(vo);
-	}
+	}//viewPlanDelete
 	
 	//view 일정 삭제 Map만들기
 	@Override
@@ -137,15 +136,17 @@ public class PlanServiceImpl implements PlanService{
 		log.info("deleteMap : " + deleteMap.toString());
 		
 		return deleteMap;
-	}
+	}//viewDeleteSch
 
 	//view 수정완료 버튼 삭제 service
 	@Override
 	public void delSch(List<HashMap<String,Object>> delList) throws Exception {
 		for (HashMap<String,Object> s : delList) {
 			dao.viewSchDelete(s);
-		}
-	}
+		}//for
+	}//delSch
+	
+	
 	//view 수정완료 일정 추가 service
 	@Override
 	public void viewPlanAdd(PlanVO vo, List<Map<String, Object>> schList) throws Exception {
@@ -165,9 +166,9 @@ public class PlanServiceImpl implements PlanService{
 		dao.planSchAdd(schVo);
 	}
 	log.info("Insert Plan END");
-}
+}//viewPlanAdd
 	
 
 	
 
-}
+}//end class
