@@ -11,18 +11,6 @@
 <link rel="stylesheet" type="text/css" href="/resources/freeboard/css/freeboard_view.css">
 </head>
 <body>
-<% 
-  HttpSession se = request.getSession();
-  LoginVO user = (LoginVO) session.getAttribute("__AUTH__"); 
-  
-  String userId = "";
-  
-  if (user != null) {
-    userId = user.getUids();
-  }
-%>
-
-<p>로그인한 유저 아이디: <%= userId %></p>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
   <!-- 게시글 폼 -->
   <form action="/freeboard/get" method="post" class="board-post">
@@ -38,7 +26,11 @@
       <h3 class="post-title">${freeboard.title}</h3>
       <div class="post-meta">
         <span class="post-number">글번호 : ${freeboard.fid}</span>
-        <span class="post-author">작성자 : ${freeboard.uids}</span>
+        <span class="post-author">
+          <c:if test="${not empty user.image}">
+            <img src="/resources${user.image}" width="32" height="32" class="rounded-circle"> 작성자 : ${freeboard.uids}
+          </c:if>
+        </span>
         <span class="post-date">작성일 : <fmt:formatDate value="${freeboard.insert_ts}" pattern="yyyy-MM-dd HH:mm"/></span>
         <span class="post-views">조회수 : ${freeboard.view_count}</span>
        	
@@ -47,8 +39,8 @@
 
     <section class="board-body">
       <hr class="board-divider">
-      <c:if test="${not empty freeboard.image}"><img src="/resources${freeboard.image}" alt="${freeboard.title}"></c:if>
-      <div class="post-content"><pre>${freeboard.content}</pre></div>
+      <c:if test="${not empty freeboard.image}"><img src="/resources${freeboard.image}" alt="${freeboard.title}" width="100%"></c:if>
+      <div class="post-content"><pre style="font-family: 'GangwonEdu';">${freeboard.content}</pre></div>
     </section>
   </form>
   
@@ -86,7 +78,7 @@
   <section class="comment">
     <div class="comment-wrap">
       <h2 class="comment-title">댓글</h2>
-      <p>[${commentCount}]개의 댓글이 달렸습니다.</p>
+      <p id="comment-count"></p>
       <ul class="comment-list" ></ul>
 
       <div class="form-group">
@@ -214,6 +206,7 @@ function getAllList() {
   let htmls = "";
 
   $.getJSON("/comment/list/" + fid, function (data) {
+
     if(data.length === 0){
       htmls = "<p>등록된 댓글이 없습니다. 첫번째 댓글을 작성해보세요.</p>";
     } else{
@@ -236,6 +229,7 @@ function getAllList() {
   
         });
     }
+    $("#comment-count").text(`[\${data.length}]개의 댓글이 달렸습니다.`);
     $(".comment-list").html(htmls);
 
     $(".comment-remove-btn").click(function () {
@@ -245,7 +239,9 @@ function getAllList() {
   });
 }
 
-getAllList();
+$(document).ready(function () {
+  getAllList();
+});
 
 // 댓글 등록 js
 $("#comment-submit-btn").on("click", function () {
