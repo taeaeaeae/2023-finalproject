@@ -6,23 +6,9 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class PlanVO {
-    
-	/*
-CREATE TABLE `plan` (
-	`pid` INT(10) NOT NULL AUTO_INCREMENT,
-	`uids` VARCHAR(50) NOT NULL,
-	`regDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`planTitle` VARCHAR(200) NOT NULL,
-	`startDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`planTotalDay` INT NOT NULL,
-	PRIMARY KEY (`pid`, `uids`) USING BTREE,
-	INDEX `PLAN_FK_SET` (`uids`) USING BTREE,
-	CONSTRAINT `PLAN_FK_SET` FOREIGN KEY (`uids`) REFERENCES `project`.`member` (`uids`) ON UPDATE NO ACTION ON DELETE CASCADE
-);
-*/
-	
-	private int pid;			//AUTO_INCREMENT
-	private String uids;		//(pid + uids 기본키)
+  
+	private int pid;			
+	private String uids;		
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date regDate;		
 	private String planTitle;
