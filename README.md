@@ -6,7 +6,7 @@
 ![최종_파이널프로젝트0004](https://github.com/taeaeaeae/2023-finalproject/assets/46617216/f2a75fb2-e347-4e70-b61d-4de66435ca71)
 ![최종_파이널프로젝트0005](https://github.com/taeaeaeae/2023-finalproject/assets/46617216/43c589e8-5ee2-4896-97b8-c9fc00021119)
 ![최종_파이널프로젝트0006](https://github.com/taeaeaeae/2023-finalproject/assets/46617216/f8504ea1-716c-4175-bcea-16572dac4c83)
-![최종_파이널프로젝트0007](https://github.
+![최종_파이널프로젝트0007](https://github.nalproject/assets/46617216/13203360-50ee-48ea-a5a7-2351e6fe020b)
 ![최종_파이널프로젝트0009](https://github.com/taeaeaeae/2023-finalproject/assets/46617216/754f931d-f25e-44ff-9e97-573a796d27df)
 ![최종_파이널프로젝트0010](https://github.com/taeaeaeae/2023-finalproject/assets/46617216/50839d4f-bdf5-4237-ab18-b4024c6890f5)
 com/taeaeaeae/2023-finalproject/assets/46617216/c64916cc-e821-4885-85f0-3ff71ff872da)
